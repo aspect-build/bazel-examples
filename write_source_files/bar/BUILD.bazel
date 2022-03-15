@@ -1,0 +1,34 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@aspect_bazel_lib//lib:default_info_files.bzl", "make_default_info_files")
+load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+proto_library(
+    name = "bar_protos",
+    srcs = [
+      "bar.proto",
+      "baz.proto",
+    ],
+)
+
+go_proto_library(
+    name = "bar_go_protos",
+    importpath = "aspect.build/bazel-examples/write_source_files/bar",
+    proto = ":bar_protos",
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "bar_go_srcs",
+    srcs = [":bar_go_protos"],
+    output_group = "go_generated_srcs",
+)
+
+write_source_files(
+    name = "update_source_files",
+    files = {
+        "bar.pb.go": make_default_info_files("bar_pb_go", ":bar_go_srcs", ["%s/bar_go_protos_/aspect.build/bazel-examples/write_source_files/bar/bar.pb.go" % package_name()]),
+        "baz.pb.go": make_default_info_files("baz_pb_go", ":bar_go_srcs", ["%s/bar_go_protos_/aspect.build/bazel-examples/write_source_files/bar/baz.pb.go" % package_name()]),
+    },
+    visibility = ["//:__pkg__"],
+)

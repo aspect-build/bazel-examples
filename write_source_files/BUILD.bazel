@@ -1,0 +1,9 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+
+write_source_files(
+    name = "update_source_files",
+    additional_update_targets = [
+        "//foo:update_source_files",
+        "//bar:update_source_files",
+    ],
+)

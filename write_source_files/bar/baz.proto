@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package bar;
+
+message Baz {
+  required string baz = 1;
+  required int32 id = 2;
+}
