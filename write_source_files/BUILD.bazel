@@ -1,9 +1,14 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 
+# Run this target to update all the generated .pb.go files in the repo:
+# bazel run //:update_go_pb
+#
+# Note that each target also has a corresponding test asserting that the
+# generated files stay up-to-date.
 write_source_files(
-    name = "update_source_files",
+    name = "update_go_pb",
     additional_update_targets = [
-        "//foo:update_source_files",
-        "//bar:update_source_files",
+        "//foo:foo_go_protos.update_go_pb",
+        "//bar:bar_go_protos.update_go_pb",
     ],
 )
