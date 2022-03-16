@@ -1,7 +1,7 @@
 "go_proto_library wrapper macro"
 
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
-load("@aspect_bazel_lib//lib:default_info_files.bzl", "make_default_info_files")
+load("@aspect_bazel_lib//lib:output_files.bzl", "make_output_files")
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load("@io_bazel_rules_go//proto:def.bzl", _go_proto_library = "go_proto_library")
 
@@ -25,8 +25,6 @@ def go_proto_library(name, importpath, proto_srcs = [], **kwargs):
         importpath,
     )
     
-    gen_srcs_filegroup = "_{}.gensrcs".format(name)
-
     if len(proto_srcs) < 1:
         proto_srcs = native.glob(["*.proto"])
     
@@ -36,16 +34,10 @@ def go_proto_library(name, importpath, proto_srcs = [], **kwargs):
         **kwargs
     )
 
-    native.filegroup(
-        name = gen_srcs_filegroup,
-        srcs = [name],
-        output_group = "go_generated_srcs",
-    )
-
     write_source_files(
         name = name + ".update_go_pb",
         files = {
-            base + ".pb.go": make_default_info_files(base + "_pb_go", gen_srcs_filegroup, [proto_out_path % base])
+            base + ".pb.go": make_output_files(base + "_pb_go", name, [proto_out_path % base], output_group = "go_generated_srcs")
             for base in [paths.replace_extension(p, "") for p in proto_srcs]
         },
         visibility = ["//:__pkg__"],
