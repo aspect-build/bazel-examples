@@ -1,0 +1,6 @@
+# To load diff_test
+bazel_dep(name = "bazel_skylib", version = "1.0.3")
+# To load swc rule
+bazel_dep(name = "aspect_rules_swc", version = "0.3.0")
+# To make our own node binary
+bazel_dep(name = "rules_nodejs", version = "4.5.1")
