@@ -2,3 +2,6 @@ build --enable_runfiles
 build --symlink_prefix=/
 # Turn on the bzlmod feature in Bazel, before 6.0 it's experimental
 common --experimental_enable_bzlmod
+# common --registry=https://raw.githubusercontent.com/aspect-build/bazel-central-registry/main/
+
+common --registry=file:///home/alexeagle/Projects/bazel-central-registry
