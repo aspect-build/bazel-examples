@@ -1,0 +1,55 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "f2dcd210c7095febe54b804bb1cd3a58fe8435a909db2ec04e31542631cf715c",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.31.0/rules_go-v0.31.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.31.0/rules_go-v0.31.0.zip",
+    ],
+)
+
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "31453a0f1200bc2cd6ecba2314e1942bac7f7da99729eb4f1dcdbd9791e3f989",
+    strip_prefix = "bazel-gazelle-b458bec82e613d1bac59afbb5b8b3d5846771b01",
+    urls = [
+        "https://github.com/bazelbuild/bazel-gazelle/archive/b458bec82e613d1bac59afbb5b8b3d5846771b01.tar.gz",
+    ],
+)
+
+[
+    http_archive(
+        name = "_".join(["aspect_rules_ts"] + r),
+        sha256 = "1b0d296ae22ecc194be7010f8de00dac37f8d20825641660ea7f617c7eea462a",
+        strip_prefix = "/".join(["rules_ts-2ae033f0e4ea0ec1081de67231f7c07347797d96"] + r),
+        urls = ["https://github.com/aspect-build/rules_ts/archive/2ae033f0e4ea0ec1081de67231f7c07347797d96.zip"],
+    )
+    # The gazelle plugin is in a nested workspace in rules_ts
+    for r in [[], ["gazelle"]]
+]
+
+load("@aspect_rules_ts_gazelle//:deps.bzl", "gazelle_deps")
+
+gazelle_deps()
+
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+
+go_rules_dependencies()
+
+go_register_toolchains(version = "1.18.1")
+
+# gazelle:repository_macro deps.bzl%gazelle_deps
+gazelle_dependencies()
+
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
+
+rules_ts_dependencies()
+
+load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "node",
+    node_version = DEFAULT_NODE_VERSION,
+)
