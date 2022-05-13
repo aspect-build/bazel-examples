@@ -1,0 +1,50 @@
+workspace(name = "rules_py_ipython_example")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "rules_py",
+    sha256 = "bb48980475a4362d5492e08d961a638ad9cded9d12cd712d0bc09e40d75477e2",
+    strip_prefix = "rules_py-7b5b88fe1dfc525162a3f319da035f298d8a1edc",
+    url = "https://github.com/aspect-build/rules_py/archive/7b5b88fe1dfc525162a3f319da035f298d8a1edc.zip",
+)
+
+load("@rules_py//py:repositories.bzl", "rules_py_dependencies")
+
+rules_py_dependencies()
+
+load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+
+python_register_toolchains(
+    name = "python39",
+    python_version = "3.9",
+)
+
+load("@rules_python//python:pip.bzl", "package_annotation", "pip_install", "pip_parse")
+
+_PY_WHEEL_RULE_CONTENT = """\
+load("@rules_py//py:defs.bzl", "py_wheel")
+py_wheel(
+    name = "wheel",
+    src = ":whl",
+)
+"""
+
+_PACKAGES = [
+    "ipython",
+]
+
+_ANNOTATIONS = {
+    pkg: package_annotation(additive_build_content = _PY_WHEEL_RULE_CONTENT)
+    for pkg in _PACKAGES
+}
+
+pip_parse(
+    name = "pypi",
+    annotations = _ANNOTATIONS,
+    requirements_lock = "//:requirements.txt",
+)
+
+load("@pypi//:requirements.bzl", "install_deps")
+
+install_deps()

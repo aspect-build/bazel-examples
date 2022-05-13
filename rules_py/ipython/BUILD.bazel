@@ -1,0 +1,17 @@
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@rules_py//py:defs.bzl", "py_binary")
+
+compile_pip_requirements(
+    name = "requirements",
+    extra_args = ["--allow-unsafe"],
+    requirements_in = "requirements.in",
+    requirements_txt = "requirements.txt",
+)
+
+py_binary(
+    name = "ipython",
+    srcs = ["__main__.py"],
+    deps = [
+        "@pypi_ipython//:wheel",
+    ],
+)
