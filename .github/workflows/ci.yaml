@@ -30,6 +30,7 @@ jobs:
           # TODO: intentionally fails
           # - 'eager-fetch'
           - 'nestjs'
+          - 'next-app'
           - 'protobufjs'
           - 'react-cra'
           - 'ts_project_transpiler'
