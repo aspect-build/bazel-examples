@@ -39,9 +39,9 @@ npm_repositories()
 
 http_archive(
     name = "aspect_rules_ts",
-    sha256 = "af82df74c1143581417d3ba61232255e678a3d2f9ce3b523b85386d3e21d810e",
-    strip_prefix = "rules_ts-0.3.0",
-    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.3.0.tar.gz",
+    sha256 = "2a9805f83498d63dfac62175740f1c49ec58ca62e7cf93e23c8b50a9cff4f73d",
+    strip_prefix = "rules_ts-0.3.1",
+    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.3.1.tar.gz",
 )
 
 ##################
@@ -52,6 +52,6 @@ http_archive(
 # you should fetch it *before* calling this.
 # Alternatively, you can skip calling this function, so long as you've
 # already fetched all the dependencies.
-load("@aspect_rules_ts//ts:repositories.bzl", "LATEST_VERSION", "rules_ts_dependencies")
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
 
-rules_ts_dependencies(ts_version = LATEST_VERSION)
+rules_ts_dependencies(ts_version_from = "//:package.json")
