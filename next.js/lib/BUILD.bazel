@@ -1,0 +1,16 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+ts_project(
+    name = "lib",
+    allow_js = True,
+    incremental = True,
+    preserve_jsx = True,
+    resolve_json_module = True,
+    tsconfig = "//:tsconfig",
+    deps = [
+        "@npm//@types/node",
+        "@npm//gray-matter",
+        "@npm//remark",
+        "@npm//remark-html",
+    ],
+)

@@ -1,0 +1,14 @@
+--- package.json
++++ package.json
+@@ -77,11 +77,6 @@
+       "preset-wooorm"
+     ]
+   },
+-  "typeCoverage": {
+-    "atLeast": 100,
+-    "detail": true,
+-    "strict": true
+-  },
+   "typeCoverage": {
+     "atLeast": 100,
+     "detail": true,
