@@ -23,14 +23,6 @@ load("@aspect_rules_js//js:npm_import.bzl", "translate_pnpm_lock")
 translate_pnpm_lock(
     name = "npm",
     pnpm_lock = "//:pnpm-lock.yaml",
-    patches = {
-        # these npm packages have package.json files with duplicate 'typeCoverage' keys which
-        # Bazel's json.decode fails on:
-        # https://unpkg.com/stringify-entities@4.0.2/package.json
-        # https://unpkg.com/decode-named-character-reference@1.0.1/package.json
-        "stringify-entities@4.0.2": ["//:patches/stringify-entities@4.0.2.patch"],
-        "decode-named-character-reference@1.0.1": ["//:patches/decode-named-character-reference@1.0.1.patch"],
-    },
 )
 
 load("@npm//:repositories.bzl", "npm_repositories")
