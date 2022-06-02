@@ -1,0 +1,12 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+package(default_visibility = ["//:__subpackages__"])
+
+ts_project(
+    name = "types",
+    tsconfig = {
+        "compilerOptions": {
+            "declaration": True,
+        },
+    },
+)
