@@ -1,15 +1,10 @@
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
+load("//:tsconfig.bzl", "ts_project")
 
 package(default_visibility = ["//:__subpackages__"])
 
 ts_project(
     name = "lib",
-    allow_js = True,
-    declaration = True,
-    incremental = True,
-    preserve_jsx = True,
-    resolve_json_module = True,
-    tsconfig = "//:tsconfig",
     deps = [
         "@npm//@types/node",
         "@npm//gray-matter",

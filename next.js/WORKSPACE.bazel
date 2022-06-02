@@ -29,6 +29,10 @@ load("@npm//:repositories.bzl", "npm_repositories")
 
 npm_repositories()
 
+##################
+# rules_ts setup #
+##################
+
 http_archive(
     name = "aspect_rules_ts",
     sha256 = "2a9805f83498d63dfac62175740f1c49ec58ca62e7cf93e23c8b50a9cff4f73d",
@@ -36,9 +40,6 @@ http_archive(
     url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.3.1.tar.gz",
 )
 
-##################
-# rules_ts setup #
-##################
 # Fetches the rules_ts dependencies.
 # If you want to have a different version of some dependency,
 # you should fetch it *before* calling this.
@@ -47,3 +48,34 @@ http_archive(
 load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
 
 rules_ts_dependencies(ts_version_from = "//:package.json")
+
+###################
+# rules_swc setup #
+###################
+
+http_archive(
+    name = "aspect_rules_swc",
+    sha256 = "78f0f4a8916c52d1a46b3885129ac04fdad5e4c0fb454255ada2cf04ef7f0f04",
+    strip_prefix = "rules_swc-0.8.0",
+    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.8.0.tar.gz",
+)
+
+# Fetches the rules_swc dependencies.
+# If you want to have a different version of some dependency,
+# you should fetch it *before* calling this.
+# Alternatively, you can skip calling this function, so long as you've
+# already fetched all the dependencies.
+load("@aspect_rules_swc//swc:dependencies.bzl", "rules_swc_dependencies")
+
+rules_swc_dependencies()
+
+# Fetches a pre-built Rust-node binding from
+# https://github.com/swc-project/swc/releases.
+# If you'd rather compile it from source, you can use rules_rust, fetch the project,
+# then register the toolchain yourself. (Note, this is not yet documented)
+load("@aspect_rules_swc//swc:repositories.bzl", "LATEST_VERSION", "swc_register_toolchains")
+
+swc_register_toolchains(
+    name = "swc",
+    swc_version = LATEST_VERSION,
+)
