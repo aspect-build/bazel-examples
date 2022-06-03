@@ -2,9 +2,12 @@
 
 See https://bazelbuild.github.io/rules_nodejs/TypeScript.html#ts_project-transpiler
 """
-load("@npm//@babel/cli:index.bzl", babel_cli = "babel")
+load("@npm//@babel/cli:package_json.bzl", "bin")
 
 def babel(name, srcs, js_outs, map_outs, **kwargs):
+    # rules_js runs under the output tree in bazel-out/[arch]/bin
+    execroot = "../../.."
+
     # In this example we compile each file individually.
     # You might instead use a single babel_cli call to compile
     # a directory of sources into an output directory,
@@ -14,10 +17,10 @@ def babel(name, srcs, js_outs, map_outs, **kwargs):
     for idx, src in enumerate(srcs):
         # see https://babeljs.io/docs/en/babel-cli
         args = [
-            "$(location %s)" % src,
+            "{}/$(location {})".format(execroot, src),
             "--presets=@babel/preset-typescript",
             "--out-file",
-            "$(location %s)" % js_outs[idx],
+            "{}/$(location {})".format(execroot, js_outs[idx]),
         ]
         outs = [js_outs[idx]]
 
@@ -25,11 +28,11 @@ def babel(name, srcs, js_outs, map_outs, **kwargs):
             args.append("--source-maps")
             outs.append(map_outs[idx])
 
-        babel_cli(
+        bin.babel(
             name = "{}_{}".format(name, idx),
-            data = [
+            srcs = [
                 src,
-                "@npm//@babel/preset-typescript",
+                "//:node_modules/@babel/preset-typescript",
             ],
             outs = outs,
             args = args,

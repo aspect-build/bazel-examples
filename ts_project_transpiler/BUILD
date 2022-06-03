@@ -1,9 +1,14 @@
-load("@aspect_rules_swc//swc:swc.bzl", "swc_transpiler")
+load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
+
 # Note, Bazel 6 starlark has lambda so this is no longer needed after upgrade
 load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@npm//:defs.bzl", "link_all_npm_packages")
 load("babel.bzl", "babel")
-load("@npm//@bazel/typescript:index.bzl", "ts_project")
+
+# This macro expands to a link_npm_package for each third-party package in package.json
+link_all_npm_packages(name = "node_modules")
 
 # Create a test fixture that is a non-trivial sized TypeScript program
 write_file(
@@ -15,21 +20,16 @@ write_file(
     ],
 )
 
-_TSCONFIG = {
-    "compilerOptions": {
-        "declaration": True,
-        "sourceMap": False,
-    },
-}
-
 # Uses TypeScript (tsc) for both type-checking and transpilation
 # % bazel build tsc
 # INFO: Elapsed time: 6.798s, Critical Path: 5.24s
 ts_project(
     name = "tsc",
     srcs = ["big.ts"],
+    declaration = True,
+    declaration_dir = "build-tsc",
     out_dir = "build-tsc",
-    tsconfig = _TSCONFIG,
+    source_map = True,
 )
 
 # Runs swc to transpile ts -> js
@@ -42,6 +42,8 @@ ts_project(
 # INFO: Elapsed time: 3.330s, Critical Path: 3.19s
 ts_project(
     name = "swc",
+    srcs = ["big.ts"],
+    out_dir = "build-swc",
     # Partial allows us to apply some arguments here, while ts_project applies the rest.
     # See https://en.wikipedia.org/wiki/Partial_application
     # and https://docs.aspect.dev/bazelbuild/bazel-skylib/1.1.1/docs/partial.html
@@ -51,9 +53,6 @@ ts_project(
         args = ["--env-name=test"],
         swcrc = ".swcrc",
     ),
-    srcs = ["big.ts"],
-    out_dir = "build-swc",
-    tsconfig = _TSCONFIG,
 )
 
 # Runs babel to transpile ts -> js
@@ -64,8 +63,8 @@ ts_project(
 # Like the swc example, you could build babel_typecheck to run tsc.
 ts_project(
     name = "babel",
-    transpiler = babel,
     srcs = ["big.ts"],
+    declaration_dir = "build-babel",
     out_dir = "build-babel",
-    tsconfig = _TSCONFIG,
+    transpiler = babel,
 )

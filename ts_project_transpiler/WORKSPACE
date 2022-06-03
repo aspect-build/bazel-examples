@@ -1,21 +1,59 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
-    name = "build_bazel_rules_nodejs",
-    sha256 = "3ceb1e5b5dcad5fa2ad8870a20201cfbb9c9c63cac4055c9ab370034c765297f",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.3.0/rules_nodejs-5.3.0.tar.gz"],
+    name = "aspect_rules_js",
+    sha256 = "2db66bedabc30f2dfa87bd4845e42b0dbc80fa9344d2dfbaa2685cdced2f1e03",
+    strip_prefix = "rules_js-0.10.0",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.10.0.tar.gz",
 )
 
 http_archive(
     name = "aspect_rules_swc",
-    sha256 = "206a89aae3a04831123b43962a3864e8ab1652b703c4af58d84b04174360137d",
-    strip_prefix = "rules_swc-0.4.0",
-    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.4.0.tar.gz",
+    sha256 = "979c0344ac1ecf232dd1ed8faa3fe4fe15f87b4fb4cede0faa3b20669d6b1bca",
+    strip_prefix = "rules_swc-0.9.1",
+    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.9.1.tar.gz",
 )
 
-load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
+http_archive(
+    name = "aspect_rules_ts",
+    sha256 = "8e420a00e7b2fc8bdbb5dbabdbc796cafa277c057054571855260799cc8c63d0",
+    strip_prefix = "rules_ts-0.4.0",
+    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.4.0.tar.gz",
+)
 
-build_bazel_rules_nodejs_dependencies()
+##################
+# rules_ts setup #
+##################
+# Fetches the rules_ts dependencies.
+# If you want to have a different version of some dependency,
+# you should fetch it *before* calling this.
+# Alternatively, you can skip calling this function, so long as you've
+# already fetched all the dependencies.
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
+
+rules_ts_dependencies(ts_version_from = "//:package.json")
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
+load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",
+    node_version = DEFAULT_NODE_VERSION,
+)
+
+load("@aspect_rules_js//npm:npm_import.bzl", "translate_pnpm_lock")
+
+translate_pnpm_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+
+load("@npm//:repositories.bzl", "npm_repositories")
+
+npm_repositories()
 
 # Fetches the rules_swc dependencies.
 # If you want to have a different version of some dependency,
@@ -26,29 +64,12 @@ load("@aspect_rules_swc//swc:dependencies.bzl", "rules_swc_dependencies")
 
 rules_swc_dependencies()
 
-# Fetches a NodeJS interpreter, needed to run the swc CLI.
-# You can skip this if you already register a nodejs toolchain.
-load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
-nodejs_register_toolchains(
-    name = "nodejs",
-    node_version = "16.9.0",
-)
-
-load("@build_bazel_rules_nodejs//:index.bzl", "npm_install")
-
-npm_install(
-    name = "npm",
-    package_json = "//:package.json",
-    package_lock_json = "//:package-lock.json",
-    # Bazel manages its own node_modules directory in the output_base
-    symlink_node_modules = False,
-)
-
 # Fetches a pre-built Rust-node binding from
 # https://github.com/swc-project/swc/releases.
 # If you'd rather compile it from source, you can use rules_rust, fetch the project,
 # then register the toolchain yourself. (Note, this is not yet documented)
 load("@aspect_rules_swc//swc:repositories.bzl", "swc_register_toolchains")
+
 swc_register_toolchains(
     name = "swc",
     swc_version = "v1.2.141",
