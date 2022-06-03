@@ -1,9 +1,0 @@
-load("@npm//tailwindcss:package_json.bzl", "bin")
-
-bin.tailwindcss(
-    name = "styles",
-    srcs = ["index.css"],
-    outs = ["output.css"],
-    chdir = package_name(),
-    args = ["-i", "index.css", "-o", "output.css"],
-)

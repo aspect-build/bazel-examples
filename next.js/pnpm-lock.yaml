@@ -403,7 +403,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001346
-      electron-to-chromium: 1.4.144
+      electron-to-chromium: 1.4.145
       escalade: 3.1.1
       node-releases: 2.0.5
       picocolors: 1.0.0
@@ -584,8 +584,8 @@ packages:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
     dev: true
 
-  /electron-to-chromium/1.4.144:
-    resolution: {integrity: sha512-R3RV3rU1xWwFJlSClVWDvARaOk6VUO/FubHLodIASDB3Mc2dzuWvNdfOgH9bwHUTqT79u92qw60NWfwUdzAqdg==}
+  /electron-to-chromium/1.4.145:
+    resolution: {integrity: sha512-g4VQCi61gA0t5fJHsalxAc8NpvxC/CEwLAGLfJ+DmkRXTEyntJA7H01771uVD6X6nnViv3GToPgb0QOVA8ivOQ==}
     dev: true
 
   /error-ex/1.3.2:

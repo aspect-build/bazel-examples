@@ -2,9 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "7745b11c5d4018e1befa51ba7366149d739aa2521bc2675506b37e1f602204bc",
-    strip_prefix = "rules_js-0.9.3",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.9.3.tar.gz",
+    sha256 = "f4693a937c5852e660d1da773436fc3dc3a6274b25f735c233a8cffc12ed2dbb",
+    strip_prefix = "rules_js-0.11.0",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.11.0.tar.gz",
 )
 
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
@@ -18,9 +18,9 @@ nodejs_register_toolchains(
     node_version = DEFAULT_NODE_VERSION,
 )
 
-load("@aspect_rules_js//js:npm_import.bzl", "translate_pnpm_lock")
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 
-translate_pnpm_lock(
+npm_translate_lock(
     name = "npm",
     pnpm_lock = "//:pnpm-lock.yaml",
 )
@@ -28,54 +28,3 @@ translate_pnpm_lock(
 load("@npm//:repositories.bzl", "npm_repositories")
 
 npm_repositories()
-
-##################
-# rules_ts setup #
-##################
-
-http_archive(
-    name = "aspect_rules_ts",
-    sha256 = "2a9805f83498d63dfac62175740f1c49ec58ca62e7cf93e23c8b50a9cff4f73d",
-    strip_prefix = "rules_ts-0.3.1",
-    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.3.1.tar.gz",
-)
-
-# Fetches the rules_ts dependencies.
-# If you want to have a different version of some dependency,
-# you should fetch it *before* calling this.
-# Alternatively, you can skip calling this function, so long as you've
-# already fetched all the dependencies.
-load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
-
-rules_ts_dependencies(ts_version_from = "//:package.json")
-
-###################
-# rules_swc setup #
-###################
-
-http_archive(
-    name = "aspect_rules_swc",
-    sha256 = "78f0f4a8916c52d1a46b3885129ac04fdad5e4c0fb454255ada2cf04ef7f0f04",
-    strip_prefix = "rules_swc-0.8.0",
-    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.8.0.tar.gz",
-)
-
-# Fetches the rules_swc dependencies.
-# If you want to have a different version of some dependency,
-# you should fetch it *before* calling this.
-# Alternatively, you can skip calling this function, so long as you've
-# already fetched all the dependencies.
-load("@aspect_rules_swc//swc:dependencies.bzl", "rules_swc_dependencies")
-
-rules_swc_dependencies()
-
-# Fetches a pre-built Rust-node binding from
-# https://github.com/swc-project/swc/releases.
-# If you'd rather compile it from source, you can use rules_rust, fetch the project,
-# then register the toolchain yourself. (Note, this is not yet documented)
-load("@aspect_rules_swc//swc:repositories.bzl", "LATEST_VERSION", "swc_register_toolchains")
-
-swc_register_toolchains(
-    name = "swc",
-    swc_version = LATEST_VERSION,
-)

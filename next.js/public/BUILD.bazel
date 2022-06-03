@@ -1,5 +1,0 @@
-filegroup(
-    name = "public",
-    srcs = glob(["**"]),
-    visibility = ["//:__subpackages__"],
-)

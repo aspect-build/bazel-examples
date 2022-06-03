@@ -1,10 +1,25 @@
-load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
-load("@npm//:defs.bzl", "link_js_packages")
+load("@npm//next:package_json.bzl", "bin")
+load("@npm//:defs.bzl", "npm_link_all_packages")
 
-link_js_packages()
+package(default_visibility = ["//:__subpackages__"])
 
-copy_to_bin(
-    name = "tsconfig",
-    srcs = ["tsconfig.json"],
-    visibility = ["//:__subpackages__"],
+npm_link_all_packages(name = "node_modules")
+
+SRCS = glob([
+    "**/*.css",
+    "**/*.tsx",
+])
+
+bin.next(
+    name = "build",
+    args = ["build"],
+    output_dir = True,
+    srcs = SRCS + [
+        ":node_modules/typescript",
+    ],
+)
+
+bin.next_binary(
+    name = "start",
+    data = SRCS,
 )

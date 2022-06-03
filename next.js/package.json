@@ -2,8 +2,8 @@
     "private": true,
     "scripts": {
       "dev": "next",
-      "build": "next build",
-      "start": "next start",
+      "build": "bazel build :build",
+      "start": "bazel run :start",
       "typecheck": "tsc"
     },
     "dependencies": {
@@ -27,4 +27,3 @@
       "tailwindcss": "3.0.5"
     }
 }
-  
