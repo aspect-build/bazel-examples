@@ -6,7 +6,7 @@
     "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",
     "build-only": "bazel build :dist",
-    "type-check": "vue-tsc --noEmit"
+    "type-check": "bazel test :type-check"
   },
   "dependencies": {
     "vue": "^3.2.36",

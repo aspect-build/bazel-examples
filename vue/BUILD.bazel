@@ -1,21 +1,36 @@
-load("@npm//vite:package_json.bzl", "bin")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//vite:package_json.bzl", vite_bin = "bin")
+load("@npm//vue-tsc:package_json.bzl", vue_tsc_bin = "bin")
 
 # This macro expands to a link_npm_package for each third-party package in package.json
 npm_link_all_packages(name = "node_modules")
 
-bin.vite(
+SRCS = [
+    "env.d.ts",
+    "index.html",
+    "package.json",
+    "vite.config.ts",
+    "tsconfig.json",
+    "tsconfig.config.json",
+    "//src",
+    "//:node_modules/@vue/tsconfig",
+]
+
+vite_bin.vite(
     name = "dist", # must be named this since it's the folder vite writes
     args = ["build"],
     output_dir = True,
-    srcs = [
-        "env.d.ts",
-        "index.html",
-        "package.json",
-        "vite.config.ts",
-        "tsconfig.json",
-        "tsconfig.config.json",
-        "//src",
-        "//:node_modules/@vue/tsconfig",
+    srcs = SRCS,
+)
+
+vue_tsc_bin.vue_tsc_test(
+    name = "type-check",
+    args = ["--noEmit"],
+    data = SRCS + [
+        # Suspicously, the application code depends on the build system
+        # to get vue/node_modules/.pnpm/vite@2.9.10/node_modules/vite/types/importMeta.d.ts
+        ":node_modules/vite",
+        ":node_modules/vue",
+        ":node_modules/vue-router",
     ],
 )
