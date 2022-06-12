@@ -19,7 +19,7 @@ bin.next(
     ],
 )
 
-bin.next_binary(
-    name = "start",
-    data = SRCS,
-)
+# bin.next_binary(
+#     name = "start",
+#     data = SRCS,
+# )
