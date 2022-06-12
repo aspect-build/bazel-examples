@@ -1,0 +1,7 @@
+load(":differential_loading.bzl", "differential_loading")
+
+differential_loading(
+    name = "app",
+    srcs = glob(["*.ts"]),
+    entry_point = "index.ts",
+)

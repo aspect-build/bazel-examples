@@ -1,0 +1,55 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "aspect_rules_js",
+    sha256 = "6b218d2ab2e365807d1d403580b2c865a771e7fda9449171b2abd9765d0299b3",
+    strip_prefix = "rules_js-0.12.1",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.12.1.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_ts",
+    sha256 = "b79eca71668f1d5e318c25a25a5f9a150d351cbfab1ea9e225b0ee7a9f16763d",
+    strip_prefix = "rules_ts-0.6.0",
+    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.6.0.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_rollup",
+    #sha256 = "70d4c1ddbcb33cdf07aed973459c555c466e039c77fee2e0c06751d2d519465e",
+    strip_prefix = "rules_rollup-ea4030462a4fde9a5e9955948b918265830803ad",
+    url = "https://github.com/aspect-build/rules_rollup/archive/ea4030462a4fde9a5e9955948b918265830803ad.tar.gz",
+)
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
+
+rules_ts_dependencies(ts_version_from = "//:package.json")
+
+load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",
+    node_version = DEFAULT_NODE_VERSION,
+)
+
+load("@aspect_rules_rollup//rollup:repositories.bzl", "LATEST_VERSION", "rollup_register_toolchains")
+
+rollup_register_toolchains(
+    name = "rollup",
+    rollup_version = LATEST_VERSION,
+)
+
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+
+npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+
+load("@npm//:repositories.bzl", "npm_repositories")
+
+npm_repositories()
