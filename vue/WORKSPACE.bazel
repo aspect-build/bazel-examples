@@ -2,9 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "f4693a937c5852e660d1da773436fc3dc3a6274b25f735c233a8cffc12ed2dbb",
-    strip_prefix = "rules_js-0.11.0",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.11.0.tar.gz",
+    sha256 = "6b218d2ab2e365807d1d403580b2c865a771e7fda9449171b2abd9765d0299b3",
+    strip_prefix = "rules_js-0.12.1",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.12.1.tar.gz",
 )
 
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
@@ -22,6 +22,9 @@ load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 
 npm_translate_lock(
     name = "npm",
+    patches = {
+        "vite": ["//:patches/vite.pr4181.patch"],
+    },
     pnpm_lock = "//:pnpm-lock.yaml",
 )
 

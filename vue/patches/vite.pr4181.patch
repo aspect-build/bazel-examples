@@ -1,0 +1,22 @@
+commit a3fa1a38e4597da8c967215b0301122e8c948d7b
+Author: yinzhenyu <sharkrain@outlook.com>
+Date:   Fri May 13 16:25:20 2022 +0800
+
+    fix: Vite cannot load configuration files in the link directory (#4180) (#4181)
+    
+    Co-authored-by: sapphi-red <green@sapphi.red>
+
+--- dist/node/chunks/dep-9e5491c9.js	2022-06-11 21:39:04.147972011 -0700
++++ dist/node/chunks/dep-9e5491c9.js	2022-06-11 21:39:45.032319344 -0700
+@@ -61943,9 +61943,10 @@
+ }
+ async function loadConfigFromBundledFile(fileName, bundledCode) {
+     const extension = path__default.extname(fileName);
++    const realFileName = fs.realpathSync(fileName);
+     const defaultLoader = require.extensions[extension];
+     require.extensions[extension] = (module, filename) => {
+-        if (filename === fileName) {
++        if (filename === realFileName) {
+             module._compile(bundledCode, filename);
+         }
+         else {
