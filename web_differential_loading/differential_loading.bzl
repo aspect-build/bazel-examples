@@ -1,6 +1,6 @@
 "Illustrates how a reusable high-level workflow can be assembled from individual tools"
 
-# load("@npm//@babel/cli:index.bzl", "bin")
+load("@npm//@babel/cli:package_json.bzl", "bin")
 # load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
 # load("@npm_deps//@bazel/terser:index.bzl", "terser_minified")
 # load("@npm_deps//@bazel/typescript:index.bzl", "ts_project")
@@ -26,23 +26,23 @@ def differential_loading(name, entry_point, srcs):
         output_dir = True,
     )
 
-    # # For older browsers, we'll transform the output chunks to es5 + systemjs loader
-    # babel(
-    #     name = name + "_chunks_es5",
-    #     data = [
-    #         name + "_chunks",
-    #         "es5.babelrc",
-    #         "@npm_deps//@babel/preset-env",
-    #     ],
-    #     output_dir = True,
-    #     args = [
-    #         "$(execpath %s_chunks)" % name,
-    #         "--config-file",
-    #         "./$(execpath es5.babelrc)",
-    #         "--out-dir",
-    #         "$(@D)",
-    #     ],
-    # )
+    # For older browsers, we'll transform the output chunks to es5 + systemjs loader
+    bin.babel(
+        name = name + "_chunks_es5",
+        srcs = [
+            name + "_chunks",
+            "es5.babelrc",
+            ":node_modules/@babel/preset-env",
+        ],
+        output_dir = True,
+        args = [
+            "../../../$(execpath %s_chunks)" % name,
+            "--config-file",
+            "../../../$(execpath es5.babelrc)",
+            "--out-dir",
+            "$(@D)",
+        ],
+    )
 
     # # Run terser against both modern and legacy browser chunks
     # terser_minified(
