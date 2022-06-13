@@ -13,24 +13,26 @@ SRCS = [
     "tsconfig.json",
     "tsconfig.config.json",
     "//src",
+]
+
+BUILD_DEPS = [
+    "//:node_modules/vue",
+    "//:node_modules/vue-router",
     "//:node_modules/@vue/tsconfig",
+    "//:node_modules/vite",
+    "//:node_modules/@vitejs/plugin-vue",
+    "//:node_modules/@vitejs/plugin-vue-jsx",
 ]
 
 vite_bin.vite(
     name = "dist", # must be named this since it's the folder vite writes
     args = ["build"],
     output_dir = True,
-    srcs = SRCS,
+    srcs = SRCS + BUILD_DEPS,
 )
 
 vue_tsc_bin.vue_tsc_test(
     name = "type-check",
     args = ["--noEmit"],
-    data = SRCS + [
-        # Suspicously, the application code depends on the build system
-        # to get vue/node_modules/.pnpm/vite@2.9.10/node_modules/vite/types/importMeta.d.ts
-        ":node_modules/vite",
-        ":node_modules/vue",
-        ":node_modules/vue-router",
-    ],
+    data = SRCS + BUILD_DEPS,
 )
