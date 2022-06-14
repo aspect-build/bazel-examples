@@ -30,7 +30,14 @@ bin.next(
     output_dir = True,
     srcs = [
         ":srcs",
-        ":node_modules",
+        ":node_modules/@types",
+        ":node_modules/typescript",
+        ":node_modules/classnames",
+        ":node_modules/next",
+        ":node_modules/date-fns",
+        ":node_modules/gray-matter",
+        ":node_modules/remark",
+        ":node_modules/remark-html",
     ],
 )
 
