@@ -18,10 +18,10 @@ protobuf_deps()
 
 http_archive(
     name = "bazel_skylib",
-    sha256 = "58f558d04a936cade1d4744d12661317e51f6a21e3dd7c50b96dc14f3fa3b87d",
-    strip_prefix = "bazel-skylib-df3c9e2735f02a7fe8cd80db4db00fec8e13d25f",
+    sha256 = "fae28854003eab13d5ac4692e545fde62d58922b0de76e0aeb9a3f986913328f",
+    strip_prefix = "bazel-skylib-a501641daebdce8601ee6bbc6b5d177c688d3517",
     urls = [
-        "https://github.com/bazelbuild/bazel-skylib/archive/df3c9e2735f02a7fe8cd80db4db00fec8e13d25f.tar.gz",
+        "https://github.com/bazelbuild/bazel-skylib/archive/a501641daebdce8601ee6bbc6b5d177c688d3517.tar.gz",
     ],
 )
 
