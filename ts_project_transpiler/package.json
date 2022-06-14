@@ -3,9 +3,9 @@
   "description": "Show ts_project being fast by using alternate transpilers",
   "private": true,
   "devDependencies": {
-    "@babel/cli": "^7.16.7",
-    "@babel/core": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
+    "@babel/cli": "7.17.10",
+    "@babel/core": "7.18.5",
+    "@babel/preset-typescript": "7.17.12",
     "typescript": "4.3.5"
   }
 }
