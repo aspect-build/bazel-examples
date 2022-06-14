@@ -1,0 +1,26 @@
+{
+  "name": "vue-project",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "ibazel run :vite",
+    "build": "run-p type-check build-only",
+    "preview": "vite preview --port 4173",
+    "build-only": "bazel build :dist",
+    "type-check": "bazel test :type-check"
+  },
+  "dependencies": {
+    "vue": "^3.2.36",
+    "vue-router": "^4.0.15"
+  },
+  "devDependencies": {
+    "@bazel/ibazel": "0.16.2",
+    "@types/node": "^16.11.36",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vitejs/plugin-vue-jsx": "^1.3.10",
+    "@vue/tsconfig": "^0.1.3",
+    "npm-run-all": "^4.1.5",
+    "typescript": "~4.7.2",
+    "vite": "^2.9.9",
+    "vue-tsc": "^0.35.2"
+  }
+}
