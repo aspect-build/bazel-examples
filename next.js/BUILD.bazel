@@ -5,26 +5,32 @@ package(default_visibility = ["//:__subpackages__"])
 
 npm_link_all_packages(name = "node_modules")
 
-SRCS = glob([
-    "**/*.css",
-    "**/*.ts",
-    "**/*.tsx",
-])
+filegroup(
+    name = "srcs",
+    srcs = glob([
+        "_posts/**",
+        "components/**",
+        "lib/**",
+        "pages/**",
+        "public/**",
+        "styles/**",
+        "types/**",
+    ]) + [
+        ".swcrc",
+        "next-env.d.ts",
+        "package.json",
+        "tailwind.config.js",
+        "tsconfig.json",
+    ]
+)
 
 bin.next(
-    name = "build",
+    name = ".next",
     args = ["build"],
     output_dir = True,
-    srcs = SRCS + [
-        ":node_modules/remark",
-        ":node_modules/remark-html",
-        ":node_modules/gray-matter",
-        ":node_modules/date-fns",
-        ":node_modules/next",
-        ":node_modules/classnames",
-        ":node_modules/@types/node",
-        ":node_modules/@types/react",
-        ":node_modules/typescript",
+    srcs = [
+        ":srcs",
+        ":node_modules",
     ],
 )
 
