@@ -15,14 +15,14 @@ SRCS = [
     "//src",
 ]
 
-BUILD_DEPS = [
-    "//:node_modules/vue",
-    "//:node_modules/vue-router",
-    "//:node_modules/@vue/tsconfig",
-    "//:node_modules/vite",
-    "//:node_modules/@vitejs/plugin-vue",
-    "//:node_modules/@vitejs/plugin-vue-jsx",
-]
+BUILD_DEPS = [":node_modules/" + d for d in [
+    "@vitejs/plugin-vue",
+    "@vitejs/plugin-vue-jsx",
+    "@vue/tsconfig",
+    "vite",
+    "vue",
+    "vue-router",
+]]
 
 vite_bin.vite(
     name = "dist", # must be named this since it's the folder vite writes
@@ -34,5 +34,10 @@ vite_bin.vite(
 vue_tsc_bin.vue_tsc_test(
     name = "type-check",
     args = ["--noEmit"],
+    data = SRCS + BUILD_DEPS,
+)
+
+vite_bin.vite_binary(
+    name = "vite",
     data = SRCS + BUILD_DEPS,
 )
