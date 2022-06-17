@@ -1,0 +1,31 @@
+{
+  "name": "protobufjs-project",
+  "dependencies": {
+    "protobufjs": "^6.11.3",
+    "long": "^5.2.0",
+    "@grpc/grpc-js": "^1.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/long": "^4.0.2",
+    "@types/protobufjs": "^6.0.0"
+  },
+  "pnpm": {
+    "packageExtensions": {
+      "protobufjs": {
+        "dependencies": {
+          "semver": "^7.1.2",
+          "chalk": "^4.0.0",
+          "glob": "^7.1.6",
+          "jsdoc": "^3.6.3",
+          "minimist": "^1.2.0",
+          "tmp": "^0.2.0",
+          "uglify-js": "^3.7.7",
+          "espree": "^7.0.0",
+          "escodegen": "^1.13.0",
+          "estraverse": "^5.1.0"
+        }
+      }
+    }
+  }
+}

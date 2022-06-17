@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+message Wind {
+  enum Direction {
+    North = 0;
+    West = 1;
+    East = 2;
+    NorthWest = 3;
+    NorthEast = 4;
+    SouthWest = 5;
+    SouthEast = 6;
+  }
+
+  Direction direction = 1;
+  // km/h
+  uint64 speed = 2;
+}
+
+message Temperature {
+  sint64 high = 1;
+  sint64 low = 2;
+}
+
+message Forecast {
+  Temperature temperature = 1;
+  Wind wind = 3;
+
+  message Request {
+    int64 country_code = 1;
+    int64 city_code = 2;
+  }
+}
+
+
+service Weather {
+  rpc GetForecast (Forecast.Request) returns (Forecast);
+}
