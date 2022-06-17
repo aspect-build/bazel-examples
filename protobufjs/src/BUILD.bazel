@@ -1,0 +1,43 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("//:defs.bzl", "ts_proto_library")
+
+
+proto_library(
+    name = "weather_proto",
+    srcs = ["weather.proto"]
+)
+
+ts_proto_library(
+    name = "weather",
+    proto = ":weather_proto"
+)
+
+ts_project(
+    name = "ts",
+    srcs = [
+        "client.ts",
+        "server.ts",
+        ":weather"
+    ],
+    deps = [
+        "//:node_modules/@types/node",
+        "//:node_modules/@grpc/grpc-js"
+    ],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+)
+
+
+js_binary(
+    name = "server",
+    entry_point = "server.js",
+    data = [":ts"]
+)
+
+js_binary(
+    name = "client",
+    entry_point = "client.js",
+    data = [":ts"]
+)
