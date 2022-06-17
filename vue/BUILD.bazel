@@ -40,4 +40,7 @@ vue_tsc_bin.vue_tsc_test(
 vite_bin.vite_binary(
     name = "vite",
     data = SRCS + BUILD_DEPS,
+    tags = [
+        "ibazel_notify_changes",
+    ]
 )
