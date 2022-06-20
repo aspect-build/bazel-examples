@@ -1,0 +1,90 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
+load("@aspect_rules_webpack//webpack:defs.bzl", "webpack_bundle", "webpack_dev_server")
+load("@npm//:live-server/package_json.bzl", server = "bin")
+
+ts_project(
+    name = "src",
+    srcs = [
+        "App.tsx",
+        "index.tsx",
+    ],
+    declaration = True,
+    supports_workers = False,
+    source_map = True,
+    transpiler = partial.make(
+        swc_transpiler,
+        source_maps = "true",
+        swcrc = "//:swcrc",
+    ),
+    tsconfig = "//:tsconfig",
+    deps = [
+        "//:node_modules/@types/react",
+        "//:node_modules/@types/react-dom",
+        "//:node_modules/react",
+        "//:node_modules/react-dom",
+    ],
+)
+
+# Can not get this to resolve deps correctly
+webpack_bundle(
+    name = "bundle",
+    srcs = [
+        ":src",
+        "//:node_modules/@types/react",
+        "//:node_modules/@types/react-dom",
+        "//:node_modules/react",
+        "//:node_modules/react-dom",
+    ],
+    entry_point = "index.js",
+    supports_workers = False,
+    webpack_config = ":webpack.config.js",
+)
+
+esbuild(
+    name = "___bundle",
+    srcs = [
+        ":src",
+    ],
+    config = {
+        "resolveExtensions": [
+            ".jsx",
+            ".js",
+            ".css",
+            ".json",
+        ],
+    },
+    entry_point = "index.js",
+    minify = select({
+        "//:production": True,
+        "//conditions:default": False,
+    }),
+    sources_content = select({
+        "//:production": False,
+        "//conditions:default": True,
+    }),
+    splitting = True,
+    tags = ["manual"],
+)
+
+webpack_dev_server(
+    name = "server2",
+    #    chdir = package_name(),
+    data = [
+        "index.html",
+        "index.js",
+        ":bundle",
+    ],
+)
+
+server.live_server_binary(
+    name = "server",
+    args = ["--no-browser"],
+    chdir = package_name(),
+    data = [
+        "index.html",
+        ":bundle",
+    ],
+)
