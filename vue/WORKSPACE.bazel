@@ -2,7 +2,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    #sha256 = "80d8b154dd2ebab2131a946754e7976fd82459649fed320da5aab9f6aba4c29a",
+    sha256 = "80d8b154dd2ebab2131a946754e7976fd82459649fed320da5aab9f6aba4c29a",
     strip_prefix = "rules_js-03dda95c2ffd175f7bc2538ad27fe7d5dcb1fdb0",
     url = "https://github.com/aspect-build/rules_js/archive/03dda95c2ffd175f7bc2538ad27fe7d5dcb1fdb0.tar.gz",
 )
@@ -31,4 +31,3 @@ npm_translate_lock(
 load("@npm//:repositories.bzl", "npm_repositories")
 
 npm_repositories()
-
