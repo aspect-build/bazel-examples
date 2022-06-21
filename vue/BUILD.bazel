@@ -25,9 +25,9 @@ BUILD_DEPS = [":node_modules/" + d for d in [
 ]]
 
 vite_bin.vite(
-    name = "dist", # must be named this since it's the folder vite writes
+    name = "build",
     args = ["build"],
-    output_dir = True,
+    out_dirs = ["dist"],
     srcs = SRCS + BUILD_DEPS,
 )
 
