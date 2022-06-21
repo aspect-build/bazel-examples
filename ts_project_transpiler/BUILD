@@ -4,11 +4,11 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 
 # Note, Bazel 6 starlark has lambda so this is no longer needed after upgrade
 load("@bazel_skylib//lib:partial.bzl", "partial")
-load("@npm//:defs.bzl", "link_all_npm_packages")
+load("@npm//:defs.bzl", "npm_link_all_packages")
 load("babel.bzl", "babel")
 
 # This macro expands to a link_npm_package for each third-party package in package.json
-link_all_npm_packages(name = "node_modules")
+npm_link_all_packages(name = "node_modules")
 
 # Create a test fixture that is a non-trivial sized TypeScript program
 write_file(

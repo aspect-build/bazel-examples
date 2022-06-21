@@ -2,28 +2,32 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "2db66bedabc30f2dfa87bd4845e42b0dbc80fa9344d2dfbaa2685cdced2f1e03",
-    strip_prefix = "rules_js-0.10.0",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.10.0.tar.gz",
+    sha256 = "529a7100fd757d1fe6d39901688b0ae4cfe033b7d432e9c4cfc022f33e3ec7fc",
+    strip_prefix = "rules_js-1.0.0-beta.2",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0-beta.2.tar.gz",
 )
 
 http_archive(
     name = "aspect_rules_swc",
-    sha256 = "979c0344ac1ecf232dd1ed8faa3fe4fe15f87b4fb4cede0faa3b20669d6b1bca",
-    strip_prefix = "rules_swc-0.9.1",
-    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.9.1.tar.gz",
+    sha256 = "a484046ba2094284aa41c81f7e0fe4de8df7b21aacd3c5762fa442f80e11585b",
+    strip_prefix = "rules_swc-0.11.0",
+    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.11.0.tar.gz",
 )
 
 http_archive(
     name = "aspect_rules_ts",
-    sha256 = "8e420a00e7b2fc8bdbb5dbabdbc796cafa277c057054571855260799cc8c63d0",
-    strip_prefix = "rules_ts-0.4.0",
-    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.4.0.tar.gz",
+    sha256 = "991a5ccad5fd276164ea64c01ae0b67820a5d514fbf37ae3f7ac8701a84b9f5a",
+    strip_prefix = "rules_ts-0.7.0",
+    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.7.0.tar.gz",
 )
 
 ##################
 # rules_ts setup #
 ##################
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
 # Fetches the rules_ts dependencies.
 # If you want to have a different version of some dependency,
 # you should fetch it *before* calling this.
@@ -33,10 +37,6 @@ load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
 
 rules_ts_dependencies(ts_version_from = "//:package.json")
 
-load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
-
-rules_js_dependencies()
-
 load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
 
 nodejs_register_toolchains(
@@ -44,9 +44,9 @@ nodejs_register_toolchains(
     node_version = DEFAULT_NODE_VERSION,
 )
 
-load("@aspect_rules_js//npm:npm_import.bzl", "translate_pnpm_lock")
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 
-translate_pnpm_lock(
+npm_translate_lock(
     name = "npm",
     pnpm_lock = "//:pnpm-lock.yaml",
 )
