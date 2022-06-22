@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@angular-devkit/architect-cli': ^0.1400.2
   '@angular-devkit/build-angular': ^14.0.2
   '@angular/animations': ^14.0.0
   '@angular/cli': ~14.0.2
@@ -39,6 +40,7 @@ dependencies:
   zone.js: 0.11.6
 
 devDependencies:
+  '@angular-devkit/architect-cli': 0.1400.2
   '@angular-devkit/build-angular': 14.0.2_6zbu7d3yjmlmj5k7cyzzx7kvdq
   '@angular/cli': 14.0.2
   '@angular/compiler-cli': 14.0.2_vgx3obbnyhiipyeiotwdt5vxlq
@@ -60,6 +62,22 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.1.1
       '@jridgewell/trace-mapping': 0.3.13
+    dev: true
+
+  /@angular-devkit/architect-cli/0.1400.2:
+    resolution: {integrity: sha512-5BM3zVR0TJmiYLT7prDHHhPFWFKhi15rOgeNlH2sQAL1n/9x5oPJbO7m6TdffXRWbkHHknxWi/FaW7UW4b3Brw==}
+    engines: {node: ^14.15.0 || >=16.10.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
+    hasBin: true
+    dependencies:
+      '@angular-devkit/architect': 0.1400.2
+      '@angular-devkit/core': 14.0.2
+      ansi-colors: 4.1.1
+      progress: 2.0.3
+      rxjs: 6.6.7
+      symbol-observable: 4.0.0
+      yargs-parser: 21.0.1
+    transitivePeerDependencies:
+      - chokidar
     dev: true
 
   /@angular-devkit/architect/0.1400.2:
@@ -5978,6 +5996,11 @@ packages:
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
+    dev: true
+
+  /progress/2.0.3:
+    resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
+    engines: {node: '>=0.4.0'}
     dev: true
 
   /promise-inflight/1.0.1:

@@ -1,0 +1,43 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "aspect_bazel_lib",
+    sha256 = "f74beaad49fb904c42b767b28179e5a67200a4bcfd032a2c80015add5bfe8b20",
+    strip_prefix = "bazel-lib-de6e9ef843358bbf1ae2420efb6cac1d05f86b30",
+    url = "https://github.com/aspect-build/bazel-lib/archive/de6e9ef843358bbf1ae2420efb6cac1d05f86b30.tar.gz",
+)
+
+load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies", "register_jq_toolchains")
+
+aspect_bazel_lib_dependencies()
+
+register_jq_toolchains()
+
+http_archive(
+    name = "aspect_rules_js",
+    sha256 = "529a7100fd757d1fe6d39901688b0ae4cfe033b7d432e9c4cfc022f33e3ec7fc",
+    strip_prefix = "rules_js-1.0.0-beta.2",
+    url = "https://github.com/aspect-build/rules_js/archive/v1.0.0-beta.2.tar.gz",
+)
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
+load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",
+    node_version = DEFAULT_NODE_VERSION,
+)
+
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+
+npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+
+load("@npm//:repositories.bzl", "npm_repositories")
+
+npm_repositories()
