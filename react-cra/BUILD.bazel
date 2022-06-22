@@ -1,3 +1,42 @@
+load("@npm//react-scripts:package_json.bzl", "bin")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
+
+# Filename conventions described at
+# https://create-react-app.dev/docs/running-tests#filename-conventions
+_TESTS = [
+    "src/**/*.test.js*",
+    "src/**/*.test.ts*",
+    "src/**/*.spec.js*",
+    "src/**/*.spec.ts*",
+    "src/**/__tests__/**/*.js*",
+    "src/**/__tests__/**/*.ts*",
+]
+
+_RUNTIME_DEPS = [
+    ":node_modules/react",
+    ":node_modules/react-dom",
+]
+
+bin.react_scripts(
+    name = "build",
+    args = ["build"],
+    srcs = glob(
+        [
+            "public/*",
+            "src/**/*",
+        ],
+        exclude = _TESTS,
+    ) + [
+        "package.json",
+        "tsconfig.json",
+        ":node_modules/typescript",
+    ] + _RUNTIME_DEPS,
+    # workaround https://github.com/aspect-build/rules_js/issues/235
+    mnemonic = "ReactScripts",
+    env = {
+        "BUILD_PATH": "./build",
+    },
+    out_dirs = ["build"],
+)
