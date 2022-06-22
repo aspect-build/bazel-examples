@@ -10,6 +10,7 @@
 
 # production
 /build
+/bazel-*
 
 # misc
 .DS_Store

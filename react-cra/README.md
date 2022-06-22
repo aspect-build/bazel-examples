@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Getting Started with Create React App under Bazel
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+Then Bazel BUILD files were added.
+
+This is the simplest way to build React with Bazel - just wrap the `react-scripts` build system that comes with Create React App.
+
+However, it's probably not the most scalable or performant.
+A future example could follow this documentation:
+https://reactjs.org/docs/create-a-new-react-app.html#creating-a-toolchain-from-scratch
 
 ## Available Scripts
 
