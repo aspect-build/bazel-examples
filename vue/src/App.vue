@@ -9,6 +9,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
     <div class="wrapper">
       <HelloWorld msg="Built with Bazel!" />
+      <InputText />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>

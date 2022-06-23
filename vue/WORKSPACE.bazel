@@ -31,3 +31,18 @@ npm_translate_lock(
 load("@npm//:repositories.bzl", "npm_repositories")
 
 npm_repositories()
+
+http_archive(
+    name = "aspect_rules_rollup",
+    sha256 = "5b706261f595d8d6246f3909c49bbff668430c4177b2ead1a76d30c12682d78d",
+    strip_prefix = "rules_rollup-0.7.0",
+    url = "https://github.com/aspect-build/rules_rollup/archive/refs/tags/v0.7.0.tar.gz",
+)
+
+load("@aspect_rules_rollup//rollup:repositories.bzl", "LATEST_VERSION", "rollup_register_toolchains")
+
+rollup_register_toolchains(
+    name = "rollup",
+    # TODO(alexeagle): use the same rollup version from package.json
+    rollup_version = LATEST_VERSION,
+)
