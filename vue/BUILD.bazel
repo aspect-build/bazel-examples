@@ -1,6 +1,12 @@
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//vite:package_json.bzl", vite_bin = "bin")
 load("@npm//vue-tsc:package_json.bzl", vue_tsc_bin = "bin")
+load("@aspect_rules_js//npm:defs.bzl", "npm_link_package")
+ 
+npm_link_package(
+    name = "node_modules/@yourname/yourlibrary",
+    src = "//libraries/simple"
+)
 
 # This macro expands to a link_npm_package for each third-party package in package.json
 npm_link_all_packages(name = "node_modules")
@@ -16,6 +22,7 @@ SRCS = [
 ]
 
 BUILD_DEPS = [":node_modules/" + d for d in [
+    "@yourname/yourlibrary",
     "@vitejs/plugin-vue",
     "@vitejs/plugin-vue-jsx",
     "@vue/tsconfig",
