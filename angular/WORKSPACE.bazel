@@ -2,9 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_bazel_lib",
-    sha256 = "f74beaad49fb904c42b767b28179e5a67200a4bcfd032a2c80015add5bfe8b20",
-    strip_prefix = "bazel-lib-de6e9ef843358bbf1ae2420efb6cac1d05f86b30",
-    url = "https://github.com/aspect-build/bazel-lib/archive/de6e9ef843358bbf1ae2420efb6cac1d05f86b30.tar.gz",
+    sha256 = "f734aef9cf1dee2d91bf2c37224e89f156fc1c3bc5f6eb5a951a93efa490336c",
+    strip_prefix = "bazel-lib-910786038c98ad93888e165e89aee6e5ef1365a4",
+    url = "https://github.com/aspect-build/bazel-lib/archive/910786038c98ad93888e165e89aee6e5ef1365a4.tar.gz",
 )
 
 load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies", "register_jq_toolchains")
