@@ -29,7 +29,8 @@ build --incompatible_default_to_explicit_init_py
 ###
 build --remote_local_fallback
 build --heap_dump_on_oom
-common --keep_going
+build --keep_going
+test  --keep_going
 test --test_verbose_timeout_warnings
 build --incompatible_remote_build_event_upload_respect_no_cache
 
