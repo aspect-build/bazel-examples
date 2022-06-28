@@ -1,5 +1,5 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
-load("@npm//protobufjs:package_json.bzl", "bin")
+load("@npm//:protobufjs/package_json.bzl", "bin")
 load("@rules_proto//proto:defs.bzl", "ProtoInfo")
 
 def _proto_sources_impl(ctx):
