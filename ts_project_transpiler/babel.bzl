@@ -2,7 +2,7 @@
 
 See https://bazelbuild.github.io/rules_nodejs/TypeScript.html#ts_project-transpiler
 """
-load("@npm//@babel/cli:package_json.bzl", "bin")
+load("@npm//:@babel/cli/package_json.bzl", "bin")
 
 def babel(name, srcs, js_outs, map_outs, **kwargs):
     # rules_js runs under the output tree in bazel-out/[arch]/bin
