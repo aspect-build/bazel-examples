@@ -41,6 +41,5 @@ npm_package(
         "copy_cjs",
         "package.json",
     ],
-    package = "@yourname/yourlibrary",
     visibility = ["//visibility:public"],
 )
