@@ -2,9 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "529a7100fd757d1fe6d39901688b0ae4cfe033b7d432e9c4cfc022f33e3ec7fc",
-    strip_prefix = "rules_js-1.0.0-beta.2",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0-beta.2.tar.gz",
+    sha256 = "be39996444ab94de605e21cdcaa9bc4965a96186329d776e400b47fefd540902",
+    strip_prefix = "rules_js-1.0.0-rc.0",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0-rc.0.tar.gz",
 )
 
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
@@ -19,10 +19,32 @@ nodejs_register_toolchains(
 )
 
 load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+load("@bazel_skylib//lib:dicts.bzl", "dicts")
 
 npm_translate_lock(
     name = "npm",
     pnpm_lock = "//:pnpm-lock.yaml",
+    public_hoist_packages = dicts.add({
+        "@types/" + x: [""]
+        for x in [
+            #"jest@28.1.3",
+            #"node",
+            "prettier",
+            "react",
+            "react-dom",
+        ]
+    },
+    {
+        "@testing-library/" + x: [""]
+        for x in [
+            "jest-dom",
+            "react",
+            "user-event",
+        ]
+    },
+    {
+        "react-scripts": [""],
+    }),
     verify_node_modules_ignored = "//:.bazelignore",
 )
 

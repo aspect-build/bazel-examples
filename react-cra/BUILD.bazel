@@ -1,4 +1,4 @@
-load("@npm//react-scripts:package_json.bzl", "bin")
+load("@npm//:react-scripts/package_json.bzl", "bin")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
