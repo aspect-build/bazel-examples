@@ -17,6 +17,7 @@ COMMON_CONFIG = [
 # Common dependencies of Angular CLI applications
 APPLICATION_CONFIG = [
     ":tsconfig.app.json",
+    ":package.json",
 ]
 APPLICATION_DEPS = [
     "//:node_modules/@angular/common",
@@ -99,11 +100,11 @@ def ng_app(name, project_name = None, deps = [], test_deps = [], **kwargs):
       test_deps: additional dependencies for tests
       **kwargs: extra args passed to main Angular CLI rules
     """
-    srcs = native.glob(
-        ["src/**/*"],
+    srcs = native.glob(["src/**/*"],
         exclude = [
             "src/**/*.spec.ts",
             "src/test.ts",
+            "dist/",
         ],
     )
 
@@ -132,7 +133,7 @@ def ng_app(name, project_name = None, deps = [], test_deps = [], **kwargs):
         name = "test",
         chdir = native.package_name(),
         args = ["%s:test" % project_name],
-        data = test_srcs + deps + test_deps + TEST_DEPS + TEST_CONFIG + COMMON_CONFIG,
+        data = srcs + test_srcs + deps + test_deps + TEST_DEPS + TEST_CONFIG + COMMON_CONFIG,
         **kwargs
     )
 
@@ -153,6 +154,7 @@ def ng_lib(name, project_name = None, deps = [], test_deps = [], **kwargs):
         exclude = [
             "src/**/*.spec.ts",
             "src/test.ts",
+            "dist/",
         ],
     )
 
