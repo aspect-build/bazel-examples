@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
       The library component! With <lib-common></lib-common>
     </strong>
   `,
-  styles: [':host { display: block; }']
+  styleUrls: ['./lib-a.component.css']
 })
 export class LibAComponent {
 }
