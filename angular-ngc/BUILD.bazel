@@ -1,0 +1,43 @@
+load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_js//npm:defs.bzl", "npm_link_package")
+
+# Libraries accessible via //:lib/{package_name}
+LIBRARIES = [
+  "common",
+  "lib-a",
+]
+
+[
+  npm_link_package(
+    name = "lib/%s" % lib,
+    src = "//libraries/%s" % lib
+  )
+  for lib in LIBRARIES
+]
+
+# Link npm packages
+npm_link_all_packages(name = "node_modules")
+
+# The Angular ngc compiler
+directory_path(
+    name = "ngc_entrypoint",
+    directory = "//:node_modules/@angular/compiler-cli/dir",
+    path = "bundles/src/bin/ngc.js",
+    visibility = ["//visibility:private"],
+)
+js_binary(
+    name = "ngc",
+    data = ["//:node_modules/@angular/compiler-cli"],
+    entry_point = ":ngc_entrypoint",
+    visibility = ["//visibility:public"],
+)
+
+# The root repo tsconfig
+ts_config(
+    name = "tsconfig",
+    src = ":tsconfig.json",
+    visibility = ["//visibility:public"],
+)

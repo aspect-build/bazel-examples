@@ -1,0 +1,9 @@
+load("//:defs.bzl", "ng_application")
+
+package(default_visibility = ["//visibility:public"])
+
+# The Angular demo application
+ng_application(
+    name = "demo",
+    deps = ["//libraries/lib-a"],
+)

@@ -1,0 +1,9 @@
+load("//:defs.bzl", "ng_library")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_library(
+    name = "lib-a",
+    package_name = "lib-a",
+    deps = ["//:lib/common"],
+)
