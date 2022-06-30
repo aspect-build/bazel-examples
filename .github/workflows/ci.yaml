@@ -24,6 +24,7 @@ jobs:
       matrix:
         folder:
           - 'angular'
+          - 'angular-ngc'
           - 'bzlmod'
           - 'check-npm-determinism'
           # TODO: intentionally fails

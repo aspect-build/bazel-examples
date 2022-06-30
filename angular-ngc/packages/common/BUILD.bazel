@@ -1,0 +1,8 @@
+load("//:defs.bzl", "ng_pkg")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_pkg(
+    name = "common",
+    package_name = "@ngc-example/common",
+)
