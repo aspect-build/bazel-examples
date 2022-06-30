@@ -9,9 +9,9 @@ http_archive(
 
 http_archive(
     name = "aspect_rules_swc",
-    sha256 = "c1430e1c16971edc75a5cc158037f20cf1d294ba9b8b0cce3e1a2f7ceb7a5221",
-    strip_prefix = "rules_swc-9b62d457014d7f16ee80fc6971e31b2056865dd2",
-    url = "https://github.com/aspect-build/rules_swc/archive/9b62d457014d7f16ee80fc6971e31b2056865dd2.tar.gz",
+    sha256 = "3f5b7ece173edefbcfd48e5dccbba7802106327bf24823c322a91b253c890d30",
+    strip_prefix = "rules_swc-87a087b7f92dec8770313216cc2b0a0af16aea87",
+    url = "https://github.com/aspect-build/rules_swc/archive/87a087b7f92dec8770313216cc2b0a0af16aea87.tar.gz",
 )
 
 http_archive(
