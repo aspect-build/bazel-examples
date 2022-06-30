@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["es2020", "dom"],
+    "paths": {
+      "@ngc-example/*": ["packages/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    // Full compilation since nothing is being published as a library
+    // for others to consume with alternate Angular versions.
+    "compilationMode": "full",
+
+    // Enable strict options
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

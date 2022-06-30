@@ -1,10 +1,12 @@
 # Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
-Then we added Bazel configuration files, without breaking the ability for the `ng` tooling to work.
-This shows how a project can be in a "hybrid mode" where some developers (and maybe the CI system) can use Bazel, but others can continue using their familiar tools.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14. A bazel build was then configured alongside the Angular CLI using the Angular Architect tooling - the same tooling used by the CLI used within bazel. This shows how a project can be in a "hybrid mode" where some developers (and maybe the CI system) can use Bazel, but others can continue using their familiar tools.
 
-The `lib-a` and `common` projects were then added to demonstrate multiple projects with dependencies.
+An alternative and more "bazel idiomatic" way would be using the Angular compiler directly. See the [Angular NGC](../angular-ngc/) example for a comparison and more information about different methods of configuring an Angular project with bazel.
+
+## Project structure
+
+The `lib-a` and `common` projects were added to demonstrate dependencies between multiple projects and application.
 
 Look at the early commit history to this folder to better understand which changes were made after the Angular CLI created the project:
 <https://github.com/aspect-build/bazel-examples/commits/main/angular>

@@ -1,0 +1,18 @@
+// General options for all TypeScript, client, server etc.
+{
+  "compileOnSave": false,
+  "exclude": ["bazel-*"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "strict": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2020",
+    "module": "es2020"
+  }
+}
