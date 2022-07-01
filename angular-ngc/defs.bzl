@@ -109,7 +109,6 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
           "compilerOptions": {
             "declaration": True,
             "declarationMap": True,
-            "rootDir": "src",
             "outDir": "_dist",
           },
         },
@@ -129,7 +128,7 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
     npm_package(
         name = "_pkg",
         package = package_name,
-        root_paths = [native.package_name(), "%s/_dist" % native.package_name()],
+        root_paths = [native.package_name(), "%s/_dist" % native.package_name(), "%s/_dist/src" % native.package_name()],
         srcs = [":_%s" % name, "_%s_package_json" % name],
         visibility = ["//visibility:private"],
     )
@@ -153,10 +152,9 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
               "declaration": False,
               "declarationMap": False,
               "outDir": "_test",
-              "rootDir": "src",
               "rootDirs": [
                 ".",
-                "./_dist",
+                "_dist",
               ],
             },
           },
