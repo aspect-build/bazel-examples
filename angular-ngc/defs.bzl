@@ -64,7 +64,8 @@ def ng_application(name, project_name = None, deps = [], test_deps = [], **kwarg
       test_deps: additional dependencies for tests
       **kwargs: extra args passed to main Angular CLI rules
     """
-    srcs = native.glob(["src/**/*"],
+    srcs = native.glob(
+        ["src/**/*"],
         exclude = [
             "src/**/*.spec.ts",
             "src/test.ts",
@@ -74,9 +75,8 @@ def ng_application(name, project_name = None, deps = [], test_deps = [], **kwarg
     test_srcs = native.glob(["src/test.ts", "src/**/*.spec.ts"])
 
     ng_project(
-      name = "_%s" % name
+        name = "_%s" % name,
     )
-
 
 def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//visibility:public"]):
     """
@@ -106,11 +106,11 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
         srcs = srcs,
         deps = deps + LIBRARY_DEPS,
         tsconfig = {
-          "compilerOptions": {
-            "declaration": True,
-            "declarationMap": True,
-            "outDir": "_dist",
-          },
+            "compilerOptions": {
+                "declaration": True,
+                "declarationMap": True,
+                "outDir": "_dist",
+            },
         },
         extends = "//:tsconfig",
         visibility = ["//visibility:private"],
@@ -118,10 +118,10 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
 
     # A package.json pointing to the public_api.js as the package entry point
     write_file(
-      name = "_%s_package_json" % name,
-      out = "_dist/package.json",
-      content = ["""{"name": "%s", "main": "./public_api.js"}""" % package_name],
-      visibility = ["//visibility:private"],
+        name = "_%s_package_json" % name,
+        out = "_dist/package.json",
+        content = ["""{"name": "%s", "main": "./public_api.js", "types": "./public-api.d.ts"}""" % package_name],
+        visibility = ["//visibility:private"],
     )
 
     # Output the library as an npm package that can be linked.
@@ -136,31 +136,31 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
     # The primary public library target. Aliased to allow "_pkg" as the npm_package()
     # name and therefore also output directory.
     native.alias(
-      name = name,
-      actual = "_pkg",
-      visibility = visibility,
+        name = name,
+        actual = "_pkg",
+        visibility = visibility,
     )
 
     test_srcs = native.glob(["src/test.ts", "src/**/*.spec.ts"])
     if len(test_srcs) > 0:
-      ng_project(
-          name = "_%s_tests" % name,
-          srcs = test_srcs,
-          deps = [":_%s" % name] + test_deps + TEST_DEPS,
-          tsconfig = {
-            "compilerOptions": {
-              "declaration": False,
-              "declarationMap": False,
-              "outDir": "_test",
-              "rootDirs": [
-                ".",
-                "_dist",
-              ],
+        ng_project(
+            name = "_%s_tests" % name,
+            srcs = test_srcs,
+            deps = [":_%s" % name] + test_deps + TEST_DEPS,
+            tsconfig = {
+                "compilerOptions": {
+                    "declaration": False,
+                    "declarationMap": False,
+                    "outDir": "_test",
+                    "rootDirs": [
+                        ".",
+                        "_dist",
+                    ],
+                },
             },
-          },
-          extends = "//:tsconfig",
-          testonly = 1,
-          visibility = ["//visibility:private"],
-      )
+            extends = "//:tsconfig",
+            testonly = 1,
+            visibility = ["//visibility:private"],
+        )
 
-      # TODO: 'test' target
+        # TODO: 'test' target
