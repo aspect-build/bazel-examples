@@ -1,4 +1,4 @@
-load("@npm//next:package_json.bzl", "bin")
+load("@npm//:next/package_json.bzl", "bin")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 package(default_visibility = ["//:__subpackages__"])
@@ -27,17 +27,22 @@ filegroup(
 bin.next(
     name = ".next",
     args = ["build"],
-    output_dir = True,
+    outs = [".next"],
     srcs = [
         ":srcs",
         ":node_modules/@types",
-        ":node_modules/typescript",
         ":node_modules/classnames",
-        ":node_modules/next",
         ":node_modules/date-fns",
         ":node_modules/gray-matter",
+        ":node_modules/next",
+        ":node_modules/react",
+        ":node_modules/react-dom",
         ":node_modules/remark",
         ":node_modules/remark-html",
+        ":node_modules/typescript",
+        ":node_modules/tailwindcss",
+        ":node_modules/postcss",
+        ":node_modules/autoprefixer",
     ],
 )
 
