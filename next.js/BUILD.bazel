@@ -24,11 +24,7 @@ filegroup(
     ]
 )
 
-bin.next(
-    name = ".next",
-    args = ["build"],
-    outs = [".next"],
-    srcs = [
+SRCS = [
         ":srcs",
         ":node_modules/@types",
         ":node_modules/classnames",
@@ -43,10 +39,16 @@ bin.next(
         ":node_modules/tailwindcss",
         ":node_modules/postcss",
         ":node_modules/autoprefixer",
-    ],
+]
+
+bin.next(
+    name = "build",
+    args = ["build"],
+    outs = [".next"],
+        srcs = SRCS
 )
 
-# bin.next_binary(
-#     name = "start",
-#     data = SRCS,
-# )
+bin.next_binary(
+name = "start",
+data = SRCS,
+)
