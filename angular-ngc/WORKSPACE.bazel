@@ -24,6 +24,17 @@ load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
 
 rules_js_dependencies()
 
+http_archive(
+    name = "aspect_rules_esbuild",
+    sha256 = "77c414e7d82c9a66b4b6d6cb81a7a379f462215b52f5bae90faecde81798189f",
+    strip_prefix = "rules_esbuild-0.9.0",
+    url = "https://github.com/aspect-build/rules_esbuild/archive/refs/tags/v0.9.0.tar.gz",
+)
+
+load("@aspect_rules_esbuild//esbuild:dependencies.bzl", "rules_esbuild_dependencies")
+
+rules_esbuild_dependencies()
+
 load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
 
 nodejs_register_toolchains(
@@ -36,6 +47,13 @@ load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 npm_translate_lock(
     name = "npm",
     pnpm_lock = "//:pnpm-lock.yaml",
+)
+
+load("@aspect_rules_esbuild//esbuild:repositories.bzl", "LATEST_VERSION", "esbuild_register_toolchains")
+
+esbuild_register_toolchains(
+    name = "esbuild",
+    esbuild_version = LATEST_VERSION,
 )
 
 http_archive(

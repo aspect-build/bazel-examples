@@ -1,6 +1,7 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 
 # Common dependencies of Angular applications
 APPLICATION_DEPS = [
@@ -159,9 +160,15 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
                     ],
                 },
             },
-            extends = "//:tsconfig",
             testonly = 1,
+            extends = "//:tsconfig",
             visibility = ["//visibility:private"],
         )
 
-        # TODO: 'test' target
+        bundle_name = "%s_tests.bundle" % name
+        esbuild(
+            name = bundle_name,
+            testonly = 1,
+            deps = [":_%s_tests" % name],
+            entry_points = [":_%s_tests" % name],
+        )
