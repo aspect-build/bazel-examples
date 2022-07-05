@@ -6,16 +6,16 @@ load("@aspect_rules_js//npm:defs.bzl", "npm_link_package")
 
 # Libraries accessible via //:lib/{package_name}
 LIBRARIES = [
-  "common",
-  "lib-a",
+    "common",
+    "lib-a",
 ]
 
 [
-  npm_link_package(
-    name = "lib/%s" % lib,
-    src = "//libraries/%s" % lib
-  )
-  for lib in LIBRARIES
+    npm_link_package(
+        name = "lib/%s" % lib,
+        src = "//libraries/%s" % lib,
+    )
+    for lib in LIBRARIES
 ]
 
 # Link npm packages
@@ -28,6 +28,7 @@ directory_path(
     path = "bundles/src/bin/ngc.js",
     visibility = ["//visibility:private"],
 )
+
 js_binary(
     name = "ngc",
     data = ["//:node_modules/@angular/compiler-cli"],

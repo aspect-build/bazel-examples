@@ -44,6 +44,7 @@ http_archive(
     strip_prefix = "rules_ts-bb86a508de08ea9478aa74e39eec9ffce2f4dee2",
     url = "https://github.com/aspect-build/rules_ts/archive/bb86a508de08ea9478aa74e39eec9ffce2f4dee2.tar.gz",
 )
+
 load("@aspect_rules_ts//ts:repositories.bzl", "LATEST_VERSION", "rules_ts_dependencies")
 
 rules_ts_dependencies(ts_version = LATEST_VERSION)
