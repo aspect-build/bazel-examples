@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from 'common';
+import { CommonModule } from '@ngc-example/common';
 import { LibAComponent } from './lib-a.component';
 
 

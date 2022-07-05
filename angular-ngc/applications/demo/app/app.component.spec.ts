@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { CommonModule } from 'common';
-import { LibAModule } from 'lib-a';
+import { CommonModule } from '@ngc-example/common';
+import { LibAModule } from '@ngc-example/lib-a';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {

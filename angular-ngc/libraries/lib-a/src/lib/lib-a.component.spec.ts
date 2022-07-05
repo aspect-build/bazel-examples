@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonModule } from 'common';
+import { CommonModule } from '@ngc-example/common';
 
 import { LibAComponent } from './lib-a.component';
 
