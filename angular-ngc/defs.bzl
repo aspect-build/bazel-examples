@@ -8,7 +8,6 @@ APPLICATION_DEPS = [
     "//:node_modules/@angular/core",
     "//:node_modules/@angular/router",
     "//:node_modules/@angular/platform-browser",
-    "//:node_modules/@angular/platform-browser-dynamic",
     "//:node_modules/rxjs",
     "//:node_modules/tslib",
     "//:node_modules/zone.js",
@@ -23,7 +22,7 @@ LIBRARY_DEPS = [
     "//:node_modules/tslib",
 ]
 
-# Common dependencies of Angular test suites
+# Common dependencies of Angular test suites using jasmine
 TEST_CONFIG = [
     "//:karma.conf.js",
     "//:node_modules/@types/jasmine",
@@ -79,9 +78,14 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
     """
     Bazel macro for compiling an NG library project. Creates {name} and test targets.
 
-    Projects must contain:
+    Projects structure:
       src:
         public_api.ts
+        **/*.{ts,css,html}
+
+    Tests:
+      src:
+        **/*.spec.ts
 
     Args:
       name: the rule name
@@ -114,6 +118,7 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
     )
 
     # A package.json pointing to the public_api.js as the package entry point
+    # TODO: TBD: could also write an index.js file, or drop the public_api.ts convention for index.ts
     write_file(
         name = "_%s_package_json" % name,
         out = "_dist/package.json",
