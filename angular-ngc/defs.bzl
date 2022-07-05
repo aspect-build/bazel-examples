@@ -64,15 +64,12 @@ def ng_application(name, project_name = None, deps = [], test_deps = [], **kwarg
       test_deps: additional dependencies for tests
       **kwargs: extra args passed to main Angular CLI rules
     """
+    test_srcs = native.glob(["src/**/*.spec.ts"])
+
     srcs = native.glob(
         ["src/**/*"],
-        exclude = [
-            "src/**/*.spec.ts",
-            "src/test.ts",
-        ],
+        exclude = test_srcs,
     )
-
-    test_srcs = native.glob(["src/test.ts", "src/**/*.spec.ts"])
 
     ng_project(
         name = "_%s" % name,
@@ -94,13 +91,13 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
       visibility: visibility of the primary targets ({name}, 'test')
     """
 
+    test_srcs = native.glob(["src/**/*.spec.ts"])
+
     srcs = native.glob(
         ["src/**/*.ts", "src/**/*.css", "src/**/*.html"],
-        exclude = [
-            "src/**/*.spec.ts",
-            "src/test.ts",
-        ],
+        exclude = test_srcs,
     )
+
     ng_project(
         name = "_%s" % name,
         srcs = srcs,
@@ -141,7 +138,6 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
         visibility = visibility,
     )
 
-    test_srcs = native.glob(["src/test.ts", "src/**/*.spec.ts"])
     if len(test_srcs) > 0:
         ng_project(
             name = "_%s_tests" % name,
