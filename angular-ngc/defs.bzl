@@ -66,13 +66,12 @@ def ng_project(name, **kwargs):
         **kwargs
     )
 
-def ng_application(name, project_name = None, deps = [], test_deps = [], **kwargs):
+def ng_application(name, deps = [], test_deps = [], **kwargs):
     """
     Bazel macro for compiling an NG application project. Creates {name}, test, serve targets.
 
     Args:
       name: the rule name
-      project_name: the Angular CLI project name, to the rule name
       deps: dependencies of the library
       test_deps: additional dependencies for tests
       **kwargs: extra args passed to main Angular CLI rules
