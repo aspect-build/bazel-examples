@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@aspect_rules_js//npm:defs.bzl", "npm_package")
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_ts//ts:defs.bzl", _ts_project = "ts_project")
 load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 
 # Common dependencies of Angular applications
@@ -39,6 +39,19 @@ TEST_DEPS = APPLICATION_DEPS + [
     "//:node_modules/jasmine-core",
 ]
 
+def ts_project(name, **kwargs):
+    _ts_project(
+      name = name,
+
+      # Default tsconfig and aligning attributes
+      tsconfig = kwargs.pop("tsconfig", "//:tsconfig"),
+      declaration = kwargs.pop("declaration", True),
+      declaration_map = kwargs.pop("declaration_map", True),
+      source_map = kwargs.pop("source_map", True),
+
+      **kwargs,
+    )
+
 def ng_project(name, **kwargs):
     """The rules_js ts_project() configured with the Angular ngc compiler.
     """
@@ -64,15 +77,17 @@ def ng_application(name, project_name = None, deps = [], test_deps = [], **kwarg
       test_deps: additional dependencies for tests
       **kwargs: extra args passed to main Angular CLI rules
     """
-    test_srcs = native.glob(["src/**/*.spec.ts"])
+    test_spec_srcs = native.glob(["src/**/*.spec.ts"])
 
     srcs = native.glob(
-        ["src/**/*"],
-        exclude = test_srcs,
+        ["app/**/*"],
+        exclude = test_spec_srcs,
     )
 
     ng_project(
-        name = "_%s" % name,
+        name = "_app",
+        srcs = srcs,
+        deps = deps + APPLICATION_DEPS,
     )
 
 def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//visibility:public"]):
@@ -96,33 +111,25 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
       visibility: visibility of the primary targets ({name}, 'test')
     """
 
-    test_srcs = native.glob(["src/**/*.spec.ts"])
+    test_spec_srcs = native.glob(["src/**/*.spec.ts"])
 
     srcs = native.glob(
         ["src/**/*.ts", "src/**/*.css", "src/**/*.html"],
-        exclude = test_srcs,
+        exclude = test_spec_srcs,
     )
 
     ng_project(
-        name = "_%s" % name,
+        name = "_lib",
         srcs = srcs,
         deps = deps + LIBRARY_DEPS,
-        tsconfig = {
-            "compilerOptions": {
-                "declaration": True,
-                "declarationMap": True,
-                "outDir": "_dist",
-            },
-        },
-        extends = "//:tsconfig",
         visibility = ["//visibility:private"],
     )
 
     # A package.json pointing to the public_api.js as the package entry point
     # TODO: TBD: could also write an index.js file, or drop the public_api.ts convention for index.ts
     write_file(
-        name = "_%s_package_json" % name,
-        out = "_dist/package.json",
+        name = "_package_json",
+        out = "package.json",
         content = ["""{"name": "%s", "main": "./public_api.js", "types": "./public-api.d.ts"}""" % package_name],
         visibility = ["//visibility:private"],
     )
@@ -131,8 +138,11 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
     npm_package(
         name = "_pkg",
         package = package_name,
-        root_paths = [native.package_name(), "%s/_dist" % native.package_name(), "%s/_dist/src" % native.package_name()],
-        srcs = [":_%s" % name, "_%s_package_json" % name],
+        root_paths = [
+          native.package_name(),
+          "%s/src" % native.package_name(),
+        ],
+        srcs = [":_lib", ":_package_json"],
         visibility = ["//visibility:private"],
     )
 
@@ -144,31 +154,22 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
         visibility = visibility,
     )
 
-    if len(test_srcs) > 0:
+    if len(test_spec_srcs) > 0:
         ng_project(
-            name = "_%s_tests" % name,
-            srcs = test_srcs,
-            deps = [":_%s" % name] + test_deps + TEST_DEPS,
-            tsconfig = {
-                "compilerOptions": {
-                    "declaration": False,
-                    "declarationMap": False,
-                    "outDir": "_test",
-                    "rootDirs": [
-                        ".",
-                        "_dist",
-                    ],
-                },
-            },
+            name = "_tests",
+            srcs = test_spec_srcs,
+            deps = [":_lib"] + test_deps + TEST_DEPS,
             testonly = 1,
-            extends = "//:tsconfig",
             visibility = ["//visibility:private"],
         )
 
-        bundle_name = "%s_tests.bundle" % name
+        # Bundle the spec files
         esbuild(
-            name = bundle_name,
+            name = "_test_bundle",
             testonly = 1,
-            deps = [":_%s_tests" % name],
-            entry_points = [":_%s_tests" % name],
+            entry_points = [spec.replace(".ts", ".js") for spec in test_spec_srcs],
+            deps = [":_tests", "_lib"] + deps + test_deps + TEST_DEPS,
+            output_dir = True,
+            splitting = True,
+            visibility = ["//visibility:private"],
         )
