@@ -6,4 +6,5 @@ ng_library(
     name = "lib-a",
     package_name = "@ngc-example/lib-a",
     deps = ["//:lib/common"],
+    test_deps = ["//:lib/common"],
 )

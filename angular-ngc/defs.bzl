@@ -167,7 +167,7 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
             name = "_test_bundle",
             testonly = 1,
             entry_points = [spec.replace(".ts", ".js") for spec in test_spec_srcs],
-            deps = [":_tests", "_lib"] + deps + test_deps + TEST_DEPS,
+            deps = [":_tests"],
             output_dir = True,
             splitting = True,
             visibility = ["//visibility:private"],
