@@ -49,11 +49,11 @@ npm_translate_lock(
     pnpm_lock = "//:pnpm-lock.yaml",
 )
 
-load("@aspect_rules_esbuild//esbuild:repositories.bzl", "LATEST_VERSION", "esbuild_register_toolchains")
+load("@aspect_rules_esbuild//esbuild:repositories.bzl", LATEST_ESBUILD_VERSION = "LATEST_VERSION", "esbuild_register_toolchains")
 
 esbuild_register_toolchains(
     name = "esbuild",
-    esbuild_version = LATEST_VERSION,
+    esbuild_version = LATEST_ESBUILD_VERSION,
 )
 
 http_archive(
@@ -63,9 +63,9 @@ http_archive(
     url = "https://github.com/aspect-build/rules_ts/archive/bb86a508de08ea9478aa74e39eec9ffce2f4dee2.tar.gz",
 )
 
-load("@aspect_rules_ts//ts:repositories.bzl", "LATEST_VERSION", "rules_ts_dependencies")
+load("@aspect_rules_ts//ts:repositories.bzl", LATEST_TS_VERSION = "LATEST_VERSION", "rules_ts_dependencies")
 
-rules_ts_dependencies(ts_version = LATEST_VERSION)
+rules_ts_dependencies(ts_version = LATEST_TS_VERSION)
 
 load("@npm//:repositories.bzl", "npm_repositories")
 
