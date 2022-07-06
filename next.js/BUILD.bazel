@@ -24,31 +24,30 @@ filegroup(
     ]
 )
 
-SRCS = [
-        ":srcs",
-        ":node_modules/@types",
-        ":node_modules/classnames",
-        ":node_modules/date-fns",
-        ":node_modules/gray-matter",
-        ":node_modules/next",
-        ":node_modules/react",
-        ":node_modules/react-dom",
-        ":node_modules/remark",
-        ":node_modules/remark-html",
-        ":node_modules/typescript",
-        ":node_modules/tailwindcss",
-        ":node_modules/postcss",
-        ":node_modules/autoprefixer",
+_BUILD_DEPS = [
+    ":node_modules/@types",
+    ":node_modules/classnames",
+    ":node_modules/date-fns",
+    ":node_modules/gray-matter",
+    ":node_modules/next",
+    ":node_modules/react",
+    ":node_modules/react-dom",
+    ":node_modules/remark",
+    ":node_modules/remark-html",
+    ":node_modules/typescript",
+    ":node_modules/tailwindcss",
+    ":node_modules/postcss",
+    ":node_modules/autoprefixer",
 ]
 
 bin.next(
     name = "build",
     args = ["build"],
     outs = [".next"],
-        srcs = SRCS
+    srcs = _BUILD_DEPS + [":srcs"],
 )
 
 bin.next_binary(
-name = "start",
-data = SRCS,
+    name = "start",
+    data = _BUILD_DEPS + [":srcs"],
 )
