@@ -2,6 +2,8 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 load("@aspect_rules_ts//ts:defs.bzl", _ts_project = "ts_project")
 load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
+load("@npm//:karma/package_json.bzl", _karma_bin = "bin")
+load(":karma.bzl", "generate_karma_config")
 
 # Common dependencies of Angular applications
 APPLICATION_DEPS = [
@@ -170,4 +172,23 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
             output_dir = True,
             splitting = True,
             visibility = ["//visibility:private"],
+        )
+
+        karma_config_name = "%s.conf" % name
+        generate_karma_config(
+            name = karma_config_name,
+            bundle = ":_test_bundle",
+            bootstrap = [],
+            static_files = [],
+            testonly = 1,
+        )
+
+        _karma_bin.karma_test(
+            name = "_karma_test",
+            testonly = 1,
+            data = [":%s" % karma_config_name, ":_test_bundle"] + TEST_DEPS,
+            args = [
+                "start",
+                "$(rootpath %s)" % karma_config_name,
+            ],
         )
