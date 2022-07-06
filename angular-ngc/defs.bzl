@@ -41,15 +41,14 @@ TEST_DEPS = APPLICATION_DEPS + [
 
 def ts_project(name, **kwargs):
     _ts_project(
-      name = name,
+        name = name,
 
-      # Default tsconfig and aligning attributes
-      tsconfig = kwargs.pop("tsconfig", "//:tsconfig"),
-      declaration = kwargs.pop("declaration", True),
-      declaration_map = kwargs.pop("declaration_map", True),
-      source_map = kwargs.pop("source_map", True),
-
-      **kwargs,
+        # Default tsconfig and aligning attributes
+        tsconfig = kwargs.pop("tsconfig", "//:tsconfig"),
+        declaration = kwargs.pop("declaration", True),
+        declaration_map = kwargs.pop("declaration_map", True),
+        source_map = kwargs.pop("source_map", True),
+        **kwargs
     )
 
 def ng_project(name, **kwargs):
@@ -129,7 +128,7 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
     write_file(
         name = "_package_json",
         out = "package.json",
-        content = ["""{"name": "%s", "main": "./public_api.js", "types": "./public-api.d.ts"}""" % package_name],
+        content = ["""{"name": "%s", "main": "./public-api.js", "types": "./public-api.d.ts"}""" % package_name],
         visibility = ["//visibility:private"],
     )
 
@@ -138,8 +137,8 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
         name = "_pkg",
         package = package_name,
         root_paths = [
-          native.package_name(),
-          "%s/src" % native.package_name(),
+            native.package_name(),
+            "%s/src" % native.package_name(),
         ],
         srcs = [":_lib", ":_package_json"],
         visibility = ["//visibility:private"],
