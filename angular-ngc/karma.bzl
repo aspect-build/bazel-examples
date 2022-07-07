@@ -24,8 +24,9 @@ def _generate_karma_config_impl(ctx):
             "TMPL_bootstrap_files": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.bootstrap]),
             "TMPL_runfiles_path": "/".join([".."] * config_segments),
             "TMPL_static_files": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.static_files]),
-            # "TMPL_test_bundle_dir": _to_manifest_path(ctx, bundle_dir),
-            "TMPL_test_bundle_dir": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.bundle]),
+            "TMPL_test_bundle_dir": _to_manifest_path(ctx, bundle_dir),
+            # "TMPL_test_bundle_dir": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.bundle]),
+            "TMPL_spec_files": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.specs]),
         },
     )
 
@@ -41,7 +42,10 @@ generate_karma_config = rule(
             doc = """The label producing the bundle directory containing the specs""",
             mandatory = True,
         ),
-
+        "specs": attr.label_list(
+            doc = """specs file list""",
+            allow_files = [".js"],
+        ),
         # https://github.com/bazelbuild/rules_nodejs/blob/3.3.0/packages/concatjs/web_test/karma_web_test.bzl#L81-L87
         "static_files": attr.label_list(
             doc = """Arbitrary files which are available to be served on request""",

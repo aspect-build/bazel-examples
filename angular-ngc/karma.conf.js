@@ -14,10 +14,13 @@ const BOOTSTRAP_FILES = [
 
 // Test + runtime entry point files
 const BUNDLE_FILES = [
-  // BEGIN TEST BUNDLE FILES
-  TMPL_test_bundle_dir,
+  // BEGIN TEST SPEC FILES
+  // TMPL_spec_files,
+  "./_test_bundle/lib-a.component.spec.js",
   // END TEST BUNDLE FILES
 ];
+
+const BUNDLE_DIR = "TMPL_test_bundle_dir";
 
 function configureFiles(conf) {
   // Static files available but not included
@@ -53,16 +56,26 @@ function configureFiles(conf) {
 }
 
 module.exports = function (config) {
-  configureFiles(config);
+  // configureFiles(config);
+  console.log(__dirname);
   config.set({
     basePath: "",
-    frameworks: ["jasmine", "@angular-devkit/build-angular"],
+    frameworks: ["jasmine"],
+    files: [
+      {
+        pattern: "_test_bundle/lib-a.component.spec.js",
+        watched: true,
+        served: true,
+        included: true,
+        type: "module",
+      },
+    ],
     plugins: [
       require("karma-jasmine"),
       require("karma-chrome-launcher"),
       require("karma-jasmine-html-reporter"),
       require("karma-coverage"),
-      require("@angular-devkit/build-angular/plugins/karma"),
+      // require("@angular-devkit/build-angular/plugins/karma"),
     ],
     client: {
       jasmine: {

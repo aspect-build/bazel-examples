@@ -37,8 +37,14 @@ TEST_CONFIG = [
 ]
 TEST_DEPS = APPLICATION_DEPS + [
     "//:node_modules/@angular/compiler",
+    "//:node_modules/@angular/platform-browser-dynamic",
     "//:node_modules/@types/jasmine",
     "//:node_modules/jasmine-core",
+    "//:node_modules/karma-chrome-launcher",
+    "//:node_modules/karma",
+    "//:node_modules/karma-jasmine",
+    "//:node_modules/karma-jasmine-html-reporter",
+    "//:node_modules/karma-coverage",
 ]
 
 def ts_project(name, **kwargs):
@@ -180,6 +186,7 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
             bundle = ":_test_bundle",
             bootstrap = [],
             static_files = [],
+            specs = [spec.replace(".ts", ".js") for spec in test_spec_srcs],
             testonly = 1,
         )
 
