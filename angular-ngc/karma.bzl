@@ -14,9 +14,6 @@ def _generate_karma_config_impl(ctx):
     # root-relative (runfiles) path to the directory containing karma.conf
     config_segments = len(configuration.short_path.split("/"))
 
-    # Extract the bundle directory out of the bundle target files
-    bundle_dir = [f for f in ctx.attr.bundle[DefaultInfo].files.to_list() if f.is_directory][0]
-
     ctx.actions.expand_template(
         template = ctx.file._conf_tmpl,
         output = configuration,
@@ -24,7 +21,7 @@ def _generate_karma_config_impl(ctx):
             "TMPL_bootstrap_files": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.bootstrap]),
             "TMPL_runfiles_path": "/".join([".."] * config_segments),
             "TMPL_static_files": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.static_files]),
-            "TMPL_test_bundle_dir": _to_manifest_path(ctx, bundle_dir),
+            "TMPL_test_bundle_dir": ctx.attr.bundle,
             # "TMPL_test_bundle_dir": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.bundle]),
             "TMPL_spec_files": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.specs]),
         },
@@ -38,9 +35,8 @@ generate_karma_config = rule(
             doc = """JavaScript files to load via <script> *before* the specs""",
             allow_files = [".js"],
         ),
-        "bundle": attr.label(
+        "bundle": attr.string(
             doc = """The label producing the bundle directory containing the specs""",
-            mandatory = True,
         ),
         "specs": attr.label_list(
             doc = """specs file list""",

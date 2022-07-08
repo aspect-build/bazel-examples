@@ -15,8 +15,7 @@ const BOOTSTRAP_FILES = [
 // Test + runtime entry point files
 const BUNDLE_FILES = [
   // BEGIN TEST SPEC FILES
-  // TMPL_spec_files,
-  "./_test_bundle/lib-a.component.spec.js",
+  TMPL_spec_files,
   // END TEST BUNDLE FILES
 ];
 
@@ -35,9 +34,11 @@ function configureFiles(conf) {
     const isChunk = isJs && f.includes("chunk-");
 
     conf.files.push({
-      pattern: f,
+      pattern: `${BUNDLE_DIR}/${f.substring(f.lastIndexOf("/"))}`,
       type: isJs ? "module" : undefined,
       included: isJs && !isChunk,
+      watched: true,
+      served: true,
     });
   });
 
@@ -56,20 +57,9 @@ function configureFiles(conf) {
 }
 
 module.exports = function (config) {
-  // configureFiles(config);
-  console.log(__dirname);
   config.set({
     basePath: "",
     frameworks: ["jasmine"],
-    files: [
-      {
-        pattern: "_test_bundle/lib-a.component.spec.js",
-        watched: true,
-        served: true,
-        included: true,
-        type: "module",
-      },
-    ],
     plugins: [
       require("karma-jasmine"),
       require("karma-chrome-launcher"),
@@ -103,4 +93,5 @@ module.exports = function (config) {
     singleRun: false,
     restartOnFileChange: true,
   });
+  configureFiles(config);
 };

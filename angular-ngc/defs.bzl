@@ -25,21 +25,15 @@ LIBRARY_DEPS = [
     "//:node_modules/tslib",
 ]
 
-# Common dependencies of Angular test suites using jasmine
-TEST_CONFIG = [
-    "//:karma.conf.js",
-    "//:node_modules/@types/jasmine",
-    "//:node_modules/karma-chrome-launcher",
-    "//:node_modules/karma",
-    "//:node_modules/karma-jasmine",
-    "//:node_modules/karma-jasmine-html-reporter",
-    "//:node_modules/karma-coverage",
-]
 TEST_DEPS = APPLICATION_DEPS + [
     "//:node_modules/@angular/compiler",
-    "//:node_modules/@angular/platform-browser-dynamic",
     "//:node_modules/@types/jasmine",
     "//:node_modules/jasmine-core",
+    "//:node_modules/@angular/platform-browser-dynamic",
+]
+
+# Common dependencies of Angular test suites using jasmine
+TEST_RUNNER_DEPS = TEST_DEPS + [
     "//:node_modules/karma-chrome-launcher",
     "//:node_modules/karma",
     "//:node_modules/karma-jasmine",
@@ -117,11 +111,12 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
       visibility: visibility of the primary targets ({name}, 'test')
     """
 
+    test_entry_point = native.glob(["src/test.ts"])
     test_spec_srcs = native.glob(["src/**/*.spec.ts"])
 
     srcs = native.glob(
         ["src/**/*.ts", "src/**/*.css", "src/**/*.html"],
-        exclude = test_spec_srcs,
+        exclude = test_spec_srcs + test_entry_point,
     )
 
     ng_project(
@@ -163,7 +158,7 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
     if len(test_spec_srcs) > 0:
         ng_project(
             name = "_tests",
-            srcs = test_spec_srcs,
+            srcs = test_spec_srcs + test_entry_point,
             deps = [":_lib"] + test_deps + TEST_DEPS,
             testonly = 1,
             visibility = ["//visibility:private"],
@@ -173,7 +168,7 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
         esbuild(
             name = "_test_bundle",
             testonly = 1,
-            entry_points = [spec.replace(".ts", ".js") for spec in test_spec_srcs],
+            entry_points = [spec.replace(".ts", ".js") for spec in test_spec_srcs + test_entry_point],
             deps = [":_tests"],
             output_dir = True,
             splitting = True,
@@ -183,17 +178,17 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
         karma_config_name = "%s.conf" % name
         generate_karma_config(
             name = karma_config_name,
-            bundle = ":_test_bundle",
+            bundle = "_test_bundle",
             bootstrap = [],
             static_files = [],
-            specs = [spec.replace(".ts", ".js") for spec in test_spec_srcs],
+            specs = [":_test_bundle"],
             testonly = 1,
         )
 
         _karma_bin.karma_test(
             name = "_karma_test",
             testonly = 1,
-            data = [":%s" % karma_config_name, ":_test_bundle"] + TEST_DEPS,
+            data = [":%s" % karma_config_name, ":_test_bundle"] + TEST_RUNNER_DEPS,
             args = [
                 "start",
                 "$(rootpath %s)" % karma_config_name,
