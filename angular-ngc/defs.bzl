@@ -3,9 +3,13 @@ load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 load("@aspect_rules_ts//ts:defs.bzl", _ts_project = "ts_project")
 load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 load("@npm//:karma/package_json.bzl", _karma_bin = "bin")
-load(":karma.bzl", "generate_karma_config")
+load(":karma.bzl", "generate_karma_config", "generate_karma_polyfills")
 
 # Common dependencies of Angular applications
+POLYFILLS_DEPS = [
+    "//:node_modules/zone.js",
+]
+
 APPLICATION_DEPS = [
     "//:node_modules/@angular/common",
     "//:node_modules/@angular/core",
@@ -13,8 +17,7 @@ APPLICATION_DEPS = [
     "//:node_modules/@angular/platform-browser",
     "//:node_modules/rxjs",
     "//:node_modules/tslib",
-    "//:node_modules/zone.js",
-]
+] + POLYFILLS_DEPS
 
 # Common dependencies of Angular libraries
 LIBRARY_DEPS = [
@@ -111,12 +114,11 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
       visibility: visibility of the primary targets ({name}, 'test')
     """
 
-    test_entry_point = native.glob(["src/test.ts"])
-    test_spec_srcs = native.glob(["src/**/*.spec.ts"])
+    test_spec_srcs = native.glob(["src/**/*.spec.ts", "src/test.ts"])
 
     srcs = native.glob(
         ["src/**/*.ts", "src/**/*.css", "src/**/*.html"],
-        exclude = test_spec_srcs + test_entry_point,
+        exclude = test_spec_srcs,
     )
 
     ng_project(
@@ -158,8 +160,24 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
     if len(test_spec_srcs) > 0:
         ng_project(
             name = "_tests",
-            srcs = test_spec_srcs + test_entry_point,
+            srcs = test_spec_srcs,
             deps = [":_lib"] + test_deps + TEST_DEPS,
+            testonly = 1,
+            visibility = ["//visibility:private"],
+        )
+
+        karma_polyfills_name = "%s.polyfills" % name
+        generate_karma_polyfills(
+            name = karma_polyfills_name,
+            testonly = 1,
+        )
+
+        test_entry = [":%s" % karma_polyfills_name]
+
+        ng_project(
+            name = "_tests_entry",
+            srcs = test_entry,
+            deps = POLYFILLS_DEPS,
             testonly = 1,
             visibility = ["//visibility:private"],
         )
@@ -168,8 +186,18 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
         esbuild(
             name = "_test_bundle",
             testonly = 1,
-            entry_points = [spec.replace(".ts", ".js") for spec in test_spec_srcs + test_entry_point],
+            entry_points = [spec.replace(".ts", ".js") for spec in test_spec_srcs],
             deps = [":_tests"],
+            output_dir = True,
+            splitting = True,
+            visibility = ["//visibility:private"],
+        )
+
+        esbuild(
+            name = "_test_entry_bundle",
+            testonly = 1,
+            entry_points = [spec.replace(".ts", ".js") for spec in test_entry],
+            deps = [":_tests_entry"],
             output_dir = True,
             splitting = True,
             visibility = ["//visibility:private"],
@@ -179,16 +207,15 @@ def ng_library(name, package_name, deps = [], test_deps = [], visibility = ["//v
         generate_karma_config(
             name = karma_config_name,
             bundle = "_test_bundle",
-            bootstrap = [],
+            entry_bundle = "_test_entry_bundle",
             static_files = [],
-            specs = [":_test_bundle"],
             testonly = 1,
         )
 
         _karma_bin.karma_test(
             name = "_karma_test",
             testonly = 1,
-            data = [":%s" % karma_config_name, ":_test_bundle"] + TEST_RUNNER_DEPS,
+            data = [":%s" % karma_config_name, ":_test_bundle", ":_test_entry_bundle"] + TEST_RUNNER_DEPS,
             args = [
                 "start",
                 "$(rootpath %s)" % karma_config_name,

@@ -46,6 +46,7 @@ ts_config(
 exports_files(
     [
         "karma.conf.js",
+        "karma.polyfills.ts",
     ],
     visibility = ["//visibility:public"],
 )

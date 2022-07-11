@@ -22,6 +22,7 @@ def _generate_karma_config_impl(ctx):
             "TMPL_runfiles_path": "/".join([".."] * config_segments),
             "TMPL_static_files": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.static_files]),
             "TMPL_test_bundle_dir": ctx.attr.bundle,
+            "TMPL_test_entry_bundle_dir": ctx.attr.entry_bundle,
             # "TMPL_test_bundle_dir": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.bundle]),
             "TMPL_spec_files": "\n  ".join(["'%s'," % _to_manifest_path(ctx, e) for e in ctx.files.specs]),
         },
@@ -37,6 +38,9 @@ generate_karma_config = rule(
         ),
         "bundle": attr.string(
             doc = """The label producing the bundle directory containing the specs""",
+        ),
+        "entry_bundle": attr.string(
+            doc = """The label producing the bundle directory containing the entry specs""",
         ),
         "specs": attr.label_list(
             doc = """specs file list""",
@@ -58,5 +62,31 @@ generate_karma_config = rule(
     },
     outputs = {
         "configuration": "%{name}.js",
+    },
+)
+
+def _generate_karma_polyfills_impl(ctx):
+    polyfills = ctx.outputs.polyfills
+
+    ctx.actions.expand_template(
+        template = ctx.file._polyfills_tmpl,
+        output = polyfills,
+        substitutions = {
+        },
+    )
+
+generate_karma_polyfills = rule(
+    implementation = _generate_karma_polyfills_impl,
+    attrs = {
+        # https://github.com/bazelbuild/rules_nodejs/blob/3.3.0/packages/concatjs/web_test/karma_web_test.bzl#L88-L91
+        "_polyfills_tmpl": attr.label(
+            doc = """the karma polyfills template""",
+            cfg = "exec",
+            allow_single_file = True,
+            default = Label("//:karma.polyfills.ts"),
+        ),
+    },
+    outputs = {
+        "polyfills": "%{name}.ts",
     },
 )

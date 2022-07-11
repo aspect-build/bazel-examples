@@ -20,26 +20,26 @@ const BUNDLE_FILES = [
 ];
 
 const BUNDLE_DIR = "TMPL_test_bundle_dir";
+const ENTRY_BUNDLE_DIR = "TMPL_test_entry_bundle_dir";
 
 function configureFiles(conf) {
   // Static files available but not included
   STATIC_FILES.forEach((f) => conf.files.push({ pattern: f, included: false }));
 
   // Bootstrap files included before spec files
-  BOOTSTRAP_FILES.forEach((f) => conf.files.push(f));
-
-  // Bundle files available to downloaded, included if non-chunk js files
-  BUNDLE_FILES.forEach((f) => {
-    const isJs = f.endsWith(".js") || f.endsWith(".mjs");
-    const isChunk = isJs && f.includes("chunk-");
-
-    conf.files.push({
-      pattern: `${BUNDLE_DIR}/${f.substring(f.lastIndexOf("/"))}`,
-      type: isJs ? "module" : undefined,
-      included: isJs && !isChunk,
-      watched: true,
-      served: true,
-    });
+  conf.files.push({
+    pattern: `${ENTRY_BUNDLE_DIR}/*.js`,
+    type: "module",
+    included: true,
+    watched: true,
+    served: true,
+  });
+  conf.files.push({
+    pattern: `${BUNDLE_DIR}/**/*.js`,
+    type: "module",
+    included: true,
+    watched: true,
+    served: true,
   });
 
   // Proxy simple URLs to the bazel resolved files
