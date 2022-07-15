@@ -1,11 +1,26 @@
 load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 
 load("@bazel_skylib//lib:partial.bzl", "partial")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
+
+
+###########################
+# Bug Repro
+###########################
+# Thread: https://bazelbuild.slack.com/archives/CEZUUKQ6P/p1657798365754249
+# Build with: bazel build //:repro-bug
+#
+npm_package(
+    name = "repro-bug",
+    srcs = [
+        ":swc",
+    ],
+)
 
 # For more information about using swc to transpile please see the ts_project_transpiler example
 ts_project(
