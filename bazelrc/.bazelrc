@@ -12,6 +12,8 @@ build --noexperimental_check_output_files --noexperimental_check_external_reposi
 fetch --noexperimental_check_output_files --noexperimental_check_external_repository_files
 query --noexperimental_check_output_files --noexperimental_check_external_repository_files
 build --incompatible_remote_results_ignore_disk
+# Observed to speed up an Angular build from 7.5min to 5min
+build --experimental_reuse_sandbox_directories
 
 ###
 # Correctness guarantees
