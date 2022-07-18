@@ -1,0 +1,59 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "aspect_rules_js",
+    sha256 = "80e168f9cd62f3640de429b70b34ff817d0d94ada2abaf2cffeef46e35434e1d",
+    strip_prefix = "rules_js-1.0.0-rc.1",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0-rc.1.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_swc",
+    sha256 = "b5cc3bf8d255ea80f3b15a7d5932729a89922726c852f9c63811cee557227231",
+    strip_prefix = "rules_swc-0.13.0",
+    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.13.0.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_ts",
+    sha256 = "57aa473c5b4d300adea8eda9c8306519344c4acfcc86a42530cdf23e35cb63d7",
+    strip_prefix = "rules_ts-0.10.0",
+    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.10.0.tar.gz",
+)
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
+load("@aspect_rules_ts//ts:repositories.bzl", LATEST_TS_VERSION = "LATEST_VERSION", "rules_ts_dependencies")
+
+rules_ts_dependencies(ts_version = LATEST_TS_VERSION)
+
+load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",
+    node_version = DEFAULT_NODE_VERSION,
+)
+
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+
+npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+
+load("@npm//:repositories.bzl", "npm_repositories")
+
+npm_repositories()
+
+load("@aspect_rules_swc//swc:dependencies.bzl", "rules_swc_dependencies")
+
+rules_swc_dependencies()
+
+load("@aspect_rules_swc//swc:repositories.bzl", LATEST_SWC_VERSION = "LATEST_VERSION", "swc_register_toolchains")
+
+swc_register_toolchains(
+    name = "swc",
+    swc_version = LATEST_SWC_VERSION,
+)
