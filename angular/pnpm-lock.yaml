@@ -15,7 +15,7 @@ specifiers:
   '@angular/router': ^14.0.0
   '@types/jasmine': ~4.0.0
   jasmine-core: ~4.1.0
-  karma: ~6.3.0
+  karma: 6.4.0
   karma-chrome-launcher: ~3.1.0
   karma-coverage: ~2.2.0
   karma-jasmine: ~5.0.0
@@ -41,16 +41,16 @@ dependencies:
 
 devDependencies:
   '@angular-devkit/architect-cli': 0.1400.2
-  '@angular-devkit/build-angular': 14.0.2_6zbu7d3yjmlmj5k7cyzzx7kvdq
+  '@angular-devkit/build-angular': 14.0.2_y53mfs2kumynq3hdoycksbmvwe
   '@angular/cli': 14.0.2
   '@angular/compiler-cli': 14.0.2_vgx3obbnyhiipyeiotwdt5vxlq
   '@types/jasmine': 4.0.3
   jasmine-core: 4.1.1
-  karma: 6.3.20
+  karma: 6.4.0
   karma-chrome-launcher: 3.1.1
   karma-coverage: 2.2.0
-  karma-jasmine: 5.0.1_karma@6.3.20
-  karma-jasmine-html-reporter: 1.7.0_vkuxrcz7dkokejy2pe2kfqtj5q
+  karma-jasmine: 5.0.1_karma@6.4.0
+  karma-jasmine-html-reporter: 1.7.0_rlnppha5ywzsq4itliahbdxqai
   ng-packagr: 14.0.2_q4vh7piuaqktjugchhz3uwb7ii
   typescript: 4.7.4
 
@@ -90,7 +90,7 @@ packages:
       - chokidar
     dev: true
 
-  /@angular-devkit/build-angular/14.0.2_6zbu7d3yjmlmj5k7cyzzx7kvdq:
+  /@angular-devkit/build-angular/14.0.2_y53mfs2kumynq3hdoycksbmvwe:
     resolution: {integrity: sha512-oVjF+Q9lw1Gk93z7zIGiv4mxiyDmYPKtW4xLCL38ccCiSwunzG5/hayvmtJB+wasKznCU+DpxeQXR/Q1qwGlEw==}
     engines: {node: ^14.15.0 || >=16.10.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
     peerDependencies:
@@ -145,7 +145,7 @@ packages:
       https-proxy-agent: 5.0.1
       inquirer: 8.2.4
       jsonc-parser: 3.0.0
-      karma: 6.3.20
+      karma: 6.4.0
       karma-source-map-support: 1.4.0
       less: 4.1.2
       less-loader: 10.2.0_less@4.1.2+webpack@5.72.1
@@ -4552,7 +4552,7 @@ packages:
       - supports-color
     dev: true
 
-  /karma-jasmine-html-reporter/1.7.0_vkuxrcz7dkokejy2pe2kfqtj5q:
+  /karma-jasmine-html-reporter/1.7.0_rlnppha5ywzsq4itliahbdxqai:
     resolution: {integrity: sha512-pzum1TL7j90DTE86eFt48/s12hqwQuiD+e5aXx2Dc9wDEn2LfGq6RoAxEZZjFiN0RDSCOnosEKRZWxbQ+iMpQQ==}
     peerDependencies:
       jasmine-core: '>=3.8'
@@ -4560,18 +4560,18 @@ packages:
       karma-jasmine: '>=1.1'
     dependencies:
       jasmine-core: 4.1.1
-      karma: 6.3.20
-      karma-jasmine: 5.0.1_karma@6.3.20
+      karma: 6.4.0
+      karma-jasmine: 5.0.1_karma@6.4.0
     dev: true
 
-  /karma-jasmine/5.0.1_karma@6.3.20:
+  /karma-jasmine/5.0.1_karma@6.4.0:
     resolution: {integrity: sha512-FkL1Kk+JAKmim8VWU8RXKZBpl0lLI7J8LijM0/q7oP7emfB6QMZV1Az+JgqGKSLpF0tYaav+KUVFQroZUxQTHA==}
     engines: {node: '>=12'}
     peerDependencies:
       karma: ^6.0.0
     dependencies:
       jasmine-core: 4.1.1
-      karma: 6.3.20
+      karma: 6.4.0
     dev: true
 
   /karma-source-map-support/1.4.0:
@@ -4580,8 +4580,8 @@ packages:
       source-map-support: 0.5.21
     dev: true
 
-  /karma/6.3.20:
-    resolution: {integrity: sha512-HRNQhMuKOwKpjYlWiJP0DUrJOh+QjaI/DTaD8b9rEm4Il3tJ8MijutVZH4ts10LuUFst/CedwTS6vieCN8yTSw==}
+  /karma/6.4.0:
+    resolution: {integrity: sha512-s8m7z0IF5g/bS5ONT7wsOavhW4i4aFkzD4u4wgzAQWT4HGUeWI3i21cK2Yz6jndMAeHETp5XuNsRoyGJZXVd4w==}
     engines: {node: '>= 10'}
     hasBin: true
     dependencies:
