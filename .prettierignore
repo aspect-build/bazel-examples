@@ -1,3 +1,4 @@
 bazelrc
 **/*.md
-**/*.yaml
+**/pnpm-lock.yaml
+**/pnpm-workspace.yaml
