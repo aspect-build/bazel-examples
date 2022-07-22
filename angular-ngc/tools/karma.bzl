@@ -1,5 +1,5 @@
 load(":util.bzl", "to_manifest_path")
-load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 
 # Generate a karma.config.js file to:
 # - run the given bundle containing specs
@@ -55,29 +55,17 @@ generate_karma_config = rule(
 )
 
 def generate_test_bootstrap(name):
-    write_file(
+    copy_file(
         name = name,
-        out = "%s.js" % name,
+        src = "//tools:test_bootstrap",
+        out = "test_bootstrap.js",
         testonly = 1,
-        content = ["import 'zone.js';", "import 'zone.js/testing';"],
     )
 
 def generate_test_setup(name):
-    write_file(
+    copy_file(
         name = name,
         out = "%s.ts" % name,
         testonly = 1,
-        content = [
-            "import { getTestBed } from '@angular/core/testing';",
-            "import {",
-            "  BrowserDynamicTestingModule,",
-            "  platformBrowserDynamicTesting,",
-            "} from '@angular/platform-browser-dynamic/testing';",
-            "",
-            "// First, initialize the Angular testing environment.",
-            "getTestBed().initTestEnvironment(",
-            "  BrowserDynamicTestingModule,",
-            "  platformBrowserDynamicTesting()",
-            ");",
-        ],
+        src = "//tools:test-setup.ts",
     )

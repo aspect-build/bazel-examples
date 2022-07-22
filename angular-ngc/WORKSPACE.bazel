@@ -27,13 +27,9 @@ rules_js_dependencies()
 http_archive(
     name = "aspect_rules_esbuild",
     patch_args = ["-p1"],
-    remote_patch_strip = 1,
-    remote_patches = {
-        "https://patch-diff.githubusercontent.com/raw/aspect-build/rules_esbuild/pull/32.patch": "sha256-UzRzXDO9pj4kFmmpxvRHbcTrGsZ1xfxqG4RjKQmOLgo=",
-    },
-    sha256 = "77c414e7d82c9a66b4b6d6cb81a7a379f462215b52f5bae90faecde81798189f",
-    strip_prefix = "rules_esbuild-0.9.0",
-    url = "https://github.com/aspect-build/rules_esbuild/archive/refs/tags/v0.9.0.tar.gz",
+    sha256 = "edd86f968284bd787f0ae881498955a7b4078ce6a086ac9ee93eb047fb33386d",
+    strip_prefix = "rules_esbuild-70ba5c248bf2b9c8a927a249c55bb1ffb14cd37d",
+    url = "https://github.com/aspect-build/rules_esbuild/archive/70ba5c248bf2b9c8a927a249c55bb1ffb14cd37d.tar.gz",
 )
 
 load("@aspect_rules_esbuild//esbuild:dependencies.bzl", "rules_esbuild_dependencies")

@@ -1,6 +1,7 @@
 load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load(":ts.bzl", "ts_project")
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
 
 # The Angular ngc compiler
 directory_path(
@@ -34,6 +35,19 @@ ts_project(
 exports_files(
     [
         "karma.conf.js",
+        "test-setup.ts",
     ],
     visibility = ["//visibility:public"],
+)
+
+esbuild(
+    name = "test_bootstrap",
+    testonly = 1,
+    entry_point = ":test-bootstrap.js",
+    metafile = False,
+    sourcemap = "inline",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:node_modules/zone.js",
+    ],
 )

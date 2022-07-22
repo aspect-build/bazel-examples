@@ -8,33 +8,28 @@ const STATIC_FILES = [
   // END STATIC FILES
 ];
 
-const BOOTSTRAP_DIRS = [
+const TEST_BOOTSTRAP_FILES = [
   // BEGIN BOOTSTRAP FILES
   TMPL_bootstrap_files,
   // END BOOTSTRAP FILES
 ];
 
 // Test + runtime entry point files
-const BUNDLE_DIRS = [
+const TEST_BUNDLE_DIRS = [
   // BEGIN TEST SPEC FILES
   TMPL_spec_files,
   // END TEST BUNDLE FILES
 ];
 
 const BUNDLE_FILES = [];
-BUNDLE_DIRS.forEach((dir) => {
-  if (dir.indexOf("metadata.json") !== -1) {
-    return;
-  }
+TEST_BUNDLE_DIRS.forEach((dir) => {
   findAllFiles(__dirname + "/" + dir, BUNDLE_FILES);
 });
 
 const BOOTSTRAP_FILES = [];
-BOOTSTRAP_DIRS.forEach((dir) => {
-  if (dir.indexOf("metadata.json") !== -1) {
-    return;
-  }
-  findAllFiles(__dirname + "/" + dir, BOOTSTRAP_FILES);
+TEST_BOOTSTRAP_FILES.forEach((file) => {
+  const filePath = __dirname + "/" + file;
+  BOOTSTRAP_FILES.push(filePath);
 });
 
 function findAllFiles(dir, found) {
