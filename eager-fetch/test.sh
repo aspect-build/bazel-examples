@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-
 set -o nounset -o errexit -o pipefail
+
+# Test no eager fetching
 
 # The external repository we want to avoid fetching
 NEGATIVE_REPO="pip_deps"
