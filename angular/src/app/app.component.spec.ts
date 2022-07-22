@@ -6,12 +6,8 @@ import { AppComponent } from './app.component';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [
-        LibAModule
-      ],
+      declarations: [AppComponent],
+      imports: [LibAModule],
     }).compileComponents();
   });
 
@@ -31,7 +27,9 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('angular app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain(
+      'angular app is running!'
+    );
   });
 
   it('should contain the library example component', () => {
@@ -39,5 +37,5 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('example-library')).toBeTruthy();
-  })
+  });
 });

@@ -77,11 +77,11 @@ def ts_proto_library(name, proto, deps = [], **kwargs):
             js_target,
             ts_target,
         ],
-        deps = deps +  [
+        deps = deps + [
             "//:node_modules/long",
             "//:node_modules/@types/long",
             "//:node_modules/protobufjs",
-            "//:node_modules/@types/protobufjs"
+            "//:node_modules/@types/protobufjs",
         ],
         **kwargs
     )

@@ -6,7 +6,6 @@ package(default_visibility = ["//visibility:public"])
 # This macro expands to a link_npm_package for each third-party package in package.json
 npm_link_all_packages(name = "node_modules")
 
-
 copy_to_bin(
     name = "tsconfig",
     srcs = ["tsconfig.json"],
