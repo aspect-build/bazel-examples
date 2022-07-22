@@ -25,7 +25,7 @@ load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
 
 rules_js_dependencies()
 
-load("@aspect_rules_ts//ts:repositories.bzl", LATEST_TS_VERSION = "LATEST_VERSION", "rules_ts_dependencies")
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies", LATEST_TS_VERSION = "LATEST_VERSION")
 
 rules_ts_dependencies(ts_version = LATEST_TS_VERSION)
 
@@ -51,7 +51,7 @@ load("@aspect_rules_swc//swc:dependencies.bzl", "rules_swc_dependencies")
 
 rules_swc_dependencies()
 
-load("@aspect_rules_swc//swc:repositories.bzl", LATEST_SWC_VERSION = "LATEST_VERSION", "swc_register_toolchains")
+load("@aspect_rules_swc//swc:repositories.bzl", "swc_register_toolchains", LATEST_SWC_VERSION = "LATEST_VERSION")
 
 swc_register_toolchains(
     name = "swc",

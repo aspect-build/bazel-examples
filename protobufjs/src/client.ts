@@ -1,11 +1,11 @@
-import { Weather, Forecast, Wind } from "./weather";
-import * as grpc from "@grpc/grpc-js";
-import * as pbjs from "protobufjs";
+import { Weather, Forecast, Wind } from './weather';
+import * as grpc from '@grpc/grpc-js';
+import * as pbjs from 'protobufjs';
 
-const WeatherClient = grpc.makeGenericClientConstructor({}, "Weather");
+const WeatherClient = grpc.makeGenericClientConstructor({}, 'Weather');
 
 const client = new WeatherClient(
-  "0.0.0.0:1334",
+  '0.0.0.0:1334',
   grpc.credentials.createInsecure()
 );
 

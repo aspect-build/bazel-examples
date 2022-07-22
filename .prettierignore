@@ -1,0 +1,3 @@
+bazelrc
+**/*.md
+**/*.yaml

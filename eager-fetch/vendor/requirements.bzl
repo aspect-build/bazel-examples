@@ -8,17 +8,17 @@ all_requirements = []
 all_whl_requirements = []
 
 _packages = []
-_config = {'python_interpreter': 'python3', 'python_interpreter_target': None, 'quiet': True, 'timeout': 600, 'repo': 'pip_deps', 'isolated': True, 'extra_pip_args': [], 'pip_data_exclude': [], 'enable_implicit_namespace_pkgs': False, 'environment': {}, 'repo_prefix': 'pip_deps_'}
+_config = {"python_interpreter": "python3", "python_interpreter_target": None, "quiet": True, "timeout": 600, "repo": "pip_deps", "isolated": True, "extra_pip_args": [], "pip_data_exclude": [], "enable_implicit_namespace_pkgs": False, "environment": {}, "repo_prefix": "pip_deps_"}
 _annotations = {}
 
 def _clean_name(name):
     return name.replace("-", "_").replace(".", "_").lower()
 
 def requirement(name):
-   return "@pip_deps_" + _clean_name(name) + "//:pkg"
+    return "@pip_deps_" + _clean_name(name) + "//:pkg"
 
 def whl_requirement(name):
-   return "@pip_deps_" + _clean_name(name) + "//:whl"
+    return "@pip_deps_" + _clean_name(name) + "//:whl"
 
 def data_requirement(name):
     return "@pip_deps_" + _clean_name(name) + "//:data"
@@ -43,5 +43,5 @@ def install_deps():
             name = name,
             requirement = requirement,
             annotation = _get_annotation(requirement),
-            **_config,
+            **_config
         )

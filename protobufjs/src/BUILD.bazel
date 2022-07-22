@@ -3,15 +3,14 @@ load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("//:defs.bzl", "ts_proto_library")
 
-
 proto_library(
     name = "weather_proto",
-    srcs = ["weather.proto"]
+    srcs = ["weather.proto"],
 )
 
 ts_proto_library(
     name = "weather",
-    proto = ":weather_proto"
+    proto = ":weather_proto",
 )
 
 ts_project(
@@ -19,25 +18,24 @@ ts_project(
     srcs = [
         "client.ts",
         "server.ts",
-        ":weather"
-    ],
-    deps = [
-        "//:node_modules/@types/node",
-        "//:node_modules/@grpc/grpc-js"
+        ":weather",
     ],
     declaration = True,
     tsconfig = "//:tsconfig",
+    deps = [
+        "//:node_modules/@grpc/grpc-js",
+        "//:node_modules/@types/node",
+    ],
 )
-
 
 js_binary(
     name = "server",
+    data = [":ts"],
     entry_point = "server.js",
-    data = [":ts"]
 )
 
 js_binary(
     name = "client",
+    data = [":ts"],
     entry_point = "client.js",
-    data = [":ts"]
 )

@@ -3,6 +3,7 @@
 Since Vue doesn't natively support Bazel, we just wrap the build system they do support.
 This does not provide Bazel's incrementality benefits.
 """
+
 load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 
 copy_to_bin(
