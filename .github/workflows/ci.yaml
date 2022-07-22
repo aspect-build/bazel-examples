@@ -1,0 +1,66 @@
+name: CI
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Bazelisk will download bazel to here, ensure it is cached between runs.
+env:
+  XDG_CACHE_HOME: ~/.cache/bazel-repo
+
+jobs:
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        folder:
+          # TODO: chrome error: mkdir: cannot create directory '/.local': Read-only file system
+          # - 'angular'
+          - 'bzlmod'
+          - 'check-npm-determinism'
+          # TODO: intentionally fails
+          # - 'eager-fetch'
+          - 'nestjs'
+          - 'protobufjs'
+          - 'ts_project_transpiler'
+          # TODO: failing
+          # - 'vue'
+          - 'write_source_files'
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Mount bazel caches
+        uses: actions/cache@v3
+        with:
+          path: |
+            "~/.cache/bazel"
+            "~/.cache/bazel-repo"
+          key: bazel-cache-${{ matrix.folder }}-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
+          restore-keys: bazel-cache-
+
+      - name: Test Type
+        id: has_test_sh
+        uses: andstor/file-existence-action@v1
+        with:
+          files: '${{ matrix.folder }}/test.sh'
+
+      - name: test.sh
+        working-directory: ${{ matrix.folder }}
+        if: steps.has_test_sh.outputs.files_exists == 'true'
+        run: ./test.sh
+        shell: bash
+
+      - name: bazel test //...
+        working-directory: ${{ matrix.folder }}
+        if: steps.has_test_sh.outputs.files_exists != 'true'
+        # TODO: --bazelrc=$GITHUB_WORKSPACE/bazelrc/.bazelrc which currently requires bazel 6
+        run: bazel --bazelrc=$GITHUB_WORKSPACE/.github/workflows/ci.bazelrc test //...
