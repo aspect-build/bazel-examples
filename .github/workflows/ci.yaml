@@ -1,0 +1,48 @@
+name: CI
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        folder:
+          - 'e2e/angular'
+          - 'e2e/bazlmod'
+          - 'e2e/check-npm-determinism'
+          - 'e2e/eager-fetch'
+          - 'e2e/nestjs'
+          - 'e2e/protobufjs'
+          - 'e2e/ts_project_transpiler'
+          - 'e2e/vue'
+          - 'e2e/write_source_files'
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+      - name: Mount bazel caches
+        uses: actions/cache@v3
+        with:
+          path: |
+            "~/.cache/bazel"
+            "~/.cache/bazel-repo"
+          key: bazel-cache-${{ matrix.folder }}-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
+          restore-keys: bazel-cache-
+      - name: bazel test //...
+        env:
+          # Bazelisk will download bazel to here, ensure it is cached between runs.
+          XDG_CACHE_HOME: ~/.cache/bazel-repo
+        working-directory: ${{ matrix.folder }}
+        run: bazel --bazelrc=$GITHUB_WORKSPACE/.github/workflows/ci.bazelrc --bazelrc=.bazelrc test //...
