@@ -1,7 +1,6 @@
 load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
-
 load("@bazel_skylib//lib:partial.bzl", "partial")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
@@ -28,11 +27,11 @@ ts_project(
 
 js_binary(
     name = "bin",
-    entry_point = "src/main.js",
     data = [
         ":swc",
 
         # Added by swc during transpilation and used at runtime
         ":node_modules/regenerator-runtime",
     ],
+    entry_point = "src/main.js",
 )

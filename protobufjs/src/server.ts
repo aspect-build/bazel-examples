@@ -1,13 +1,13 @@
-import { Weather, Forecast, Wind } from "./weather";
-import * as grpc from "@grpc/grpc-js";
-import * as pbjs from "protobufjs";
+import { Weather, Forecast, Wind } from './weather';
+import * as grpc from '@grpc/grpc-js';
+import * as pbjs from 'protobufjs';
 
 // Unfortunately protobufjs does not generate service definitions that is compatible with grpc.
 // Hence we have to do it ourselves.
 // See: https://github.com/protobufjs/protobuf.js/issues/1381
 const WeatherServiceDefiniton: grpc.ServiceDefinition = {
   GetForecast: {
-    path: "/Weather/GetForecast",
+    path: '/Weather/GetForecast',
     requestStream: false,
     responseStream: false,
     requestSerialize: (message: Forecast.Request) =>
@@ -27,8 +27,9 @@ function GetForecast(
   call: grpc.ServerUnaryCall<Forecast.Request, Forecast>,
   callback: grpc.requestCallback<Forecast>
 ) {
-  
-  console.log(`Get forecast for city: ${call.request.cityCode} / country: ${call.request.countryCode}`);
+  console.log(
+    `Get forecast for city: ${call.request.cityCode} / country: ${call.request.countryCode}`
+  );
 
   callback(
     null,
@@ -48,7 +49,7 @@ function GetForecast(
 const server = new grpc.Server();
 server.addService(WeatherServiceDefiniton, WeatherService);
 server.bindAsync(
-  "0.0.0.0:1334",
+  '0.0.0.0:1334',
   grpc.ServerCredentials.createInsecure(),
   (err) => {
     if (err) {

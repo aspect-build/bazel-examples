@@ -23,10 +23,10 @@ load("@build_bazel_rules_nodejs//:index.bzl", "npm_install")
 
 npm_install(
     name = "npm",
-    package_json = "//:package.json",
-    package_lock_json = "//:package-lock.json",
     args = [
         "&&",
-        "rm -rf ./node_modules/ssh2/lib/protocol/crypto/build"
+        "rm -rf ./node_modules/ssh2/lib/protocol/crypto/build",
     ],
+    package_json = "//:package.json",
+    package_lock_json = "//:package-lock.json",
 )

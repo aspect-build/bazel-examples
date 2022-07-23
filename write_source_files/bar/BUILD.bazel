@@ -4,8 +4,8 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 proto_library(
     name = "bar_protos",
     srcs = [
-      "bar.proto",
-      "baz.proto",
+        "bar.proto",
+        "baz.proto",
     ],
 )
 

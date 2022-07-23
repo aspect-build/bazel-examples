@@ -24,10 +24,10 @@ def go_proto_library(name, importpath, proto_srcs = [], **kwargs):
         name,
         importpath,
     )
-    
+
     if len(proto_srcs) < 1:
         proto_srcs = native.glob(["*.proto"])
-    
+
     _go_proto_library(
         name = name,
         importpath = importpath,

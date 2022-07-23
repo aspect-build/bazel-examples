@@ -8,17 +8,20 @@ npm_link_all_packages(name = "node_modules")
 [
     rollup_bundle(
         name = format + "_bundle",
+        srcs = glob(["src/*"]),
         config_file = "rollup.config.js",
         entry_point = "src/index.js",
         format = format,
-        srcs = glob(["src/*"]),
         sourcemap = "false",
         deps = [
-            "//libraries/simple:node_modules/rollup-plugin-vue",
             "//libraries/simple:node_modules/rollup-plugin-peer-deps-external",
+            "//libraries/simple:node_modules/rollup-plugin-vue",
         ],
     )
-    for format in ["esm", "cjs"]
+    for format in [
+        "esm",
+        "cjs",
+    ]
 ]
 
 copy_file(
@@ -37,8 +40,8 @@ copy_file(
 npm_package(
     name = "simple",
     srcs = [
-        "copy_esm",
         "copy_cjs",
+        "copy_esm",
         "package.json",
     ],
     visibility = ["//visibility:public"],

@@ -9,12 +9,9 @@ describe('LibAComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LibAComponent ],
-      imports: [
-        CommonModule
-      ],
-    })
-    .compileComponents();
+      declarations: [LibAComponent],
+      imports: [CommonModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LibAComponent);
     component = fixture.componentInstance;

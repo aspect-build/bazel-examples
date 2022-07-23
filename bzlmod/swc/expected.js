@@ -1,4 +1,4 @@
-export var a = "foo";
+export var a = 'foo';
 
 
 //# sourceMappingURL=in.js.map

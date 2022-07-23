@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
-  msg: string
-}>()
+  msg: string;
+}>();
 </script>
 
 <template>
@@ -10,9 +10,11 @@ defineProps<{
     <h3>
       You’ve successfully created a project with
       <a target="_blank" href="https://vitejs.dev/">Vite</a> +
-      <a target="_blank" href="https://vuejs.org/">Vue 3</a> + 
+      <a target="_blank" href="https://vuejs.org/">Vue 3</a> +
       <a target="_blank" href="https://bazel.build/">Bazel</a> +
-      <a target="_blank" href="https://github.com/aspect-build/rules_js/">Aspect rules_js</a>. What's next?
+      <a target="_blank" href="https://github.com/aspect-build/rules_js/"
+        >Aspect rules_js</a
+      >. What's next?
     </h3>
   </div>
 </template>

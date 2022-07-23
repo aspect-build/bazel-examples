@@ -69,7 +69,7 @@ JQ_DIST_REPLACE_NG_PACKAGE = ".dest = \"dist\""
 
 def ng_config(name):
     if name != "ng-config":
-      fail("NG config name must be 'ng-config'")
+        fail("NG config name must be 'ng-config'")
 
     # Root config files used throughout
     copy_to_bin(
@@ -85,8 +85,8 @@ def ng_config(name):
     )
 
     native.filegroup(
-      name = name,
-      srcs = [":angular", ":tsconfig"],
+        name = name,
+        srcs = [":angular", ":tsconfig"],
     )
 
 def ng_app(name, project_name = None, deps = [], test_deps = [], **kwargs):
@@ -100,7 +100,8 @@ def ng_app(name, project_name = None, deps = [], test_deps = [], **kwargs):
       test_deps: additional dependencies for tests
       **kwargs: extra args passed to main Angular CLI rules
     """
-    srcs = native.glob(["src/**/*"],
+    srcs = native.glob(
+        ["src/**/*"],
         exclude = [
             "src/**/*.spec.ts",
             "src/test.ts",
@@ -136,7 +137,6 @@ def ng_app(name, project_name = None, deps = [], test_deps = [], **kwargs):
         data = srcs + test_srcs + deps + test_deps + TEST_DEPS + TEST_CONFIG + COMMON_CONFIG,
         **kwargs
     )
-
 
 def ng_lib(name, project_name = None, deps = [], test_deps = [], **kwargs):
     """

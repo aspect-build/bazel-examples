@@ -15,7 +15,6 @@ write_file(
     content = ["stuff"],
 )
 
-
 # Here, my_nodejs is a fake for something like nodejs_binary or
 # some other custom rule that runs node.
 my_nodejs(

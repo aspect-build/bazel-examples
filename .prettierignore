@@ -1,0 +1,7 @@
+bazelrc
+**/*.md
+**/pnpm-lock.yaml
+**/pnpm-workspace.yaml
+
+# generated files
+bzlmod/swc/expected.js
