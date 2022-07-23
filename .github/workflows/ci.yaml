@@ -23,8 +23,7 @@ jobs:
     strategy:
       matrix:
         folder:
-          # TODO: chrome error: mkdir: cannot create directory '/.local': Read-only file system
-          # - 'angular'
+          - 'angular'
           - 'bzlmod'
           - 'check-npm-determinism'
           # TODO: intentionally fails
