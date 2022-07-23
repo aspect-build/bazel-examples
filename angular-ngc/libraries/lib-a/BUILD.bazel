@@ -5,9 +5,9 @@ package(default_visibility = ["//visibility:public"])
 ng_library(
     name = "lib-a",
     package_name = "@ngc-example/lib-a",
+    test_deps = ["//libraries/common"],
     deps = [
         "//libraries/common",
         "//libraries/lib-a/src/lib/strings",
     ],
-    test_deps = ["//libraries/common"],
 )
