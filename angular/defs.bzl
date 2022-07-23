@@ -183,7 +183,7 @@ def ng_lib(name, project_name = None, deps = [], test_deps = [], **kwargs):
     architect_cli.architect_test(
         name = "test",
         chdir = native.package_name(),
-        args = ["%s:test" % project_name],
+        args = ["%s:test" % project_name, "--no-watch"],
         data = test_srcs + deps + test_deps + TEST_DEPS + TEST_CONFIG + COMMON_CONFIG + [":ng-package"],
         **kwargs
     )
