@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["es2020", "dom"],
+    "paths": {
+      "@ngc-example/*": ["libraries/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "full",
+    "enableI18nLegacyMessageIdFormat": false,
+    "enableResourceInlining": true,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

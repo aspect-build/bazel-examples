@@ -1,0 +1,53 @@
+load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load(":ts.bzl", "ts_project")
+load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
+
+# The Angular ngc compiler
+directory_path(
+    name = "ngc_entrypoint",
+    directory = "//:node_modules/@angular/compiler-cli/dir",
+    path = "bundles/src/bin/ngc.js",
+    visibility = ["//visibility:private"],
+)
+
+js_binary(
+    name = "ngc",
+    data = ["//:node_modules/@angular/compiler-cli"],
+    entry_point = ":ngc_entrypoint",
+    visibility = ["//visibility:public"],
+)
+
+# ESBuild plugin to run the Angular linker
+ts_project(
+    name = "ngc.esbuild",
+    srcs = ["ngc.esbuild.ts"],
+    tsconfig = "//:tsconfig.node",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:node_modules/@angular/compiler-cli",
+        "//:node_modules/@babel/core",
+        "//:node_modules/@types/babel__core",
+        "//:node_modules/@types/node",
+    ],
+)
+
+exports_files(
+    [
+        "karma.conf.js",
+        "test-setup.ts",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+esbuild(
+    name = "test_bootstrap",
+    testonly = 1,
+    entry_point = ":test-bootstrap.js",
+    metafile = False,
+    sourcemap = "inline",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:node_modules/zone.js",
+    ],
+)

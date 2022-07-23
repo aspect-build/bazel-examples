@@ -1,0 +1,73 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "aspect_bazel_lib",
+    sha256 = "e519592a1f0b7c27334b3a50d4d9f3f7c0d929253681e83d6fb2d60009a32f11",
+    strip_prefix = "bazel-lib-1.5.0",
+    url = "https://github.com/aspect-build/bazel-lib/archive/refs/tags/v1.5.0.tar.gz",
+)
+
+load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies", "register_jq_toolchains")
+
+aspect_bazel_lib_dependencies()
+
+register_jq_toolchains()
+
+http_archive(
+    name = "aspect_rules_js",
+    sha256 = "80e168f9cd62f3640de429b70b34ff817d0d94ada2abaf2cffeef46e35434e1d",
+    strip_prefix = "rules_js-1.0.0-rc.1",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0-rc.1.tar.gz",
+)
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
+http_archive(
+    name = "aspect_rules_esbuild",
+    patch_args = ["-p1"],
+    sha256 = "edd86f968284bd787f0ae881498955a7b4078ce6a086ac9ee93eb047fb33386d",
+    strip_prefix = "rules_esbuild-70ba5c248bf2b9c8a927a249c55bb1ffb14cd37d",
+    url = "https://github.com/aspect-build/rules_esbuild/archive/70ba5c248bf2b9c8a927a249c55bb1ffb14cd37d.tar.gz",
+)
+
+load("@aspect_rules_esbuild//esbuild:dependencies.bzl", "rules_esbuild_dependencies")
+
+rules_esbuild_dependencies()
+
+load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",
+    node_version = DEFAULT_NODE_VERSION,
+)
+
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+
+npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+
+load("@aspect_rules_esbuild//esbuild:repositories.bzl", "esbuild_register_toolchains", LATEST_ESBUILD_VERSION = "LATEST_VERSION")
+
+esbuild_register_toolchains(
+    name = "esbuild",
+    esbuild_version = LATEST_ESBUILD_VERSION,
+)
+
+http_archive(
+    name = "aspect_rules_ts",
+    sha256 = "a5f9a56dd21d637f099bc22481cb62dd7e279b21c3e741d467a39d43578ef054",
+    strip_prefix = "rules_ts-5a90192ce3b3d5ca0c7124cf986c998eb4a88776",
+    url = "https://github.com/aspect-build/rules_ts/archive/5a90192ce3b3d5ca0c7124cf986c998eb4a88776.tar.gz",
+)
+
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies", LATEST_TS_VERSION = "LATEST_VERSION")
+
+rules_ts_dependencies(ts_version = LATEST_TS_VERSION)
+
+load("@npm//:repositories.bzl", "npm_repositories")
+
+npm_repositories()
