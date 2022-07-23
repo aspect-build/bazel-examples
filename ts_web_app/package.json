@@ -1,0 +1,15 @@
+{
+  "name": "ts_web_app",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@bazel/runfiles": "^5.5.0",
+    "@types/react": "^18.0.14",
+    "@types/react-dom": "^18.0.5",
+    "live-server": "^1.2.2",
+    "typescript": "4.7.3"
+  }
+}

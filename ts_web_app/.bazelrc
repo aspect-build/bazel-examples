@@ -1,0 +1,8 @@
+build --strategy=TsProject=sandboxed
+
+build:frm-src --override_repository=aspect_rules_js=/Users/matt/workspace/rules_js
+build:frm-src --override_repository=aspect_rules_ts=/Users/matt/workspace/rules_ts
+build:frm-src --override_repository=aspect_rules_esbuild=/Users/matt/workspace/rules_esbuild
+build:frm-src --override_repository=aspect_rules_webpack=/Users/matt/workspace/rules_webpack
+build:frm-src --override_repository=aspect_bazel_lib=/Users/matt/workspace/bazel-lib
+build:frm-src --verbose_failures --sandbox_debug

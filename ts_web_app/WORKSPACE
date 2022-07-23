@@ -1,0 +1,91 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "aspect_rules_js",
+    sha256 = "be39996444ab94de605e21cdcaa9bc4965a96186329d776e400b47fefd540902",
+    strip_prefix = "rules_js-1.0.0-rc.0",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0-rc.0.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_ts",
+    sha256 = "679bfe547296d64a5f8bbd25a4b8acbc6b41336ee38d8fcfaab5eba75cf6670f",
+    strip_prefix = "rules_ts-0.9.0",
+    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v0.9.0.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_swc",
+    sha256 = "b5cc3bf8d255ea80f3b15a7d5932729a89922726c852f9c63811cee557227231",
+    strip_prefix = "rules_swc-0.13.0",
+    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.13.0.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_esbuild",
+    sha256 = "77c414e7d82c9a66b4b6d6cb81a7a379f462215b52f5bae90faecde81798189f",
+    strip_prefix = "rules_esbuild-0.9.0",
+    url = "https://github.com/aspect-build/rules_esbuild/archive/refs/tags/v0.9.0.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_webpack",
+    sha256 = "9299a2dd03f3bc4944d38ff91961363e12e5b950ababc02f2253c246cd95788c",
+    strip_prefix = "rules_webpack-0.1.0",
+    url = "https://github.com/aspect-build/rules_webpack/archive/refs/tags/v0.1.0.tar.gz",
+)
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
+load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",
+    node_version = DEFAULT_NODE_VERSION,
+)
+
+load("@aspect_rules_ts//ts:repositories.bzl", TS_LATEST_VERSION = "LATEST_VERSION", "rules_ts_dependencies")
+
+rules_ts_dependencies(ts_version = TS_LATEST_VERSION)
+
+load("@aspect_rules_swc//swc:dependencies.bzl", "rules_swc_dependencies")
+
+rules_swc_dependencies()
+
+load("@aspect_rules_esbuild//esbuild:dependencies.bzl", "rules_esbuild_dependencies")
+
+rules_esbuild_dependencies()
+
+load("@aspect_rules_swc//swc:repositories.bzl", SWC_LATEST_VERSION = "LATEST_VERSION", "swc_register_toolchains")
+
+swc_register_toolchains(
+    name = "swc",
+    swc_version = SWC_LATEST_VERSION,
+)
+
+load("@aspect_rules_esbuild//esbuild:repositories.bzl", ESBUILD_LATEST_VERSION = "LATEST_VERSION", "esbuild_register_toolchains")
+
+esbuild_register_toolchains(
+    name = "esbuild",
+    esbuild_version = ESBUILD_LATEST_VERSION,
+)
+
+load("@aspect_rules_webpack//webpack:repositories.bzl", WEBPACK_LATEST_VERSION = "LATEST_VERSION", "webpack_register_toolchains")
+
+webpack_register_toolchains(
+    name = "webpack",
+    webpack_version = WEBPACK_LATEST_VERSION,
+)
+
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+
+npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+
+load("@npm//:repositories.bzl", "npm_repositories")
+
+npm_repositories()
