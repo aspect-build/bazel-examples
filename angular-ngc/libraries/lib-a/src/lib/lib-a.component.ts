@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {TITLE} from "./strings";
+import { TITLE } from './strings';
 
 @Component({
   selector: 'example-library',
@@ -9,7 +9,6 @@ import {TITLE} from "./strings";
       The ${TITLE} library component! With <lib-common></lib-common>
     </strong>
   `,
-  styleUrls: ['./lib-a.component.css']
+  styleUrls: ['./lib-a.component.css'],
 })
-export class LibAComponent {
-}
+export class LibAComponent {}

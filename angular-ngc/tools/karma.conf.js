@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
@@ -23,12 +23,12 @@ const TEST_BUNDLE_DIRS = [
 
 const BUNDLE_FILES = [];
 TEST_BUNDLE_DIRS.forEach((dir) => {
-  findAllFiles(__dirname + "/" + dir, BUNDLE_FILES);
+  findAllFiles(__dirname + '/' + dir, BUNDLE_FILES);
 });
 
 const BOOTSTRAP_FILES = [];
 TEST_BOOTSTRAP_FILES.forEach((file) => {
-  const filePath = __dirname + "/" + file;
+  const filePath = __dirname + '/' + file;
   BOOTSTRAP_FILES.push(filePath);
 });
 
@@ -36,7 +36,7 @@ function findAllFiles(dir, found) {
   found = found || [];
 
   for (const file of fs.readdirSync(dir)) {
-    const filePath = dir + "/" + file;
+    const filePath = dir + '/' + file;
 
     if (fs.statSync(filePath).isDirectory()) {
       findAllFiles(filePath, found);
@@ -49,13 +49,13 @@ function findAllFiles(dir, found) {
 }
 
 function addKarmaFile(f, files) {
-  const isJs = f.endsWith(".js") || f.endsWith(".mjs");
-  const isChunk = isJs && f.includes("chunk-");
-  const isTestSetup = f.endsWith("/test_setup.js");
+  const isJs = f.endsWith('.js') || f.endsWith('.mjs');
+  const isChunk = isJs && f.includes('chunk-');
+  const isTestSetup = f.endsWith('/test_setup.js');
 
   const karmaFile = {
     pattern: f,
-    type: isJs ? "module" : undefined,
+    type: isJs ? 'module' : undefined,
     included: isJs && !isChunk,
   };
   if (isTestSetup) {
@@ -75,12 +75,12 @@ function configureFiles(conf) {
 
 module.exports = function (config) {
   config.set({
-    basePath: "",
-    frameworks: ["jasmine"],
+    basePath: '',
+    frameworks: ['jasmine'],
     plugins: [
-      require("karma-jasmine"),
-      require("karma-chrome-launcher"),
-      require("karma-jasmine-html-reporter"),
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
     ],
     client: {
       jasmine: {
@@ -91,12 +91,12 @@ module.exports = function (config) {
       },
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
-    reporters: ["progress", "kjhtml"],
+    reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ["Chrome"],
+    browsers: ['Chrome'],
     singleRun: false,
     restartOnFileChange: true,
   });

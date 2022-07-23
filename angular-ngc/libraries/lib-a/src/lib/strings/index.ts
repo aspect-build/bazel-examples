@@ -1,1 +1,1 @@
-export const TITLE = "The Great Library";
+export const TITLE = 'The Great Library';

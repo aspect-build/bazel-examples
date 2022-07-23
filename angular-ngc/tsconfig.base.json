@@ -17,6 +17,6 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2020",
-    "module": "es2020",
+    "module": "es2020"
   }
 }

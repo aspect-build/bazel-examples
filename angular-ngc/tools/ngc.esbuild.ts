@@ -12,13 +12,17 @@
  */
 
 import { transformFileAsync } from '@babel/core';
-import { ConsoleLogger, NodeJSFileSystem, LogLevel } from '@angular/compiler-cli';
+import {
+  ConsoleLogger,
+  NodeJSFileSystem,
+  LogLevel,
+} from '@angular/compiler-cli';
 import { createEs2015LinkerPlugin } from '@angular/compiler-cli/linker/babel';
 
 const linkerBabelPlugin = createEs2015LinkerPlugin({
   fileSystem: new NodeJSFileSystem(),
   logger: new ConsoleLogger(LogLevel.warn),
-  unknownDeclarationVersionHandling: "error",
+  unknownDeclarationVersionHandling: 'error',
   linkerJitMode: false,
   // Workaround for https://github.com/angular/angular/issues/42769 and https://github.com/angular/angular-cli/issues/22647.
   sourceMapping: false,
@@ -27,7 +31,7 @@ const linkerBabelPlugin = createEs2015LinkerPlugin({
 const ngLinkerPlugin = {
   name: 'ng-linker-esbuild',
   setup(build: any) {
-    build.onLoad({filter: /node_modules/}, async (args: any) => {
+    build.onLoad({ filter: /node_modules/ }, async (args: any) => {
       const filePath = args.path;
       const transformResult = await transformFileAsync(filePath, {
         filename: filePath,
@@ -38,7 +42,7 @@ const ngLinkerPlugin = {
       });
 
       if (!transformResult) {
-        throw new Error("Babel NG Linker error");
+        throw new Error('Babel NG Linker error');
       }
 
       return { contents: transformResult.code };
@@ -51,4 +55,4 @@ export default {
   // and not consumed by esbuild.
   resolveExtensions: ['.mjs', '.js'],
   plugins: [ngLinkerPlugin],
-}
+};

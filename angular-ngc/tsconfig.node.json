@@ -2,8 +2,6 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "es2021",
-    ]
+    "lib": ["es2021"]
   }
 }
