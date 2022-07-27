@@ -34,13 +34,13 @@ importers:
   libraries/simple:
     specifiers:
       '@vue/compiler-sfc': 3.2.37
-      rollup: 2.75.7
+      rollup: 2.77.2
       rollup-plugin-peer-deps-external: 2.2.4
       rollup-plugin-vue: 6.0.0
     devDependencies:
       '@vue/compiler-sfc': 3.2.37
-      rollup: 2.75.7
-      rollup-plugin-peer-deps-external: 2.2.4_rollup@2.75.7
+      rollup: 2.77.2
+      rollup-plugin-peer-deps-external: 2.2.4_rollup@2.77.2
       rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.37
 
 packages:
@@ -1321,12 +1321,12 @@ packages:
       supports-preserve-symlinks-flag: 1.0.0
     dev: true
 
-  /rollup-plugin-peer-deps-external/2.2.4_rollup@2.75.7:
+  /rollup-plugin-peer-deps-external/2.2.4_rollup@2.77.2:
     resolution: {integrity: sha512-AWdukIM1+k5JDdAqV/Cxd+nejvno2FVLVeZ74NKggm3Q5s9cbbcOgUPGdbxPi4BXu7xGaZ8HG12F+thImYu/0g==}
     peerDependencies:
       rollup: '*'
     dependencies:
-      rollup: 2.75.7
+      rollup: 2.77.2
     dev: true
 
   /rollup-plugin-vue/6.0.0_@vue+compiler-sfc@3.2.37:
@@ -1356,8 +1356,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup/2.75.7:
-    resolution: {integrity: sha512-VSE1iy0eaAYNCxEXaleThdFXqZJ42qDBatAwrfnPlENEZ8erQ+0LYX4JXOLPceWfZpV1VtZwZ3dFCuOZiSyFtQ==}
+  /rollup/2.77.2:
+    resolution: {integrity: sha512-m/4YzYgLcpMQbxX3NmAqDvwLATZzxt8bIegO78FZLl+lAgKJBd1DRAOeEiZcKOIOPjxE6ewHWHNgGEalFXuz1g==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
