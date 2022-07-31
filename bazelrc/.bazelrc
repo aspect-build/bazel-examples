@@ -25,6 +25,7 @@ build --incompatible_strict_action_env
 build --nolegacy_external_runfiles
 build --incompatible_remote_results_ignore_disk
 build --incompatible_default_to_explicit_init_py
+build --incompatible_allow_tags_propagation
 
 ###
 # Convenience
