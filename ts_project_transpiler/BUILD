@@ -29,7 +29,6 @@ ts_project(
     declaration = True,
     declaration_dir = "build-tsc",
     out_dir = "build-tsc",
-    source_map = True,
 )
 
 # Runs swc to transpile ts -> js
@@ -43,6 +42,7 @@ ts_project(
 ts_project(
     name = "swc",
     srcs = ["big.ts"],
+    declaration = True,
     out_dir = "build-swc",
     # Partial allows us to apply some arguments here, while ts_project applies the rest.
     # See https://en.wikipedia.org/wiki/Partial_application
@@ -64,6 +64,7 @@ ts_project(
 ts_project(
     name = "babel",
     srcs = ["big.ts"],
+    declaration = True,
     declaration_dir = "build-babel",
     out_dir = "build-babel",
     transpiler = babel,

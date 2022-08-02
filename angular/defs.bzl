@@ -135,6 +135,8 @@ def ng_app(name, project_name = None, deps = [], test_deps = [], **kwargs):
         chdir = native.package_name(),
         args = ["%s:test" % project_name],
         data = srcs + test_srcs + deps + test_deps + TEST_DEPS + TEST_CONFIG + COMMON_CONFIG,
+        # TODO: fix in sandbox
+        tags = ["no-sandbox"],
         **kwargs
     )
 
@@ -185,6 +187,8 @@ def ng_lib(name, project_name = None, deps = [], test_deps = [], **kwargs):
         chdir = native.package_name(),
         args = ["%s:test" % project_name, "--no-watch"],
         data = test_srcs + deps + test_deps + TEST_DEPS + TEST_CONFIG + COMMON_CONFIG + [":ng-package"],
+        # TODO: fix in sandbox
+        tags = ["no-sandbox"],
         **kwargs
     )
 
