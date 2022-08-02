@@ -1,28 +1,21 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
-    name = "aspect_bazel_lib",
-    sha256 = "e519592a1f0b7c27334b3a50d4d9f3f7c0d929253681e83d6fb2d60009a32f11",
-    strip_prefix = "bazel-lib-1.5.0",
-    url = "https://github.com/aspect-build/bazel-lib/archive/refs/tags/v1.5.0.tar.gz",
+    name = "aspect_rules_js",
+    sha256 = "f2b36aac9d3368e402c9083c884ad9b26ca6fa21e83b53c12482d6cb2e949451",
+    strip_prefix = "rules_js-1.0.0-rc.4",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0-rc.4.tar.gz",
 )
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
 
 load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies", "register_jq_toolchains")
 
 aspect_bazel_lib_dependencies()
 
 register_jq_toolchains()
-
-http_archive(
-    name = "aspect_rules_js",
-    sha256 = "80e168f9cd62f3640de429b70b34ff817d0d94ada2abaf2cffeef46e35434e1d",
-    strip_prefix = "rules_js-1.0.0-rc.1",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0-rc.1.tar.gz",
-)
-
-load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
-
-rules_js_dependencies()
 
 load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
 

@@ -15,6 +15,7 @@ ts_project(
         "src/app.service.ts",
         "src/main.ts",
     ],
+    declaration = True,
     transpiler = partial.make(
         swc_transpiler,
         swcrc = ".swcrc",
@@ -22,6 +23,7 @@ ts_project(
     deps = [
         ":node_modules/@nestjs/common",
         ":node_modules/@nestjs/core",
+        ":node_modules/@types/node",
     ],
 )
 
