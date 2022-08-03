@@ -1,8 +1,13 @@
 # Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
+Then we added Bazel configuration files, without breaking the ability for the `ng` tooling to work.
+This shows how a project can be in a "hybrid mode" where some developers (and maybe the CI system) can use Bazel, but others can continue using their familiar tools.
 
-The lib-a and common projects added to demonstrate multiple projects with dependencies.
+The `lib-a` and `common` projects were then added to demonstrate multiple projects with dependencies.
+
+Look at the early commit history to this folder to better understand which changes were made after the Angular CLI created the project:
+<https://github.com/aspect-build/bazel-examples/commits/main/angular>
 
 ## Development server
 
