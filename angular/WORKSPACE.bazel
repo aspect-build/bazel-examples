@@ -34,3 +34,25 @@ npm_translate_lock(
 load("@npm//:repositories.bzl", "npm_repositories")
 
 npm_repositories()
+
+############################################
+# Aspect gcc toolchain
+http_archive(
+    name = "aspect_gcc_toolchain",
+    sha256 = "89d8b2d31a3d5c3d29d331ddb525a59fb22d3251f73a39646060943dd0fc40aa",
+    urls = [
+        "https://github.com/aspect-build/gcc-toolchain/archive/5ea1bfbc9a7f5e5bf03ebe60ba0b01ea1ec64a0a.zip",
+    ],
+    strip_prefix = "gcc-toolchain-5ea1bfbc9a7f5e5bf03ebe60ba0b01ea1ec64a0a",
+)
+
+load("@aspect_gcc_toolchain//toolchain:repositories.bzl", "gcc_toolchain_dependencies")
+
+gcc_toolchain_dependencies()
+
+load("@aspect_gcc_toolchain//toolchain:defs.bzl", "ARCHS", "gcc_register_toolchain")
+
+gcc_register_toolchain(
+    name = "gcc_toolchain_x86_64",
+    target_arch = ARCHS.x86_64,
+)
