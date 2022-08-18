@@ -15,6 +15,9 @@ build --incompatible_remote_results_ignore_disk
 # Observed to speed up an Angular build from 7.5min to 5min
 build --experimental_reuse_sandbox_directories
 
+# Avoid waiting on 'Waiting for build events upload: Build Event Service'
+build --bes_upload_mode=fully_async
+
 ###
 # Correctness guarantees
 ###
