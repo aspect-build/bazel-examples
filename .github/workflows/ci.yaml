@@ -31,8 +31,7 @@ jobs:
           - 'nestjs'
           - 'protobufjs'
           - 'ts_project_transpiler'
-          # TODO: failing
-          # - 'vue'
+          - 'vue'
           - 'write_source_files'
 
     steps:
