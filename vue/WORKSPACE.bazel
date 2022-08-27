@@ -2,9 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "538049993bec3ee1ae9b1c3cd669156bca04eb67027b222883e47b0a2aed2e67",
-    strip_prefix = "rules_js-1.0.0",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.0.0.tar.gz",
+    sha256 = "25bcb082d49616ac2da538bf7bdd33a9730c8884edbec787fec83db07e4f7f16",
+    strip_prefix = "rules_js-1.1.0",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.1.0.tar.gz",
 )
 
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
@@ -31,9 +31,9 @@ npm_repositories()
 
 http_archive(
     name = "aspect_rules_rollup",
-    sha256 = "3b2c942a0242a0c7877012b74a46a1d6d26e162c1b76d675c24b3078cf66877c",
-    strip_prefix = "rules_rollup-0.10.0",
-    url = "https://github.com/aspect-build/rules_rollup/archive/refs/tags/v0.10.0.tar.gz",
+    sha256 = "0554230e8323ec0e81d62c4fad0aea88c1b80c91483dfa76bdf71f0ad8a8fb53",
+    strip_prefix = "rules_rollup-0.11.0",
+    url = "https://github.com/aspect-build/rules_rollup/archive/refs/tags/v0.11.0.tar.gz",
 )
 
 load("@aspect_rules_rollup//rollup:repositories.bzl", "LATEST_VERSION", "rollup_register_toolchains")
