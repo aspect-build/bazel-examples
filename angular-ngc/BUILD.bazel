@@ -1,6 +1,5 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("@aspect_rules_js//npm:defs.bzl", "npm_link_package")
 
 # Link npm packages
 npm_link_all_packages(name = "node_modules")
@@ -19,21 +18,3 @@ ts_config(
     visibility = ["//visibility:public"],
     deps = ["tsconfig.base.json"],
 )
-
-# Repo NPM packages. Assumes a common bazel rule format
-# of "//{path}" for npm packages based on ng_pkg().
-PACKAGES = {
-    "@ngc-example/common": "packages/common",
-    "@ngc-example/lib-a": "packages/lib-a",
-}
-
-[
-    npm_link_package(
-        name = "node_modules/%s" % pkg,
-        src = "//%s" % path,
-    )
-    for [
-        pkg,
-        path,
-    ] in PACKAGES.items()
-]

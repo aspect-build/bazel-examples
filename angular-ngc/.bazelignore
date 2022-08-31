@@ -1,2 +1,8 @@
 dist
+
+# From npm_translate_lock(verify_node_modules_ignored) -----------
 node_modules
+applications/demo/node_modules
+packages/common/node_modules
+packages/lib-a/node_modules
+# -----------

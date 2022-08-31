@@ -1,5 +1,4 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@aspect_rules_js//js:defs.bzl", "js_library")
 load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
 load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
@@ -87,7 +86,7 @@ def ng_application(name, deps = [], test_deps = [], assets = None, html_assets =
     test_spec_srcs = native.glob(["app/**/*.spec.ts"])
 
     srcs = native.glob(
-        ["main.ts", "app/**/*"],
+        ["main.ts", "app/**/*", "package.json"],
         exclude = test_spec_srcs,
     )
 
@@ -221,7 +220,7 @@ def _pkg_web(name, entry_point, entry_deps, html_assets, assets, production, vis
         visibility = visibility,
     )
 
-def ng_pkg(name, package_name = None, deps = [], data = [], test_deps = [], visibility = ["//visibility:public"]):
+def ng_pkg(name, deps = [], data = [], test_deps = [], visibility = ["//visibility:public"]):
     """
     Bazel macro for compiling an npm-like Angular package project. Creates '{name}' and 'test' targets.
 
@@ -236,7 +235,6 @@ def ng_pkg(name, package_name = None, deps = [], data = [], test_deps = [], visi
 
     Args:
       name: the rule name
-      package_name: the package name
       deps: compilation dependencies
       data: runtime dependencies
       test_deps: additional dependencies for tests
@@ -265,19 +263,11 @@ def ng_pkg(name, package_name = None, deps = [], data = [], test_deps = [], visi
         visibility = ["//visibility:private"],
     )
 
-    if package_name != None:
-        npm_package(
-            name = name,
-            package = package_name,
-            srcs = data + [":_lib"],
-        )
-    else:
-        js_library(
-            name = name,
-            srcs = [":_lib"],
-            data = data,
-            visibility = ["//visibility:public"],
-        )
+    npm_package(
+        name = name,
+        srcs = ["package.json", ":_lib"],
+        visibility = ["//visibility:public"],
+    )
 
     if len(test_spec_srcs) > 0:
         _unit_tests(

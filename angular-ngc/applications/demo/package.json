@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@ngc-example/common": "workspace:*",
+    "@ngc-example/lib-a": "workspace:*"
+  }
+}

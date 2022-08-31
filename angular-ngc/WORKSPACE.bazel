@@ -56,6 +56,7 @@ npm_translate_lock(
     # at async link (node:internal/modules/esm/module_job:70:21)
     # ```
     lifecycle_hooks_no_sandbox = False,
+    verify_node_modules_ignored = "//:.bazelignore",
 )
 
 load("@aspect_rules_esbuild//esbuild:repositories.bzl", "esbuild_register_toolchains", LATEST_ESBUILD_VERSION = "LATEST_VERSION")
