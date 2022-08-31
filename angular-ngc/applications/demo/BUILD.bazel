@@ -1,10 +1,17 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
 load("//:defs.bzl", "ng_application")
 
 package(default_visibility = ["//visibility:public"])
 
+npm_link_all_packages(name = "node_modules")
+
 # The Angular demo application
 ng_application(
     name = "demo",
-    test_deps = ["//:node_modules/@ngc-example/common"],
-    deps = ["//:node_modules/@ngc-example/lib-a"],
+    test_deps = [
+        ":node_modules/@ngc-example/common",
+    ],
+    deps = [
+        ":node_modules/@ngc-example/lib-a",
+    ],
 )
