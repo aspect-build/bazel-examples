@@ -220,7 +220,7 @@ def _pkg_web(name, entry_point, entry_deps, html_assets, assets, production, vis
         visibility = visibility,
     )
 
-def ng_pkg(name, deps = [], data = [], test_deps = [], visibility = ["//visibility:public"]):
+def ng_pkg(name, deps = [], test_deps = [], visibility = ["//visibility:public"]):
     """
     Bazel macro for compiling an npm-like Angular package project. Creates '{name}' and 'test' targets.
 
@@ -235,8 +235,7 @@ def ng_pkg(name, deps = [], data = [], test_deps = [], visibility = ["//visibili
 
     Args:
       name: the rule name
-      deps: compilation dependencies
-      data: runtime dependencies
+      deps: package dependencies
       test_deps: additional dependencies for tests
       visibility: visibility of the primary targets ('{name}', 'test')
     """
