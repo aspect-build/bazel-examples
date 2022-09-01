@@ -31,6 +31,7 @@ jobs:
           # - 'eager-fetch'
           - 'nestjs'
           - 'protobufjs'
+          - 'react-cra'
           - 'ts_project_transpiler'
           - 'vue'
           - 'write_source_files'
