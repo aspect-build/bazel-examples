@@ -1,0 +1,6 @@
+node_modules
+bazel-out
+bazel-bin
+bazel-next.js
+bazel-testlogs
+.next
