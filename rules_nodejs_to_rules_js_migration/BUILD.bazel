@@ -1,0 +1,29 @@
+load("@aspect_rules_ts//ts:defs.bzl", ts_config_rules_js = "ts_config")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("@npm_rules_js//bazel:syncpack/package_json.bzl", syncpack_bin = "bin")
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = ["//visibility:public"],
+)
+
+ts_config_rules_js(
+    name = "tsconfig_rules_js",
+    src = "tsconfig.json",
+    visibility = ["//visibility:public"],
+)
+
+# Run syncpack to make sure that dependencies in rules_js and rules_nodejs are
+# kept in sync during the migration. All package.json files must be listed
+# in both the `.syncpackrc` file and in the `data` dependencies of the test.
+syncpack_bin.syncpack_test(
+    name = "syncpack_test",
+    data = [
+        ".syncpackrc",
+        "package.json",
+        "//libs/b:package_json",
+        "//packages/a:a_rnjs",  # this js_library target produces an output tree package.json in //package/a
+        "//packages/b:package_json",
+    ],
+)

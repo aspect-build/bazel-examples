@@ -35,12 +35,13 @@ jobs:
           - 'jest'
           - 'nestjs'
           - 'next.js'
+          - 'pnpm-workspaces'
           - 'protobufjs'
           - 'react-cra'
+          - 'rules_nodejs_to_rules_js_migration'
           - 'ts_project_transpiler'
           - 'vue'
           - 'write_source_files'
-          - 'pnpm-workspaces'
 
     steps:
       - uses: actions/checkout@v3

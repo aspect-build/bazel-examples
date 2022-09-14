@@ -1,0 +1,5 @@
+bazel/node_modules/
+libs/b/node_modules
+packages/a/node_modules
+packages/b/node_modules
+node_modules/

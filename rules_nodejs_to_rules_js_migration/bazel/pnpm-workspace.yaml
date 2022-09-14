@@ -1,0 +1,5 @@
+# See root README.md
+packages:
+    - '../libs/b'
+    - '../packages/a'
+    - '../packages/b'

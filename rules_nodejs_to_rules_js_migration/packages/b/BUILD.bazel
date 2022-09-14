@@ -1,0 +1,45 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@npm_rules_js//:defs.bzl", "npm_link_all_packages")
+load("//bazel/rules_js:defs.bzl", "ts_project_rjs")
+load("//bazel:rules_js_to_rules_nodejs_adapter.bzl", "rules_js_to_rules_nodejs_adapter")
+
+npm_link_all_packages(name = "node_modules")
+
+# Expose package.json for //:syncpack_test
+copy_to_bin(
+    name = "package_json",
+    srcs = ["package.json"],
+    visibility = ["//:__pkg__"],
+)
+
+# A rules_js ts_project
+ts_project_rjs(
+    name = "b_rjs",
+    srcs = ["index.ts"],
+    declaration = True,
+    tsconfig = "//:tsconfig_rules_js",
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal //packages/b rules_js deps
+        "//packages/b/src:src_rjs",
+        # Depend on @example/pkg-a rules_js npm package linked by npm_link_all_packages above.
+        # @example/pkg-a is built with rules_nodejs and then adapted to a rules_js npm_package for linking.
+        ":node_modules/@example/pkg-a",
+        # Depend on @types/is-odd rules_js npm package linked by npm_link_all_packages above
+        ":node_modules/@types/is-odd",
+    ],
+)
+
+# Adapt the outputs from rules_js `ts_project` to a rules_nodejs `js_library` so it can be used as a
+# dependency in downstream rules_nodejs targets.
+rules_js_to_rules_nodejs_adapter(
+    name = "b",
+    package_name = "@example/pkg-b",
+    transitive_deps = [
+        # This transitive dep on @example/pkg-a must be explicitly forwarded since it is a rules_nodejs
+        # js_library and not automatically adapted from the corresponding rules_js dep on :node_modules/@example/pkg-a
+        "//packages/a:a_rnjs",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [":b_rjs"],
+)

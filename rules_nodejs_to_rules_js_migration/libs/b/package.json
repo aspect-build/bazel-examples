@@ -1,0 +1,10 @@
+{
+  "description": "See root README.md",
+  "private": true,
+  "dependencies": {
+    "is-even": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/is-even": "1.0.0"
+  }
+}

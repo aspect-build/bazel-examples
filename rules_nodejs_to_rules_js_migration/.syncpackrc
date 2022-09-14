@@ -1,0 +1,7 @@
+{
+  "source": [
+    "package.json",
+    "libs/*/package.json",
+    "packages/*/package.json"
+  ]
+}

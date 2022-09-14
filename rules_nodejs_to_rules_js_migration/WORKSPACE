@@ -1,0 +1,73 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+################################################################################
+# rules_js
+################################################################################
+
+http_archive(
+    name = "aspect_rules_js",
+    sha256 = "d8eabcd1e05d93147505ea806fa21089926b771d8813f01b92af5dec36617033",
+    strip_prefix = "rules_js-1.6.3",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.6.3.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_ts",
+    sha256 = "743f0e988e4e3f1e25e52c79f9dc3da1ddd77507ae88787ae95b4e70c537872b",
+    strip_prefix = "rules_ts-1.0.0-rc4",
+    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v1.0.0-rc4.tar.gz",
+)
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
+
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies", LATEST_TS_VERSION = "LATEST_VERSION")
+
+rules_ts_dependencies(ts_version = LATEST_TS_VERSION)
+
+load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
+
+# NB: The rules_js nodejs toolchain should be named something other than "nodejs" so its name does
+# not conflict with the build_bazel_rules_nodejs toolchain naming and prevent the two toolchains
+# from existing side by side.
+# TODO(rules_js_migration): rename to standard `nodejs` once rules_nodejs is completely removed
+nodejs_register_toolchains(
+    name = "nodejs_rules_js",
+    node_version = DEFAULT_NODE_VERSION,
+)
+
+load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+
+# NB: The npm_translate_lock repository is named @npm_rules_js to not conflict with @npm from
+# rules_nodejs.
+# TODO(rules_js_migration): rename to standard `npm` once rules_nodejs is completely removed
+npm_translate_lock(
+    name = "npm_rules_js",
+    pnpm_lock = "//bazel:pnpm-lock.yaml",
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+
+load("@npm_rules_js//:repositories.bzl", "npm_repositories")
+
+npm_repositories()
+
+################################################################################
+# rules_nodejs
+################################################################################
+
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "c911b5bd8aee8b0498cc387cacdb5f917098ce477fb4182db07b0ef8a9e045c0",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/4.7.1/rules_nodejs-4.7.1.tar.gz"],
+)
+
+load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
+
+yarn_install(
+    name = "npm",
+    package_json = "//:package.json",
+    # symlink_node_modules must be explicitly disabled in rules_nodejs 4.7.1
+    symlink_node_modules = False,
+    yarn_lock = "//:yarn.lock",
+)
