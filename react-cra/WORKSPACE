@@ -26,6 +26,7 @@ npm_translate_lock(
     public_hoist_packages = {
         "jest-watch-typeahead": [""],
     },
+    verify_node_modules_ignored = "//:.bazelignore",
 )
 
 load("@npm//:repositories.bzl", "npm_repositories")
