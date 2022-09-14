@@ -1,0 +1,10 @@
+load("//bazel/rules_nodejs:defs.bzl", "ts_project")
+
+# A rule_nodejs ts_project
+ts_project(
+    name = "src",
+    srcs = ["types.ts"],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+    visibility = ["//libs/a:__subpackages__"],
+)

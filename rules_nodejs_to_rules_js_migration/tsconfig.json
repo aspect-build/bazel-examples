@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "rootDirs": [
+      ".",
+      "./bazel-out/darwin-fastbuild/bin",
+      "./bazel-out/k8-fastbuild/bin"
+    ]
+  }
+}

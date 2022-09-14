@@ -1,0 +1,38 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@npm_rules_js//:defs.bzl", "npm_link_all_packages")
+load("//bazel/rules_js:defs.bzl", "ts_project_rjs")
+load("//bazel:rules_js_to_rules_nodejs_adapter.bzl", "rules_js_to_rules_nodejs_adapter")
+
+npm_link_all_packages(name = "node_modules")
+
+# Expose package.json for //:syncpack_test
+copy_to_bin(
+    name = "package_json",
+    srcs = ["package.json"],
+    visibility = ["//:__pkg__"],
+)
+
+# A rules_js ts_project
+ts_project_rjs(
+    name = "b_rjs",
+    srcs = ["index.ts"],
+    declaration = True,
+    tsconfig = "//:tsconfig_rules_js",
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal //libs/b rules_js deps
+        "//libs/b/src:src_rjs",
+        # Depend on //libs/a which is built with rules_nodejs and adapted to rules_js
+        "//libs/a:a_rjs",
+        # Depend on @types/is-even rules_js npm package linked by npm_link_all_packages above
+        ":node_modules/@types/is-even",
+    ],
+)
+
+# Adapt the outputs from rules_js `ts_project` to a rules_nodejs `js_library` so it can be used as a
+# dependency in downstream rules_nodejs targets.
+rules_js_to_rules_nodejs_adapter(
+    name = "b",
+    visibility = ["//visibility:public"],
+    deps = [":b_rjs"],
+)

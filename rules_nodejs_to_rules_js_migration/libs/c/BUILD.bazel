@@ -1,0 +1,18 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_project")
+
+# A rule_nodejs ts_project
+ts_project(
+    name = "lib",
+    srcs = ["index.ts"],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+    visibility = ["//visibility:public"],
+    deps = [
+        # Internal //libs/c rules_nodejs deps
+        "//libs/c/src",
+        # Depend on //libs/b which is built with rules_js and adapted to rules_nodejs
+        "//libs/b",
+        # Depend on @types/is-even rules_nodejs npm package from yarn_install
+        "@npm//@types/is-even",
+    ],
+)

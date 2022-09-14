@@ -1,0 +1,14 @@
+{
+  "description": "See root README.md",
+  "private": true,
+  "dependencies": {
+    "is-even": "1.0.0",
+    "is-odd": "3.0.1"
+  },
+  "devDependencies": {
+    "@bazel/typescript": "4.6.2",
+    "@types/is-even": "1.0.0",
+    "@types/is-odd": "3.0.1",
+    "typescript": "4.8.4"
+  }
+}

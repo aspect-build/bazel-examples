@@ -1,0 +1,14 @@
+load("//bazel/rules_nodejs:defs.bzl", "ts_project")
+
+# A rule_nodejs ts_project
+ts_project(
+    name = "src",
+    srcs = ["types.ts"],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+    visibility = ["//packages/c:__subpackages__"],
+    deps = [
+        # Depend on //packages/b which is built with rules_js and adapted to rules_nodejs and linked as @example/pkg-b
+        "//packages/b",
+    ],
+)

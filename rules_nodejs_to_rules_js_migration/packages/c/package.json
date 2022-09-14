@@ -1,0 +1,11 @@
+{
+  "name": "@example/pkg-c",
+  "description": "See root README.md",
+  "private": true,
+  "dependencies": {
+    "is-odd": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/is-odd": "1.0.0"
+  }
+}

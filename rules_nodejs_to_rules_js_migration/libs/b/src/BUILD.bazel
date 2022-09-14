@@ -1,0 +1,11 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+# A rules_js ts_project
+ts_project(
+    name = "src_rjs",
+    srcs = ["types.ts"],
+    declaration = True,
+    tsconfig = "//:tsconfig_rules_js",
+    visibility = ["//libs/b:__subpackages__"],
+    deps = ["//libs/a:a_rjs"],
+)

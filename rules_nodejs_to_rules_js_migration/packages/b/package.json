@@ -1,0 +1,12 @@
+{
+  "name": "@example/pkg-b",
+  "description": "See root README.md",
+  "private": true,
+  "dependencies": {
+    "is-odd": "3.0.1",
+    "@example/pkg-a": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/is-odd": "3.0.1"
+  }
+}
