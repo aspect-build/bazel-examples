@@ -41,7 +41,7 @@ npm_translate_lock(
     name = "npm",
     pnpm_lock = "//:pnpm-lock.yaml",
 
-    # Running lifecycle hooks on npm package @nestjs/core@9.0.8_9fad833c066e70b3b5e6d773402fdc0f fails in a dramatic way:
+    # Running lifecycle hooks on npm package fsevents@2.3.2 fails in a dramatic way:
     # ```
     # SyntaxError: Unexpected strict mode reserved word
     # at ESMLoader.moduleStrategy (node:internal/modules/esm/translators:117:18)
