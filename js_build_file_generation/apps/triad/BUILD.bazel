@@ -1,0 +1,41 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+# 💁 Creates the npm package targets in the package to depend on. Together these targets constitute
+# the "node_modules" folder in the output tree.
+npm_link_all_packages()
+
+ts_project(
+    name = "triad_ts",
+    srcs = [
+        "main.ts",
+    ],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+    deps = [
+        "//apps/triad/pivot",
+        "//apps/triad/vibe",
+    ],
+)
+
+js_library(
+    name = "triad_lib",
+    srcs = [
+        "package.json",
+        ":triad_ts",
+    ],
+)
+
+# 💁 A binary target to run the built application in this package.
+#
+# 💡 DESIGN: How does the BUILD file generator determine what package should have a js_binary
+# target? golang knows because the package name is "main" and the entry point is a "main" function.
+# No such convention in js.
+js_binary(
+    name = "triad",
+    data = [
+        ":triad_lib",
+    ],
+    entry_point = "main.js",
+)

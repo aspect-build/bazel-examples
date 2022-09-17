@@ -1,0 +1,23 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+ts_project(
+    name = "vibe_ts",
+    srcs = [
+        "index.ts",
+    ],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+    deps = [
+        "//apps/triad:node_modules/@example/iris",
+        "//libs/rune/asap",
+    ],
+)
+
+js_library(
+    name = "vibe",
+    srcs = [
+        ":vibe_ts",
+    ],
+    visibility = ["//visibility:public"],
+)

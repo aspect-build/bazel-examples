@@ -1,0 +1,70 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@jest//jest:defs.bzl", "jest_test")
+
+# 💁 A TypeScript transpilation and type check target. This target type checks TypesScript files and
+# generates JavaScript and declaration files that are to be included in the "library" target for
+# this package.
+ts_project(
+    name = "rebus_ts",
+    srcs = [
+        "index.ts",
+    ],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+)
+
+# 💁 A JavaScript "library" target. This target includes .js files from transpilation targets and
+# any other files to that make up the JavaScript "library". This typically includes all `.js`,
+# `.d.ts` and `.json` files in the package. Additional file types and include/exclude patterns
+# should be configurable with Aspect CLI directives.
+#
+# 💡 DESIGN: do we always stamp out a js_library target even if there are no additional files to
+# include besides the outputs of the ts target? My feeling is yes and that is it better for
+# consistency and and readability. If additional files are added to the package after the initial
+# generation then a new does target does _not_ need to stamped out.
+js_library(
+    name = "rebus",
+    srcs = [
+        ":rebus_ts",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# 💁 A TypeScript transpilation and type check target for *.spec.ts and *.test.ts files. This target
+# type checks TypesScript files and generates JavaScript and declaration files that are to be
+# included in the test "library" target for this package.
+ts_project(
+    name = "rebus_test_ts",
+    srcs = [
+        "index.spec.ts",
+    ],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+    deps = [
+        ":rebus",
+        "//:node_modules/@types/jest",
+        "//:node_modules/@types/node",
+    ],
+)
+
+# 💁 A JavaScript test "library" target. This target includes .js spec & test files from
+# transpilation targets and any other files to that make up the JavaScript test "library".
+js_library(
+    name = "rebus_test_lib",
+    srcs = [
+        ":rebus",
+        ":rebus_test_ts",
+    ],
+)
+
+# 💁 A test target to test all spec & test files in this package
+#
+# 💡 DESIGN: The BUILD file generator should default to jest since it is simple and robust but
+# should be configurable to use a different test target type provided it has similar semantics
+# of runfiles being provided via data.
+jest_test(
+    name = "rebus_test",
+    config = "//:jest_config",
+    data = [":rebus_test_lib"],
+)

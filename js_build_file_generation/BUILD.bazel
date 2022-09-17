@@ -1,0 +1,25 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+
+npm_link_all_packages()
+
+# 💁 A tsconfig target to be used in ts_project targets throughout the monorepo.
+#
+# 💡 DESIGN: This seems like unnecessary boilerplate and by default we could just generate an sane
+# default tsconfig in each ts_project target with sane defaults such as `declaration = True`
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = ["//visibility:public"],
+)
+
+# 💁 A jest config target to be used in jest_target targets throughout the monorepo.
+#
+# 💡 DESIGN: This seems like unnecessary boilerplate and by default we could just generate an empty
+# jest config in jest_test by default.
+js_library(
+    name = "jest_config",
+    srcs = ["jest.config.js"],
+    visibility = ["//visibility:public"],
+)

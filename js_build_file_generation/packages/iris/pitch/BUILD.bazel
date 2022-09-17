@@ -1,0 +1,19 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+ts_project(
+    name = "pitch_ts",
+    srcs = [
+        "index.ts",
+    ],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+)
+
+js_library(
+    name = "pitch",
+    srcs = [
+        ":pitch_ts",
+    ],
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,4 @@
+node_modules
+apps/triad/node_modules
+libs/rune/node_modules
+packages/iris/node_modules

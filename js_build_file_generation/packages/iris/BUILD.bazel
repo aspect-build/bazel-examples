@@ -1,0 +1,43 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+
+npm_link_all_packages()
+
+ts_project(
+    name = "iris_ts",
+    srcs = [
+        "index.ts",
+    ],
+    declaration = True,
+    tsconfig = "//:tsconfig",
+    deps = [
+        "//packages/iris/abra",
+        "//packages/iris/pitch",
+    ],
+)
+
+js_library(
+    name = "iris_lib",
+    srcs = [
+        "package.json",
+        ":iris_ts",
+    ],
+)
+
+# 💁 A npm "package" target. This target creates a directory that is linkable with pnpm workspaces
+#
+# 🏃 COMING SOON: In the future, this will also create a runnable `.publish` target to publish the
+# package to an npm registry.
+#
+# 💡 DESIGN: We won't need an npm_package for every "importer" in the pnpm workspace. The BUILD file
+# generator will need to check the lock file to see which importers are also depended on as "links"
+# by other importers/packages.
+npm_package(
+    name = "iris",
+    srcs = [
+        ":iris_lib",
+    ],
+    visibility = ["//visibility:public"],
+)
