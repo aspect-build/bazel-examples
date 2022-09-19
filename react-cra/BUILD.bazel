@@ -1,6 +1,7 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
-load("@npm//:react-scripts/package_json.bzl", "bin")
+load("@npm//:react-scripts/package_json.bzl", cra_bin = "bin")
+load("@npm//:eslint/package_json.bzl", eslint_bin = "bin")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages()
@@ -36,7 +37,7 @@ _RUNTIME_DEPS = [
     ":node_modules/react-dom",
 ]
 
-bin.react_scripts(
+cra_bin.react_scripts(
     # Note: If you want to change the name make sure you update BUILD_PATH below accordingly
     # https://create-react-app.dev/docs/advanced-configuration/
     name = "build",
@@ -63,7 +64,7 @@ copy_to_bin(
     srcs = glob(_TESTS),
 )
 
-bin.react_scripts_test(
+cra_bin.react_scripts_test(
     name = "test",
     args = [
         "test",
@@ -96,7 +97,7 @@ bin.react_scripts_test(
     ],
 )
 
-bin.react_scripts_binary(
+cra_bin.react_scripts_binary(
     name = "start",
     args = [
         "start",
@@ -111,5 +112,14 @@ bin.react_scripts_binary(
         # ibazel send EOF to stdin by default and `react-scripts start` will stop when getting EOF in stdin.
         # So use this to prevent EOF.
         "ibazel_notify_changes",
+    ],
+)
+
+eslint_bin.eslint_test(
+    name = "eslint_test",
+    data = [":.eslintrc.json"] + glob(["src/*.js"]),
+    args = [
+        "--config .eslintrc.json",
+        "src/*",
     ],
 )
