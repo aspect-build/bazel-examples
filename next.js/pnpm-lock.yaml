@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@bazel/ibazel': 0.16.2
   '@types/node': 18.7.15
-  '@types/react': 18.0.18
+  '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
   eslint: 8.23.0
   eslint-config-next: 12.2.5
@@ -20,7 +20,7 @@ dependencies:
 devDependencies:
   '@bazel/ibazel': 0.16.2
   '@types/node': 18.7.15
-  '@types/react': 18.0.18
+  '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
   eslint: 8.23.0
   eslint-config-next: 12.2.5_yqf6kl63nyoq5megxukfnom5rm
@@ -262,11 +262,11 @@ packages:
   /@types/react-dom/18.0.6:
     resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
     dependencies:
-      '@types/react': 18.0.18
+      '@types/react': 18.0.21
     dev: true
 
-  /@types/react/18.0.18:
-    resolution: {integrity: sha512-6hI08umYs6NaiHFEEGioXnxJ+oEhY3eRz8VCUaudZmGdtvPviCJB8mgaMxaDWAdPSYd4eFavrPk2QIolwbLYrg==}
+  /@types/react/18.0.21:
+    resolution: {integrity: sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
