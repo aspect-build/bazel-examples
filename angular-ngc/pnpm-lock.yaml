@@ -19,7 +19,7 @@ importers:
       '@types/node': 16.11.59
       history-server: 1.3.1
       html-insert-assets: 0.14.3
-      jasmine-core: 4.1.1
+      jasmine-core: 4.4.0
       karma: 6.3.20
       karma-chrome-launcher: 3.1.1
       karma-coverage: 2.2.0
@@ -49,12 +49,12 @@ importers:
       '@types/node': 16.11.59
       history-server: 1.3.1
       html-insert-assets: 0.14.3
-      jasmine-core: 4.1.1
+      jasmine-core: 4.4.0
       karma: 6.3.20
       karma-chrome-launcher: 3.1.1
       karma-coverage: 2.2.0
       karma-jasmine: 5.1.0_karma@6.3.20
-      karma-jasmine-html-reporter: 1.7.0_orq66i7higgukcvpkuuupjov4a
+      karma-jasmine-html-reporter: 1.7.0_vq3aqr75dg5vakqlauvmkuvqay
       typescript: 4.7.4
 
   applications/demo:
@@ -1230,8 +1230,8 @@ packages:
       istanbul-lib-report: 3.0.0
     dev: true
 
-  /jasmine-core/4.1.1:
-    resolution: {integrity: sha512-lmUfT5XcK9KKvt3lLYzn93hc4MGzlUBowExFVgzbSW0ZCrdeyS574dfsyfRhxbg81Wj4gk+RxUiTnj7KBfDA1g==}
+  /jasmine-core/4.4.0:
+    resolution: {integrity: sha512-+l482uImx5BVd6brJYlaHe2UwfKoZBqQfNp20ZmdNfsjGFTemGfqHLsXjKEW23w9R/m8WYeFc9JmIgjj6dUtAA==}
     dev: true
 
   /js-tokens/4.0.0:
@@ -1276,14 +1276,14 @@ packages:
       - supports-color
     dev: true
 
-  /karma-jasmine-html-reporter/1.7.0_orq66i7higgukcvpkuuupjov4a:
+  /karma-jasmine-html-reporter/1.7.0_vq3aqr75dg5vakqlauvmkuvqay:
     resolution: {integrity: sha512-pzum1TL7j90DTE86eFt48/s12hqwQuiD+e5aXx2Dc9wDEn2LfGq6RoAxEZZjFiN0RDSCOnosEKRZWxbQ+iMpQQ==}
     peerDependencies:
       jasmine-core: '>=3.8'
       karma: '>=0.9'
       karma-jasmine: '>=1.1'
     dependencies:
-      jasmine-core: 4.1.1
+      jasmine-core: 4.4.0
       karma: 6.3.20
       karma-jasmine: 5.1.0_karma@6.3.20
     dev: true
@@ -1294,7 +1294,7 @@ packages:
     peerDependencies:
       karma: ^6.0.0
     dependencies:
-      jasmine-core: 4.1.1
+      jasmine-core: 4.4.0
       karma: 6.3.20
     dev: true
 
