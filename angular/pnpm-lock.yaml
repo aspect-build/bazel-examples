@@ -13,7 +13,7 @@ specifiers:
   '@angular/platform-browser': 14.2.3
   '@angular/platform-browser-dynamic': 14.2.3
   '@angular/router': 14.2.3
-  '@types/jasmine': 4.0.3
+  '@types/jasmine': 4.3.0
   jasmine-core: 4.4.0
   karma: 6.4.1
   karma-chrome-launcher: 3.1.1
@@ -44,7 +44,7 @@ devDependencies:
   '@angular-devkit/build-angular': 14.2.3_n2ilzr4rlismxrjmwsbhccks2q
   '@angular/cli': 14.2.3
   '@angular/compiler-cli': 14.2.3_nftm4gvtckfxo3v4dp2rvmjvc4
-  '@types/jasmine': 4.0.3
+  '@types/jasmine': 4.3.0
   jasmine-core: 4.4.0
   karma: 6.4.1
   karma-chrome-launcher: 3.1.1
@@ -2073,8 +2073,8 @@ packages:
       '@types/node': 18.0.0
     dev: true
 
-  /@types/jasmine/4.0.3:
-    resolution: {integrity: sha512-Opp1LvvEuZdk8fSSvchK2mZwhVrsNT0JgJE9Di6MjnaIpmEXM8TLCPPrVtNTYh8+5MPdY8j9bAHMu2SSfwpZJg==}
+  /@types/jasmine/4.3.0:
+    resolution: {integrity: sha512-u1jWakf8CWvLfSEZyxmzkgBzOEvXH/szpT0e6G8BTkx5Eu0BhDn7sbc5dz0JBN/6Wwm9rBe+JAsk9tJRyH9ZkA==}
     dev: true
 
   /@types/json-schema/7.0.11:
