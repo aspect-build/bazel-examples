@@ -23,9 +23,9 @@
     "zone.js": "0.11.8"
   },
   "devDependencies": {
-    "@angular-devkit/architect-cli": "0.1400.7",
+    "@angular-devkit/architect-cli": "0.1402.3",
     "@angular-devkit/build-angular": "14.2.3",
-    "@angular/cli": "14.0.7",
+    "@angular/cli": "14.2.3",
     "@angular/compiler-cli": "14.2.3",
     "@types/jasmine": "4.0.3",
     "jasmine-core": "4.1.1",
