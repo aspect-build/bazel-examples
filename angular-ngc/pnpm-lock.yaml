@@ -27,7 +27,7 @@ importers:
       karma-jasmine-html-reporter: 1.7.0
       rxjs: 7.5.6
       tslib: 2.4.0
-      typescript: 4.7.4
+      typescript: 4.8.4
       zone.js: 0.11.8
     dependencies:
       '@angular/animations': 14.2.3_@angular+core@14.2.3
@@ -42,7 +42,7 @@ importers:
       zone.js: 0.11.8
     devDependencies:
       '@angular/compiler': 14.2.3_@angular+core@14.2.3
-      '@angular/compiler-cli': 14.2.3_nftm4gvtckfxo3v4dp2rvmjvc4
+      '@angular/compiler-cli': 14.2.3_4tlcywerr4z5wtjcdkujx52nbm
       '@babel/core': 7.19.1
       '@types/babel__core': 7.1.19
       '@types/jasmine': 4.3.0
@@ -55,7 +55,7 @@ importers:
       karma-coverage: 2.2.0
       karma-jasmine: 5.1.0_karma@6.4.1
       karma-jasmine-html-reporter: 1.7.0_vs5hqzgtonauktvvvebdlxyp2y
-      typescript: 4.7.4
+      typescript: 4.8.4
 
   applications/demo:
     specifiers:
@@ -106,7 +106,7 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@angular/compiler-cli/14.2.3_nftm4gvtckfxo3v4dp2rvmjvc4:
+  /@angular/compiler-cli/14.2.3_4tlcywerr4z5wtjcdkujx52nbm:
     resolution: {integrity: sha512-MPKZTD4j5EnvpHXLOj6VnXBv/LXfVLoLNc4nNShfuJFJjK9vOqXelb2GJt+2iL+9xKevGxDk7NIcl++fhV2lkQ==}
     engines: {node: ^14.15.0 || >=16.10.0}
     hasBin: true
@@ -124,7 +124,7 @@ packages:
       semver: 7.3.7
       sourcemap-codec: 1.4.8
       tslib: 2.4.0
-      typescript: 4.7.4
+      typescript: 4.8.4
       yargs: 17.5.1
     transitivePeerDependencies:
       - supports-color
@@ -1782,8 +1782,8 @@ packages:
       mime-types: 2.1.35
     dev: true
 
-  /typescript/4.7.4:
-    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+  /typescript/4.8.4:
+    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
