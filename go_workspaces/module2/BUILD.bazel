@@ -1,0 +1,21 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "module2_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/aspect-build/bazel-examples/go_workspaces/module2",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_nathan_osman_go_sunrise//:go-sunrise"],
+)
+
+go_binary(
+    name = "module2",
+    embed = [":module2_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "module2_test",
+    srcs = ["main_test.go"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
