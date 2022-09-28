@@ -1,0 +1,22 @@
+load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+
+ts_project(
+    name = "api",
+    srcs = ["hello.ts"],
+    allow_js = True,
+    declaration = True,
+    preserve_jsx = True,
+    resolve_json_module = True,
+    # Partial allows us to apply some arguments here, while ts_project applies the rest.
+    # See https://en.wikipedia.org/wiki/Partial_application
+    # and https://docs.aspect.dev/bazelbuild/bazel-skylib/1.1.1/docs/partial.html
+    transpiler = partial.make(
+        swc_transpiler,
+        swcrc = "//:swcrc",
+    ),
+    tsconfig = "//:tsconfig",
+    visibility = ["//pages:__subpackages__"],
+    deps = ["//:node_modules/next"],
+)

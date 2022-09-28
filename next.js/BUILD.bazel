@@ -1,6 +1,8 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 load("@npm//:next/package_json.bzl", next_bin = "bin")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary", "js_test")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
 
 npm_link_all_packages(name = "node_modules")
 
@@ -11,15 +13,19 @@ npm_link_all_packages(name = "node_modules")
 # Source files passed to Next.js targets
 filegroup(
     name = "srcs",
-    srcs = glob([
-        "pages/**",
-        "public/**",
-        "styles/**",
-    ]) + [
-        "next-env.d.ts",
+    srcs = [
+        "//pages",
+        "//public",
+        "//styles",
+    ],
+)
+
+# Config files passed to Next.js targets
+filegroup(
+    name = "config",
+    srcs = [
         "next.config.js",
         "package.json",
-        "tsconfig.json",
     ],
 )
 
@@ -28,6 +34,7 @@ filegroup(
 js_run_binary(
     name = "build",
     srcs = [
+        ":config",
         ":node_modules",
         ":srcs",
     ],
@@ -42,6 +49,7 @@ next_bin.next_binary(
     name = "dev",
     args = ["dev"],
     data = [
+        ":config",
         ":node_modules",
         ":srcs",
     ],
@@ -72,6 +80,7 @@ next_bin.next_binary(
     name = "info",
     args = ["info"],
     data = [
+        ":config",
         ":node_modules",
         ":srcs",
     ],
@@ -97,4 +106,16 @@ js_test(
 js_binary(
     name = "next_bin",
     entry_point = ":next_entry.js",
+)
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = ["//visibility:public"],
+)
+
+copy_to_bin(
+    name = "swcrc",
+    srcs = [".swcrc"],
+    visibility = ["//visibility:public"],
 )

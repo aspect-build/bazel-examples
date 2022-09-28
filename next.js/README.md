@@ -1,34 +1,94 @@
+# Next.js Bazel example
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and then Bazelified.
 
-## Getting Started
+TypeScript transpilation and type checking has been broken out into fine-grained `ts_project` targets (one per directory) using SWC for transpilation and TypeScript for typechecking. This is a small example with only two Typescript source directories so the performance benefit of using fine grained targets will be negligible here.
 
-First, run the development server:
+In a large application or monorepo, splitting Typescript transpilation & type checking across many targets can speed up the build with parallelization and cacheing. It also allows for massive parallelization with remote execution. Read
+https://blog.aspect.dev/typescript-with-rbe for more information on using remote execution with Typescript.
 
-```bash
-pnpm run dev
+NB: The example is not 100% complete and there are some minor TODOs in the code including a TODO for running linting under Bazel.
+
+## Usage
+
+The `package.json` scripts have been updated to call Bazel instead of Next.js so these scripts can be
+used as they would be in a typical Next.js configuration.
+
+### Setup
+
+First run `pnpm install`. Bazel itself doesn't depend on the `node_modules` folder layed out in the
+source tree but it is needed so your editor can find typings and for running `ibazel` without having
+to install it globally. `ibazel` is a wrapper around bazel that adds watch mode used when running the
+devserver.
+
+### Building
+
+Run `pnpm run build`. This runs `bazel build //:build`. The output `.next` folder can be found under
+`bazel-bin/.next`.
+
+### Production server
+
+Run `pnpm run start`. This runs `bazel run //:start`.
+
+### Development server
+
+Run `pnpm run dev`. This runs `ibazel run //:dev`.
+
+### Running tests
+
+There are no tests in this example. None came pre-baked [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). When tests are added they would be run by Bazel with `bazel test`.
+
+TODO: add some Jest tests run with [rules_jest](https://github.com/aspect-build/rules_jest) and perhaps a Cypress test once Aspect rules_cypress, currently in development, is ready.
+
+### Linting
+
+Run `pnpm run lint`. This still runs the vernacular `next lint`.
+
+TODO: run linting under Bazel
+
+### Releasing and deploying
+
+This examples doesn't directly cover releasing and deploying a Next.js application built with Bazel
+but it should not diverge much from releasing and deploying a Next.js application built outside of Bazel
+since the output of the Bazel build is the shape as the output you would get from running the vernacular
+Next.js tooling, namely a `.next` folder with all of the output artifacts that application is
+comprised of:
+
+```
+$ pnpm run build
+
+> next.js@0.1.0 build /Users/greg/aspect/rules/bazel-examples/next.js
+> bazel build //:build
+
+INFO: Analyzed target //:build (0 packages loaded, 0 targets configured).
+INFO: Found 1 target...
+Target //:build up-to-date:
+  bazel-bin/.next
+INFO: Elapsed time: 0.260s, Critical Path: 0.00s
+INFO: 1 process: 1 internal.
+INFO: Build completed successfully, 1 total action
+
+$ ls -la bazel-bin/.next
+total 608
+drwxr-xr-x  16 greg  wheel     512 28 Sep 14:06 .
+drwxr-xr-x  11 greg  wheel     352 28 Sep 14:06 ..
+-rw-r--r--   1 greg  wheel      21 28 Sep 14:06 BUILD_ID
+-rw-r--r--   1 greg  wheel    1078 28 Sep 14:06 build-manifest.json
+drwxr-xr-x   5 greg  wheel     160 28 Sep 14:06 cache
+-rw-r--r--   1 greg  wheel      93 28 Sep 14:06 export-marker.json
+-rw-r--r--   1 greg  wheel     441 28 Sep 14:06 images-manifest.json
+-rw-r--r--   1 greg  wheel  103383 28 Sep 14:06 next-server.js.nft.json
+-rw-r--r--   1 greg  wheel      20 28 Sep 14:06 package.json
+-rw-r--r--   1 greg  wheel     312 28 Sep 14:06 prerender-manifest.json
+-rw-r--r--   1 greg  wheel       2 28 Sep 14:06 react-loadable-manifest.json
+-rw-r--r--   1 greg  wheel    2598 28 Sep 14:06 required-server-files.json
+-rw-r--r--   1 greg  wheel     335 28 Sep 14:06 routes-manifest.json
+drwxr-xr-x  10 greg  wheel     320 28 Sep 14:06 server
+drwxr-xr-x   5 greg  wheel     160 28 Sep 14:06 static
+-rw-r--r--   1 greg  wheel  115279 28 Sep 14:06 trace
 ```
 
-(this will run `ibazel run //:dev` under the hood)
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+When built with Bazel, this folder doesn't end up as `.next` in your source tree
+because Bazel doesn't write output files to the source tree. Instead the folder can be found
+via the `bazel-bin` symlink create by Bazel as `bazel-bin/.next`. You release and deploy tooling
+would use this folder after running the Bazel build.
