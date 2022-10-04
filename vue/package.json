@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@bazel/ibazel": "0.16.2",
-    "@types/node": "16.11.59",
+    "@types/node": "16.11.64",
     "@vitejs/plugin-vue": "latest",
     "@vitejs/plugin-vue-jsx": "latest",
     "@vue/tsconfig": "latest",
