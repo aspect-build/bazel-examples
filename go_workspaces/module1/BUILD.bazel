@@ -6,6 +6,7 @@ go_library(
     importpath = "github.com/aspect-build/bazel-examples/go_workspaces/module1",
     visibility = ["//visibility:private"],
     deps = [
+        "@com_github_btcsuite_btcd_btcutil//:btcutil",
         "@com_github_nathan_osman_go_sunrise//:go-sunrise",
         "@com_github_spf13_cobra//:cobra",
     ],

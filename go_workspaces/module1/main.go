@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/btcsuite/btcd/btcutil"
 	"github.com/nathan-osman/go-sunrise"
 	"github.com/spf13/cobra"
 )
@@ -16,6 +17,8 @@ func main() {
 				2022, time.September, 26, // 2000-01-01
 			)
 			fmt.Printf("sunrise %v sunset %v\n", rise, set)
+			amount := btcutil.Amount(100)
+			fmt.Printf("amount %v\n", amount)
 		},
 	}
 
