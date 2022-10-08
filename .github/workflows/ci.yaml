@@ -27,6 +27,7 @@ jobs:
           - 'angular-ngc'
           - 'bzlmod'
           - 'check-npm-determinism'
+          - 'directory_path'
           # TODO: intentionally fails
           # - 'eager-fetch'
           - 'nestjs'
