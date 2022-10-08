@@ -1,0 +1,67 @@
+load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
+load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+# `directory_path` provides a `DirectoryPathInfo` that includes directory artifact and the path within.
+#
+# The 'directory' target `//:node_modules/billboard.js/dir` is a convenience target that is a
+# filegroup that provides the virtual store directory artifact of billboard.js under the hood via
+# the `package_directory` output group of `//:node_modules/billboard.js`:
+#
+# ```
+# $ bazel query //:node_modules/billboard.js/dir --output=build
+#
+# filegroup(
+#   name = "node_modules/billboard.js/dir",
+#   srcs = ["//:node_modules/billboard.js"],
+#   output_group = "package_directory",
+# )
+# ```
+#
+# The actual virtual store directory artifact is found at `node_modules/.aspect_rules_js/billboard.js@3.6.0/node_modules/billboard.js`
+# in the output tree and can be referenced directly by the target `//:.aspect_rules_js/node_modules/billboard.js@3.6.0/pkg`.
+#
+# ```
+# $ bazel query //:.aspect_rules_js/node_modules/billboard.js@3.6.0/pkg --output=build
+#
+# npm_package_store_internal(
+#   name = ".aspect_rules_js/node_modules/billboard.js@3.6.0/pkg",
+#   src = "@npm__billboard.js__3.6.0//:source_directory",
+#   deps = {"//:.aspect_rules_js/node_modules/d3-axis@3.0.0/ref": "d3-axis", "//:.aspect_rules_js/node_modules/d3-brush@3.0.0/ref": "d3-brush", "//:.aspect_rules_js/node_modules/d3-drag@3.0.0/ref": "d3-drag", "//:.aspect_rules_js/node_modules/d3-dsv@3.0.1/ref": "d3-dsv", "//:.aspect_rules_js/node_modules/d3-ease@3.0.1/ref": "d3-ease", "//:.aspect_rules_js/node_modules/d3-interpolate@3.0.1/ref": "d3-interpolate", "//:.aspect_rules_js/node_modules/d3-scale@4.0.2/ref": "d3-scale", "//:.aspect_rules_js/node_modules/d3-selection@3.0.0/ref": "d3-selection", "//:.aspect_rules_js/node_modules/d3-shape@3.1.0/ref": "d3-shape", "//:.aspect_rules_js/node_modules/d3-time-format@4.1.0/ref": "d3-time-format", "//:.aspect_rules_js/node_modules/d3-transition@3.0.1_d3-selection@3.0.0/ref": "d3-transition", "//:.aspect_rules_js/node_modules/d3-zoom@3.0.0/ref": "d3-zoom"},
+#   package = "billboard.js",
+#   version = "3.6.0",
+# )
+#
+# $ bazel build //:.aspect_rules_js/node_modules/billboard.js@3.6.0/pkg
+#
+# Target //:.aspect_rules_js/node_modules/billboard.js@3.6.0/pkg up-to-date:
+#   bazel-bin/node_modules/.aspect_rules_js/billboard.js@3.6.0/node_modules/billboard.js
+# ```
+directory_path(
+    name = "billboard_js_billboard_min_css",
+    directory = ":node_modules/billboard.js/dir",
+    path = "dist/billboard.min.css",
+)
+
+# `copy_file` supports a src target that provides a `DirectoryPathInfo`. it will copy the file at
+# the specified path inside of the directory that is referenced by `src`'s `DirectoryPathInfo`
+# provider to the output tree. From there it can be used by other downstream rules that don't
+# support `DirectoryPathInfo`.
+copy_file(
+    name = "billboard_min_css",
+    src = ":billboard_js_billboard_min_css",
+    out = "_billboard.min.css",
+)
+
+# `write_source_files` can also handle a target that provides a `DirectoryPathInfo`. it will copy
+# the file at the specified path inside of the directory that is referenced by a target's
+# `DirectoryPathInfo` provider to the source tree.
+write_source_files(
+    name = "billboard_min_css_source_file",
+    files = {
+        "billboard.min.css": ":billboard_js_billboard_min_css",
+    },
+)
