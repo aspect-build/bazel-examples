@@ -7,6 +7,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "@com_github_nathan_osman_go_sunrise//:go-sunrise",
+        "@com_github_pebbe_zmq4//:zmq4",
         "@com_github_spf13_cobra//:cobra",
     ],
 )

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/nathan-osman/go-sunrise"
+	zmq "github.com/pebbe/zmq4"
 	"github.com/spf13/cobra"
 )
 
@@ -16,6 +17,8 @@ func main() {
 				2022, time.September, 26, // 2000-01-01
 			)
 			fmt.Printf("sunrise %v sunset %v\n", rise, set)
+			reactor := zmq.NewReactor()
+			fmt.Printf("reactor %v\n", reactor)
 		},
 	}
 

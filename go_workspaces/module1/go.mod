@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/nathan-osman/go-sunrise v1.1.0
+	github.com/pebbe/zmq4 v1.2.9
 	github.com/spf13/cobra v1.5.0
 	github.com/stretchr/testify v1.8.0
 )

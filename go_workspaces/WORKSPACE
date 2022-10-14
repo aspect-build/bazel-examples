@@ -18,6 +18,23 @@ http_archive(
     ],
 )
 
+http_archive(
+    name = "rules_iota",
+    sha256 = "3318929ff007de1073552f531c447a5790484635ac3069b5ab56d5175dfd5882",
+    strip_prefix = "rules_iota-2d15c55f12cff0db106f45866312f61314c583cd",
+    urls = [
+        "https://github.com/iotaledger/rules_iota/archive/2d15c55f12cff0db106f45866312f61314c583cd.zip",
+    ],
+)
+
+load("@rules_iota//:defs.bzl", "load_argon2", "load_libsodium", "load_libzmq")
+
+load_argon2()
+
+load_libzmq()
+
+load_libsodium()
+
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
