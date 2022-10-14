@@ -117,7 +117,15 @@ cra_bin.react_scripts_binary(
 
 eslint_bin.eslint_test(
     name = "eslint_test",
-    data = [":.eslintrc.json"] + glob(["src/*.js"]),
+    data = [
+        ":.eslintrc.json",
+        ":node_modules/@typescript-eslint",
+        # also include node_modules/eslint in execroot so @typescript-eslint code can find it
+        ":node_modules/eslint",
+    ] + glob([
+        "src/*.ts",
+        "src/*.tsx",
+    ]),
     args = [
         "--config .eslintrc.json",
         "src/*",
