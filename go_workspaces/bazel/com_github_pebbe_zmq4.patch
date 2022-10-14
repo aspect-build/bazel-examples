@@ -1,0 +1,10 @@
+--- BUILD.bazel
++++ BUILD.bazel
+@@ -22,6 +22,7 @@ go_library(
+         "zmq4.h",
+     ],
+     cgo = True,
++    cdeps = ["@libzmq//:zmq"],
+     importpath = "github.com/pebbe/zmq4",
+     visibility = ["//visibility:public"],
+ )

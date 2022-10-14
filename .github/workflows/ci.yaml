@@ -30,6 +30,7 @@ jobs:
           - 'directory_path'
           # TODO: intentionally fails
           # - 'eager-fetch'
+          - 'go_workspaces'
           - 'nestjs'
           - 'next.js'
           - 'protobufjs'

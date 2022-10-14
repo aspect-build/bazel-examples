@@ -27,6 +27,14 @@ def go_dependencies():
         version = "v1.1.0",
     )
     go_repository(
+        name = "com_github_pebbe_zmq4",
+        importpath = "github.com/pebbe/zmq4",
+        sum = "h1:JlHcdgq6zpppNR1tH0wXJq0XK03pRUc4lBlHTD7aj/4=",
+        version = "v1.2.9",
+        patches = ["//bazel:com_github_pebbe_zmq4.patch"],
+    )
+
+    go_repository(
         name = "com_github_pmezard_go_difflib",
         importpath = "github.com/pmezard/go-difflib",
         sum = "h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=",
