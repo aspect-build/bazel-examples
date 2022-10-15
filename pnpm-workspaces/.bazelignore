@@ -1,0 +1,6 @@
+node_modules
+apps/alpha/node_modules
+apps/beta/node_modules
+packages/one/node_modules
+packages/two/node_modules
+packages/shared/node_modules

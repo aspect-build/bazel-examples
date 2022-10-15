@@ -1,0 +1,6 @@
+{
+  "name": "@bazel-poc/one",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/main.js"
+}

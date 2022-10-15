@@ -1,0 +1,16 @@
+{
+  "name": "@bazel-poc/main",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@tsconfig/node16-strictest": "^1.0.4",
+    "@types/node": "^18.8.5",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "inspirational-quotes": "^2.0.1"
+  },
+  "scripts": {
+    "build": "bazelisk build ...",
+    "build:local": "pnpm i && pnpm -r exec npx tsc --project ."
+  }
+}
