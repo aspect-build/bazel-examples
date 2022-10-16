@@ -25,6 +25,7 @@ ts_project(
     tsconfig = "//:tsconfig",
     deps = [
         ":src_ts",
+        "//:node_modules/@open-wc/testing-helpers",
         "//:node_modules/@testing-library/jest-dom",
         "//:node_modules/@testing-library/react",
         "//:node_modules/@types/jest",
