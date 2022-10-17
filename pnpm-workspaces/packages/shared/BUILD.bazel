@@ -5,7 +5,7 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 npm_link_all_packages(name = "node_modules")
 
 ts_project(
-    name = "sharedshared",
+    name = "shared_ts",
     srcs = ["src/main.ts"],
     tsconfig = "//:tsconfig",
     visibility = ["//visibility:public"],

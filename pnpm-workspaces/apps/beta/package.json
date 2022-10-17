@@ -1,6 +1,5 @@
 {
   "name": "@bazel-poc/beta",
-  "version": "0.0.0",
   "dependencies": {
     "@bazel-poc/two": "workspace:*",
     "@bazel-poc/shared": "workspace:*",

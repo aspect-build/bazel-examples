@@ -1,8 +1,5 @@
 {
   "name": "@bazel-poc/alpha",
-  "version": "0.0.0",
-  "private": true,
-  "main": "src/main.js",
   "dependencies": {
     "@bazel-poc/one": "workspace:*",
     "@bazel-poc/shared": "workspace:*",

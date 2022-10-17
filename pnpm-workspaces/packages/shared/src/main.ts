@@ -1,3 +1,3 @@
 export function shared() {
-  console.log('Sharing is indeed caring!')
+  console.log('Sharing is indeed caring!');
 }
