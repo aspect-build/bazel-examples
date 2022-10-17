@@ -9,12 +9,12 @@ js_library(
     srcs = ["src/main.js"],
 )
 
+# make this library available via node_modules
 npm_package(
     name = "two",
     srcs = [
         "package.json",
         ":two_js",
-        "//:tsconfig",
     ],
     visibility = ["//visibility:public"],
 )
