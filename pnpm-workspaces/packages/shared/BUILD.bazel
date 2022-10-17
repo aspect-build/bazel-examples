@@ -8,7 +8,6 @@ ts_project(
     name = "shared_ts",
     srcs = ["src/main.ts"],
     tsconfig = "//:tsconfig",
-    visibility = ["//visibility:public"],
     deps = [
         "//:node_modules/@types/node",
     ],

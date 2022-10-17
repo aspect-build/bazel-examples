@@ -1,18 +1,15 @@
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
-load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
 
-ts_project(
+js_library(
     name = "beta",
-    srcs = ["src/main.ts"],
-    tsconfig = "//:tsconfig",
+    srcs = ["src/main.js"],
     deps = [
         ":node_modules/@bazel-poc/shared",
         ":node_modules/@bazel-poc/two",
         ":node_modules/trek-quotes",
-        "//:node_modules/@types/node",
         "//:node_modules/inspirational-quotes",
     ],
 )
