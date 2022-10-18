@@ -9,11 +9,11 @@ ts_project(
     srcs = ["src/main.ts"],
     tsconfig = "//:tsconfig",
     deps = [
-        ":node_modules/@bazel-poc/one",
-        ":node_modules/@bazel-poc/shared",
-        ":node_modules/star-wars-quotes",
+        ":node_modules/inspirational-quotes",  # this uses the version defined in the local package.json
+        "//:node_modules/@bazel-poc/one",
+        "//:node_modules/@bazel-poc/shared",
         "//:node_modules/@types/node",
-        "//:node_modules/inspirational-quotes",
+        "//:node_modules/star-wars-quotes",
     ],
 )
 

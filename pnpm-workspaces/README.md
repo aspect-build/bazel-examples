@@ -18,7 +18,7 @@ Is where the projects (apps and libraries) are enumerated. In this example we us
 
 ### package.json
 
-Contains dependencies that will be shared by all projects. Each project then has a local package.json where project-specific dependencies are located.
+Default location for all dependencies. Each project has the option to override a dependency defined in the root [package.json](package.json). See the [package.json](apps/alpha/package.json) in `alpha` for an example of this.
 
 ## alpha
 
@@ -26,11 +26,17 @@ A Typescript app that is dependent on the internal libraries [`one`](#one) and [
 
 It's also dependent on the external dependencies `star-wars-quotes` and `inspirational-quotes`.
 
+In the case of `inspirational-quotes`, it overrides the version defined in the root [`package.json`](package.json).
+
+This also means that we have to add the `npm_link_all_packages` function in the [`BUILD`](apps/alpha/BUILD.bazel) file.
+
 ## beta
 
 A Javascript app that is dependent on the internal libraries [`two`](#two) and [`shared`](#shared).
 
 It's also dependent on the external dependencies `trek-quotes` and `inspirational-quotes`.
+
+Things of note is that there is no `package.json`.
 
 ## one
 
