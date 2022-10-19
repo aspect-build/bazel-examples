@@ -6,10 +6,12 @@
   },
   "dependencies": {
     "@bazel-poc/one": "workspace:*",
-    "@bazel-poc/two": "workspace:*",
     "@bazel-poc/shared": "workspace:*",
+    "@bazel-poc/two": "workspace:*",
+    "@bazel-poc/first": "workspace:*",
+    "cowsay": "^1.5.0",
+    "inspirational-quotes": "^2.0.1",
     "star-wars-quotes": "^1.0.2",
-    "trek-quotes": "^1.1.1",
-    "inspirational-quotes": "^2.0.1"
+    "trek-quotes": "^1.1.1"
   }
 }

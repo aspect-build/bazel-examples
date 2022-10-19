@@ -4,3 +4,4 @@ apps/beta/node_modules
 packages/one/node_modules
 packages/two/node_modules
 packages/shared/node_modules
+packages/first/node_modules
