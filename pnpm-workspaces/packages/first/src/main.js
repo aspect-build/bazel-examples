@@ -1,3 +1,3 @@
-module.exports = first = () => {
+module.exports = () => {
   console.log('I am First!');
 };

@@ -4,7 +4,7 @@ This example aims to showcase a minimal pnpm [workspace](https://pnpm.io/workspa
 
 It uses the Bazel rules [`rules_js`](https://github.com/aspect-build/rules_js) and [`rules_ts`](https://github.com/aspect-build/rules_ts).
 
-It contains two main apps [`alpha`](#alpha) and [`beta`](#beta) and three internal libraries [`one`](#one), [`two`](#two), and [`shared`](#shared).
+It contains two main apps [`alpha`](#alpha) and [`beta`](#beta) and four internal libraries [`one`](#one), [`two`](#two), [`shared`](#shared), and [`first`](#first).
 
 None of the apps or libraries are published to NPM, hence a lot of information related to that (specifically in package.json) has been omitted.
 
@@ -36,7 +36,10 @@ A Javascript app that is dependent on the internal libraries [`two`](#two) and [
 
 It's also dependent on the external dependencies `trek-quotes` and `inspirational-quotes`.
 
-Things of note is that there is no `package.json`.
+Things of note are:
+
+- there is no `package.json`
+- it has two indirect dependencies via [`two`](#two)
 
 ## one
 
@@ -48,10 +51,18 @@ It has no dependencies.
 
 A Javascript library that is consumed by [`beta`](#beta).
 
-It has no dependencies.
+It has two dependencies: `cowsay` that is an external dependency and [`first`](#first) that is an internal dependency.
+
+**Note** that these dependencies has to be enumerated in the `data` argument to the `npm_package` function in [BUILD.bazel](packages/two/BUILD.bazel).
 
 ## shared
 
 A Typescript library that is consumed by both [`alpha`](#alpha) and [`beta`](#beta).
+
+It has no dependencies.
+
+## first
+
+A Javascript library that is consumed by [`two`](#two).
 
 It has no dependencies.

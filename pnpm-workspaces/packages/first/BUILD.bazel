@@ -1,17 +1,11 @@
-load("@aspect_rules_js//js:defs.bzl", "js_library")
 load("@aspect_rules_js//npm:defs.bzl", "npm_package")
-
-js_library(
-    name = "first_js",
-    srcs = ["src/main.js"],
-)
 
 # make this library available via node_modules
 npm_package(
     name = "first",
     srcs = [
         "package.json",
-        ":first_js",
+        "src/main.js",
     ],
-    visibility = ["//visibility:public"],  # ???
+    visibility = ["//visibility:public"],
 )

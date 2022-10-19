@@ -1,7 +1,7 @@
 const cowsay = require('cowsay');
 const First = require('@bazel-poc/first');
 
-module.exports = two = () => {
+module.exports = () => {
   First();
   console.log('I am Two, not One!');
   console.log(
