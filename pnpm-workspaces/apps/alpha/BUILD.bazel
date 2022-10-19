@@ -1,0 +1,24 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+ts_project(
+    name = "alpha",
+    srcs = ["src/main.ts"],
+    tsconfig = "//:tsconfig",
+    deps = [
+        ":node_modules/inspirational-quotes",  # this uses the version defined in the local package.json
+        "//:node_modules/@bazel-poc/one",
+        "//:node_modules/@bazel-poc/shared",
+        "//:node_modules/@types/node",
+        "//:node_modules/star-wars-quotes",
+    ],
+)
+
+js_binary(
+    name = "main",
+    data = [":alpha"],
+    entry_point = "src/main.js",
+)

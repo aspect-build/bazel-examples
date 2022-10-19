@@ -39,6 +39,7 @@ jobs:
           - 'ts_project_transpiler'
           - 'vue'
           - 'write_source_files'
+          - 'pnpm-workspaces'
 
     steps:
       - uses: actions/checkout@v3

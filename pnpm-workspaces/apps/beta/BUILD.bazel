@@ -1,0 +1,18 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
+
+js_library(
+    name = "beta",
+    srcs = ["src/main.js"],
+    deps = [
+        "//:node_modules/@bazel-poc/shared",
+        "//:node_modules/@bazel-poc/two",
+        "//:node_modules/inspirational-quotes",
+        "//:node_modules/trek-quotes",
+    ],
+)
+
+js_binary(
+    name = "main",
+    data = [":beta"],
+    entry_point = "src/main.js",
+)

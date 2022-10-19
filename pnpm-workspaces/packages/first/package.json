@@ -1,0 +1,4 @@
+{
+  "name": "@bazel-poc/first",
+  "main": "src/main.js"
+}
