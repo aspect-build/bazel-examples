@@ -8,6 +8,7 @@
 # Consider --experimental_remote_merkle_tree_cache_size as well
 build --experimental_remote_merkle_tree_cache
 query --experimental_remote_merkle_tree_cache
+# Note: The noexperimental_check_external_repository_files flag requires Bazel 6
 build --noexperimental_check_output_files --noexperimental_check_external_repository_files
 fetch --noexperimental_check_output_files --noexperimental_check_external_repository_files
 query --noexperimental_check_output_files --noexperimental_check_external_repository_files
