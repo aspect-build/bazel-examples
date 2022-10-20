@@ -8,9 +8,9 @@
 # Consider --experimental_remote_merkle_tree_cache_size as well
 build --experimental_remote_merkle_tree_cache
 query --experimental_remote_merkle_tree_cache
-build --noexperimental_check_output_files --noexperimental_check_external_repository_files
-fetch --noexperimental_check_output_files --noexperimental_check_external_repository_files
-query --noexperimental_check_output_files --noexperimental_check_external_repository_files
+build --noexperimental_check_output_files
+fetch --noexperimental_check_output_files
+query --noexperimental_check_output_files
 build --incompatible_remote_results_ignore_disk
 # Observed to speed up an Angular build from 7.5min to 5min
 build --experimental_reuse_sandbox_directories
