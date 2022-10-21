@@ -1,10 +1,15 @@
+// This is a custom next js_binary entry_point.
+// See comment in bazel/next.bzl for more information as to why this is needed.
+
+const path = require('path');
 const { spawnSync } = require('child_process');
-// This path is currently a hack an specific to this projects layout with
-// ../../../../../ being the path from the the next_bin binary runfiles root
-// to the execroot.
-// TODO: Generalize this path in the future.
 const entry = require.resolve(
-  `../../../../../${process.env.BAZEL_BINDIR}/node_modules/next/dist/bin/next`
+  path.join(
+    process.env.JS_BINARY__EXECROOT,
+    process.env.BAZEL_BINDIR,
+    process.env.BAZEL_PACKAGE,
+    process.env.NEXT_BIN
+  )
 );
 const args = process.argv.slice(2);
 const spawnOptions = {

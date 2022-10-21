@@ -1,0 +1,22 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+
+ts_project(
+    name = "pages",
+    srcs = [
+        "_app.tsx",
+        "index.tsx",
+    ],
+    allow_js = True,
+    declaration = True,
+    preserve_jsx = True,
+    resolve_json_module = True,
+    tsconfig = "//:tsconfig",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:node_modules/@types/react",
+        "//:node_modules/@types/react-dom",
+        "//app:node_modules/next",
+        "//app/pages/api",
+        "//app/styles",
+    ],
+)
