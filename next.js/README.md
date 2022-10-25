@@ -2,9 +2,10 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and then Bazelified.
 
-TypeScript transpilation and type checking has been broken out into fine-grained `ts_project` targets (one per directory) using SWC for transpilation and TypeScript for typechecking. This is a small example with only two Typescript source directories so the performance benefit of using fine grained targets will be negligible here.
+TypeScript transpilation and type checking has been broken out into fine-grained `ts_project` targets.
+This is a small example with only two Typescript source directories so the performance benefit of using fine grained targets will be negligible here.
 
-In a large application or monorepo, splitting Typescript transpilation & type checking across many targets can speed up the build with parallelization and cacheing. It also allows for massive parallelization with remote execution. Read
+In a large application or monorepo, splitting Typescript transpilation & type checking across many targets can speed up the build with parallelization and caching. It also allows for massive parallelization with remote execution. Read
 https://blog.aspect.dev/typescript-with-rbe for more information on using remote execution with Typescript.
 
 NB: The example is not 100% complete and there are some minor TODOs in the code including a TODO for running linting under Bazel.

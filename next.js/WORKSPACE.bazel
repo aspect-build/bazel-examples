@@ -2,16 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "b9fde0f20de6324ad443500ae738bda00facbd73900a12b417ce794856e01407",
-    strip_prefix = "rules_js-1.5.0",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.5.0.tar.gz",
-)
-
-http_archive(
-    name = "aspect_rules_swc",
-    sha256 = "313307136cb6369f3c9d2992209c1e354b3e2c9989877ee67c688917320fba1f",
-    strip_prefix = "rules_swc-0.17.1",
-    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.17.1.tar.gz",
+    sha256 = "fbd602ec010f53881166b525a3dafc08fd1ca1d361ac61c5d4b8ded4c7341103",
+    strip_prefix = "rules_js-1.6.0",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.6.0.tar.gz",
 )
 
 http_archive(
@@ -45,6 +38,12 @@ load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 
 npm_translate_lock(
     name = "npm",
+    bins = {
+        # derived from "bin" attribute in node_modules/next/package.json
+        "next": {
+            "next": "./dist/bin/next",
+        },
+    },
     pnpm_lock = "//:pnpm-lock.yaml",
     verify_node_modules_ignored = "//:.bazelignore",
 )
@@ -52,23 +51,3 @@ npm_translate_lock(
 load("@npm//:repositories.bzl", "npm_repositories")
 
 npm_repositories()
-
-# Fetches the rules_swc dependencies.
-# If you want to have a different version of some dependency,
-# you should fetch it *before* calling this.
-# Alternatively, you can skip calling this function, so long as you've
-# already fetched all the dependencies.
-load("@aspect_rules_swc//swc:dependencies.bzl", "rules_swc_dependencies")
-
-rules_swc_dependencies()
-
-# Fetches a pre-built Rust-node binding from
-# https://github.com/swc-project/swc/releases.
-# If you'd rather compile it from source, you can use rules_rust, fetch the project,
-# then register the toolchain yourself. (Note, this is not yet documented)
-load("@aspect_rules_swc//swc:repositories.bzl", "swc_register_toolchains")
-
-swc_register_toolchains(
-    name = "swc",
-    swc_version = "v1.2.141",
-)
