@@ -1,6 +1,12 @@
 {
   "name": "Next.js Bazel example",
   "private": true,
+  "scripts": {
+    "dev": "ibazel run //app:next_dev",
+    "build": "bazel build //app:next",
+    "start": "ibazel run //app:next_start",
+    "lint": "next lint"
+  },
   "devDependencies": {
     "@bazel/ibazel": "0.16.2",
     "@types/node": "18.7.15",
