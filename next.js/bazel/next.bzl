@@ -1,9 +1,10 @@
-load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary", "js_run_devserver")
+load("@aspect_rules_js//js:defs.bzl", "js_run_binary", "js_run_devserver")
 
 def next(
         name,
         srcs,
         data,
+        next_js_binary,
         next_bin,
         next_build_out = ".next",
         **kwargs):
@@ -19,6 +20,14 @@ def next(
     For example, a target such as
 
     ```
+    load("@npm//:defs.bzl", "npm_link_all_packages")
+    load("@npm//app:next/package_json.bzl", next_bin = "bin")
+    load("//bazel:next.bzl", "next")
+
+    npm_link_all_packages(name = "node_modules")
+
+    next_bin.next_binary(name = "next_js_binary")
+
     next(
         name = "next",
         srcs = [
@@ -30,11 +39,12 @@ def next(
             ":node_modules/next",
             ":node_modules/react-dom",
             ":node_modules/react",
-            ":package.json",
             "//:node_modules/typescript",
             "next.config.js",
+            "package.json",
         ],
         next_bin = "./node_modules/.bin/next",
+        next_js_binary = ":next_js_binary",
     )
     ```
 
@@ -82,33 +92,31 @@ def next(
             These are typically npm packages required for the build & configuration files such as
             package.json and next.config.js.
 
-        next_bin: The next bin command.
+        next_js_binary: The next js_binary. Used for the `build `target.
+
+            Typically this is a js_binary target created using `bin` loaded from the `package_json.bzl`
+            file of the npm package.
+
+            See main docstring above for example usage.
+
+        next_bin: The next bin command. Used for the `dev` and `start` targets.
+
             Typically the path to the next entry point from the current package. For example `./node_modules/.bin/next`,
-            if next is linked to the current package, or `../node_modules/.bin/next`, if next is linked in the parent package.
+            if next is linked to the current package, or a relative path such as `../node_modules/.bin/next`, if next is
+            linked in the parent package.
+
+            See main docstring above for example usage.
 
         next_build_out: The next build output directory. Defaults to `.next` which is the Next.js default output directory.
 
         **kwargs: Other attributes passed to all targets such as `tags`.
     """
 
-    # This custom next js_binary is needed since next is very sensitive to it being found in two
-    # `node_modules` trees. With the generated next build rule loaded from
-    # `@npm//:next/package_json.bzl`, next is found both in the binary's runfiles `node_modules` and in
-    # the execroot `node_modules` tree. This breaks the build. The work-around is to use this
-    # slim `js_binary` without any dependencies on any node_modules.
-    # TODO: should be able to remove this slim binary entry point once a `command` attribute is added to js_run_binary.
-    js_binary(
-        name = "{}_slim_bin".format(name),
-        entry_point = "//bazel:next_entry",
-        env = {"NEXT_BIN": next_bin},
-        **kwargs
-    )
-
     # `next build` creates an optimized bundle of the application
     # https://nextjs.org/docs/api-reference/cli#build
     js_run_binary(
         name = name,
-        tool = "{}_slim_bin".format(name),
+        tool = next_js_binary,
         args = ["build"],
         srcs = srcs + data,
         outs = [next_build_out],
