@@ -24,16 +24,16 @@ devserver.
 
 ### Building
 
-Run `pnpm run build`. This runs `bazel build //:build`. The output `.next` folder can be found under
+Run `pnpm run build`. This runs `bazel build //app:next`. The output `.next` folder can be found under
 `bazel-bin/.next`.
 
 ### Production server
 
-Run `pnpm run start`. This runs `bazel run //:start`.
+Run `pnpm run start`. This runs `ibazel run //app:next_start`.
 
 ### Development server
 
-Run `pnpm run dev`. This runs `ibazel run //:dev`.
+Run `pnpm run dev`. This runs `ibazel run //app:next_dev`.
 
 ### Running tests
 
