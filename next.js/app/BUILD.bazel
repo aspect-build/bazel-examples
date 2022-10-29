@@ -1,8 +1,11 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//app:next/package_json.bzl", next_bin = "bin")
 load("//bazel:next.bzl", "next")
 
 npm_link_all_packages(name = "node_modules")
+
+next_bin.next_binary(name = "next_js_binary")
 
 # Run `bazel build //app:next` to build (equivalent to running `next build`).
 #
@@ -23,13 +26,14 @@ next(
     ],
     data = [
         "next.config.js",
+        "package.json",
         ":node_modules/next",
         ":node_modules/react",
         ":node_modules/react-dom",
-        ":package.json",
         "//:node_modules/typescript",
     ],
     next_bin = "./node_modules/.bin/next",
+    next_js_binary = ":next_js_binary",
 )
 
 # A smoke test on the artifact produced by the :next target
