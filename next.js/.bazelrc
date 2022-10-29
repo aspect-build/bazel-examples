@@ -1,1 +1,3 @@
-build --experimental_allow_unresolved_symlinks
+# TODO: npm deps don't resolve with ts_project workers with Bazel 6.0.0 with --experimental_allow_unresolved_symlinks
+# which is no the default as of 6.0.0-pre.20221020.1
+build --noexperimental_allow_unresolved_symlinks

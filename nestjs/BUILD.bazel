@@ -16,8 +16,6 @@ ts_project(
         "src/main.ts",
     ],
     declaration = True,
-    # TODO: npm deps don't resolve with workers with Bazel 6.0.0
-    supports_workers = False,
     transpiler = partial.make(
         swc_transpiler,
         swcrc = ".swcrc",
