@@ -1,2 +1,1 @@
 build --experimental_allow_unresolved_symlinks
-test --test_output=errors

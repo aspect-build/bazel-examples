@@ -10,6 +10,8 @@ ts_project(
     declaration = True,
     preserve_jsx = True,
     resolve_json_module = True,
+    # TODO: npm deps don't resolve with workers with Bazel 6.0.0
+    supports_workers = False,
     tsconfig = "//:tsconfig",
     visibility = ["//visibility:public"],
     deps = [
