@@ -2,9 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "5bb643d9e119832a383e67f946dc752b6d719d66d1df9b46d840509ceb53e1f1",
-    strip_prefix = "rules_js-1.6.2",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.6.2.tar.gz",
+    sha256 = "d8eabcd1e05d93147505ea806fa21089926b771d8813f01b92af5dec36617033",
+    strip_prefix = "rules_js-1.6.3",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.6.3.tar.gz",
 )
 
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
