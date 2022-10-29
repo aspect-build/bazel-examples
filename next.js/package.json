@@ -2,10 +2,16 @@
   "name": "Next.js Bazel example",
   "private": true,
   "scripts": {
-    "dev": "ibazel run //app:next_dev",
-    "build": "bazel build //app:next",
-    "start": "ibazel run //app:next_start",
+    "dev": "ibazel run //apps/alpha:next_dev",
+    "build": "bazel build //apps/alpha:next",
+    "start": "ibazel run //apps/alpha:next_start",
     "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "12.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@nextjs-example/one": "workspace:*"
   },
   "devDependencies": {
     "@bazel/ibazel": "0.16.2",

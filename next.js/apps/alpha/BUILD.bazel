@@ -1,39 +1,38 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("@npm//app:next/package_json.bzl", next_bin = "bin")
 load("//bazel:next.bzl", "next")
 
 npm_link_all_packages(name = "node_modules")
 
-next_bin.next_binary(name = "next_js_binary")
-
-# Run `bazel build //app:next` to build (equivalent to running `next build`).
+# Run `bazel build //apps/alpha:next` to build (equivalent to running `next build`).
 #
 # It is recommended that you use [ibazel](https://github.com/bazelbuild/bazel-watcher)
 # to run the devserver targets.
 #
-# Run `ibazel run //app:next_dev` to run the development server in watch mode
+# Run `ibazel run //apps/alpha:next_dev` to run the development server in watch mode
 # (equivalent to running `next dev`).
 #
-# Run `ibazel run //app:next_start` to run the production server in watch mode
+# Run `ibazel run //apps/alpha:next_start` to run the production server in watch mode
 # (equivalent to running `next start`).
 next(
     name = "next",
     srcs = [
-        "//app/pages",
-        "//app/public",
-        "//app/styles",
+        "//apps/alpha/pages",
+        "//apps/alpha/public",
+        "//apps/alpha/styles",
     ],
     data = [
         "next.config.js",
         "package.json",
-        ":node_modules/next",
-        ":node_modules/react",
-        ":node_modules/react-dom",
+        ":node_modules/is-even",
+        "//:node_modules/@nextjs-example/one",
+        "//:node_modules/next",
+        "//:node_modules/react",
+        "//:node_modules/react-dom",
         "//:node_modules/typescript",
     ],
-    next_bin = "./node_modules/.bin/next",
-    next_js_binary = ":next_js_binary",
+    next_bin = "../../node_modules/.bin/next",
+    next_js_binary = "//:next_js_binary",
 )
 
 # A smoke test on the artifact produced by the :next target

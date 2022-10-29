@@ -13,10 +13,12 @@ ts_project(
     tsconfig = "//:tsconfig",
     visibility = ["//visibility:public"],
     deps = [
+        "//:node_modules/@nextjs-example/one",
         "//:node_modules/@types/react",
         "//:node_modules/@types/react-dom",
-        "//app:node_modules/next",
-        "//app/pages/api",
-        "//app/styles",
+        "//:node_modules/next",
+        "//apps/alpha:node_modules/@types/is-even",
+        "//apps/alpha/pages/api",
+        "//apps/alpha/styles",
     ],
 )

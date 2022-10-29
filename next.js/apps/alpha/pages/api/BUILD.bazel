@@ -8,6 +8,6 @@ ts_project(
     preserve_jsx = True,
     resolve_json_module = True,
     tsconfig = "//:tsconfig",
-    visibility = ["//app/pages:__subpackages__"],
-    deps = ["//app:node_modules/next"],
+    visibility = ["//apps/alpha/pages:__subpackages__"],
+    deps = ["//:node_modules/next"],
 )
