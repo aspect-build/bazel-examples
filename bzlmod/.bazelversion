@@ -1,1 +1,6 @@
-5.3.1
+5.3.2
+# TODO: update to Bazel 6.0.0rc1
+# Currently getting error with rules_swc bzlmod:
+# ERROR: Traceback (most recent call last):
+# 	File "aspect_rules_swc@0.3.0/MODULE.bazel", line 3, column 7, in <toplevel>
+# Error in module: module() got unexpected keyword argument 'toolchains_to_register'

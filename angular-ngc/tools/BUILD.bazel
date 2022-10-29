@@ -12,6 +12,8 @@ angular_compiler_cli.ngc_binary(
 ts_project(
     name = "ngc.esbuild",
     srcs = ["ngc.esbuild.ts"],
+    # TODO: npm deps don't resolve with workers with Bazel 6.0.0
+    supports_workers = False,
     tsconfig = "//:tsconfig.node",
     visibility = ["//visibility:public"],
     deps = [
