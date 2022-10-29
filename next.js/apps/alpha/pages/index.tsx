@@ -2,6 +2,8 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import { one } from '@nextjs-example/one';
+import isEven from 'is-even';
 
 const Home: NextPage = () => {
   return (
@@ -23,6 +25,10 @@ const Home: NextPage = () => {
         </p>
 
         <div className={styles.grid}>
+          <p>
+            {one()}. Is even? {isEven(1) ? 'true' : 'false'}
+          </p>
+
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
             <p>Find in-depth information about Next.js features and API.</p>

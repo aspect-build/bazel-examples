@@ -20,47 +20,56 @@ def next(
     For example, a target such as
 
     ```
-    load("@npm//:defs.bzl", "npm_link_all_packages")
-    load("@npm//app:next/package_json.bzl", next_bin = "bin")
     load("//bazel:next.bzl", "next")
-
-    npm_link_all_packages(name = "node_modules")
-
-    next_bin.next_binary(name = "next_js_binary")
 
     next(
         name = "next",
         srcs = [
-            "//app/pages",
-            "//app/public",
-            "//app/styles",
+            "//apps/alpha/pages",
+            "//apps/alpha/public",
+            "//apps/alpha/styles",
         ],
         data = [
-            ":node_modules/next",
-            ":node_modules/react-dom",
-            ":node_modules/react",
+            "//:node_modules/next",
+            "//:node_modules/react-dom",
+            "//:node_modules/react",
             "//:node_modules/typescript",
             "next.config.js",
             "package.json",
         ],
-        next_bin = "./node_modules/.bin/next",
+        next_bin = "../../node_modules/.bin/next",
         next_js_binary = ":next_js_binary",
     )
     ```
 
-    in an `app/BUILD.bazel` file will create the targets:
+    in an `apps/alpha/BUILD.bazel` file where the root `BUILD.bazel` file has
+    next linked to `node_modules` and the `next_js_binary`:
 
     ```
-    //app:next
-    //app:next_dev
-    //app:next_start
+    load("@npm//:defs.bzl", "npm_link_all_packages")
+    load("@npm//:next/package_json.bzl", next_bin = "bin")
+
+    npm_link_all_packages(name = "node_modules")
+
+    next_bin.next_binary(
+        name = "next_js_binary",
+        visibility = ["//visibility:public"],
+    )
+    ```
+
+    will create the targets:
+
+    ```
+    //apps/alpha:next
+    //apps/alpha:next_dev
+    //apps/alpha:next_start
     ```
 
     To build the above next app, equivalent to running
     `next build` outside Bazel, run,
 
     ```
-    bazel build //app:next
+    bazel build //apps/alpha:next
     ```
 
     To run the development server in watch mode with
@@ -68,7 +77,7 @@ def next(
     `next dev` outside Bazel, run
 
     ```
-    ibazel run //app:next_dev
+    ibazel run //apps/alpha:next_dev
     ```
 
     To run the production server in watch mode with
@@ -76,7 +85,7 @@ def next(
     `next start` outside Bazel,
 
     ```
-    ibazel run //app:next_start
+    ibazel run //apps/alpha:next_start
     ```
 
     TODO: add lint target

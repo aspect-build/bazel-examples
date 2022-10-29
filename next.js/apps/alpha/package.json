@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "@types/is-even": "1.x.x",
+    "is-even": "1.x.x"
+  }
+}

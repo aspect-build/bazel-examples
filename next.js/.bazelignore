@@ -1,5 +1,6 @@
 node_modules
-app/node_modules
+apps/alpha/node_modules
+packages/one/node_modules
 app/.next
 bazel-out
 bazel-bin
