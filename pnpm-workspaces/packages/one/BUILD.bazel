@@ -4,8 +4,6 @@ load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 ts_project(
     name = "one_ts",
     srcs = ["src/main.ts"],
-    # TODO: npm deps don't resolve with workers with Bazel 6.0.0
-    supports_workers = False,
     tsconfig = "//:tsconfig",
     deps = [
         "//:node_modules/@types/node",
