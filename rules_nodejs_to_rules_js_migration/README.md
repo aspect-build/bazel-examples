@@ -84,11 +84,11 @@ via node_modules links.
 
 ## Bazel ts_project macros
 
-Wrapper macros for rules_js and `@bazel/typescript#ts_project` are found under
-`//bazel/rules_js:defs.bzl` and `//bazel/rules_nodejs:defs.bzl`.
+Wrapper macros for rules_js `ts_project` and `@bazel/typescript#ts_project` are found under
+`//bazel/rules_js:defs.bzl` and `//bazel/rules_nodejs:defs.bzl` respectively.
 
 ## Bazel adapter rules
-There are example two "adapter" rules in this repository for the `libs` case where interop between
+There are twp example "adapter" rules in this repository for the `libs` case where interop between
 rules_js and build_bazel_rules_nodejs is not through linked node_modules packages:
 
 - `rules_nodejs_to_rules_js_adapter` adapts a build_bazel_rules_nodejs target so that it can be used as a
