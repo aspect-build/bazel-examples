@@ -2,16 +2,16 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "a6c97d32e82f890bd3e62ab2bd1ab2610baf80c4ab9eaa9586685c5e0c7c5858",
-    strip_prefix = "rules_js-1.6.5",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.6.5.tar.gz",
+    sha256 = "c3b5fd40ec19f3260094321380169abe86dd89e3506c4e44a515a50c1626629b",
+    strip_prefix = "rules_js-1.6.6",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.6.6.tar.gz",
 )
 
 http_archive(
     name = "aspect_rules_swc",
-    sha256 = "a6bb53af8562b33e415206a3653dda87ef51fc79317cfc5068504ae4c6c252f7",
-    strip_prefix = "rules_swc-0.18.0",
-    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.18.0.tar.gz",
+    sha256 = "317e3b3816fa9d3d52c60aa37255b884d206e0842e41017ec861a99f95cbea16",
+    strip_prefix = "rules_swc-0.18.1",
+    url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.18.1.tar.gz",
 )
 
 http_archive(
