@@ -23,7 +23,9 @@ const linkerBabelPlugin = createEs2015LinkerPlugin({
   fileSystem: new NodeJSFileSystem(),
   logger: new ConsoleLogger(LogLevel.warn),
   unknownDeclarationVersionHandling: 'error',
-  linkerJitMode: false,
+  // Must enable JIT for unit tests
+  // TODO: would be ideal to only set this for tests
+  linkerJitMode: true,
   // Workaround for https://github.com/angular/angular/issues/42769 and https://github.com/angular/angular-cli/issues/22647.
   sourceMapping: false,
 });
