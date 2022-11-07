@@ -2,6 +2,9 @@
 
 This variety of examples is provided by Aspect.
 
-See all our other Bazel material on our GitHub: <https://github.com/aspect-build>
+Want to see something illustrated in an example?
+You can sponsor that by contributing a feature bounty to <https://opencollective.com/aspect-build>.
 
-Please consider sponsoring our work! We have engineers to feed :)
+Paid support for your Bazel migration: <https://aspect.dev>
+
+See all our other Bazel material on our GitHub: <https://github.com/aspect-build>
