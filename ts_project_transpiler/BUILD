@@ -6,6 +6,7 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@bazel_skylib//lib:partial.bzl", "partial")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("babel.bzl", "babel")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
 # This macro expands to a link_npm_package for each third-party package in package.json
 npm_link_all_packages(name = "node_modules")
@@ -29,6 +30,7 @@ ts_project(
     declaration = True,
     declaration_dir = "build-tsc",
     out_dir = "build-tsc",
+    source_map = True,
 )
 
 # Runs swc to transpile ts -> js
@@ -44,6 +46,7 @@ ts_project(
     srcs = ["big.ts"],
     declaration = True,
     out_dir = "build-swc",
+    source_map = True,
     # Partial allows us to apply some arguments here, while ts_project applies the rest.
     # See https://en.wikipedia.org/wiki/Partial_application
     # and https://docs.aspect.dev/bazelbuild/bazel-skylib/1.1.1/docs/partial.html
@@ -51,7 +54,9 @@ ts_project(
         swc_transpiler,
         # Attributes to the swc rule can appear here
         args = ["--env-name=test"],
+        out_dir = "build-swc",
         swcrc = ".swcrc",
+        source_maps = "true",
     ),
 )
 
@@ -67,5 +72,24 @@ ts_project(
     declaration = True,
     declaration_dir = "build-babel",
     out_dir = "build-babel",
+    source_map = True,
     transpiler = babel,
 )
+
+# Test each example transpiler produces the same outputs.
+[
+    build_test(
+        name = "%s_test" % compiler,
+        targets = [
+            "%s" % compiler,
+            "build-%s/big.js" % compiler,
+            "build-%s/big.js.map" % compiler,
+            "build-%s/big.d.ts" % compiler,
+        ],
+    )
+    for compiler in [
+        "tsc",
+        "swc",
+        "babel",
+    ]
+]
