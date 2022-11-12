@@ -149,8 +149,9 @@ def next(
     js_run_devserver(
         name = "{}_start".format(name),
         command = next_bin,
-        args = ["start"],
-        data = data + [":{}".format(name)],
+        args = ["build"],
+        data = srcs + data,
+        # data = data + [":{}".format(name)],
         chdir = native.package_name(),
         **kwargs
     )
