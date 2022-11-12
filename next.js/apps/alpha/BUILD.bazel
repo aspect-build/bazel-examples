@@ -33,6 +33,7 @@ next(
     ],
     next_bin = "../../node_modules/.bin/next",
     next_js_binary = "//:next_js_binary",
+    tags = ["local"],
 )
 
 # A smoke test on the artifact produced by the :next target
