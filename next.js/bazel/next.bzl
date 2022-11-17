@@ -128,7 +128,7 @@ def next(
         tool = next_js_binary,
         args = ["build"],
         srcs = srcs + data,
-        outs = [next_build_out],
+        out_dirs = [next_build_out],
         chdir = native.package_name(),
         **kwargs
     )
