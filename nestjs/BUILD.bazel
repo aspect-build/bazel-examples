@@ -1,4 +1,4 @@
-load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("@bazel_skylib//lib:partial.bzl", "partial")
@@ -17,7 +17,7 @@ ts_project(
     ],
     declaration = True,
     transpiler = partial.make(
-        swc_transpiler,
+        swc,
         swcrc = ".swcrc",
     ),
     deps = [
