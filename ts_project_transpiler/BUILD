@@ -1,4 +1,4 @@
-load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 
@@ -51,7 +51,7 @@ ts_project(
     # See https://en.wikipedia.org/wiki/Partial_application
     # and https://docs.aspect.dev/bazelbuild/bazel-skylib/1.1.1/docs/partial.html
     transpiler = partial.make(
-        swc_transpiler,
+        swc,
         # Attributes to the swc rule can appear here
         args = ["--env-name=test"],
         out_dir = "build-swc",
@@ -73,7 +73,13 @@ ts_project(
     declaration_dir = "build-babel",
     out_dir = "build-babel",
     source_map = True,
-    transpiler = babel,
+    # Partial allows us to apply some arguments here, while ts_project applies the rest.
+    # See https://en.wikipedia.org/wiki/Partial_application
+    # and https://docs.aspect.dev/bazelbuild/bazel-skylib/1.1.1/docs/partial.html
+    transpiler = partial.make(
+        babel,
+        out_dir = "build-babel",
+    ),
 )
 
 # Test each example transpiler produces the same outputs.
