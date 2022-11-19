@@ -265,6 +265,8 @@ def ng_pkg(name, deps = [], test_deps = [], visibility = ["//visibility:public"]
     npm_package(
         name = name,
         srcs = ["package.json", ":_lib"],
+        # This is a perf improvement; the default will be flipped to False in rules_js 2.0
+        include_runfiles = False,
         visibility = ["//visibility:public"],
     )
 
