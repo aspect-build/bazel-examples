@@ -42,5 +42,7 @@ npm_package(
         "package.json",
         ":a_rjs",
     ],
+    # This is a perf improvement; the default will be flipped to False in rules_js 2.0
+    include_runfiles = False,
     visibility = ["//visibility:public"],
 )
