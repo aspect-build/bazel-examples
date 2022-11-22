@@ -37,6 +37,7 @@ jobs:
           - 'next.js'
           - 'pnpm-workspaces'
           - 'protobufjs'
+          - 'react'
           - 'react-cra'
           - 'rules_nodejs_to_rules_js_migration'
           - 'ts_project_transpiler'

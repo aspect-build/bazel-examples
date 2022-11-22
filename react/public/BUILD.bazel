@@ -1,0 +1,4 @@
+filegroup(
+    name = "public",
+    srcs = glob(["**"]),
+)
