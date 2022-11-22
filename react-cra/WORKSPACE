@@ -7,9 +7,39 @@ http_archive(
     url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v1.7.0.tar.gz",
 )
 
+http_archive(
+    name = "aspect_rules_ts",
+    sha256 = "f3f0d0a92b0069f8d1bf6a0e26408bd591a8626166db3f88e8d971ffed8f59ba",
+    strip_prefix = "rules_ts-1.0.0",
+    url = "https://github.com/aspect-build/rules_ts/archive/refs/tags/v1.0.0.tar.gz",
+)
+
+http_archive(
+    name = "aspect_rules_jest",
+    sha256 = "e583df00944384503908b642d3888ce64e2f76021c68f60bd93a14e3f9a6a93f",
+    strip_prefix = "rules_jest-0.12.0",
+    url = "https://github.com/aspect-build/rules_jest/archive/refs/tags/v0.12.0.tar.gz",
+)
+
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
 
 rules_js_dependencies()
+
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
+
+rules_ts_dependencies(ts_version_from = "//:package.json")
+
+load("@aspect_rules_jest//jest:dependencies.bzl", "rules_jest_dependencies")
+
+rules_jest_dependencies()
+
+load("@aspect_rules_jest//jest:repositories.bzl", "jest_repositories")
+
+jest_repositories(name = "jest")
+
+load("@jest//:npm_repositories.bzl", jest_npm_repositories = "npm_repositories")
+
+jest_npm_repositories()
 
 load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
 
@@ -22,9 +52,15 @@ load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 
 npm_translate_lock(
     name = "npm",
+    bins = {
+        # derived from "bin" attribute in node_modules/react-scripts/package.json
+        "react-scripts": {
+            "react-scripts": "./bin/react-scripts.js",
+        },
+    },
     pnpm_lock = "//:pnpm-lock.yaml",
     public_hoist_packages = {
-        "jest-watch-typeahead": [""],
+        "eslint-config-react-app": [""],
         "eslint": [""],
     },
     verify_node_modules_ignored = "//:.bazelignore",

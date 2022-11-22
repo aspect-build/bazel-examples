@@ -1,9 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-Then Bazel configuration was added in `WORKSPACE` and `BUILD.bazel`
-
-See the [examples guide](https://bazelbuild.github.io/rules_nodejs/examples#react) for a comparison of the several
-approaches you can take to build and test your React app with Bazel.
-
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and
+then Bazelified.
 ## Available Scripts
 
 Just like with stock create-react-app, we have the same developer workflow. In the project directory, you can run:
