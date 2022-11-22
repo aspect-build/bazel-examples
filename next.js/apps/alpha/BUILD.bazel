@@ -1,4 +1,4 @@
-load("@aspect_rules_js//js:defs.bzl", "js_test")
+load("@aspect_rules_js//js:defs.bzl", "js_library", "js_test")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("//bazel:next.bzl", "next")
 
@@ -33,7 +33,6 @@ next(
     ],
     next_bin = "../../node_modules/.bin/next",
     next_js_binary = "//:next_js_binary",
-    tags = ["local"],
 )
 
 # A smoke test on the artifact produced by the :next target
@@ -42,4 +41,16 @@ js_test(
     chdir = package_name(),
     data = [":next"],
     entry_point = "build_smoke_test.js",
+)
+
+js_library(
+    name = "package_json",
+    srcs = ["package.json"],
+    visibility = ["//visibility:public"],
+)
+
+js_library(
+    name = "jest_config",
+    srcs = ["jest.config.js"],
+    visibility = ["//visibility:public"],
 )
