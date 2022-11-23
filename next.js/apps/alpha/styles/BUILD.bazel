@@ -3,5 +3,5 @@ load("@aspect_rules_js//js:defs.bzl", "js_library")
 js_library(
     name = "styles",
     srcs = glob(["*"]),
-    visibility = ["//visibility:public"],
+    visibility = ["//apps/alpha:__subpackages__"],
 )

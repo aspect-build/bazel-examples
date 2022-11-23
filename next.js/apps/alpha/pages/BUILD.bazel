@@ -1,17 +1,23 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@npm//:eslint/package_json.bzl", eslint_bin = "bin")
+load("@jest//:defs.bzl", "jest_test")
+
+SRCS = [
+    "_app.tsx",
+    "index.tsx",
+]
+
+SPECS = [
+    "index.test.tsx",
+]
 
 ts_project(
     name = "pages",
-    srcs = [
-        "_app.tsx",
-        "index.tsx",
-    ],
-    allow_js = True,
+    srcs = SRCS,
     declaration = True,
-    preserve_jsx = True,
     resolve_json_module = True,
     tsconfig = "//:tsconfig",
-    visibility = ["//visibility:public"],
+    visibility = ["//apps/alpha:__subpackages__"],
     deps = [
         "//:node_modules/@nextjs-example/one",
         "//:node_modules/@types/react",
@@ -19,6 +25,50 @@ ts_project(
         "//:node_modules/next",
         "//apps/alpha:node_modules/@types/is-even",
         "//apps/alpha/pages/api",
+    ],
+)
+
+ts_project(
+    name = "specs",
+    srcs = SPECS,
+    declaration = True,
+    resolve_json_module = True,
+    tsconfig = "//:tsconfig",
+    deps = [
+        "//:node_modules/@testing-library/jest-dom",
+        "//:node_modules/@testing-library/react",
+        "//:node_modules/@types/jest",
+        "//apps/alpha/pages",
+    ],
+)
+
+jest_test(
+    name = "jest_test",
+    config = "//apps/alpha:jest_config",
+    data = [
+        ":specs",
+        "//:node_modules/jest-environment-jsdom",
+        "//:node_modules/jest-transform-stub",
+        "//:node_modules/react",
+        "//apps/alpha:node_modules/is-even",
+        "//apps/alpha:package_json",
         "//apps/alpha/styles",
     ],
+    tags = ["jest"],
+)
+
+eslint_bin.eslint_test(
+    name = "eslint_test",
+    args = [
+        "--config .eslintrc.json",
+    ] + ["{}/{}".format(
+        package_name(),
+        s,
+    ) for s in SRCS + SPECS],
+    data = SRCS + SPECS + [
+        "//:eslintrc",
+        "//:node_modules/eslint-config-next",
+        "//:node_modules/next",
+    ],
+    tags = ["lint"],
 )

@@ -151,7 +151,6 @@ def next(
         command = next_bin,
         args = ["build"],
         data = srcs + data,
-        # data = data + [":{}".format(name)],
         chdir = native.package_name(),
         **kwargs
     )
