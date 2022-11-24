@@ -1,5 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import CheckboxWithLabel from './CheckboxWithLabel';
+
+// Used for __tests__/testing-library.js
+// Learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 
 it('CheckboxWithLabel changes the text after click', () => {
