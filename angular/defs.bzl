@@ -25,6 +25,7 @@ APPLICATION_DEPS = [
     "//:node_modules/@angular/router",
     "//:node_modules/@angular/platform-browser",
     "//:node_modules/@angular/platform-browser-dynamic",
+    "//:node_modules/@types/node",
     "//:node_modules/rxjs",
     "//:node_modules/tslib",
     "//:node_modules/zone.js",
@@ -40,6 +41,7 @@ LIBRARY_DEPS = [
     "//:node_modules/@angular/common",
     "//:node_modules/@angular/core",
     "//:node_modules/@angular/router",
+    "//:node_modules/@types/node",
     "//:node_modules/rxjs",
     "//:node_modules/tslib",
 ]

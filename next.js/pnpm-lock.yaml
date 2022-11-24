@@ -41,8 +41,8 @@ importers:
 
   apps/alpha:
     specifiers:
-      '@types/is-even': 1.x.x
-      is-even: 1.x.x
+      '@types/is-even': 1.0.0
+      is-even: 1.0.0
     dependencies:
       '@types/is-even': 1.0.0
       is-even: 1.0.0

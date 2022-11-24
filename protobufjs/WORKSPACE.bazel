@@ -64,5 +64,4 @@ http_archive(
 
 load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
 
-# TODO: update to latest version after rules_ts worker mode supports TypeScript 4.9
-rules_ts_dependencies(ts_version = "4.8.4")
+rules_ts_dependencies(ts_version_from = "//:package.json")
