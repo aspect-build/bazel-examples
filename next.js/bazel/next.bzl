@@ -7,6 +7,7 @@ def next(
         next_js_binary,
         next_bin,
         next_build_out = ".next",
+        next_export_out = "out",
         **kwargs):
     """Generates Next.js targets build, dev & start targets.
 
@@ -88,7 +89,12 @@ def next(
     ibazel run //apps/alpha:next_start
     ```
 
-    TODO: add lint target
+    To export the above next app, equivalent to running
+    `next export` outside Bazel, run,
+
+    ```
+    bazel build //apps/alpha:next_export
+    ```
 
     Args:
         name: The name of the build target.
@@ -116,10 +122,14 @@ def next(
 
             See main docstring above for example usage.
 
-        next_build_out: The next build output directory. Defaults to `.next` which is the Next.js default output directory.
+        next_build_out: The `next build` output directory. Defaults to `.next` which is the Next.js default output directory for the `build` command.
+
+        next_export_out: The `next export` output directory. Defaults to `out` which is the Next.js default output directory for the `export` command.
 
         **kwargs: Other attributes passed to all targets such as `tags`.
     """
+
+    tags = kwargs.pop("tags", [])
 
     # `next build` creates an optimized bundle of the application
     # https://nextjs.org/docs/api-reference/cli#build
@@ -130,6 +140,7 @@ def next(
         srcs = srcs + data,
         outs = [next_build_out],
         chdir = native.package_name(),
+        tags = tags,
         **kwargs
     )
 
@@ -141,6 +152,7 @@ def next(
         args = ["dev"],
         data = srcs + data,
         chdir = native.package_name(),
+        tags = tags,
         **kwargs
     )
 
@@ -149,8 +161,25 @@ def next(
     js_run_devserver(
         name = "{}_start".format(name),
         command = next_bin,
-        args = ["build"],
-        data = srcs + data,
+        args = ["start"],
+        data = data + [name],
         chdir = native.package_name(),
+        tags = tags,
+        **kwargs
+    )
+
+    # `next export` runs the application in production mode
+    # https://nextjs.org/docs/api-reference/cli#production
+    js_run_binary(
+        name = "{}_export".format(name),
+        tool = next_js_binary,
+        args = ["export"],
+        srcs = data + [name],
+        outs = [next_export_out],
+        chdir = native.package_name(),
+        # Tagged as "manual" since this `next export` writes back to the `.next` directory which causes issues with
+        # trying to write to an input. See https://github.com/vercel/next.js/issues/43344.
+        # TODO: fix in Next.js (https://github.com/vercel/next.js/issues/43344) or find work-around.
+        tags = tags + ["manual"],
         **kwargs
     )
