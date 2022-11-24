@@ -4,13 +4,13 @@ specifiers:
   '@babel/cli': 7.18.10
   '@babel/core': 7.19.1
   '@babel/preset-typescript': 7.18.6
-  typescript: 4.7.4
+  typescript: 4.9.3
 
 devDependencies:
   '@babel/cli': 7.18.10_@babel+core@7.19.1
   '@babel/core': 7.19.1
   '@babel/preset-typescript': 7.18.6_@babel+core@7.19.1
-  typescript: 4.7.4
+  typescript: 4.9.3
 
 packages:
 
@@ -734,8 +734,8 @@ packages:
     dev: true
     optional: true
 
-  /typescript/4.7.4:
-    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+  /typescript/4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

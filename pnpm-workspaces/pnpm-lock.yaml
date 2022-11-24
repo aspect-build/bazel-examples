@@ -8,13 +8,13 @@ importers:
       '@bazel-poc/one': workspace:*
       '@bazel-poc/shared': workspace:*
       '@bazel-poc/two': workspace:*
-      '@tsconfig/node16-strictest': ^1.0.4
-      '@types/node': ^18.8.5
-      cowsay: ^1.5.0
-      inspirational-quotes: ^2.0.1
-      star-wars-quotes: ^1.0.2
-      trek-quotes: ^1.1.1
-      typescript: ^4.8.4
+      '@tsconfig/node16-strictest': 1.0.4
+      '@types/node': 18.11.9
+      cowsay: 1.5.0
+      inspirational-quotes: 2.0.1
+      star-wars-quotes: 1.0.2
+      trek-quotes: 1.1.1
+      typescript: 4.9.3
     dependencies:
       '@bazel-poc/first': link:packages/first
       '@bazel-poc/one': link:packages/one
@@ -26,14 +26,14 @@ importers:
       trek-quotes: 1.1.1
     devDependencies:
       '@tsconfig/node16-strictest': 1.0.4
-      '@types/node': 18.11.2
-      typescript: 4.8.4
+      '@types/node': 18.11.9
+      typescript: 4.9.3
 
   apps/alpha:
     specifiers:
-      inspirational-quotes: 2.0.0
+      inspirational-quotes: 2.0.1
     dependencies:
-      inspirational-quotes: 2.0.0
+      inspirational-quotes: 2.0.1
 
   packages/first:
     specifiers: {}
@@ -53,8 +53,8 @@ packages:
     resolution: {integrity: sha512-kp6/DuAoKzHVv5U+p0uOesYbjrEvrYVNdQMl163a+yXXUv9twabvkCGEn3pmVxKXB45JU5MPGolDDWnONZL5ZQ==}
     dev: true
 
-  /@types/node/18.11.2:
-    resolution: {integrity: sha512-BWN3M23gLO2jVG8g/XHIRFWiiV4/GckeFIqbU/C4V3xpoBBWSMk4OZomouN0wCkfQFPqgZikyLr7DOYDysIkkw==}
+  /@types/node/18.11.9:
+    resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
     dev: true
 
   /ansi-regex/3.0.1:
@@ -172,10 +172,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /inspirational-quotes/2.0.0:
-    resolution: {integrity: sha512-GcIs3WC5A7WViOF0W1/at5Qx+EjbdSahEvo5vMBHdD/c8YFBwx4G4nQE8ILx589IZZgd1FYZdYy2QMYvgzRx/g==}
-    dev: false
-
   /inspirational-quotes/2.0.1:
     resolution: {integrity: sha512-IYJEdSUphF4HOoOiABua2l7aUZ2OBTc/NpihPuENF3ieXEBuywOTtYle7zzvZfEJKouG9utOwQpMQtm0GIB2BQ==}
     dev: false
@@ -288,8 +284,8 @@ packages:
     resolution: {integrity: sha512-9NZpPrBObaPkUrjInKnXz+aOr1Z0O5yIDmIm6C0XodlIK+0QyuVaIdE/F5lLOGYSfkBNnmMpwqr9Gv8xrBXvfQ==}
     dev: false
 
-  /typescript/4.8.4:
-    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
+  /typescript/4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

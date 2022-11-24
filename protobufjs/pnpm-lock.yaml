@@ -1,23 +1,25 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 packageExtensionsChecksum: cf27afb114e4e8655ffccb9eb32a951e
 
 specifiers:
-  '@grpc/grpc-js': 1.7.1
-  '@types/long': 4.0.2
-  '@types/node': 18.7.18
+  '@grpc/grpc-js': 1.7.3
+  '@types/long': 5.0.0
+  '@types/node': 18.11.9
   '@types/protobufjs': 6.0.0
-  long: 5.2.0
+  long: 5.2.1
   protobufjs: 6.11.3
+  typescript: 4.9.3
 
 dependencies:
-  '@grpc/grpc-js': 1.7.1
-  long: 5.2.0
+  '@grpc/grpc-js': 1.7.3
+  long: 5.2.1
   protobufjs: 6.11.3
+  typescript: 4.9.3
 
 devDependencies:
-  '@types/long': 4.0.2
-  '@types/node': 18.7.18
+  '@types/long': 5.0.0
+  '@types/node': 18.11.9
   '@types/protobufjs': 6.0.0
 
 packages:
@@ -45,12 +47,12 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@grpc/grpc-js/1.7.1:
-    resolution: {integrity: sha512-GVtMU4oh/TeKkWGzXUEsyZtyvSUIT1z49RtGH1UnEGeL+sLuxKl8QH3KZTlSB329R1sWJmesm5hQ5CxXdYH9dg==}
+  /@grpc/grpc-js/1.7.3:
+    resolution: {integrity: sha512-H9l79u4kJ2PVSxUNA08HMYAnUBLj9v6KjYQ7SQ71hOZcEXhShE/y5iQCesP8+6/Ik/7i2O0a10bPquIcYfufog==}
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.3
-      '@types/node': 18.7.18
+      '@types/node': 18.11.9
     dev: false
 
   /@grpc/proto-loader/0.7.3:
@@ -103,6 +105,14 @@ packages:
 
   /@types/long/4.0.2:
     resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
+    dev: false
+
+  /@types/long/5.0.0:
+    resolution: {integrity: sha512-eQs9RsucA/LNjnMoJvWG/nXa7Pot/RbBzilF/QRIU/xRl+0ApxrSUFsV5lmf01SvSlqMzJ7Zwxe440wmz2SJGA==}
+    deprecated: This is a stub types definition. long provides its own type definitions, so you do not need this installed.
+    dependencies:
+      long: 5.2.1
+    dev: true
 
   /@types/markdown-it/12.2.3:
     resolution: {integrity: sha512-GKMHFfv3458yYy+v/N8gjufHO6MSZKCOXpZc5GXIWWy8uldwfmPn98vp81gZ5f9SVw8YYBctgfJ22a2d7AOMeQ==}
@@ -113,14 +123,14 @@ packages:
   /@types/mdurl/1.0.2:
     resolution: {integrity: sha512-eC4U9MlIcu2q0KQmXszyn5Akca/0jrQmwDRgpAMJai7qBWq4amIQhZyNau4VYGtCeALvW1/NtjzJJ567aZxfKA==}
 
-  /@types/node/18.7.18:
-    resolution: {integrity: sha512-m+6nTEOadJZuTPkKR/SYK3A2d7FZrgElol9UP1Kae90VVU4a6mxnPuLiIW1m4Cq4gZ/nWb9GrdVXJCoCazDAbg==}
+  /@types/node/18.11.9:
+    resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
 
   /@types/protobufjs/6.0.0:
     resolution: {integrity: sha512-A27RDExpAf3rdDjIrHKiJK6x8kqqJ4CmoChwtipfhVAn1p7+wviQFFP7dppn8FslSbHtQeVPvi8wNKkDjSYjHw==}
     deprecated: This is a stub types definition for protobufjs (https://github.com/dcodeIO/ProtoBuf.js). protobufjs provides its own type definitions, so you don't need @types/protobufjs installed!
     dependencies:
-      protobufjs: 6.11.3
+      protobufjs: 7.1.2
     dev: true
 
   /acorn-jsx/5.3.2_acorn@7.4.1:
@@ -311,7 +321,7 @@ packages:
       js2xmlparser: 4.0.2
       klaw: 4.0.1
       markdown-it: 12.3.2
-      markdown-it-anchor: 8.6.4_d643ca6eb40ae68ab966a77bead78073
+      markdown-it-anchor: 8.6.4_2zb4u3vubltivolgu556vv4aom
       marked: 4.0.17
       mkdirp: 1.0.4
       requizzle: 0.2.3
@@ -344,10 +354,10 @@ packages:
 
   /long/4.0.0:
     resolution: {integrity: sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==}
-
-  /long/5.2.0:
-    resolution: {integrity: sha512-9RTUNjK60eJbx3uz+TEGF7fUr29ZDxR5QzXcyDpeSfeH28S9ycINflOgOlppit5U+4kNTe83KQnMEerw7GmE8w==}
     dev: false
+
+  /long/5.2.1:
+    resolution: {integrity: sha512-GKSNGeNAtw8IryjjkhZxuKB3JzlcLTwjtiQCHKvqQet81I93kXslhDQruGI/QsddO83mcDToBVy7GqGS/zYf/A==}
 
   /lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
@@ -355,7 +365,7 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /markdown-it-anchor/8.6.4_d643ca6eb40ae68ab966a77bead78073:
+  /markdown-it-anchor/8.6.4_2zb4u3vubltivolgu556vv4aom:
     resolution: {integrity: sha512-Ul4YVYZNxMJYALpKtu+ZRdrryYt/GlQ5CK+4l1bp/gWXOG2QWElt6AqF3Mih/wfUKdZbNAZVXGR73/n6U/8img==}
     peerDependencies:
       '@types/markdown-it': '*'
@@ -435,7 +445,7 @@ packages:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/long': 4.0.2
-      '@types/node': 18.7.18
+      '@types/node': 18.11.9
       chalk: 4.1.2
       escodegen: 1.14.3
       espree: 7.3.1
@@ -447,6 +457,7 @@ packages:
       semver: 7.3.7
       tmp: 0.2.1
       uglify-js: 3.16.0
+    dev: false
 
   /protobufjs/7.1.2:
     resolution: {integrity: sha512-4ZPTPkXCdel3+L81yw3dG6+Kq3umdWKh7Dc7GW/CpNk4SX3hK58iPCWeCyhVTDrbkNeKrYNZ7EojM5WDaEWTLQ==}
@@ -463,19 +474,18 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 18.7.18
+      '@types/node': 18.11.9
       chalk: 4.1.2
       escodegen: 1.14.3
       espree: 7.3.1
       estraverse: 5.3.0
       glob: 7.2.3
       jsdoc: 3.6.10
-      long: 5.2.0
+      long: 5.2.1
       minimist: 1.2.6
       semver: 7.3.7
       tmp: 0.2.1
       uglify-js: 3.16.0
-    dev: false
 
   /require-directory/2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -550,6 +560,12 @@ packages:
     engines: {node: '>= 0.8.0'}
     dependencies:
       prelude-ls: 1.1.2
+
+  /typescript/4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: false
 
   /uc.micro/1.0.6:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==}

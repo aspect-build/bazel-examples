@@ -27,8 +27,7 @@ rules_js_dependencies()
 
 load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
 
-# TODO: update to latest version after rules_ts worker mode supports TypeScript 4.9
-rules_ts_dependencies(ts_version = "4.8.4")
+rules_ts_dependencies(ts_version_from = "//:package.json")
 
 load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
 
