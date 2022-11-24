@@ -1,2 +1,3 @@
 test --test_output=errors
 common --incompatible_allow_tags_propagation
+build --incompatible_strict_action_env
