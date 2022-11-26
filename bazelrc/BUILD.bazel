@@ -1,0 +1,13 @@
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+
+write_file(
+    name = "smoke_test_sh",
+    out = "smoke_test.sh",
+    content = ["echo 'smoke test'"],
+)
+
+sh_test(
+    name = "smoke_test",
+    timeout = "short",
+    srcs = ["smoke_test.sh"],
+)
