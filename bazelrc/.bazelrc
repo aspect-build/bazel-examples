@@ -1,50 +1,16 @@
-# Aspect-Recommended bazel flags for all projects
-# Docs for these flags: https://bazel.build/reference/command-line-reference
-# Accompanies this blog post: https://blog.aspect.dev/bazelrc-flags
+# Import Aspect recommended Bazel settings for all projects
+import %workspace%/.aspect/bazelrc/common.bazelrc
 
-###
-# Performance fixes
-###
-# Consider --experimental_remote_merkle_tree_cache_size as well
-build --experimental_remote_merkle_tree_cache
-query --experimental_remote_merkle_tree_cache
-# Note: The noexperimental_check_external_repository_files flag requires Bazel 6
-build --noexperimental_check_output_files --noexperimental_check_external_repository_files
-fetch --noexperimental_check_output_files --noexperimental_check_external_repository_files
-query --noexperimental_check_output_files --noexperimental_check_external_repository_files
-build --incompatible_remote_results_ignore_disk
-# Observed to speed up an Angular build from 7.5min to 5min
-build --experimental_reuse_sandbox_directories
+# Import Aspect recommended Bazel 6 only settings for all projects
+import %workspace%/.aspect/bazelrc/common6.bazelrc
 
-# Avoid waiting on 'Waiting for build events upload: Build Event Service'
-build --bes_upload_mode=fully_async
+# Import Aspect recommended Bazel settings for JavaScript projects
+import %workspace%/.aspect/bazelrc/javascript.bazelrc
 
-###
-# Correctness guarantees
-###
-startup --host_jvm_args=-DBAZEL_TRACK_SOURCE_DIRECTORIES=1
-build --sandbox_default_allow_network=false
-test --incompatible_exclusive_test_sandboxed
-build --incompatible_strict_action_env
-build --nolegacy_external_runfiles
-build --incompatible_remote_results_ignore_disk
-build --incompatible_default_to_explicit_init_py
-build --incompatible_allow_tags_propagation
-fetch --incompatible_allow_tags_propagation
-query --incompatible_allow_tags_propagation
+### YOUR PROJECT SPECIFIC SETTINGS GO HERE ###
 
-###
-# Convenience
-###
-build --remote_local_fallback
-build --heap_dump_on_oom
-build --keep_going
-test  --keep_going
-test --test_verbose_timeout_warnings
-build --incompatible_remote_build_event_upload_respect_no_cache
-
-###
-# Allow user-specific overrides for this repository
-# in a git-ignored file.
-# Should be at the end of this file so that users can override anything above.
-try-import %workspace%/.bazelrc.user
+# Load any settings & overrides specific to the current user from `.aspect/bazelrc/user.bazelrc`.
+# This file should appear in `.gitignore` so that settings are not shared with team members. This
+# should be last statement in this config so the user configuration is able to overwrite flags from
+# this file. See https://bazel.build/configure/best-practices#bazelrc-file.
+try-import %workspace%/.aspect/bazelrc/user.bazelrc
