@@ -1,10 +1,5 @@
 # bzlmod_demo
-Show Aspect's rules working with Bazel 5 bzlmod (empty WORKSPACE file)
+
+Show Aspect's [rules_js](https://github.com/aspect-build/rules_js) and [rules_ts](https://github.com/aspect-build/rules_ts) working with bzlmod using Bazel 6.
 
 Read the blog post: <https://blog.aspect.dev/bzlmod>
-
-Tour:
-- WORKSPACE file is empty
-- MODULE.bazel contains just one `bazel_dep` line to bring in each dependency, compared with dozens of lines needed in WORKSPACE
-- The swc/ folder proves that we can use that rule to transpile TS files
-- The nodejs/ folder proves that we can use a nodejs toolchain to run node programs
