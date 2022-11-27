@@ -1,0 +1,16 @@
+# Aspect recommended Bazel 5 only flags for all projects
+# Aspect's ".bazelrc flags you should enable" blog post: https://blog.aspect.dev/bazelrc-flags
+# Docs for Bazel flags: https://bazel.build/docs/user-manual & https://bazel.build/reference/command-line-reference
+
+####################################################################################################
+# Performance
+# --
+# Miscellaneous settings that improve performance
+####################################################################################################
+
+# Do not upload outputs referenced by BEP to remote cache if the generating action cannot be cached
+# remotely. Option `incompatible_remote_build_event_upload_respect_no_cache` is deprecated in Bazel
+# 6. `--incompatible_remote_build_event_upload_respect_no_cache` has been deprecated in favor of
+# `--experimental_remote_build_event_upload=minimal`.
+# Docs: https://bazel.build/reference/command-line-reference#flag--incompatible_remote_build_event_upload_respect_no_cache
+build --incompatible_remote_build_event_upload_respect_no_cache

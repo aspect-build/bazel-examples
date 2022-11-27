@@ -1,4 +1,4 @@
-# Aspect recommended Bazel flags for all projects
+# Aspect recommended Bazel flags for all projects for all Bazel versions
 # Aspect's ".bazelrc flags you should enable" blog post: https://blog.aspect.dev/bazelrc-flags
 # Docs for Bazel flags: https://bazel.build/docs/user-manual & https://bazel.build/reference/command-line-reference
 
@@ -197,8 +197,3 @@ query --enable_platform_specific_config
 # `<output_base>/<invocation_id>.heapdump.hprof`.
 # Docs: https://bazel.build/reference/command-line-reference#flag--heap_dump_on_oom
 build --heap_dump_on_oom
-
-# Do not upload outputs referenced by BEP to remote cache if the generating action cannot be cached
-# remotely.
-# Docs: https://bazel.build/reference/command-line-reference#flag--incompatible_remote_build_event_upload_respect_no_cache
-build --incompatible_remote_build_event_upload_respect_no_cache
