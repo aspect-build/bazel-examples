@@ -1,4 +1,4 @@
-# Aspect recommended Bazel flags for JavaScript projects
+# Aspect recommended Bazel flags for JavaScript projects for all Bazel versions
 # Aspect's JavaScript rules: https://github.com/aspect-build/rules_js
 # Docs for Bazel flags: https://bazel.build/docs/user-manual & https://bazel.build/reference/command-line-reference
 # Docs for Node.js flags: https://nodejs.org/en/docs/guides/debugging-getting-started/#command-line-options
