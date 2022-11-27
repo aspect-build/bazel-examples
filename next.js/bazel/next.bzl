@@ -175,7 +175,7 @@ def next(
         tool = next_js_binary,
         args = ["export"],
         srcs = data + [name],
-        outs = [next_export_out],
+        out_dirs = [next_export_out],
         chdir = native.package_name(),
         # Tagged as "manual" since this `next export` writes back to the `.next` directory which causes issues with
         # trying to write to an input. See https://github.com/vercel/next.js/issues/43344.
