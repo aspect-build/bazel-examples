@@ -73,10 +73,9 @@ build --color=yes
 # Generic remote cache configuration
 ####################################################################################################
 
-# BREAKS BUILD in Bazel 6.0.0rc1 & rc2; see https://github.com/bazelbuild/bazel/issues/16789.
-# Fix is expected the make the 6.0.0 release: https://github.com/bazelbuild/bazel/pull/16812.
+# Only download remote outputs of top level targets to the local machine.
 # Docs: https://bazel.build/reference/command-line-reference#flag--remote_download_toplevel
-## build --remote_download_toplevel
+build --remote_download_toplevel
 
 # The maximum amount of time to wait for remote execution and cache calls.
 # https://bazel.build/reference/command-line-reference#flag--remote_timeout
