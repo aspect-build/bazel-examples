@@ -19,3 +19,7 @@ build --noexperimental_check_external_repository_files
 # build.
 # Docs: https://bazel.build/reference/command-line-reference#flag--reuse_sandbox_directories
 build --reuse_sandbox_directories
+
+# Turn on Bazel's package manager, https://bazel.build/build/bzlmod
+# In Bazel 7, it is planned for this flag to default to true
+common --enable_bzlmod
