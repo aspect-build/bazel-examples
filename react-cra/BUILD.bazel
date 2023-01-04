@@ -33,10 +33,6 @@ js_test(
     entry_point = "build_smoke_test.js",
 )
 
-cra_bin.react_scripts_binary(
-    name = "start_bin",
-)
-
 js_run_devserver(
     name = "start",
     args = ["start"],
