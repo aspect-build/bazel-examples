@@ -2,7 +2,7 @@
 # rules_js
 ################################################################################
 
-bazel_dep(name = "aspect_rules_js", version = "1.8.0")
+bazel_dep(name = "aspect_rules_js", version = "1.13.0")
 
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
 
@@ -17,7 +17,7 @@ use_repo(npm, "npm")
 # rules_ts
 ################################################################################
 
-bazel_dep(name = "aspect_rules_ts", version = "1.0.2")
+bazel_dep(name = "aspect_rules_ts", version = "1.0.4")
 
 rules_ts_ext = use_extension(
     "@aspect_rules_ts//ts:extensions.bzl",
