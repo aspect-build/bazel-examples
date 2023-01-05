@@ -2,7 +2,7 @@
 # rules_js
 ################################################################################
 
-bazel_dep(name = "aspect_rules_js", version = "1.13.0")
+bazel_dep(name = "aspect_rules_js", version = "1.14.0")
 
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
 
