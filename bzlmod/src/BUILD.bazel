@@ -5,13 +5,13 @@ load("@aspect_rules_swc//swc:defs.bzl", "swc")
 ts_project(
     name = "ts",
     srcs = ["test.ts"],
+    # See the /ts_project_transpiler example for more detail
+    transpiler = swc,
     tsconfig = {
         "compilerOptions": {
             "declaration": True,
         },
     },
-    # See the /ts_project_transpiler example for more detail
-    transpiler = swc,
     deps = [
         "//:node_modules/@types/node",
     ],
