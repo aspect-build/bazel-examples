@@ -1,10 +1,25 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@bazel_skylib//lib:partial.bzl", "partial")
 
 ts_project(
     name = "ts",
     srcs = ["test.ts"],
-    tsconfig = {},
+    # See the /ts_project_transpiler example for more detail
+    transpiler = partial.make(
+        swc,
+        swcrc = {
+            "module": {
+                "type": "commonjs",
+            },
+        },
+    ),
+    tsconfig = {
+        "compilerOptions": {
+            "declaration": True,
+        },
+    },
     deps = [
         "//:node_modules/@types/node",
     ],
