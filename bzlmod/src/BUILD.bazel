@@ -1,10 +1,17 @@
 load("@aspect_rules_js//js:defs.bzl", "js_test")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
 
 ts_project(
     name = "ts",
     srcs = ["test.ts"],
-    tsconfig = {},
+    tsconfig = {
+        "compilerOptions": {
+            "declaration": True,
+        },
+    },
+    # See the /ts_project_transpiler example for more detail
+    transpiler = swc,
     deps = [
         "//:node_modules/@types/node",
     ],
