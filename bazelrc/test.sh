@@ -2,8 +2,8 @@
 set -o nounset -o errexit -o pipefail
 
 set -o xtrace
-bazel clean --expunge --bazelrc=.aspect/bazelrc/ci.bazelrc
-bazel build ... --bazelrc=.aspect/bazelrc/ci.bazelrc
-bazel test ... --bazelrc=.aspect/bazelrc/ci.bazelrc
-bazel query ... --bazelrc=.aspect/bazelrc/ci.bazelrc
-bazel fetch ... --bazelrc=.aspect/bazelrc/ci.bazelrc
+bazel --bazelrc=.aspect/bazelrc/ci.bazelrc clean --expunge
+bazel --bazelrc=.aspect/bazelrc/ci.bazelrc build ...
+bazel --bazelrc=.aspect/bazelrc/ci.bazelrc test ...
+bazel --bazelrc=.aspect/bazelrc/ci.bazelrc query ...
+bazel --bazelrc=.aspect/bazelrc/ci.bazelrc fetch ...
