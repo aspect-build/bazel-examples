@@ -6,6 +6,7 @@ load("@npm//:history-server/package_json.bzl", history_server_bin = "bin")
 load("@npm//:html-insert-assets/package_json.bzl", html_insert_assets_bin = "bin")
 load("@npm//:karma/package_json.bzl", _karma_bin = "bin")
 load("//tools:ng.bzl", "ng_esbuild", "ng_project")
+load("//tools:ts.bzl", "ts_project")
 load("//tools:karma.bzl", "generate_karma_config", "generate_test_bootstrap", "generate_test_setup")
 
 # Common dependencies of Angular applications
@@ -284,10 +285,11 @@ def _unit_tests(name, tests, deps, visibility):
     generate_test_setup(name = "test_setup")
     test_srcs = ["test_setup.ts"] + tests
 
-    ng_project(
+    ts_project(
         name = "_test",
         srcs = test_srcs,
         deps = deps,
+        testonly = True,
         visibility = ["//visibility:private"],
     )
 
