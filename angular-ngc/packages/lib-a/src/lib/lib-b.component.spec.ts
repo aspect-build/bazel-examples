@@ -10,7 +10,7 @@ import { LibAComponent } from './lib-a.component';
     <strong>
       The library component B! With
       <span *ngIf="showSpan">SPAN!</span>
-      <!-- <example-pkg></example-pkg> -->
+      <example-pkg></example-pkg>
     </strong>
   `,
 })
@@ -42,5 +42,10 @@ describe('LibBComponent', () => {
         .withContext('should have the correct contents in the span')
         .toEqual('SPAN!');
     }
+  });
+
+  it('should create the <example-pkg>', () => {
+    const exampleComp = fixture.debugElement.queryAll(By.css('example-pkg'));
+    expect(exampleComp.length).toBe(1);
   });
 });
