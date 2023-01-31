@@ -1,0 +1,32 @@
+# We can't use the bazel-lib one, because it doesn't have a program to read stamp vars.
+# see https://github.com/aspect-build/rules_js/pull/384#issue-1337742941
+# buildifier: disable=bzl-visibility
+load("@aspect_rules_js//js/private:expand_template.bzl", "expand_template")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+
+expand_template(
+    name = "stamped_package_json",
+    out = "stamped_package.json",
+    stamp = 1,
+    substitutions = {
+        "{{VERSION}}": "{{STABLE_BUILD_SCM_TAG}}",
+    },
+    template = "package.json",
+)
+
+npm_package(
+    name = "package",
+    srcs = [
+        "index.js",
+        ":stamped_package_json",
+    ],
+    replace_prefixes = {
+        "stamped_package.json": "package.json",
+    },
+)
+
+build_test(
+    name = "build_test",
+    targets = [":package"],
+)
