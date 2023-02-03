@@ -76,6 +76,12 @@ build --nolegacy_external_runfiles
 run --nolegacy_external_runfiles
 test --nolegacy_external_runfiles
 
+# Do not build runfile symlink forests in the output tree by default. Instead, build them on-demand when
+# a test or binary target is run. This can speed up builds with many targets when not all tests need to
+# be run, for example, during local development.
+# Docs: https://bazel.build/docs/user-manual#build-runfile-links
+build --nobuild_runfile_links
+
 # Some actions are always IO-intensive but require little compute. It's wasteful to put the output
 # in the remote cache, it just saturates the network and fills the cache storage causing earlier
 # evictions. It's also not worth sending them for remote execution. For actions like PackageTar it's

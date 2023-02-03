@@ -1,0 +1,1 @@
+See https://docs.aspect.build/guides/bazelrc for the most up to date version of Aspect's recommended Bazel options.
