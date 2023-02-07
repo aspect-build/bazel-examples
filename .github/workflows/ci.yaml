@@ -18,11 +18,12 @@ env:
 jobs:
   test:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
+        os: [ubuntu-latest, macos-latest]
         folder:
           - 'angular'
           - 'angular-ngc'
@@ -43,6 +44,10 @@ jobs:
           - 'ts_project_transpiler'
           - 'vue'
           - 'write_source_files'
+        exclude:
+          # TODO: fixup: ERROR: react-cra/src/BUILD.bazel:50:11: output 'src/App.test.js' was not created
+          - os: macos-latest
+            folder: react-cra
 
     steps:
       - uses: actions/checkout@v3
