@@ -2,16 +2,16 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "2868c450aaa83ec19ee172015c6445264b6422d6d0d61da6af47ec8a159b0e5a",
-    strip_prefix = "rules_js-1.17.0",
-    url = "https://github.com/aspect-build/rules_js/releases/download/v1.17.0/rules_js-v1.17.0.tar.gz",
+    sha256 = "3ad6684d744ebbc6592d404cc3aa81d0da634eccb3499f6fd198ae122fa28489",
+    strip_prefix = "rules_js-1.19.0",
+    url = "https://github.com/aspect-build/rules_js/releases/download/v1.19.0/rules_js-v1.19.0.tar.gz",
 )
 
 http_archive(
     name = "aspect_rules_ts",
-    sha256 = "b02f64b151caf866787ec9615340fa5de0a7857392b8aeb0fc6473d9076a21f6",
-    strip_prefix = "rules_ts-1.2.2",
-    url = "https://github.com/aspect-build/rules_ts/releases/download/v1.2.2/rules_ts-v1.2.2.tar.gz",
+    sha256 = "db77d904284d21121ae63dbaaadfd8c75ff6d21ad229f92038b415c1ad5019cc",
+    strip_prefix = "rules_ts-1.3.0",
+    url = "https://github.com/aspect-build/rules_ts/releases/download/v1.3.0/rules_ts-v1.3.0.tar.gz",
 )
 
 http_archive(
@@ -53,6 +53,7 @@ load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 
 npm_translate_lock(
     name = "npm",
+    npmrc = "//:.npmrc",
     pnpm_lock = "//:pnpm-lock.yaml",
     verify_node_modules_ignored = "//:.bazelignore",
 )
