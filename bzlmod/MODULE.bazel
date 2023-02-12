@@ -1,9 +1,9 @@
 module(name = "bzlmod_example")
 
 # From https://registry.bazel.build/
-bazel_dep(name = "aspect_rules_js",  version = "1.17.0")
+bazel_dep(name = "aspect_rules_js",  version = "1.19.0")
 bazel_dep(name = "aspect_rules_swc", version = "0.21.3")
-bazel_dep(name = "aspect_rules_ts",  version = "1.2.0")
+bazel_dep(name = "aspect_rules_ts",  version = "1.3.0")
 bazel_dep(name = "bazel_skylib",     version = "1.3.0")
 
 ################################################################################
@@ -15,6 +15,7 @@ npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependenc
 npm.npm_translate_lock(
     name = "npm",
     pnpm_lock = "//:pnpm-lock.yaml",
+    npmrc = "//:.npmrc",
 )
 
 use_repo(npm, "npm")
