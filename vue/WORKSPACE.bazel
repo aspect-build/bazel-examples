@@ -46,3 +46,9 @@ rollup_repositories(name = "rollup")
 load("@rollup//:npm_repositories.bzl", rollup_npm_repositories = "npm_repositories")
 
 rollup_npm_repositories()
+
+# Shared .bazelrc for all examples
+local_repository(
+    name = "aspect_recommended",
+    path = "../bazelrc"
+)

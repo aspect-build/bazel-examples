@@ -11,3 +11,5 @@ sh_test(
     timeout = "short",
     srcs = ["smoke_test.sh"],
 )
+
+exports_files(glob([".aspect/bazelrc/*.bazelrc"]))
