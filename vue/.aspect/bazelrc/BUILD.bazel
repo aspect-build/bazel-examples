@@ -1,0 +1,12 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+
+# keep up-to-date with Aspect recommended bazelrc settings
+write_source_files(
+    name = "aspect_recommended_bazelrc",
+    files = {
+        "ci.bazelrc": "@aspect_recommended//:.aspect/bazelrc/ci.bazelrc",
+        "common.bazelrc": "@aspect_recommended//:.aspect/bazelrc/common.bazelrc",
+        "common6.bazelrc": "@aspect_recommended//:.aspect/bazelrc/common6.bazelrc",
+        "javascript.bazelrc": "@aspect_recommended//:.aspect/bazelrc/javascript.bazelrc",
+    },
+)
