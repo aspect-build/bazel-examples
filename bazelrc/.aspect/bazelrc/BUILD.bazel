@@ -5,7 +5,7 @@ load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 # version of Aspect's recommended Bazel options. These are mirrored on our
 # [docsite](https://docs.aspect.build/guides/bazelrc) for easier consumption.
 write_source_files(
-    name = "aspect_recommended_bazel_options",
+    name = "update_aspect_recommended_bazel_options",
     files = {
         "bazel5.bazelrc": "@aspect_bazel_lib//.aspect/bazelrc:bazel5.bazelrc",
         "bazel6.bazelrc": "@aspect_bazel_lib//.aspect/bazelrc:bazel6.bazelrc",
