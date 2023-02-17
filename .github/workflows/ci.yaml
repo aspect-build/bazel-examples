@@ -100,4 +100,8 @@ jobs:
       - name: bazel test //...
         working-directory: ${{ matrix.folder }}
         if: steps.has_test_sh.outputs.files_exists != 'true'
-        run: bazel --bazelrc=$GITHUB_WORKSPACE/bazelrc/.aspect/bazelrc/ci.bazelrc --bazelrc=$GITHUB_WORKSPACE/.github/workflows/ci.bazelrc test //...
+        run: |
+          bazel \
+            --bazelrc=$GITHUB_WORKSPACE/bazelrc/.aspect/bazelrc/ci.bazelrc \
+            --bazelrc=$GITHUB_WORKSPACE/.github/workflows/ci.bazelrc \
+            test //...
