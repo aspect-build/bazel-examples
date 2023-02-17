@@ -1,8 +1,19 @@
-# Import Aspect recommended Bazel settings for all projects
-import %workspace%/.aspect/bazelrc/common.bazelrc
+# Import Aspect recommended Bazel convenience settings for all projects
+import %workspace%/.aspect/bazelrc/convenience.bazelrc
 
-# Import Aspect recommended Bazel 5 only settings for all projects
-import %workspace%/.aspect/bazelrc/common5.bazelrc
+# Import Aspect recommended Bazel correctness settings for all projects
+import %workspace%/.aspect/bazelrc/correctness.bazelrc
+
+# Import Aspect recommended Bazel performance settings for all projects
+import %workspace%/.aspect/bazelrc/performance.bazelrc
+
+# Import Aspect recommended Bazel debug settings for all projects
+import %workspace%/.aspect/bazelrc/debug.bazelrc
+
+# Import Aspect recommended Bazel 5 settings for all projects
+import %workspace%/.aspect/bazelrc/bazel5.bazelrc
+
+### YOUR PROJECT SPECIFIC SETTINGS GO HERE ###
 
 # Load any settings & overrides specific to the current user from `.aspect/bazelrc/user.bazelrc`.
 # This file should appear in `.gitignore` so that settings are not shared with team members. This
