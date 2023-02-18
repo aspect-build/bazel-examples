@@ -1,17 +1,15 @@
-load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+"Aspect bazelrc presets; see https://docs.aspect.build/guides/bazelrc"
 
-# Keep up-to-date with Aspect recommended .bazelrc settings.
-# See https://github.com/aspect-build/bazel-lib/tree/main/.aspect/bazelrc for the most up to date
-# version of Aspect's recommended Bazel options. These are mirrored on our
-# [docsite](https://docs.aspect.build/guides/bazelrc) for easier consumption.
-write_source_files(
-    name = "update_aspect_recommended_bazel_options",
-    files = {
-        "bazel6.bazelrc": "@aspect_bazel_lib//.aspect/bazelrc:bazel6.bazelrc",
-        "convenience.bazelrc": "@aspect_bazel_lib//.aspect/bazelrc:convenience.bazelrc",
-        "correctness.bazelrc": "@aspect_bazel_lib//.aspect/bazelrc:correctness.bazelrc",
-        "debug.bazelrc": "@aspect_bazel_lib//.aspect/bazelrc:debug.bazelrc",
-        "javascript.bazelrc": "@aspect_bazel_lib//.aspect/bazelrc:javascript.bazelrc",
-        "performance.bazelrc": "@aspect_bazel_lib//.aspect/bazelrc:performance.bazelrc",
-    },
+load("@aspect_bazel_lib//lib:bazelrc_presets.bzl", "write_aspect_bazelrc_presets")
+
+write_aspect_bazelrc_presets(
+    name = "update_aspect_bazelrc_presets",
+    presets = [
+        "bazel6",
+        "convenience",
+        "correctness",
+        "debug",
+        "javascript",
+        "performance",
+    ],
 )
