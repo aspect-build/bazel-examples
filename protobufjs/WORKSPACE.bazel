@@ -1,21 +1,13 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# TODO: remove this explicit fetch once aspect_rules_js has a transitive dep on bazel-lib-1.25.0 or greater
-http_archive(
-    name = "aspect_bazel_lib",
-    sha256 = "d2a71e1e39961535db2f9164c7a588cff1a86938564634532062ed3a3cf307b3",
-    strip_prefix = "bazel-lib-1.25.0",
-    url = "https://github.com/aspect-build/bazel-lib/releases/download/v1.25.0/bazel-lib-v1.25.0.tar.gz",
-)
-
 ###
 # Setup rules_js
 ###
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "3ad6684d744ebbc6592d404cc3aa81d0da634eccb3499f6fd198ae122fa28489",
-    strip_prefix = "rules_js-1.19.0",
-    url = "https://github.com/aspect-build/rules_js/releases/download/v1.19.0/rules_js-v1.19.0.tar.gz",
+    sha256 = "9fadde0ae6e0101755b8aedabf7d80b166491a8de297c60f6a5179cd0d0fea58",
+    strip_prefix = "rules_js-1.20.0",
+    url = "https://github.com/aspect-build/rules_js/releases/download/v1.20.0/rules_js-v1.20.0.tar.gz",
 )
 
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
