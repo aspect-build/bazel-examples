@@ -13,5 +13,6 @@ ng_application(
     ],
     deps = [
         ":node_modules/@ngc-example/lib-a",
+        "//:node_modules/ng2-dragula",
     ],
 )
