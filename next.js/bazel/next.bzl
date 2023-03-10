@@ -39,7 +39,7 @@ def next(
             "package.json",
         ],
         next_bin = "../../node_modules/.bin/next",
-        next_js_binary = ":next_js_binary",
+        next_js_binary = "//:next_js_binary",
     )
     ```
 
