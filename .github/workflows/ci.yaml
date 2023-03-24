@@ -60,6 +60,7 @@ jobs:
           # - 'eager-fetch'
           - 'go_workspaces'
           - 'jest'
+          - 'oci_go_image'
           - 'nestjs'
           - 'next.js'
           - 'pnpm-workspaces'
