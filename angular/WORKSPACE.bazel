@@ -28,6 +28,14 @@ load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 
 npm_translate_lock(
     name = "npm",
+    bins = {
+        "@angular/compiler-cli": {
+            "ngcc": "./bundles/ngcc/main-ngcc.js",
+        },
+    },
+    custom_postinstalls = {
+        "ng2-dragula": "ngcc --source .",
+    },
     pnpm_lock = "//:pnpm-lock.yaml",
     npmrc = "//:.npmrc",
     verify_node_modules_ignored = "//:.bazelignore",
