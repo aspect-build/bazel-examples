@@ -1,7 +1,7 @@
+load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
 load("@aspect_rules_js//js:defs.bzl", "js_library")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@npm//:eslint/package_json.bzl", eslint_bin = "bin")
-load("@jest//:defs.bzl", "jest_test")
 
 ASSET_PATTERNS = [
     "*.svg",
@@ -70,6 +70,7 @@ jest_test(
         "//:node_modules/jest-environment-jsdom",
         "//:node_modules/jest-transform-stub",
     ],
+    node_modules = "//:node_modules",
 )
 
 eslint_bin.eslint_test(

@@ -2,23 +2,23 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "a592fafd8a27b2828318cebbda0003686c6da3318df366b563e8beeffa05a02c",
-    strip_prefix = "rules_js-1.21.0",
-    url = "https://github.com/aspect-build/rules_js/releases/download/v1.21.0/rules_js-v1.21.0.tar.gz",
+    sha256 = "4722264788b92aeca47bf108c5909d94720114d73739e3cff9f48a10b18ef8cd",
+    strip_prefix = "rules_js-1.25.0",
+    url = "https://github.com/aspect-build/rules_js/releases/download/v1.25.0/rules_js-v1.25.0.tar.gz",
 )
 
 http_archive(
     name = "aspect_rules_ts",
-    sha256 = "58b6c0ad158fc42883dafa157f1a25cddd65bcd788a772620192ac9ceefa0d78",
-    strip_prefix = "rules_ts-1.3.2",
-    url = "https://github.com/aspect-build/rules_ts/releases/download/v1.3.2/rules_ts-v1.3.2.tar.gz",
+    sha256 = "8eb25d1fdafc0836f5778d33fb8eaac37c64176481d67872b54b0a05de5be5c0",
+    strip_prefix = "rules_ts-1.3.3",
+    url = "https://github.com/aspect-build/rules_ts/releases/download/v1.3.3/rules_ts-v1.3.3.tar.gz",
 )
 
 http_archive(
     name = "aspect_rules_jest",
-    sha256 = "9f327ea58950c88274ea7243419256c74ae29a55399d2f5964eb7686c7a5660d",
-    strip_prefix = "rules_jest-0.15.0",
-    url = "https://github.com/aspect-build/rules_jest/archive/refs/tags/v0.15.0.tar.gz",
+    sha256 = "52dc08fd252add240124ef7ccc46df3a505121758dfb96578a3d5f2ebb4c2b40",
+    strip_prefix = "rules_jest-0.18.1",
+    url = "https://github.com/aspect-build/rules_jest/releases/download/v0.18.1/rules_jest-v0.18.1.tar.gz",
 )
 
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
@@ -32,14 +32,6 @@ rules_ts_dependencies(ts_version_from = "//:package.json")
 load("@aspect_rules_jest//jest:dependencies.bzl", "rules_jest_dependencies")
 
 rules_jest_dependencies()
-
-load("@aspect_rules_jest//jest:repositories.bzl", "jest_repositories")
-
-jest_repositories(name = "jest")
-
-load("@jest//:npm_repositories.bzl", jest_npm_repositories = "npm_repositories")
-
-jest_npm_repositories()
 
 load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
 

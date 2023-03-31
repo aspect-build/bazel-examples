@@ -1,17 +1,18 @@
 load("@aspect_rules_js//npm:defs.bzl", "npm_package")
-load("@aspect_rules_rollup//rollup:defs.bzl", "rollup_bundle")
+load("@aspect_rules_rollup//rollup:defs.bzl", "rollup")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 
 npm_link_all_packages(name = "node_modules")
 
 [
-    rollup_bundle(
+    rollup(
         name = format + "_bundle",
         srcs = glob(["src/*"]),
         config_file = "rollup.config.js",
         entry_point = "src/index.js",
         format = format,
+        node_modules = "//libraries/simple:node_modules",
         sourcemap = "false",
         deps = [
             "//libraries/simple:node_modules/rollup-plugin-peer-deps-external",
