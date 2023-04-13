@@ -4,7 +4,7 @@ This shows how you can make an executable rule that publishes a subset of `bazel
 
 This is useful when your monorepo wants to export some package, for example an SDK for your APIs.
 
-Aspect uses this ourselves to publish our workflows packages from our internal monorepo, for example https://github.com/aspect-build/workflows-action comes from one folder in our repo.
+Aspect uses this ourselves to publish our Workflows packages from our internal monorepo, for example https://github.com/aspect-build/workflows-action comes from one folder in our repo.
 
 To use this, you just `bazel run --stamp :push` and it will push commits, and tag the remote repo.
 

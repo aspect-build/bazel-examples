@@ -3,7 +3,10 @@
 # Assumes that `git` is on the machine and has push credentials already.
 # Inspired from how Angular publishes snapshots to "*-build" repos:
 # https://github.com/angular/angular/blob/main/scripts/ci/publish-build-artifacts.sh
-
+#
+# Caveats:
+# - Not hermetic: uses the system `tar` and `mktemp` utilities
+# - Needs a Personal Access Token for performing the push from CI, see MYORG_GHBOT_PAT below.
 set -o errexit -o nounset -o pipefail
 
 ARCHIVE=$1
