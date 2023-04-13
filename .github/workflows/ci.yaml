@@ -58,6 +58,7 @@ jobs:
           - 'directory_path'
           # TODO: intentionally fails
           # - 'eager-fetch'
+          - 'git_push'
           - 'go_workspaces'
           - 'jest'
           - 'oci_go_image'

@@ -1,4 +1,5 @@
 load("@rules_pkg//pkg:pkg.bzl", "pkg_tar")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load(":defs.bzl", "git_push")
 
@@ -21,4 +22,9 @@ git_push(
     name = "release",
     archive = "assets.tar",
     repo_url = "https://github.com/my-org/workflows-action.git",
+)
+
+build_test(
+    name = "test",
+    targets = [":release"],
 )

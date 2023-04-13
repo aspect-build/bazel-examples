@@ -10,7 +10,7 @@ def git_push(name, archive, repo_url, **kwargs):
     """Push a commit to the given git remote, replacing the repo content with the content of the archive.
 
     Args:
-        name: name of resulting sh_binary target
+        name: unique name of the runnable sh_binary target
         archive: a tar file
         repo_url: a git remote url; the machine needs credentials to be able to push
         **kwargs: additional named arguments to sh_binary
@@ -33,7 +33,5 @@ def git_push(name, archive, repo_url, **kwargs):
         srcs = [stamped],
         data = [archive],
         args = ["$(rootpath {})".format(archive), repo_url],
-        # Mark it "deliverable"
-        tags = kwargs.pop("tags", ["deliverable"]),
         **kwargs
     )
