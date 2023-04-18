@@ -1,5 +1,5 @@
+load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
-load("@jest//:defs.bzl", "jest_test")
 
 ts_project(
     name = "src_ts",
@@ -39,4 +39,5 @@ jest_test(
         "//:node_modules/jest-environment-jsdom",
         "//:node_modules/react",
     ],
+    node_modules = "//:node_modules",
 )

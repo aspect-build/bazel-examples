@@ -2,9 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "a592fafd8a27b2828318cebbda0003686c6da3318df366b563e8beeffa05a02c",
-    strip_prefix = "rules_js-1.21.0",
-    url = "https://github.com/aspect-build/rules_js/releases/download/v1.21.0/rules_js-v1.21.0.tar.gz",
+    sha256 = "4722264788b92aeca47bf108c5909d94720114d73739e3cff9f48a10b18ef8cd",
+    strip_prefix = "rules_js-1.25.0",
+    url = "https://github.com/aspect-build/rules_js/releases/download/v1.25.0/rules_js-v1.25.0.tar.gz",
 )
 
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
@@ -33,19 +33,10 @@ npm_repositories()
 
 http_archive(
     name = "aspect_rules_rollup",
-    sha256 = "2a0c863fa4ca35cc2d49b63637792d38262f71fc0590c76b7946838614c94fda",
-    strip_prefix = "rules_rollup-0.13.0",
-    url = "https://github.com/aspect-build/rules_rollup/archive/refs/tags/v0.13.0.tar.gz",
+    sha256 = "3777f196b7ced25241a6ccdc41551de6bd0817630cce1924919b9e9816676e43",
+    strip_prefix = "rules_rollup-0.14.0",
+    url = "https://github.com/aspect-build/rules_rollup/releases/download/v0.14.0/rules_rollup-v0.14.0.tar.gz",
 )
-
-load("@aspect_rules_rollup//rollup:repositories.bzl", "rollup_repositories")
-
-# TODO(alexeagle): use the same rollup version from package.json
-rollup_repositories(name = "rollup")
-
-load("@rollup//:npm_repositories.bzl", rollup_npm_repositories = "npm_repositories")
-
-rollup_npm_repositories()
 
 # Shared .bazelrc for all examples
 local_repository(
