@@ -1,5 +1,5 @@
 5.3.2
-# TODO: update to Bazel 6.0.0rc1
+# TODO: update to Bazel 6
 # Getting error:
 # ERROR: /private/var/tmp/_bazel_greg/8ad41b1790270c4131ea7500e0bb09ad/external/bazel_tools/platforms/BUILD:89:6: in alias rule @bazel_tools//platforms:windows: Constraints from @bazel_tools//platforms have been removed. Please use constraints from @platforms repository embedded in Bazel, or preferably declare dependency on https://github.com/bazelbuild/platforms. See https://github.com/bazelbuild/bazel/issues/8622 for details.
 # ERROR: /private/var/tmp/_bazel_greg/8ad41b1790270c4131ea7500e0bb09ad/external/bazel_tools/platforms/BUILD:89:6: Analysis of target '@bazel_tools//platforms:windows' failed
