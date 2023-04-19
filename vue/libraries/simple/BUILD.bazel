@@ -31,7 +31,6 @@ vue_tsc_bin.vue_tsc(
         "--project",
         "libraries/simple",
     ],
-    # include_declarations = True,
     srcs = _SRCS + [
         "tsconfig.json",
         "//:node_modules/vite",
@@ -43,7 +42,6 @@ vue_tsc_bin.vue_tsc(
         "dist/types/components.d.ts",
         "dist/types/index.d.ts",
     ],
-    # chdir = package_name()
 )
 
 # TODO(alexeagle): show how this could be published to npm
