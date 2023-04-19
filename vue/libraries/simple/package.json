@@ -1,18 +1,22 @@
 {
   "name": "@yourname/yourlibrary",
   "version": "0.0.1",
-  "main": "dist/library.js",
-  "module": "dist/library.mjs",
   "files": [
     "dist/*"
   ],
+  "types": "./dist/types/index.d.ts",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
   "peerDependencies": {
     "vue": "^3.2.21"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "3.2.37",
-    "rollup": "2.79.1",
-    "rollup-plugin-vue": "6.0.0",
-    "rollup-plugin-peer-deps-external": "2.2.4"
+    "@vitejs/plugin-vue": "3.2.0"
   }
 }

@@ -1,48 +1,35 @@
 load("@aspect_rules_js//npm:defs.bzl", "npm_package")
-load("@aspect_rules_rollup//rollup:defs.bzl", "rollup")
+
+# load("@aspect_rules_rollup//rollup:defs.bzl", "rollup_bundle")
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("@npm//:vite/package_json.bzl", vite_bin = "bin")
 
 npm_link_all_packages(name = "node_modules")
 
-[
-    rollup(
-        name = format + "_bundle",
-        srcs = glob(["src/*"]),
-        config_file = "rollup.config.js",
-        entry_point = "src/index.js",
-        format = format,
-        node_modules = "//libraries/simple:node_modules",
-        sourcemap = "false",
-        deps = [
-            "//libraries/simple:node_modules/rollup-plugin-peer-deps-external",
-            "//libraries/simple:node_modules/rollup-plugin-vue",
-        ],
-    )
-    for format in [
-        "esm",
-        "cjs",
-    ]
-]
-
-copy_file(
-    name = "copy_esm",
-    src = "esm_bundle",
-    out = "dist/library.mjs",
+vite_bin.vite(
+    name = "build",
+    args = [
+        "build",
+        "libraries/simple",
+    ],
+    outs = ["dist/index.es.js"],
+    srcs = [
+        "src/InputText.vue",
+        "src/InputTextarea.vue",
+        "src/components.ts",
+        "src/index.ts",
+        "vite.config.ts",
+        "//libraries/simple:node_modules/@vitejs/plugin-vue",
+    ],
 )
 
-copy_file(
-    name = "copy_cjs",
-    src = "cjs_bundle",
-    out = "dist/library.js",
-)
 
 # TODO(alexeagle): show how this could be published to npm
 npm_package(
     name = "simple",
     srcs = [
-        "copy_cjs",
-        "copy_esm",
+        "build",
+        # "copy_esm",
         "package.json",
     ],
     # This is a perf improvement; the default will be flipped to False in rules_js 2.0
