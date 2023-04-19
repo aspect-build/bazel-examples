@@ -40,8 +40,6 @@ vue_tsc_bin.vue_tsc_test(
     args = ["--noEmit"],
     include_declarations = True,
     data = SRCS + BUILD_DEPS,
-    # TODO: add declarations to @yourname/yourlibrary (/vue/libraries/simple) so typecheck passes
-    tags = ["manual"],
 )
 
 vite_bin.vite_binary(
