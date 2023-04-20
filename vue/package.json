@@ -5,7 +5,7 @@
     "dev": "ibazel run :vite",
     "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",
-    "build-only": "bazel build :dist",
+    "build-only": "bazel build :build",
     "type-check": "bazel test :type-check"
   },
   "dependencies": {
