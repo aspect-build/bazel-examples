@@ -30,6 +30,9 @@ importers:
       ng2-dragula:
         specifier: 1.5.0
         version: 1.5.0(@angular/common@15.0.1)(@angular/compiler-cli@15.0.1)(@angular/compiler@15.0.1)(@angular/core@15.0.1)(@angular/forms@15.0.1)
+      normalize.css:
+        specifier: ^8.0.1
+        version: 8.0.1
       rxjs:
         specifier: 7.5.7
         version: 7.5.7
@@ -1472,6 +1475,10 @@ packages:
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
+
+  /normalize.css@8.0.1:
+    resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
+    dev: false
 
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
