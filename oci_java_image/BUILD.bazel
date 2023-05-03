@@ -1,0 +1,45 @@
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball", "structure_test")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
+
+pkg_tar(
+    name = "tar",
+    # Bring the java_binary
+    srcs = ["//src/main/java/com/example:JavaLoggingClient_deploy.jar"],
+    include_runfiles = True,
+    strip_prefix = ".",
+)
+
+oci_image(
+    name = "image",
+    architecture = select({
+        "@platforms//cpu:arm64": "arm64",
+        "@platforms//cpu:x86_64": "amd64",
+    }),
+    base = "@distroless_java",
+    entrypoint = [
+        "java",
+        "-jar",
+        "/src/main/java/com/example/JavaLoggingClient_deploy.jar",
+    ],
+    os = "linux",
+    tars = [":tar"],
+)
+
+# $ bazel build :tarball
+# $ docker load --input $(bazel cquery --output=files :tarball)
+# $ docker run --rm gcr.io/example:latest
+#   string(
+# -       "Hello World",
+# +       "Hello Go",
+#   )
+oci_tarball(
+    name = "tarball",
+    image = ":image",
+    repotags = ["gcr.io/example:latest"],
+)
+
+structure_test(
+    name = "test",
+    config = ["test.yaml"],
+    image = ":image",
+)
