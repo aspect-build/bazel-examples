@@ -1,0 +1,31 @@
+bazel_dep(name = "aspect_bazel_lib", version = "1.29.2")
+bazel_dep(name = "platforms", version = "0.0.5")
+bazel_dep(name = "rules_oci", version = "0.3.8")
+bazel_dep(name = "rules_pkg", version = "0.8.1")
+bazel_dep(name = "rules_jvm_external", version = "4.5")
+
+# Java and other JVM languages:
+# https://github.com/bazelbuild/rules_jvm_external/blob/master/examples/bzlmod/MODULE.bazel
+# https://github.com/bazelbuild/rules_jvm_external#pinning-artifacts-and-integration-with-bazels-downloader
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+maven.install(
+    artifacts = ["io.grpc:grpc-all:1.51.1"],
+    lock_file = "//:maven_install.json",
+)
+
+use_repo(
+    maven,
+    "maven",
+    "unpinned_maven",
+)
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+
+oci.pull(
+    name = "distroless_java",
+    digest = "sha256:161a1d97d592b3f1919801578c3a47c8e932071168a96267698f4b669c24c76d",
+    image = "gcr.io/distroless/java17",
+)
+
+use_repo(oci, "distroless_java")
