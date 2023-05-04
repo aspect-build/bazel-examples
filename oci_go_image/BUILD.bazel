@@ -37,6 +37,7 @@ oci_image(
     tars = [":app_layer"],
 )
 
+# This is the target that should be released to the target platform
 platform_transition_filegroup(
     name = "transitioned_image",
     srcs = [":image"],
@@ -55,12 +56,14 @@ platform_transition_filegroup(
 #   )
 oci_tarball(
     name = "tarball",
-    image = ":transitioned_image",
+    # Use the image built for the exec platform rather than the target platform
+    image = ":image",
     repotags = ["gcr.io/example:latest"],
 )
 
 structure_test(
     name = "test",
     config = ["test.yaml"],
-    image = ":transitioned_image",
+    # Use the image built for the exec platform rather than the target platform
+    image = ":image",
 )
