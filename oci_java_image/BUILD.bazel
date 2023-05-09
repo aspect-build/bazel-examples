@@ -25,6 +25,22 @@ oci_image(
     tars = [":tar"],
 )
 
+oci_image(
+    name = "chainguard_image",
+    architecture = select({
+        "@platforms//cpu:arm64": "arm64",
+        "@platforms//cpu:x86_64": "amd64",
+    }),
+    base = "@chainguard_jre",
+    entrypoint = [
+        "java",
+        "-jar",
+        "/src/main/java/com/example/JavaLoggingClient_deploy.jar",
+    ],
+    os = "linux",
+    tars = [":tar"],
+)
+
 # $ bazel build :tarball
 # $ docker load --input $(bazel cquery --output=files :tarball)
 # $ docker run --rm gcr.io/example:latest
@@ -36,6 +52,15 @@ oci_tarball(
     name = "tarball",
     image = ":image",
     repotags = ["gcr.io/example:latest"],
+)
+
+# $ bazel build :chainguard_tarball
+# $ docker load --input $(bazel cquery --output=files :chainguard_tarball)
+# $ docker run --rm chainguard_example:latest
+oci_tarball(
+    name = "chainguard_tarball",
+    image = ":chainguard_image",
+    repotags = ["chainguard_example:latest"],
 )
 
 structure_test(

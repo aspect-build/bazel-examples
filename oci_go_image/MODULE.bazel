@@ -28,3 +28,33 @@ oci.pull(
 )
 
 use_repo(oci, "distroless_base")
+
+# Chainguard's equivalent of distroless/base - most users will want static instead
+oci.pull(
+    name = "chainguard_dynamic_base",
+    # digest = "sha256:fbb4a28f618318e0db1cb4ccaeb42baea8f1452f0fea386c4783fb328bf011b8",
+    tag = "latest",
+    reproducible = False,
+    image = "cgr.dev/chainguard/musl-dynamic",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
+    ],
+)
+
+use_repo(oci, "chainguard_dynamic_base")
+
+# Static image, perfect for most Go code
+oci.pull(
+    name = "chainguard_static_base",
+    # digest = "sha256:3ee375b4539717ebcdb96ffc9d94ebb15bc5d950b9d714bd0545997b5aec1c19",
+    tag = "latest",
+    reproducible = False,
+    image = "cgr.dev/chainguard/static",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
+    ],
+)
+
+use_repo(oci, "chainguard_static_base")

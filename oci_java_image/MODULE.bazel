@@ -29,3 +29,12 @@ oci.pull(
 )
 
 use_repo(oci, "distroless_java")
+
+oci.pull(
+    name = "chainguard_jre",
+    tag = "latest",
+    reproducible = False,
+    image = "cgr.dev/chainguard/jre",
+)
+
+use_repo(oci, "chainguard_jre")

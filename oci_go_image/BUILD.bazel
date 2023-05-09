@@ -25,6 +25,32 @@ pkg_tar(
     # include_runfiles = True
 )
 
+# Image using a Chainguard base image with libc
+oci_image(
+    name = "chainguard_dynamic_image",
+    architecture = select({
+        "@platforms//cpu:arm64": "arm64",
+        "@platforms//cpu:x86_64": "amd64",
+    }),
+    base = "@chainguard_dynamic_base",
+    entrypoint = ["/app"],
+    os = "linux",
+    tars = [":app_layer"],
+)
+
+# Image using a Chainguard static base image (smaller)
+oci_image(
+    name = "chainguard_static_image",
+    architecture = select({
+        "@platforms//cpu:arm64": "arm64",
+        "@platforms//cpu:x86_64": "amd64",
+    }),
+    base = "@chainguard_static_base",
+    entrypoint = ["/app"],
+    os = "linux",
+    tars = [":app_layer"],
+)
+
 oci_image(
     name = "image",
     architecture = select({
@@ -48,7 +74,7 @@ platform_transition_filegroup(
 )
 
 # $ bazel build app:tarball
-# $ docker load --input $(bazel cquery --output=files app:tarball)
+# $ docker load --input $(bazel cquery --output=files tarball)
 # $ docker run --rm gcr.io/example:latest
 #   string(
 # -       "Hello World",
@@ -59,6 +85,27 @@ oci_tarball(
     # Use the image built for the exec platform rather than the target platform
     image = ":image",
     repotags = ["gcr.io/example:latest"],
+)
+
+# $ bazel build app:chainguard_tarball
+# $ docker load --input $(bazel cquery --output=files chainguard_tarball)
+# $ docker run --rm chainguard_example:latest
+oci_tarball(
+    name = "chainguard_dynamic_tarball",
+    # Use the image built for the exec platform rather than the target platform
+    image = ":chainguard_dynamic_image",
+    repotags = ["chainguard_dynamic_example:latest"],
+)
+
+# $ bazel build app:chainguard_static_tarball
+# $ docker load --input $(bazel cquery --output=files chainguard_static_tarball)
+# $ docker run --rm chainguard_static_example:latest
+oci_tarball(
+    name = "chainguard_static_tarball",
+    # Use the image built for the exec platform rather than the target platform
+    image = ":chainguard_static_image",
+    # Pinning to a hash is only available to customers
+    repotags = ["chainguard_static_example:latest"],
 )
 
 structure_test(
