@@ -1,0 +1,25 @@
+"Bazel dependencies"
+
+bazel_dep(name = "aspect_bazel_lib", version = "1.31.1")
+bazel_dep(name = "rules_jvm_external", version = "5.2")
+
+# Java and other JVM languages:
+# https://github.com/bazelbuild/rules_jvm_external/blob/master/examples/bzlmod/MODULE.bazel
+# https://github.com/bazelbuild/rules_jvm_external#pinning-artifacts-and-integration-with-bazels-downloader
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+maven.install(
+    artifacts = ["com.sun.xml.ws:jaxws-ri:4.0.1"],
+    excluded_artifacts = [
+        "com.sun.xml.ws:release-documentation",
+        "com.sun.xml.ws:samples",
+    ],
+    lock_file = "//:maven_install.json",
+    strict_visibility = True,
+)
+
+use_repo(
+    maven,
+    "maven",
+    "unpinned_maven",
+)
