@@ -1,0 +1,70 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
+load("//hack:runfiles.bzl", "py_image_layer")
+
+py_library(
+    name = "hello_world",
+    srcs = [
+        "__init__.py",
+        "app.py",
+    ],
+    imports = [".."],
+    visibility = ["//:__subpackages__"],
+)
+
+py_binary(
+    name = "hello_world_bin",
+    srcs = ["__main__.py"],
+    imports = [".."],
+    main = "__main__.py",
+    visibility = ["//:__subpackages__"],
+    deps = [":hello_world"],
+)
+
+py_image_layer(
+    name = "hello_world_layer",
+    binary = ":hello_world_bin",
+    root = "/opt",
+)
+
+oci_image(
+    name = "image",
+    base = "@distroless_python",
+    entrypoint = ["/opt/hello_world/hello_world_bin"],
+    tars = [":hello_world_layer"],
+)
+
+platform(
+    name = "aarch64_linux",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:aarch64",
+    ],
+)
+
+platform(
+    name = "x86_64_linux",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+)
+
+platform_transition_filegroup(
+    name = "transitioned_image",
+    srcs = [":image"],
+    target_platform = select({
+        "@platforms//cpu:arm64": ":aarch64_linux",
+        "@platforms//cpu:x86_64": ":x86_64_linux",
+    }),
+)
+
+# $ bazel build //hello_world:tarball
+# $ docker load --input $(bazel cquery --output=files //hello_world:tarball)
+# $ docker run --rm gcr.io/oci_python_hello_world:latest
+oci_tarball(
+    name = "tarball",
+    image = ":image",
+    repo_tags = ["gcr.io/oci_python_hello_world:latest"],
+)
