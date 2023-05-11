@@ -73,10 +73,6 @@ jobs:
           - 'ts_project_transpiler'
           - 'vue'
           - 'write_source_files'
-        exclude:
-          # TODO: fixup: ERROR: react-cra/src/BUILD.bazel:50:11: output 'src/App.test.js' was not created
-          - os: macos-latest
-            folder: react-cra
 
     steps:
       - uses: actions/checkout@v3

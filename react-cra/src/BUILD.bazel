@@ -52,6 +52,7 @@ ts_project(
     srcs = glob(TEST_PATTERNS),
     declaration = True,
     resolve_json_module = True,
+    supports_workers = False,  # worker bug on macos: ERROR: react-cra/src/BUILD.bazel:50:11: output 'src/App.test.js' was not created
     tsconfig = "//:tsconfig",
     deps = [
         ":src_ts",
