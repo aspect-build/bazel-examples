@@ -1,33 +1,6 @@
-load("@bazel_gazelle//:def.bzl", "gazelle")
-load("@pypi//:requirements.bzl", "all_whl_requirements")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-load("@rules_python_gazelle_plugin//:def.bzl", "GAZELLE_PYTHON_RUNTIME_DEPS")
-load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
-load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 
 compile_pip_requirements(
     name = "requirements",
     extra_args = ["--allow-unsafe"],
-)
-
-modules_mapping(
-    name = "modules_map",
-    exclude_patterns = [
-        "^_|(\\._)+",
-        "(\\.tests)+",
-    ],
-    wheels = all_whl_requirements,
-)
-
-gazelle_python_manifest(
-    name = "gazelle_python_manifest",
-    modules_mapping = ":modules_map",
-    pip_repository_name = "pip",
-    requirements = "//:requirements.txt",
-)
-
-gazelle(
-    name = "gazelle",
-    data = GAZELLE_PYTHON_RUNTIME_DEPS,
-    gazelle = "@rules_python_gazelle_plugin//python:gazelle_binary",
 )
