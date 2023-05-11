@@ -1,0 +1,22 @@
+load("@pip//:requirements.bzl", "requirement")
+
+py_test(
+    name = "integration_test",
+    srcs = [
+        "__test__.py",
+        "service_test.py",
+    ],
+    data = [
+        "//hello_world:tarball",
+    ],
+    main = ":__test__.py",
+    tags = [
+        "requires-docker",
+        "requires-network",
+    ],
+    deps = [
+        requirement("docker"),
+        requirement("pytest"),
+        requirement("testcontainers"),
+    ],
+)

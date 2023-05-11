@@ -68,6 +68,7 @@ oci_tarball(
     name = "tarball",
     image = ":image",
     repo_tags = ["gcr.io/oci_python_hello_world:latest"],
+    visibility = ["//integration_test:__pkg__"],
 )
 
 container_structure_test(

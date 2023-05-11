@@ -19,12 +19,17 @@ register_toolchains(
     "@python3_9_toolchains//:all",
 )
 
-oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+pip = use_extension("@rules_python//python:extensions.bzl", "pip")
+pip.parse(
+    name = "pip",
+    requirements_lock = "//:requirements.txt",
+)
+use_repo(pip, "pip")
 
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "distroless_python",
     digest = "sha256:b48e216f7c4adcf24fecd7016f3b8ead76866a19571819f67f47c1ccaf899717",
     image = "python",
 )
-
 use_repo(oci, "distroless_python")
