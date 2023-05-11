@@ -1,0 +1,6 @@
+# See https://github.com/GoogleContainerTools/container-structure-test#command-tests
+schemaVersion: 2.0.0
+commandTests:
+  - name: 'run'
+    command: /opt/hello_world/hello_world_bin
+    expectedOutput: ['Hello John!']
