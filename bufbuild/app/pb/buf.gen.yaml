@@ -1,0 +1,15 @@
+# buf.gen.yaml
+# The version of the generation template.
+# Required.
+# The valid values are v1beta1, v1.
+version: v1
+# The plugins to run. "plugin" is required.
+plugins:
+  # The name of the plugin.
+  # By default, buf generate will look for a binary named protoc-gen-NAME on your $PATH.
+  # Alternatively, use a remote plugin:
+  - plugin: buf.build/protocolbuffers/go:v1.28.1
+    # - plugin: go
+    # The the relative output directory.
+    # Required.
+    out: .
