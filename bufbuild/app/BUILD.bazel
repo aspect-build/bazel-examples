@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
 go_binary(
     name = "main",
@@ -8,4 +9,9 @@ go_binary(
     deps = [
         "//app/pb",
     ],
+)
+
+build_test(
+    name = "test",
+    targets = [":main"],
 )
