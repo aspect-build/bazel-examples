@@ -1,10 +1,6 @@
 "git_push rule for delivering to GitHub"
 
-# We can't use the bazel-lib one, because it doesn't have a program to read stamp vars.
-# see https://github.com/aspect-build/rules_js/pull/384#issue-1337742941
-# load("@aspect_bazel_lib//lib:expand_make_vars.bzl", "expand_template")
-# buildifier: disable=bzl-visibility
-load("@aspect_rules_js//js/private:expand_template.bzl", "expand_template")
+load("@aspect_bazel_lib//lib:expand_template.bzl", "expand_template")
 
 def git_push(name, archive, repo_url, **kwargs):
     """Push a commit to the given git remote, replacing the repo content with the content of the archive.
