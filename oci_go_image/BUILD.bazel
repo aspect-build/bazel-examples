@@ -58,7 +58,7 @@ oci_tarball(
     name = "tarball",
     # Use the image built for the exec platform rather than the target platform
     image = ":image",
-    repotags = ["gcr.io/example:latest"],
+    repo_tags = ["gcr.io/example:latest"],
 )
 
 structure_test(
