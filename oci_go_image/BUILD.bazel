@@ -1,6 +1,7 @@
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
+load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball", "structure_test")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
 go_library(
@@ -27,13 +28,8 @@ pkg_tar(
 
 oci_image(
     name = "image",
-    architecture = select({
-        "@platforms//cpu:arm64": "arm64",
-        "@platforms//cpu:x86_64": "amd64",
-    }),
     base = "@distroless_base",
     entrypoint = ["/app"],
-    os = "linux",
     tars = [":app_layer"],
 )
 
@@ -47,8 +43,8 @@ platform_transition_filegroup(
     }),
 )
 
-# $ bazel build app:tarball
-# $ docker load --input $(bazel cquery --output=files app:tarball)
+# $ bazel build :tarball
+# $ docker load --input $(bazel cquery --output=files :tarball)
 # $ docker run --rm gcr.io/example:latest
 #   string(
 # -       "Hello World",
@@ -58,12 +54,12 @@ oci_tarball(
     name = "tarball",
     # Use the image built for the exec platform rather than the target platform
     image = ":image",
-    repotags = ["gcr.io/example:latest"],
+    repo_tags = ["gcr.io/example:latest"],
 )
 
-structure_test(
+container_structure_test(
     name = "test",
-    config = ["test.yaml"],
+    configs = ["test.yaml"],
     # Use the image built for the exec platform rather than the target platform
     image = ":image",
 )
