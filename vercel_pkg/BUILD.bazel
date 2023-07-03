@@ -1,0 +1,26 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//defs:vercel_pkg.bzl", "vercel_pkg")
+
+npm_link_all_packages(name = "node_modules")
+
+ts_project(
+    name = "transpile",
+    srcs = ["index.ts"],
+)
+
+# Make a self-contained binary so we don't rely on Node.js being installed on the system
+vercel_pkg(
+    name = "example_build",
+    out = "example",
+    entry_point = "index.js",
+    # Ideally we would use Node 18, but it requires a newer glibc and therefore doesn't work with
+    # Ubuntu 18 or other earlier OS distros:
+    # https://github.com/nodejs/node/releases/tag/v18.0.0:
+    #   Prebuilt binaries for Linux are now built on Red Hat Enterprise Linux (RHEL) 8 and are
+    #   compatible with Linux distributions based on glibc 2.28 or later, for example,
+    #   Debian 10, RHEL 8, Ubuntu 20.04.
+    # So we build a binary with Node 16 statically linked for wider distribution compat.
+    # Note, this means we cannot use newer APIs like native fetch.
+    node_major_version = 16,
+)

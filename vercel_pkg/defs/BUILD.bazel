@@ -1,0 +1,23 @@
+"Allow us to select() on the host platform"
+
+[
+    config_setting(
+        name = "{}_{}".format(
+            os,
+            cpu,
+        ),
+        constraint_values = [
+            "@platforms//os:{}".format(os),
+            "@platforms//cpu:{}".format(cpu),
+        ],
+        visibility = ["//visibility:public"],
+    )
+    for os in [
+        "linux",
+        "macos",
+    ]
+    for cpu in [
+        "aarch64",
+        "x86_64",
+    ]
+]
