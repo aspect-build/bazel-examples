@@ -4,7 +4,7 @@ bazel_dep(name = "aspect_bazel_lib", version = "1.31.2")
 bazel_dep(name = "container_structure_test", version = "1.15.0")
 bazel_dep(name = "rules_pkg", version = "0.9.1")
 bazel_dep(name = "rules_python", version = "0.21.0")
-bazel_dep(name = "rules_oci", version = "1.0.0-rc0")
+bazel_dep(name = "rules_oci", version = "1.2.0")
 bazel_dep(name = "platforms", version = "0.0.6")
 
 python = use_extension("@rules_python//python:extensions.bzl", "python")
