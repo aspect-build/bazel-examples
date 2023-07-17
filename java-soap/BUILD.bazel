@@ -1,38 +1,7 @@
-load("@aspect_bazel_lib//lib:run_binary.bzl", "run_binary")
-
+# This tool used to be included in older versions of the JDK,
+# but is now a standalone program.
 java_binary(
     name = "wsimport",
     main_class = "com.sun.tools.ws.WsImport",
     runtime_deps = ["@maven//:com_sun_xml_ws_jaxws_ri"],
-)
-
-# Just following along with the tutorial: https://www.baeldung.com/jax-ws
-_PKG = "com.baeldung.jaxws.server.topdown"
-
-run_binary(
-    name = "service_srcs",
-    srcs = [":employeeservicetopdown.wsdl"],
-    outs = [
-        "/".join(_PKG.split(".") + [f])
-        for f in [
-            "EmployeeServiceTopDown.java",
-            "EmployeeServiceTopDown_Service.java",
-            "ObjectFactory.java",
-        ]
-    ],
-    args = [
-        #"-verbose",
-        "-s",
-        "$(@D)",
-        "-p",
-        _PKG,
-        "$(execpath :employeeservicetopdown.wsdl)",
-    ],
-    tool = ":wsimport",
-)
-
-java_library(
-    name = "service",
-    srcs = [":service_srcs"],
-    deps = ["@maven//:com_sun_xml_ws_jaxws_ri"],
 )

@@ -1,0 +1,2 @@
+bazel_dep(name = "rules_multirun", version = "0.6.0")
+bazel_dep(name = "rules_oci", version = "1.0.0-rc1")

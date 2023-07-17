@@ -1,0 +1,43 @@
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_push")
+load("@rules_multirun//:defs.bzl", "command", "multirun")
+
+oci_image(
+    name = "image",
+    architecture = "amd64",
+    os = "linux",
+)
+
+_REPOS = [
+    "index.docker.io/alexeagle/test1",
+    "ghcr.io/<OWNER>/image",
+]
+
+[
+    oci_push(
+        name = "push{}".format(i),
+        image = ":image",
+        repository = repo,
+    )
+    for i, repo in enumerate(_REPOS)
+]
+
+[
+    command(
+        name = "cmd{}".format(i),
+        arguments = [
+            "--tag",
+            "latest",
+        ],
+        command = ":push{}".format(i),
+    )
+    for i in range(len(_REPOS))
+]
+
+multirun(
+    name = "deliver",
+    commands = [
+        "cmd{}".format(i)
+        for i in range(len(_REPOS))
+    ],
+    jobs = 0,  # Set to 0 to run in parallel, defaults to sequential
+)
