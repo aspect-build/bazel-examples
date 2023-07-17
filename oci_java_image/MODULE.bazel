@@ -1,6 +1,7 @@
 bazel_dep(name = "aspect_bazel_lib", version = "1.31.1")
+bazel_dep(name = "container_structure_test", version = "1.15.0")
 bazel_dep(name = "platforms", version = "0.0.5")
-bazel_dep(name = "rules_oci", version = "0.3.8")
+bazel_dep(name = "rules_oci", version = "1.2.0")
 bazel_dep(name = "rules_pkg", version = "0.8.1")
 bazel_dep(name = "rules_jvm_external", version = "4.5")
 
