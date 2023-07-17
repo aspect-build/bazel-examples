@@ -1,5 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and
-then Bazelified.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and then Bazelified.
+
+## Initial setup
+
+When you run `create-react-app`, it installs a build system called `react-scripts`. As a first step into Bazel, this example simply wraps the existing build system. This guarantees compatibility with your current code, and if your objective is just to include a frontend app into a bigger full-stack Bazel build, this might be the final step in the migration. However it will run `react-scripts` as a single Bazel action, which means that you gain no incrementality benefit. So we expect for most applications this is just a first step.
+
 ## Available Scripts
 
 Just like with stock create-react-app, we have the same developer workflow. In the project directory, you can run:
@@ -29,3 +33,6 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## Next steps
+
+The next step beyond this example would be making the build more incremental and performant. The `react-scripts` build system would be split into multiple Bazel actions that could be independently run and cached by Bazel. This would allow for incremental builds, and would be the next step in the migration. We continue to transpile TS to JS using Babel, for example, but we do it in a build step before invoking Webpack, just using the Babel CLI.
