@@ -1,0 +1,10 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+
+npm_link_all_packages(name = "node_modules")
+
+js_binary(
+    name = "use_java",
+    data = ["node_modules/java"],
+    entry_point = "use_java.js",
+)
