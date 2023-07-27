@@ -1,3 +1,6 @@
+// Unused import, just to test that sass can correctly resolve it.
+@use '@angular/material' as mat;
+
 $color: red;
 
 :host {

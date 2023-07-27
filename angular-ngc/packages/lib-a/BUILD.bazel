@@ -1,12 +1,28 @@
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("//:defs.bzl", "ng_pkg")
+load("//tools:sass.bzl", "sass_binary")
 
 package(default_visibility = ["//visibility:public"])
 
 npm_link_all_packages(name = "node_modules")
 
+sass_binary(
+    name = "css",
+    srcs = glob(["src/**/*.scss"]),
+    deps = [
+        "//:node_modules/@angular/cdk",
+        "//:node_modules/@angular/material",
+    ],
+)
+
 ng_pkg(
     name = "lib-a",
+    srcs = [
+        "src/lib/lib-a.component.css",
+        "src/lib/lib-a.component.ts",
+        "src/lib/lib-a.module.ts",
+        "src/public-api.ts",
+    ],
     deps = [
         ":node_modules/@ngc-example/common",
         "//packages/lib-a/src/lib/strings",

@@ -7,7 +7,6 @@ load("@npm//:html-insert-assets/package_json.bzl", html_insert_assets_bin = "bin
 load("@npm//:karma/package_json.bzl", _karma_bin = "bin")
 load("//tools:ng.bzl", "ng_esbuild", "ng_project")
 load("//tools:ts.bzl", "ts_project")
-load("//tools:sass.bzl", "sass")
 load("//tools:karma.bzl", "generate_karma_config", "generate_test_bootstrap", "generate_test_setup")
 
 # Common dependencies of Angular applications
@@ -224,7 +223,7 @@ def _pkg_web(name, entry_point, entry_deps, html_assets, assets, production, vis
         visibility = visibility,
     )
 
-def ng_pkg(name, deps = [], test_deps = [], visibility = ["//visibility:public"]):
+def ng_pkg(name, srcs, deps = [], test_deps = [], visibility = ["//visibility:public"]):
     """
     Bazel macro for compiling an npm-like Angular package project. Creates '{name}' and 'test' targets.
 
@@ -239,26 +238,13 @@ def ng_pkg(name, deps = [], test_deps = [], visibility = ["//visibility:public"]
 
     Args:
       name: the rule name
+      srcs: source files
       deps: package dependencies
       test_deps: additional dependencies for tests
       visibility: visibility of the primary targets ('{name}', 'test')
     """
 
     test_spec_srcs = native.glob(["src/**/*.spec.ts"])
-
-    srcs = native.glob(
-        ["src/**/*.ts", "src/**/*.css", "src/**/*.html"],
-        exclude = test_spec_srcs,
-    )
-
-    sass_srcs = native.glob(["src/**/*.scss"])
-    if len(sass_srcs) > 0:
-        sass(
-            name = "_sass",
-            srcs = sass_srcs,
-            visibility = ["//visibility:private"],
-        )
-        srcs = srcs + [":_sass"]
 
     # An index file to allow direct imports of the directory similar to a package.json "main"
     write_file(
