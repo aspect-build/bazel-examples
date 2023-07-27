@@ -7,4 +7,9 @@ npm_link_all_packages(name = "node_modules")
 
 ng_pkg(
     name = "common",
+    srcs = [
+        "src/lib/common.component.ts",
+        "src/lib/common.module.ts",
+        "src/public-api.ts",
+    ],
 )
