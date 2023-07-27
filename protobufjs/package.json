@@ -1,7 +1,7 @@
 {
   "name": "protobufjs-project",
   "dependencies": {
-    "protobufjs": "6.11.3",
+    "protobufjs": "7.2.4",
     "long": "5.2.1",
     "@grpc/grpc-js": "1.7.3",
     "typescript": "4.9.3"

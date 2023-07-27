@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 packageExtensionsChecksum: cf27afb114e4e8655ffccb9eb32a951e
 
 dependencies:
@@ -10,8 +14,8 @@ dependencies:
     specifier: 5.2.1
     version: 5.2.1
   protobufjs:
-    specifier: 6.11.3
-    version: 6.11.3
+    specifier: 7.2.4
+    version: 7.2.4
   typescript:
     specifier: 4.9.3
     version: 4.9.3
@@ -68,7 +72,7 @@ packages:
       '@types/long': 4.0.2
       lodash.camelcase: 4.3.0
       long: 4.0.0
-      protobufjs: 7.1.2
+      protobufjs: 7.2.4
       yargs: 16.2.0
     dev: false
 
@@ -135,7 +139,7 @@ packages:
     resolution: {integrity: sha512-A27RDExpAf3rdDjIrHKiJK6x8kqqJ4CmoChwtipfhVAn1p7+wviQFFP7dppn8FslSbHtQeVPvi8wNKkDjSYjHw==}
     deprecated: This is a stub types definition for protobufjs (https://github.com/dcodeIO/ProtoBuf.js). protobufjs provides its own type definitions, so you don't need @types/protobufjs installed!
     dependencies:
-      protobufjs: 7.1.2
+      protobufjs: 7.2.4
     dev: true
 
   /acorn-jsx@5.3.2(acorn@7.4.1):
@@ -434,38 +438,8 @@ packages:
     resolution: {integrity: sha512-ESF23V4SKG6lVSGZgYNpbsiaAkdab6ZgOxe52p7+Kid3W3u3bxR4Vfd/o21dmN7jSt0IwgZ4v5MUd26FEtXE9w==}
     engines: {node: '>= 0.8.0'}
 
-  /protobufjs@6.11.3:
-    resolution: {integrity: sha512-xL96WDdCZYdU7Slin569tFX712BxsxslWwAfAhCYjQKGTq7dAU91Lomy6nLLhh/dyGhk/YH4TwTSRxTzhuHyZg==}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      '@protobufjs/aspromise': 1.1.2
-      '@protobufjs/base64': 1.1.2
-      '@protobufjs/codegen': 2.0.4
-      '@protobufjs/eventemitter': 1.1.0
-      '@protobufjs/fetch': 1.1.0
-      '@protobufjs/float': 1.0.2
-      '@protobufjs/inquire': 1.1.0
-      '@protobufjs/path': 1.1.2
-      '@protobufjs/pool': 1.1.0
-      '@protobufjs/utf8': 1.1.0
-      '@types/long': 4.0.2
-      '@types/node': 18.11.9
-      chalk: 4.1.2
-      escodegen: 1.14.3
-      espree: 7.3.1
-      estraverse: 5.3.0
-      glob: 7.2.3
-      jsdoc: 3.6.10
-      long: 4.0.0
-      minimist: 1.2.6
-      semver: 7.3.7
-      tmp: 0.2.1
-      uglify-js: 3.16.0
-    dev: false
-
-  /protobufjs@7.1.2:
-    resolution: {integrity: sha512-4ZPTPkXCdel3+L81yw3dG6+Kq3umdWKh7Dc7GW/CpNk4SX3hK58iPCWeCyhVTDrbkNeKrYNZ7EojM5WDaEWTLQ==}
+  /protobufjs@7.2.4:
+    resolution: {integrity: sha512-AT+RJgD2sH8phPmCf7OUZR8xGdcJRga4+1cOaXJ64hvcSkVhNcRHOwIxUatPH15+nj59WAGTDv3LSGZPEQbJaQ==}
     engines: {node: '>=12.0.0'}
     requiresBuild: true
     dependencies:
