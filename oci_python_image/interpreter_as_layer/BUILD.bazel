@@ -1,0 +1,14 @@
+pkg_tar(
+    name = "interpreter",
+    srcs = ["@rules_python//python:current_py_toolchain"],
+    extension = "tar.gz",
+    package_dir = "/opt/python",
+    strip_prefix = ".",
+)
+
+oci_image(
+    name = "image",
+    base = "@distroless_base",
+    entrypoint = ["/opt/hello_world/hello_world_bin"],
+    tars = [":hello_world_layer"],
+)
