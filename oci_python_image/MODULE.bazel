@@ -22,8 +22,9 @@ register_toolchains(
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 
 oci.pull(
-    name = "distroless_python",
+    name = "docker_python",
     digest = "sha256:b48e216f7c4adcf24fecd7016f3b8ead76866a19571819f67f47c1ccaf899717",
+    # Shorthand for https://hub.docker.com/_/python
     image = "python",
 )
 
@@ -37,4 +38,4 @@ oci.pull(
     ],
 )
 
-use_repo(oci, "distroless_base", "distroless_python")
+use_repo(oci, "distroless_base", "docker_python")
