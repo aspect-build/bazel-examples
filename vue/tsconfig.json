@@ -4,10 +4,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@yourname/yourlibrary": ["./libraries/simple/src/index.ts"]
     }
   },
-
   "references": [
     {
       "path": "./tsconfig.config.json"
