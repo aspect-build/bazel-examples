@@ -5,6 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      // Only necessary for IDE support, see https://docs.aspect.build/rules/aspect_rules_js/docs/faq#making-the-editor-happy
       "@yourname/yourlibrary": ["./libraries/simple/src/index.ts"]
     }
   },
