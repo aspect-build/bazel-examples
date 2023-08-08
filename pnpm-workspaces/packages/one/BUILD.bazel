@@ -1,9 +1,12 @@
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 
 ts_project(
     name = "one_ts",
     srcs = ["src/main.ts"],
+    declaration = True,
+    transpiler = swc,
     tsconfig = "//:tsconfig",
     deps = [
         "//:node_modules/@types/node",
