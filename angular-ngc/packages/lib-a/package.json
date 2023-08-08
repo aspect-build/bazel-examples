@@ -1,6 +1,7 @@
 {
   "name": "@ngc-example/lib-a",
   "private": true,
+  "main": "src/public-api",
   "dependencies": {
     "@ngc-example/common": "workspace:*"
   }

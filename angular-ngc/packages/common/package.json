@@ -1,4 +1,5 @@
 {
   "name": "@ngc-example/common",
-  "private": true
+  "private": true,
+  "main": "src/public-api"
 }
