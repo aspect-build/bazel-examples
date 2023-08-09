@@ -84,4 +84,5 @@ eslint_bin.eslint_test(
         "//:package_json",
         "//:node_modules/eslint-config-react-app",
     ] + glob(SRC_PATTERNS),
+    timeout = "short",
 )
