@@ -1,5 +1,6 @@
 bazel_dep(name = "aspect_bazel_lib", version = "1.33.0")
 bazel_dep(name = "aspect_rules_js", version = "1.31.0")
+bazel_dep(name = "aspect_rules_swc", version = "1.0.2")
 bazel_dep(name = "aspect_rules_ts", version = "1.4.5")
 bazel_dep(name = "aspect_rules_jest", version = "0.19.5")
 

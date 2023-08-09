@@ -1,5 +1,6 @@
 load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
 load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@npm//:eslint/package_json.bzl", eslint_bin = "bin")
 
@@ -39,6 +40,7 @@ ts_project(
     ),
     declaration = True,
     resolve_json_module = True,
+    transpiler = swc,
     tsconfig = "//:tsconfig",
     deps = [
         "//:node_modules/react",
@@ -53,6 +55,7 @@ ts_project(
     declaration = True,
     resolve_json_module = True,
     supports_workers = False,  # worker bug on macos: ERROR: react-cra/src/BUILD.bazel:50:11: output 'src/App.test.js' was not created
+    transpiler = swc,
     tsconfig = "//:tsconfig",
     deps = [
         ":src_ts",
