@@ -1,5 +1,6 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library", "js_run_devserver", "js_test")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@npm//:tsconfig-to-swcconfig/package_json.bzl", tsconfig_to_swcconfig = "bin")
 load("@npm//:react-scripts/package_json.bzl", cra_bin = "bin")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
@@ -45,6 +46,13 @@ ts_config(
     name = "tsconfig",
     src = "tsconfig.json",
     visibility = ["//visibility:public"],
+)
+
+tsconfig_to_swcconfig.t2s(
+    name = "write_swcrc",
+    srcs = ["tsconfig.json"],
+    stdout = ".swcrc",
+    visibility = ["//:__subpackages__"],
 )
 
 js_library(
