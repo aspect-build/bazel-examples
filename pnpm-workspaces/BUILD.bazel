@@ -1,5 +1,6 @@
-load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//:tsconfig-to-swcconfig/package_json.bzl", tsconfig_to_swcconfig = "bin")
 
 # link all dependencies from root package.json
 npm_link_all_packages(name = "node_modules")
@@ -9,4 +10,11 @@ ts_config(
     src = "tsconfig.json",
     visibility = ["//visibility:public"],
     deps = ["//:node_modules/@tsconfig/node16-strictest"],
+)
+
+tsconfig_to_swcconfig.t2s(
+    name = "write_swcrc",
+    srcs = ["tsconfig.json"],
+    stdout = ".swcrc",
+    visibility = ["//:__subpackages__"],
 )

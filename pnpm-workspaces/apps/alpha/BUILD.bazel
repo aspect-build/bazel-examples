@@ -1,6 +1,7 @@
 load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@bazel_skylib//lib:partial.bzl", "partial")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
@@ -9,7 +10,10 @@ ts_project(
     name = "alpha",
     srcs = ["src/main.ts"],
     declaration = True,
-    transpiler = swc,
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:.swcrc",
+    ),
     tsconfig = "//:tsconfig",
     deps = [
         ":node_modules/inspirational-quotes",  # this uses the version defined in the local package.json

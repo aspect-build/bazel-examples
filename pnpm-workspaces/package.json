@@ -2,6 +2,7 @@
   "devDependencies": {
     "@tsconfig/node16-strictest": "1.0.4",
     "@types/node": "18.11.9",
+    "tsconfig-to-swcconfig": "2.4.0",
     "typescript": "4.9.3"
   },
   "dependencies": {
