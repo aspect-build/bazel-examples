@@ -1,13 +1,23 @@
 import { TestBed } from '@angular/core/testing';
-import { CommonModule } from '@ngc-example/common';
-import { LibAModule } from '@ngc-example/lib-a';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+import {
+  provideClient,
+  ConnectModule,
+  ElizaService,
+} from '@ngc-example/connect';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
-      imports: [LibAModule],
+      providers: [provideClient(ElizaService)],
+      imports: [
+        FormsModule,
+        ConnectModule.forRoot({
+          baseUrl: 'https://demo.connectrpc.com',
+        }),
+      ],
     }).compileComponents();
   });
 
@@ -17,25 +27,22 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular'`, () => {
+  it(`should have as title 'Eliza'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular');
+    expect(app.title).toEqual('Eliza');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'angular app is running!'
-    );
+    expect(compiled.querySelector('h1')?.textContent).toContain('Eliza');
   });
 
-  it('should contain the library example component', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('example-pkg')).toBeTruthy();
+  it('should correctly inject the ElizaService', () => {
+    const service = TestBed.get(ElizaService);
+    expect(service.say).toBeDefined();
+    expect(service.introduce).toBeDefined();
   });
 });

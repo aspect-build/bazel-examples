@@ -4,5 +4,6 @@ dist
 node_modules
 applications/demo/node_modules
 packages/common/node_modules
+packages/connect/node_modules
 packages/lib-a/node_modules
 # -----------

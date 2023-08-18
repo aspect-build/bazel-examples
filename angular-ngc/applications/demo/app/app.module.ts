@@ -7,9 +7,23 @@ import { DragulaModule } from 'ng2-dragula';
 import { AppComponent } from './app.component';
 import { DragulaComponent } from './dragula.component';
 
+import {
+  provideClient,
+  ConnectModule,
+  ElizaService,
+} from '@ngc-example/connect';
+
 @NgModule({
   declarations: [AppComponent, DragulaComponent],
-  imports: [BrowserModule, LibAModule, DragulaModule],
+  imports: [
+    BrowserModule,
+    LibAModule,
+    DragulaModule,
+    ConnectModule.forRoot({
+      baseUrl: 'https://demo.connectrpc.com',
+    }),
+  ],
   bootstrap: [AppComponent],
+  providers: [provideClient(ElizaService)],
 })
 export class AppModule {}
