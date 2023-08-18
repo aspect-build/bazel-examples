@@ -31,13 +31,11 @@ def _buf_gen_impl(ctx):
 
     return DefaultInfo(files = depset(outputs))
 
-buf_proto_library = rule(
+buf_go_proto_library = rule(
     implementation = _buf_gen_impl,
     attrs = {
         "deps": attr.label_list(),
         "template": attr.label(mandatory = True, allow_single_file = True),
     },
-    toolchains = [
-        "//:buf_toolchain_type",
-    ],
+    toolchains = ["//:buf_toolchain_type"],
 )

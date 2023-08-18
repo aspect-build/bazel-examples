@@ -10,7 +10,7 @@ BufInfo = provider(
 def _buf_toolchain_impl(ctx):
     binary = ctx.executable.buf
     template_variables = platform_common.TemplateVariableInfo({
-        "CRANE_BIN": binary.path,
+        "BUF_BIN": binary.path,
     })
     default = DefaultInfo(
         files = depset([binary]),
