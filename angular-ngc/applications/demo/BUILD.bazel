@@ -17,7 +17,6 @@ ng_application(
         ":node_modules/@ngc-example/common",
     ],
     deps = [
-        ":node_modules/@ngc-example/connect",
         ":node_modules/@ngc-example/lib-a",
         "//:node_modules/ng2-dragula",
     ],

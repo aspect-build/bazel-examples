@@ -1,62 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { ElizaService, ObservableClient } from '@ngc-example/connect';
-
-interface Response {
-  text: string;
-  sender: 'eliza' | 'user';
-}
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'baz-ngc-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Eliza';
-  project = 'Angular';
-  statement: string = '';
-  responses: Response[] = [
-    {
-      text: 'What is your name?',
-      sender: 'eliza',
-    },
-  ];
-  introFinished: boolean = false;
-
-  constructor(
-    @Inject(ElizaService)
-    private client: ObservableClient<typeof ElizaService>
-  ) {}
-
-  onSend(event?: MouseEvent) {
-    if (event) {
-      event.stopPropagation();
-    }
-    this.responses = [
-      ...this.responses,
-      { text: this.statement, sender: 'user' },
-    ];
-    if (this.introFinished) {
-      this.client.say({ sentence: this.statement }).subscribe((next) => {
-        this.responses = [
-          ...this.responses,
-          { text: next.sentence, sender: 'eliza' },
-        ];
-      });
-    } else {
-      (this.client as any).introduce({ name: this.statement }).subscribe(
-        (next: any) => {
-          this.responses = [
-            ...this.responses,
-            { text: next.sentence, sender: 'eliza' },
-          ];
-        },
-        (err: any) => console.log(err),
-        () => {
-          this.introFinished = true;
-        }
-      );
-    }
-    this.statement = '';
-  }
+  title = 'angular';
 }
