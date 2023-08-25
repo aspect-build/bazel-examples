@@ -72,13 +72,13 @@ http_archive(
     ],
 )
 
-ts_proto_library_branch_head = "48a5f652fafbf2cd90a2b9a66ff36ea4be733043"
+v2_branch_head = "e5932f883443233f42b61d3fb87b2287518fbcba"
 http_archive(
     name = "aspect_rules_ts",
     #sha256 = "ace5b609603d9b5b875d56c9c07182357c4ee495030f40dcefb10d443ba8c208",
     # ts_proto_library branch
-    strip_prefix = "rules_ts-" + ts_proto_library_branch_head,
-    url = "https://github.com/aspect-build/rules_ts/archive/{}.tar.gz".format(ts_proto_library_branch_head),
+    strip_prefix = "rules_ts-" + v2_branch_head,
+    url = "https://github.com/aspect-build/rules_ts/archive/{}.tar.gz".format(v2_branch_head),
 )
 
 load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")

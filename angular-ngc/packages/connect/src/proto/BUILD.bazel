@@ -1,7 +1,5 @@
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
-load("@npm//packages/connect:@bufbuild/protoc-gen-es/package_json.bzl", gen_bin = "bin")
-load("@npm//packages/connect:@bufbuild/protoc-gen-connect-es/package_json.bzl", gen_connect_bin = "bin")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -13,8 +11,7 @@ proto_library(
 
 ts_proto_library(
     name = "eliza_ts_proto",
-    gen_connect_es_bin = gen_connect_bin,
-    gen_es_bin = gen_bin,
+    node_modules = "//packages/connect:node_modules",
     proto = ":eliza_proto",
     visibility = ["//visibility:public"],
 )
