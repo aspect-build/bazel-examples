@@ -1,0 +1,36 @@
+<div>
+  <header class="app-header">
+    <h1>{{ title }}</h1>
+    <h4>{{ project }}</h4>
+  </header>
+  <div class="container">
+    <div
+      *ngFor="let resp of responses"
+      [ngClass]="
+        resp.sender == 'eliza' ? 'eliza-resp-container' : 'user-resp-container'
+      "
+    >
+      <p class="resp-text">{{ resp.text }}</p>
+    </div>
+    <div>
+      <input
+        (keydown.enter)="onSend()"
+        type="text"
+        class="text-input"
+        [(ngModel)]="statement"
+      />
+      <button (click)="onSend()">Send</button>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<h2>Working dragula - ngcc example</h2>
+
+<h3>
+  The 1.x dragula package does not expose ivy targets. It must be compatibility
+  compiled by ngcc.
+</h3>
+
+<dragula></dragula>
