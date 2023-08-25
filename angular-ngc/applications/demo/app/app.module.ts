@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { LibAModule } from '@ngc-example/lib-a';
 import { DragulaModule } from 'ng2-dragula';
@@ -17,6 +18,7 @@ import {
   declarations: [AppComponent, DragulaComponent],
   imports: [
     BrowserModule,
+    FormsModule,
     LibAModule,
     DragulaModule,
     ConnectModule.forRoot({

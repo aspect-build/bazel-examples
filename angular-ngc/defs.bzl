@@ -13,6 +13,7 @@ load("//tools:karma.bzl", "generate_karma_config", "generate_test_bootstrap", "g
 APPLICATION_DEPS = [
     "//:node_modules/@angular/common",
     "//:node_modules/@angular/core",
+    "//:node_modules/@angular/forms",
     "//:node_modules/@angular/router",
     "//:node_modules/@angular/platform-browser",
     "//:node_modules/@types/node",
@@ -26,6 +27,7 @@ APPLICATION_HTML_ASSETS = ["styles.css", "favicon.ico"]
 PACKAGE_DEPS = [
     "//:node_modules/@angular/common",
     "//:node_modules/@angular/core",
+    "//:node_modules/@angular/forms",
     "//:node_modules/@angular/router",
     "//:node_modules/@types/node",
     "//:node_modules/rxjs",
