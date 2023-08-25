@@ -22,6 +22,7 @@ def _generate_karma_config_impl(ctx):
             "TMPL_bootstrap_files": "\n  ".join(["'%s'," % to_manifest_path(ctx, e) for e in ctx.files.bootstrap_bundles]),
             "TMPL_runfiles_path": "/".join([".."] * config_segments),
             "TMPL_spec_files": "\n  ".join(["'%s'," % to_manifest_path(ctx, e) for e in ctx.files.test_bundles]),
+            "TMPL_debug": "true" if ctx.attr.debug else "false",
         },
     )
 
@@ -36,7 +37,10 @@ generate_karma_config = rule(
         "test_bundles": attr.label_list(
             doc = """The label producing the bundle directory containing the specs""",
         ),
-
+        "debug": attr.bool(
+            doc = """Whether to configure karma for debugging""",
+            default = False,
+        ),
         # https://github.com/bazelbuild/rules_nodejs/blob/3.3.0/packages/concatjs/web_test/karma_web_test.bzl#L88-L91
         "_conf_tmpl": attr.label(
             doc = """the karma config template""",

@@ -313,6 +313,7 @@ def _unit_tests(name, tests, deps, visibility):
         name = karma_config_name,
         test_bundles = [":_test_bundle"],
         bootstrap_bundles = [":_test_bootstrap"],
+        debug = False,
         testonly = 1,
     )
 
@@ -324,5 +325,27 @@ def _unit_tests(name, tests, deps, visibility):
             "start",
             "$(rootpath %s)" % karma_config_name,
         ],
+        visibility = visibility,
+    )
+
+    karma_debug_config_name = "_karma_debug_conf"
+
+    generate_karma_config(
+        name = karma_debug_config_name,
+        test_bundles = [":_test_bundle"],
+        bootstrap_bundles = [":_test_bootstrap"],
+        debug = True,
+        testonly = 1,
+    )
+
+    _karma_bin.karma_test(
+        name = "%s.server" % name,
+        testonly = 1,
+        data = [":%s" % karma_debug_config_name, ":_test_bundle", ":_test_bootstrap"] + TEST_RUNNER_DEPS,
+        args = [
+            "start",
+            "$(rootpath %s)" % karma_debug_config_name,
+        ],
+        tags = ["manual"],
         visibility = visibility,
     )
