@@ -43,8 +43,6 @@ describe('AppComponent', () => {
   it('should correctly inject the ElizaService', () => {
     const service = TestBed.get(ElizaService);
     expect(service.say).toBeDefined();
-    // TODO: why isn't this defined like the examples-es repo?
-    // See: https://github.com/connectrpc/examples-es/blob/855520e9312ab0acf9d72040f3013018ef89c8c9/angular/src/app/app.component.spec.ts#L41-L45
-    // expect(service.introduce).toBeDefined();
+    expect(service.introduce).toBeDefined();
   });
 });

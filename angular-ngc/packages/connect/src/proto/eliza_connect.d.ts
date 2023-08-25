@@ -3,8 +3,8 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { SayRequest, SayResponse } from "./eliza_pb.js";
-import { MethodKind } from "@bufbuild/protobuf";
+import { ConverseRequest, ConverseResponse, IntroduceRequest, IntroduceResponse, SayRequest, SayResponse } from "./eliza_pb.js";
+import { MethodIdempotency, MethodKind } from "@bufbuild/protobuf";
 
 /**
  * @generated from service connectrpc.eliza.v1.ElizaService
@@ -20,6 +20,25 @@ export declare const ElizaService: {
       readonly I: typeof SayRequest,
       readonly O: typeof SayResponse,
       readonly kind: MethodKind.Unary,
+      readonly idempotency: MethodIdempotency.NoSideEffects,
+    },
+    /**
+     * @generated from rpc connectrpc.eliza.v1.ElizaService.Converse
+     */
+    readonly converse: {
+      readonly name: "Converse",
+      readonly I: typeof ConverseRequest,
+      readonly O: typeof ConverseResponse,
+      readonly kind: MethodKind.BiDiStreaming,
+    },
+    /**
+     * @generated from rpc connectrpc.eliza.v1.ElizaService.Introduce
+     */
+    readonly introduce: {
+      readonly name: "Introduce",
+      readonly I: typeof IntroduceRequest,
+      readonly O: typeof IntroduceResponse,
+      readonly kind: MethodKind.ServerStreaming,
     },
   }
 };

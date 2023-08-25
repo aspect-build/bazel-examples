@@ -54,3 +54,99 @@ export declare class SayResponse extends Message<SayResponse> {
   static equals(a: SayResponse | PlainMessage<SayResponse> | undefined, b: SayResponse | PlainMessage<SayResponse> | undefined): boolean;
 }
 
+/**
+ * @generated from message connectrpc.eliza.v1.ConverseRequest
+ */
+export declare class ConverseRequest extends Message<ConverseRequest> {
+  /**
+   * @generated from field: string sentence = 1;
+   */
+  sentence: string;
+
+  constructor(data?: PartialMessage<ConverseRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "connectrpc.eliza.v1.ConverseRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConverseRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConverseRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConverseRequest;
+
+  static equals(a: ConverseRequest | PlainMessage<ConverseRequest> | undefined, b: ConverseRequest | PlainMessage<ConverseRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message connectrpc.eliza.v1.ConverseResponse
+ */
+export declare class ConverseResponse extends Message<ConverseResponse> {
+  /**
+   * @generated from field: string sentence = 1;
+   */
+  sentence: string;
+
+  constructor(data?: PartialMessage<ConverseResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "connectrpc.eliza.v1.ConverseResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ConverseResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ConverseResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ConverseResponse;
+
+  static equals(a: ConverseResponse | PlainMessage<ConverseResponse> | undefined, b: ConverseResponse | PlainMessage<ConverseResponse> | undefined): boolean;
+}
+
+/**
+ * @generated from message connectrpc.eliza.v1.IntroduceRequest
+ */
+export declare class IntroduceRequest extends Message<IntroduceRequest> {
+  /**
+   * @generated from field: string name = 1;
+   */
+  name: string;
+
+  constructor(data?: PartialMessage<IntroduceRequest>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "connectrpc.eliza.v1.IntroduceRequest";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IntroduceRequest;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IntroduceRequest;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IntroduceRequest;
+
+  static equals(a: IntroduceRequest | PlainMessage<IntroduceRequest> | undefined, b: IntroduceRequest | PlainMessage<IntroduceRequest> | undefined): boolean;
+}
+
+/**
+ * @generated from message connectrpc.eliza.v1.IntroduceResponse
+ */
+export declare class IntroduceResponse extends Message<IntroduceResponse> {
+  /**
+   * @generated from field: string sentence = 1;
+   */
+  sentence: string;
+
+  constructor(data?: PartialMessage<IntroduceResponse>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "connectrpc.eliza.v1.IntroduceResponse";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): IntroduceResponse;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): IntroduceResponse;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): IntroduceResponse;
+
+  static equals(a: IntroduceResponse | PlainMessage<IntroduceResponse> | undefined, b: IntroduceResponse | PlainMessage<IntroduceResponse> | undefined): boolean;
+}
+

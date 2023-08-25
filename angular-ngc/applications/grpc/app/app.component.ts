@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { ElizaService, ObservableClient } from '@ngc-example/connect';
+import { ObservableClient, ElizaService } from '@ngc-example/connect';
 
 interface Response {
   text: string;
@@ -44,14 +44,14 @@ export class AppComponent {
         ];
       });
     } else {
-      (this.client as any).introduce({ name: this.statement }).subscribe(
-        (next: any) => {
+      this.client.introduce({ name: this.statement }).subscribe(
+        (next) => {
           this.responses = [
             ...this.responses,
             { text: next.sentence, sender: 'eliza' },
           ];
         },
-        (err: any) => console.log(err),
+        (err) => console.log(err),
         () => {
           this.introFinished = true;
         }
