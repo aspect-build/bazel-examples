@@ -1,0 +1,36 @@
+load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
+load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//:defs.bzl", "ng_application")
+
+package(default_visibility = ["//visibility:public"])
+
+npm_link_all_packages(name = "node_modules")
+
+# The Angular demo application
+ng_application(
+    name = "demo",
+    html_assets = [
+        ":normalize.css",
+    ],
+    test_deps = [
+        ":node_modules/@ngc-example/common",
+    ],
+    deps = [
+        ":node_modules/@ngc-example/connect",
+        ":node_modules/@ngc-example/lib-a",
+    ],
+)
+
+# An asset from within an npm package
+directory_path(
+    name = "normalize-css-dir-path",
+    directory = "//:node_modules/normalize.css/dir",
+    path = "normalize.css",
+)
+
+copy_file(
+    name = "normalize-css",
+    src = ":normalize-css-dir-path",
+    out = "normalize.css",
+)

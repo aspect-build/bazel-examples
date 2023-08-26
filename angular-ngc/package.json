@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "start": "ibazel run applications/demo"
+  },
   "dependencies": {
     "@angular/animations": "15.0.1",
     "@angular/cdk": "15.0.1",
@@ -23,6 +26,7 @@
     "@angular/compiler": "15.0.1",
     "@angular/compiler-cli": "15.0.1",
     "@babel/core": "7.20.2",
+    "@bazel/ibazel": "^0.23.7",
     "@types/babel__core": "7.1.20",
     "@types/jasmine": "4.3.0",
     "@types/node": "18.11.9",

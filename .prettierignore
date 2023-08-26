@@ -6,3 +6,4 @@ bazelrc
 # generated files
 bzlmod/swc/expected.js
 directory_path/billboard.min.css
+angular-ngc/packages/connect/src/proto/*.d.ts
