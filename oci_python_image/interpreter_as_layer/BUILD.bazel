@@ -1,0 +1,35 @@
+load(":current_py_toolchain.bzl", "current_py_toolchain")
+load("@rules_oci//oci:defs.bzl", "oci_image")
+load("@rules_pkg//pkg:pkg.bzl", "pkg_tar")
+
+current_py_toolchain(
+    name = "current_py_toolchain_runfiles",
+)
+
+pkg_tar(
+    name = "py_interpreter_toolchain",
+    # If we just used @rules_python//python:current_py_toolchain then we would end up with platform
+    # specific paths here. The current_py_toolchain_runfiles remaps the paths to be platform independent
+    srcs = [":current_py_toolchain_runfiles"],
+    extension = "tar.gz",
+    package_dir = "/opt/python",
+    strip_prefix = ".",
+)
+
+pkg_tar(
+    name = "python_aliases",
+    symlinks = {
+        "/usr/bin/python": "/usr/bin/fake_python",
+        "/usr/bin/python3": "/usr/bin/fake_python",
+    },
+)
+
+oci_image(
+    name = "py_base",
+    base = "@distroless_base",
+    tars = [
+        ":python_aliases",
+        ":py_interpreter_toolchain",
+    ],
+    visibility = ["//visibility:public"],
+)

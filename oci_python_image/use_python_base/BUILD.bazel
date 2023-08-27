@@ -31,7 +31,7 @@ py_image_layer(
 
 oci_image(
     name = "image",
-    base = "@distroless_python",
+    base = "@docker_python",
     entrypoint = ["/opt/hello_world/hello_world_bin"],
     tars = [":hello_world_layer"],
 )
