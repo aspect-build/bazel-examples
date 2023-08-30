@@ -32,7 +32,7 @@ py_image_layer(
 oci_image(
     name = "image",
     base = "@distroless_python",
-    entrypoint = ["/opt/hello_world/hello_world_bin"],
+    cmd = ["/opt/hello_world/hello_world_bin"],
     tars = [":hello_world_layer"],
 )
 
@@ -61,8 +61,7 @@ platform_transition_filegroup(
     }),
 )
 
-# $ bazel build //hello_world:tarball
-# $ docker load --input $(bazel cquery --output=files //hello_world:tarball)
+# $ bazel run //hello_world:tarball
 # $ docker run --rm gcr.io/oci_python_hello_world:latest
 oci_tarball(
     name = "tarball",
