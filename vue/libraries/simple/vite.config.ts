@@ -1,7 +1,7 @@
 const path = require('path');
 const { defineConfig } = require('vite');
 import vue from '@vitejs/plugin-vue';
-console.error('loaded');
+
 module.exports = defineConfig({
   plugins: [vue()], // to process SFC
   build: {
@@ -12,6 +12,7 @@ module.exports = defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
+      external: ['vue'],
       output: {
         // disable warning on src/index.ts using both default and named export
         exports: 'named',
