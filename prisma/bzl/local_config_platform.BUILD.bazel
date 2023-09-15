@@ -1,0 +1,8 @@
+load("@local_config_platform//:constraints.bzl", "HOST_CONSTRAINTS")
+load(":constraints.bzl", "PRISMA_HOST_CONSTRAINTS")
+
+platform(
+    name = "host",
+    # Auto-detected host platform constraints.
+    constraint_values = HOST_CONSTRAINTS + PRISMA_HOST_CONSTRAINTS,
+)

@@ -4,12 +4,12 @@ datasource db {
 }
 
 generator client {
-  provider      = "prisma-client-js"
-  output        = "prisma-client"
+  provider = "prisma-client-js"
+  output   = "prisma-client"
 }
 
 model MyUser {
-  id                                          Int                                      @id @default(autoincrement())
-  name                                        String
-  email                                       String                                   @unique
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String @unique
 }
