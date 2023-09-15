@@ -1,45 +1,26 @@
-load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("@npm//:prisma/package_json.bzl", _prisma = "bin")
+load("//bzl:generate.bzl", "prisma_generate")
+load("//bzl:schema.bzl", "prisma_schema")
+load("//bzl:dev.bzl", "prisma_dev")
 
 npm_link_all_packages(name = "node_modules")
 
-_prisma.prisma_test(
-    name = "validate",
-    env = {
-        # Fake env for validation.
-        "DATABASE_URL": "postgres://localhost/",
-    },
-    data = ["schema.prisma"],
-    args = [
-        "validate",
-        "--schema",
-        "schema.prisma",
-    ],
+prisma_schema(
+    name = "schema",
+    db_url_env = "DATABASE_URL",
+    schema = "schema.prisma",
+    validate_db_url = "postgres://localhost/",
 )
 
-_prisma.prisma(
+prisma_generate(
     name = "generate",
-    srcs = [
-        "schema.prisma",
+    out_dirs = ["prisma-client"],
+    schema = ":schema",
+    deps = [
         "//:node_modules/@prisma/client",
     ],
-    args = [
-        "generate",
-        "--schema",
-        "schema.prisma",
-    ],
-    env = {
-        #
-        # Trigger:
-        # https://github.com/prisma/engines-wrapper/blob/850bb6fe48c4b9a05ab17e73dbbdf8caacdc6e41/packages/fetch-engine/src/util.ts#L23
-        # TODO: This downloads stuff, that's bad! We should properly load this.
-        "AWS_LAMBDA_FUNCTION_VERSION": "True",
-        # do not install @prisma/client
-        "PRISMA_GENERATE_SKIP_AUTOINSTALL": "True",
-    },
-    out_dirs = ["prisma-client"],
 )
 
 js_library(
@@ -52,7 +33,27 @@ js_library(
 
 ts_project(
     name = "my-code",
-    srcs = ["index.ts"],
+    srcs = [
+        "index.ts",
+        "seed.ts",
+    ],
     tsconfig = {},
     deps = [":prisma-client"],
+)
+
+prisma_dev(
+    name = "dev",
+    db_url = ":db_detector",
+    schema = "schema",
+    seed_script = ":seed",
+)
+
+sh_binary(
+    name = "db_detector",
+    srcs = ["detect-db.sh"],
+)
+
+js_binary(
+    name = "seed",
+    entry_point = "seed.js",
 )

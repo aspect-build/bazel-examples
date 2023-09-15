@@ -1,0 +1,9 @@
+load("//bzl:constants.bzl", "PLATFORMS")
+
+[
+    config_setting(
+        name = name,
+        constraint_values = info.constraint_values,
+    )
+    for name, info in PLATFORMS.items()
+]

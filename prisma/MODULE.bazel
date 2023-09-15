@@ -1,5 +1,10 @@
-bazel_dep(name = "aspect_rules_js", version = "1.31.0")
-bazel_dep(name = "aspect_rules_ts", version = "1.4.5")
+module(name = "prisma-example")
+
+bazel_dep(name = "aspect_bazel_lib", version = "1.36.0")
+bazel_dep(name = "aspect_rules_js", version = "1.33.1")
+bazel_dep(name = "aspect_rules_ts", version = "2.0.0")
+bazel_dep(name = "platforms", version = "0.0.8")
+bazel_dep(name = "bazel_skylib", version = "1.4.2")
 
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
 
@@ -12,12 +17,31 @@ npm.npm_translate_lock(
 
 use_repo(npm, "npm")
 
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm", dev_dependency = True)
+
+use_repo(pnpm, "pnpm")
+
 rules_ts_ext = use_extension(
     "@aspect_rules_ts//ts:extensions.bzl",
     "ext",
     dev_dependency = True,
 )
 
-rules_ts_ext.deps(ts_version_from = "//:package.json")
+rules_ts_ext.deps(ts_version_from = "@npm//:typescript/resolved.json")
 
 use_repo(rules_ts_ext, "npm_typescript")
+
+prisma_local_config_platform = use_extension(
+    "//bzl:extensions.bzl",
+    "prisma_local_config_platform",
+    dev_dependency = True,
+)
+
+use_repo(prisma_local_config_platform, "prisma_local_config_platform")
+
+prisma_engines_ext = use_extension(
+    "//bzl:extensions.bzl",
+    "prisma_engines",
+)
+
+use_repo(prisma_engines_ext, "prisma")

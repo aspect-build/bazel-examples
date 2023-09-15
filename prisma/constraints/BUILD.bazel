@@ -1,0 +1,36 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+constraint_setting(
+    name = "linux_distro",
+)
+
+constraint_value(
+    name = "linux_debian",
+    constraint_setting = ":linux_distro",
+)
+
+constraint_value(
+    name = "linux_musl",
+    constraint_setting = ":linux_distro",
+)
+
+constraint_setting(
+    name = "openssl_version",
+)
+
+constraint_value(
+    name = "openssl_3",
+    constraint_setting = ":openssl_version",
+)
+
+constraint_value(
+    name = "openssl_1.1",
+    constraint_setting = ":openssl_version",
+)
+
+constraint_value(
+    name = "openssl_1.0",
+    constraint_setting = ":openssl_version",
+)
