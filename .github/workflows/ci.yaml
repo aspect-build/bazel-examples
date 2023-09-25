@@ -65,6 +65,7 @@ jobs:
           - 'next.js'
           - 'oci_go_image'
           - 'oci_java_image'
+          - 'oci_python_image'
           - 'pnpm-workspaces'
           - 'prisma'
           - 'protobufjs'

@@ -14,19 +14,24 @@ python.toolchain(
 )
 use_repo(python, "python3_9")
 use_repo(python, "python3_9_toolchains")
+register_toolchains("@python3_9_toolchains//:all")
 
-register_toolchains(
-    "@python3_9_toolchains//:all",
+pip = use_extension("@rules_python//python:extensions.bzl", "pip")
+pip.parse(
+    name = "pip",
+    requirements_lock = "//:requirements.txt",
 )
+use_repo(pip, "pip")
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
-
 oci.pull(
     name = "distroless_python",
-    # tag = "latest", # as of 30 August 2023
-    digest = "sha256:5148968d8ae02a0f6d12efaca7a16e711ab43a4695a285e22dbbae70d6048937",
-    platforms = ["linux/amd64", "linux/arm64/v8"],
+    tag = "debug", # as of 30 August 2023
+    # digest = "sha256:5148968d8ae02a0f6d12efaca7a16e711ab43a4695a285e22dbbae70d6048937",
+    platforms = [
+        "linux/amd64", 
+        "linux/arm64/v8"
+    ],
     image = "gcr.io/distroless/python3",
 )
-
 use_repo(oci, "distroless_python")
