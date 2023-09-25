@@ -26,8 +26,8 @@ use_repo(pip, "pip")
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "distroless_python",
-    tag = "debug", # as of 30 August 2023
-    # digest = "sha256:5148968d8ae02a0f6d12efaca7a16e711ab43a4695a285e22dbbae70d6048937",
+    # tag = "latest", # as of 30 August 2023
+    digest = "sha256:5148968d8ae02a0f6d12efaca7a16e711ab43a4695a285e22dbbae70d6048937",
     platforms = [
         "linux/amd64", 
         "linux/arm64/v8"
