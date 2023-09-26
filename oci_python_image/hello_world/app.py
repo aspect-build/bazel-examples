@@ -1,6 +1,8 @@
-class Helloworld:
+import cowsay
+
+class Cow:
     def __init__(self, name):
         self.name = name
 
     def say_hello(self):
-        print(f"Hello {self.name}!")
+        cowsay.cow("hello py_image_layer!")

@@ -1,5 +1,5 @@
-from hello_world.app import Helloworld
+from hello_world.app import Cow
 
 if __name__ == "__main__":
-    app = Helloworld("John")
+    app = Cow("John")
     app.say_hello()

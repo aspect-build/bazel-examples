@@ -3,6 +3,16 @@
 load("//workaround_rules_pkg_153:runfiles.bzl", "runfiles")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
+# this is a magic glob that will *only* external repositories that has *python* string in it.
+# example this will match
+#   `opt/hello_world/hello_world_bin.runfiles/rules_python~0.21.0~python~python3_9_aarch64-unknown-linux-gnu/bin/python3`
+# while ignoring
+#   `opt/hello_world/hello_world_bin.runfiles/_main/python_app`
+PY_INTERPRETER_PATH_GLOB = "**/*.runfiles/*python*-*/**"
+
+# this is a magic glob that will *only* external pip like repositories that has *site-packages* string in it.
+SITE_PACKAGES_GLOB = "**/*.runfiles/*/site-packages/*/**"
+
 def py_image_layer(name, binary, root = None, **kwargs):
     """Creates a tar file to add to a python image, output at `:<name>/app.tar`.
 
@@ -25,6 +35,7 @@ def py_image_layer(name, binary, root = None, **kwargs):
 
     common_kwargs = {
         "tags": kwargs.pop("tags", None),
+        "testonly": kwargs.pop("testonly", None),
         "visibility": kwargs.pop("visibility", None),
     }
 
@@ -36,13 +47,25 @@ def py_image_layer(name, binary, root = None, **kwargs):
 
     pkg_tar_kwargs = dict(
         kwargs,
-        # Be careful with this option. Leave it as is if you don't know what you are doing
-        strip_prefix = kwargs.pop("strip_prefix", "."),
         **common_kwargs
     )
 
     runfiles(
         name = "%s/app/runfiles" % name,
+        include = "**",
+        excludes = [PY_INTERPRETER_PATH_GLOB, SITE_PACKAGES_GLOB],
+        **runfiles_kwargs
+    )
+
+    runfiles(
+        name = "%s/interpreter/runfiles" % name,
+        include = PY_INTERPRETER_PATH_GLOB,
+        **runfiles_kwargs
+    )
+
+    runfiles(
+        name = "%s/site_packages/runfiles" % name,
+        include = SITE_PACKAGES_GLOB,
         **runfiles_kwargs
     )
 
@@ -52,9 +75,23 @@ def py_image_layer(name, binary, root = None, **kwargs):
         **pkg_tar_kwargs
     )
 
+    pkg_tar(
+        name = "%s/interpreter" % name,
+        srcs = ["%s/interpreter/runfiles" % name],
+        **pkg_tar_kwargs
+    )
+
+    pkg_tar(
+        name = "%s/site_packages" % name,
+        srcs = ["%s/site_packages/runfiles" % name],
+        **pkg_tar_kwargs
+    )
+
     native.filegroup(
         name = name,
         srcs = [
+            "%s/interpreter" % name,
+            "%s/site_packages" % name,
             "%s/app" % name,
         ],
         **common_kwargs
