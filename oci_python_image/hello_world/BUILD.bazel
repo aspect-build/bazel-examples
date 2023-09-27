@@ -1,4 +1,4 @@
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
@@ -35,8 +35,8 @@ py_image_layer(
 
 oci_image(
     name = "image",
-    base = "@distroless_python",
-    cmd = ["/opt/hello_world/hello_world"],
+    base = "@python_base",
+    entrypoint = ["/opt/hello_world/hello_world"],
     tars = [":hello_world_layer"],
 )
 
