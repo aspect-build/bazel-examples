@@ -1,9 +1,0 @@
-{
-  "name": "@nextjs-example/one",
-  "private": true,
-  "main": "src/main.js",
-  "dependencies": {
-    "@types/is-odd": "3.x.x",
-    "is-odd": "3.x.x"
-  }
-}

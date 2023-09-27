@@ -62,7 +62,6 @@ jobs:
           - 'go_workspaces'
           - 'jest'
           - 'nestjs'
-          - 'next.js'
           - 'oci_go_image'
           - 'oci_java_image'
           - 'oci_python_image'
