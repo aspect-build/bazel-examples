@@ -11,3 +11,5 @@ classpath and invokes `java -cp [classpath] [main_class]`
 https://github.com/bazelbuild/rules_docker/blob/8e70c6bcb584a15a8fd061ea489b933c0ff344ca/java/image.bzl#L178-L212
 so that the third-party dependencies could be placed in a separate layer from the application,
 which would optimize for network traffic required to update just the application layer.
+
+MOVED to https://github.com/bazelbuild/examples/tree/main/java-maven
