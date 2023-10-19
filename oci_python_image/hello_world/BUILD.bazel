@@ -90,7 +90,7 @@ tar(
 # Finally we can construct the image with a base python and our layers on top
 oci_image(
     name = "image",
-    base = "@python_base",
+    base = "@ubuntu",
     entrypoint = ["/hello_world/hello_world"],
     tars = [
         ":interpreter_layer",
