@@ -7,6 +7,12 @@ bazel_dep(name = "rules_python", version = "0.21.0")
 bazel_dep(name = "rules_oci", version = "1.3.1")
 bazel_dep(name = "platforms", version = "0.0.7")
 
+git_override(
+    module_name = "aspect_bazel_lib",
+    remote = "https://github.com/aspect-build/bazel-lib.git",
+    commit = "553bdfcc35602e1e4e09ddccd94203c025311e63"
+)
+
 python = use_extension("@rules_python//python:extensions.bzl", "python")
 python.toolchain(
     name = "python3_9",
