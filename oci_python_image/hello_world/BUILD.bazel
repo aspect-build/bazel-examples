@@ -13,6 +13,9 @@ py_library(
     ],
     imports = [".."],
     visibility = ["//:__subpackages__"],
+    deps = [
+        requirement("cowsay"),
+    ],
 )
 
 py_binary(
@@ -21,10 +24,7 @@ py_binary(
     imports = [".."],
     main = "__main__.py",
     visibility = ["//:__subpackages__"],
-    deps = [
-        ":hello_world_lib",
-        requirement("cowsay"),
-    ],
+    deps = [":hello_world_lib"],
 )
 
 # Produce the manifest for a tar file of our py_binary, but don't tar it up yet, so we can split
