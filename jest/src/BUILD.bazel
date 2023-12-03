@@ -8,6 +8,7 @@ ts_project(
         "a.ts",
     ],
     declaration = True,
+    source_map = True,
     tsconfig = "//:tsconfig",
     deps = [
         "//:node_modules/@types/node",
@@ -22,6 +23,7 @@ ts_project(
         "a.spec.ts",
     ],
     declaration = True,
+    source_map = True,
     tsconfig = "//:tsconfig",
     deps = [
         ":src_ts",

@@ -1,7 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "@types/is-even": "1.0.0",
-    "is-even": "1.0.0"
-  }
-}

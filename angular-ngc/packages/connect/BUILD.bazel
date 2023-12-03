@@ -1,0 +1,25 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//:defs.bzl", "ng_pkg")
+
+package(default_visibility = ["//visibility:public"])
+
+npm_link_all_packages(name = "node_modules")
+
+ng_pkg(
+    name = "connect",
+    srcs = [
+        "src/lib/client.provider.ts",
+        "src/lib/connect.module.ts",
+        "src/lib/grpc-web.module.ts",
+        "src/lib/interceptor.token.ts",
+        "src/lib/observable-client.ts",
+        "src/lib/transport.token.ts",
+        "src/public-api.ts",
+    ],
+    deps = [
+        ":node_modules/@bufbuild/connect",
+        ":node_modules/@bufbuild/connect-web",
+        ":node_modules/@bufbuild/protobuf",
+        "//packages/connect/src/proto:eliza_ts_proto",
+    ],
+)

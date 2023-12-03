@@ -1,11 +1,12 @@
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
-load("//:py_image_layer.bzl", "py_image_layer")
+load("@aspect_bazel_lib//lib:tar.bzl", "mtree_spec", "tar")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
+load("@pip//:requirements.bzl", "requirement")
 
 py_library(
-    name = "hello_world",
+    name = "hello_world_lib",
     srcs = [
         "__init__.py",
         "app.py",
@@ -15,25 +16,87 @@ py_library(
 )
 
 py_binary(
-    name = "hello_world_bin",
+    name = "hello_world",
     srcs = ["__main__.py"],
     imports = [".."],
     main = "__main__.py",
     visibility = ["//:__subpackages__"],
-    deps = [":hello_world"],
+    deps = [
+        ":hello_world_lib",
+        requirement("cowsay"),
+    ],
 )
 
-py_image_layer(
-    name = "hello_world_layer",
-    binary = ":hello_world_bin",
-    root = "/opt",
+# Produce the manifest for a tar file of our py_binary, but don't tar it up yet, so we can split
+# into fine-grained layers for better docker performance.
+mtree_spec(
+    name = "hello_world_tar_manifest",
+    srcs = [":hello_world"],
 )
 
+# match *only* external repositories that have the string "python"
+# e.g. this will match
+#   `/hello_world/hello_world_bin.runfiles/rules_python~0.21.0~python~python3_9_aarch64-unknown-linux-gnu/bin/python3`
+# but not match
+#   `/hello_world/hello_world_bin.runfiles/_main/python_app`
+PY_INTERPRETER_REGEX = "\\.runfiles/.*python.*-.*/"
+
+genrule(
+    name = "interpreter_tar_manifest",
+    srcs = [":hello_world_tar_manifest"],
+    outs = ["interpreter_tar_manifest.spec"],
+    cmd = "grep '{}' $< >$@".format(PY_INTERPRETER_REGEX),
+)
+
+# One layer with only the python interpreter
+tar(
+    name = "interpreter_layer",
+    srcs = [":hello_world"],
+    mtree = ":interpreter_tar_manifest",
+)
+
+# match *only* external pip like repositories that contain the string "site-packages"
+SITE_PACKAGES_REGEX = "\\.runfiles/.*/site-packages/.*"
+
+genrule(
+    name = "packages_tar_manifest",
+    srcs = [":hello_world_tar_manifest"],
+    outs = ["packages_tar_manifest.spec"],
+    cmd = "grep '{}' $< >$@".format(SITE_PACKAGES_REGEX),
+)
+
+# One layer with the third-party pip packages
+tar(
+    name = "packages_layer",
+    srcs = [":hello_world"],
+    mtree = ":packages_tar_manifest",
+)
+
+# Any lines that didn't match one of the two grep above...
+genrule(
+    name = "app_tar_manifest",
+    srcs = [":hello_world_tar_manifest"],
+    outs = ["app_tar_manifest.spec"],
+    cmd = "grep -v '{}' $< | grep -v '{}' >$@".format(SITE_PACKAGES_REGEX, PY_INTERPRETER_REGEX),
+)
+
+# ... go into the third layer which is the application. We assume it changes the most frequently.
+tar(
+    name = "app_layer",
+    srcs = [":hello_world"],
+    mtree = ":app_tar_manifest",
+)
+
+# Finally we can construct the image with a base python and our layers on top
 oci_image(
     name = "image",
-    base = "@distroless_python",
-    entrypoint = ["/opt/hello_world/hello_world_bin"],
-    tars = [":hello_world_layer"],
+    base = "@ubuntu",
+    entrypoint = ["/hello_world/hello_world"],
+    tars = [
+        ":interpreter_layer",
+        ":packages_layer",
+        ":app_layer",
+    ],
 )
 
 platform(
@@ -53,7 +116,7 @@ platform(
 )
 
 platform_transition_filegroup(
-    name = "transitioned_image",
+    name = "platform_image",
     srcs = [":image"],
     target_platform = select({
         "@platforms//cpu:arm64": ":aarch64_linux",
@@ -61,17 +124,16 @@ platform_transition_filegroup(
     }),
 )
 
-# $ bazel build //hello_world:tarball
-# $ docker load --input $(bazel cquery --output=files //hello_world:tarball)
+# $ bazel run //hello_world:tarball
 # $ docker run --rm gcr.io/oci_python_hello_world:latest
 oci_tarball(
     name = "tarball",
-    image = ":image",
+    image = ":platform_image",
     repo_tags = ["gcr.io/oci_python_hello_world:latest"],
 )
 
 container_structure_test(
     name = "test",
     configs = ["test.yaml"],
-    image = ":image",
+    image = ":platform_image",
 )

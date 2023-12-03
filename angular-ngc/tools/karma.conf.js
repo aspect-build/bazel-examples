@@ -93,9 +93,13 @@ module.exports = function (config) {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox'],
       },
+      ChromeDebug: {
+        base: 'Chrome',
+        flags: ['--no-sandbox'],
+      },
     },
-    browsers: ['ChromeNoSandbox'],
-    singleRun: true,
+    browsers: [TMPL_debug ? 'ChromeDebug' : 'ChromeNoSandbox'],
+    singleRun: !TMPL_debug,
     restartOnFileChange: true,
   });
   configureFiles(config);

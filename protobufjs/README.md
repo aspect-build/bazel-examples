@@ -1,5 +1,9 @@
 # Example of protobuf.js + @grpc/grpc-js + rules_ts + rules_js 
 
+> [!IMPORTANT]  
+> As of v2.0.0-beta1 there is a `ts_proto_library` rule, see https://github.com/aspect-build/rules_ts/blob/main/docs/proto.md
+> The example below is here for historical reasons and to show alternative approaches, it shouldn't be followed by most users.
+ 
 A simple example for `protobuf.js` + `@grpc/grpc-js` implementing a dummy weather forecast service.
 
 

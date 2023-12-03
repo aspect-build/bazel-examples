@@ -13,6 +13,7 @@ load("//tools:karma.bzl", "generate_karma_config", "generate_test_bootstrap", "g
 APPLICATION_DEPS = [
     "//:node_modules/@angular/common",
     "//:node_modules/@angular/core",
+    "//:node_modules/@angular/forms",
     "//:node_modules/@angular/router",
     "//:node_modules/@angular/platform-browser",
     "//:node_modules/@types/node",
@@ -26,6 +27,7 @@ APPLICATION_HTML_ASSETS = ["styles.css", "favicon.ico"]
 PACKAGE_DEPS = [
     "//:node_modules/@angular/common",
     "//:node_modules/@angular/core",
+    "//:node_modules/@angular/forms",
     "//:node_modules/@angular/router",
     "//:node_modules/@types/node",
     "//:node_modules/rxjs",
@@ -311,6 +313,7 @@ def _unit_tests(name, tests, deps, visibility):
         name = karma_config_name,
         test_bundles = [":_test_bundle"],
         bootstrap_bundles = [":_test_bootstrap"],
+        debug = False,
         testonly = 1,
     )
 
@@ -322,5 +325,27 @@ def _unit_tests(name, tests, deps, visibility):
             "start",
             "$(rootpath %s)" % karma_config_name,
         ],
+        visibility = visibility,
+    )
+
+    karma_debug_config_name = "_karma_debug_conf"
+
+    generate_karma_config(
+        name = karma_debug_config_name,
+        test_bundles = [":_test_bundle"],
+        bootstrap_bundles = [":_test_bootstrap"],
+        debug = True,
+        testonly = 1,
+    )
+
+    _karma_bin.karma_test(
+        name = "%s.server" % name,
+        testonly = 1,
+        data = [":%s" % karma_debug_config_name, ":_test_bundle", ":_test_bootstrap"] + TEST_RUNNER_DEPS,
+        args = [
+            "start",
+            "$(rootpath %s)" % karma_debug_config_name,
+        ],
+        tags = ["manual"],
         visibility = visibility,
     )
