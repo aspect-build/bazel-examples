@@ -7,7 +7,7 @@ Accompanies a blog post: <https://blog.aspect.dev/avoid-eager-fetches>
 Check out this example and run to see the failure:
 
 ```
-% ./test_no_eager_fetch.sh
+% ./test.sh
 Starting local Bazel server and connecting to it...
 ...
 FAIL: pip_deps was fetched
