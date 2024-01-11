@@ -1,9 +1,9 @@
 load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
-load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
-load("@aspect_bazel_lib//lib:tar.bzl", "mtree_spec", "tar")
+load("@rules_oci//oci:defs.bzl", "oci_tarball")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@pip//:requirements.bzl", "requirement")
+load("//:py_layer.bzl", "py_oci_image")
 
 py_library(
     name = "hello_world_lib",
@@ -27,76 +27,18 @@ py_binary(
     ],
 )
 
-# Produce the manifest for a tar file of our py_binary, but don't tar it up yet, so we can split
-# into fine-grained layers for better docker performance.
-mtree_spec(
-    name = "hello_world_tar_manifest",
-    srcs = [":hello_world"],
-)
-
-# match *only* external repositories that have the string "python"
-# e.g. this will match
-#   `/hello_world/hello_world_bin.runfiles/rules_python~0.21.0~python~python3_9_aarch64-unknown-linux-gnu/bin/python3`
-# but not match
-#   `/hello_world/hello_world_bin.runfiles/_main/python_app`
-PY_INTERPRETER_REGEX = "\\.runfiles/.*python.*-.*/"
-
-genrule(
-    name = "interpreter_tar_manifest",
-    srcs = [":hello_world_tar_manifest"],
-    outs = ["interpreter_tar_manifest.spec"],
-    cmd = "grep '{}' $< >$@".format(PY_INTERPRETER_REGEX),
-)
-
-# One layer with only the python interpreter
-tar(
-    name = "interpreter_layer",
-    srcs = [":hello_world"],
-    mtree = ":interpreter_tar_manifest",
-)
-
-# match *only* external pip like repositories that contain the string "site-packages"
-SITE_PACKAGES_REGEX = "\\.runfiles/.*/site-packages/.*"
-
-genrule(
-    name = "packages_tar_manifest",
-    srcs = [":hello_world_tar_manifest"],
-    outs = ["packages_tar_manifest.spec"],
-    cmd = "grep '{}' $< >$@".format(SITE_PACKAGES_REGEX),
-)
-
-# One layer with the third-party pip packages
-tar(
-    name = "packages_layer",
-    srcs = [":hello_world"],
-    mtree = ":packages_tar_manifest",
-)
-
-# Any lines that didn't match one of the two grep above...
-genrule(
-    name = "app_tar_manifest",
-    srcs = [":hello_world_tar_manifest"],
-    outs = ["app_tar_manifest.spec"],
-    cmd = "grep -v '{}' $< | grep -v '{}' >$@".format(SITE_PACKAGES_REGEX, PY_INTERPRETER_REGEX),
-)
-
-# ... go into the third layer which is the application. We assume it changes the most frequently.
-tar(
-    name = "app_layer",
-    srcs = [":hello_world"],
-    mtree = ":app_tar_manifest",
-)
-
-# Finally we can construct the image with a base python and our layers on top
-oci_image(
+# Construct an image that has three layers.
+# The result will look like this:
+#    bazel run //hello_world:tarball
+#
+#2f2353bd5bea: Loading layer [==================================================>]  47.13MB/47.13MB
+#f02532d45017: Loading layer [==================================================>]   3.62MB/3.62MB
+#9296e9071c11: Loading layer [==================================================>]  16.24kB/16.24kB
+py_oci_image(
     name = "image",
     base = "@ubuntu",
+    binary = "hello_world",
     entrypoint = ["/hello_world/hello_world"],
-    tars = [
-        ":interpreter_layer",
-        ":packages_layer",
-        ":app_layer",
-    ],
 )
 
 platform(
