@@ -1,8 +1,8 @@
-load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
-load("@rules_oci//oci:defs.bzl", "oci_tarball")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@pip//:requirements.bzl", "requirement")
+load("@rules_oci//oci:defs.bzl", "oci_tarball")
 load("//:py_layer.bzl", "py_oci_image")
 
 py_library(
@@ -78,4 +78,14 @@ container_structure_test(
     name = "test",
     configs = ["test.yaml"],
     image = ":platform_image",
+)
+
+py_test(
+    name = "test_container",
+    srcs = ["app_test.py"],
+    data = [":platform_image"],
+    main = "app_test.py",
+    deps = [
+        requirement("testcontainers"),
+    ],
 )
