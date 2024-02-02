@@ -5,4 +5,4 @@ class Cow:
         self.name = name
 
     def say_hello(self):
-        cowsay.cow("hello py_image_layer!")
+        cowsay.cow(f"hello py_image_layer! - {cowsay.__version__}")

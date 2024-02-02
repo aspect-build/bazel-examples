@@ -1,8 +1,8 @@
-load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library", "py_unpacked_wheel", "resolutions")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@rules_oci//oci:defs.bzl", "oci_tarball")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
-load("@pip//:requirements.bzl", "requirement")
+# load("@pip//:requirements.bzl", "requirement")
 load("//:py_layer.bzl", "py_oci_image")
 
 py_library(
@@ -13,6 +13,15 @@ py_library(
     ],
     imports = [".."],
     visibility = ["//:__subpackages__"],
+    virtual_deps = [
+        "cowsay"
+    ],
+)
+
+py_unpacked_wheel(
+    name = "cowsay_wheel",
+    src = "@cowsay_6_0//file",
+    py_package_name = "cowsay",
 )
 
 py_binary(
@@ -21,9 +30,11 @@ py_binary(
     imports = [".."],
     main = "__main__.py",
     visibility = ["//:__subpackages__"],
+    resolutions = resolutions.empty().override({
+        "cowsay": "//hello_world:cowsay_wheel",
+    }),
     deps = [
         ":hello_world_lib",
-        requirement("cowsay"),
     ],
 )
 

@@ -1,0 +1,3 @@
+# load("@aspect_rules_py//py:repositories.bzl", "register_vtool_toolchains")
+
+# register_vtool_toolchains()
