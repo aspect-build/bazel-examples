@@ -83,6 +83,10 @@ container_structure_test(
 py_test(
     name = "test_container",
     srcs = ["app_test.py"],
+    # NB: this depends on the image rather than the tarball, to avoid the test needing to wait for
+    # an action that reads all bytes of the layers and writes all those bytes again.
+    # However, in order for the image to be loaded into the Docker daemon from files on disk,
+    # the test Setup has to do some sophisticated work to load each layer.
     data = [":platform_image"],
     main = "app_test.py",
     deps = [
