@@ -1,3 +1,6 @@
+# Loads individual layers from disk by reading their blob locations from
+# the OCI format JSON descriptor file.
+# TODO: upstream some of this to the testcontainers library to simplify similar code for users.
 from testcontainers.core.container import DockerContainer
 from testcontainers.core.waiting_utils import wait_for_logs
 import docker
