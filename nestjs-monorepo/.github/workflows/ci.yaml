@@ -1,0 +1,88 @@
+name: CI
+# Remove the problematic line "on:"
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      - master
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+# Bazelisk will download bazel to here, ensure it is cached between runs.
+env:
+  XDG_CACHE_HOME: /home/runner/.cache/bazel/_bazel_runner/repos
+
+
+jobs:
+  # matrix-prep-* steps dynamically generate a bit of JSON depending on whether our action has
+  # access to repository secrets. When running on a pull_request from a fork, the author is
+  # untrusted so the secret will be absent. Insanely complex for how simple this requirement is...
+  # inspired from
+  # https://stackoverflow.com/questions/65384420/how-to-make-a-github-action-matrix-element-conditional
+
+  matrix-prep-os:
+    # Prepares the 'os' axis of the test matrix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: linux
+        run: echo "os=ubuntu-latest" >> $GITHUB_OUTPUT
+      # - id: macos
+      #   run: echo "os=macos-latest" >> $GITHUB_OUTPUT
+      #   # Only run on main branch (not PRs) to minimize macOS minutes (billed at 10X)
+      #   # https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#included-storage-and-minutes
+      #   if: ${{ github.ref == 'refs/heads/main' }}
+    outputs:
+      # Will look like ["ubuntu-latest", "macos-latest"]
+      os: ${{ toJSON(steps.*.outputs.os) }}
+
+  test:
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+
+    needs:
+      - matrix-prep-os
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(needs.matrix-prep-os.outputs.os) }}
+        folder:
+          - 'apps'
+          - 'libs'
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mount bazel caches
+        id: mount-cache-bazel
+        uses: actions/cache@v4
+        with:
+          path: |
+            /home/runner/.cache/bazel
+            /home/runner/.cache/bazel/repos
+          key: bazel-cache-${{ matrix.folder }}-${{ hashFiles('BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
+          restore-keys: bazel-cache-
+
+      - name: Build
+        id: bazel-build
+        run: |
+          bazel \
+            --bazelrc=$GITHUB_WORKSPACE/.aspect/bazelrc/ci.bazelrc \
+            --bazelrc=$GITHUB_WORKSPACE/.github/workflows/ci.bazelrc \
+            build /... 
+
+      - name: Test
+        id: bazel-test
+        working-directory: ${{ matrix.folder }}
+        if: steps.has_test_sh.outputs.files_exists != 'true'
+        run: |
+          bazel \
+            --bazelrc=$GITHUB_WORKSPACE/.aspect/bazelrc/ci.bazelrc \
+            --bazelrc=$GITHUB_WORKSPACE/.github/workflows/ci.bazelrc \
+            test //${{ matrix.folder }}/... 
+  
