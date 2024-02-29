@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.vscode
+.yarn
+bazel-out
+coverage
+data
+yarn-packages-offline-cache
+
+libs/auth/node_modules
