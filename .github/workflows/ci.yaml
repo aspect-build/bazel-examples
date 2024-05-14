@@ -61,6 +61,7 @@ jobs:
           - 'git_push'
           - 'go_workspaces'
           - 'jest'
+          - 'js_build_file_generation'
           - 'nestjs'
           - 'oci_go_image'
           - 'oci_python_image'
