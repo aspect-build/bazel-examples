@@ -23,3 +23,12 @@ import %workspace%/.aspect/bazelrc/bazel6.bazelrc
 # should be last statement in this config so the user configuration is able to overwrite flags from
 # this file. See https://bazel.build/configure/best-practices#bazelrc-file.
 try-import %workspace%/.aspect/bazelrc/user.bazelrc
+
+build --@aspect_rules_ts//ts:skipLibCheck=honor_tsconfig
+fetch --@aspect_rules_ts//ts:skipLibCheck=honor_tsconfig
+query --@aspect_rules_ts//ts:skipLibCheck=honor_tsconfig
+
+# transpiler
+build --@aspect_rules_ts//ts:default_to_tsc_transpiler
+fetch --@aspect_rules_ts//ts:default_to_tsc_transpiler
+query --@aspect_rules_ts//ts:default_to_tsc_transpiler
