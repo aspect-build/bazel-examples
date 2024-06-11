@@ -1,11 +1,15 @@
 lockfileVersion: '6.0'
 
-packageExtensionsChecksum: cf27afb114e4e8655ffccb9eb32a951e
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+packageExtensionsChecksum: 1a176fc140007165a5fd276858dcd0e2
 
 dependencies:
   '@grpc/grpc-js':
-    specifier: 1.7.3
-    version: 1.7.3
+    specifier: 1.8.22
+    version: 1.8.22
   long:
     specifier: 5.2.1
     version: 5.2.1
@@ -52,8 +56,8 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@grpc/grpc-js@1.7.3:
-    resolution: {integrity: sha512-H9l79u4kJ2PVSxUNA08HMYAnUBLj9v6KjYQ7SQ71hOZcEXhShE/y5iQCesP8+6/Ik/7i2O0a10bPquIcYfufog==}
+  /@grpc/grpc-js@1.8.22:
+    resolution: {integrity: sha512-oAjDdN7fzbUi+4hZjKG96MR6KTEubAeMpQEb+77qy+3r0Ua5xTFuie6JOLr4ZZgl5g+W5/uRTS2M1V8mVAFPuA==}
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.3

@@ -3,7 +3,7 @@
   "dependencies": {
     "protobufjs": "6.11.3",
     "long": "5.2.1",
-    "@grpc/grpc-js": "1.7.3",
+    "@grpc/grpc-js": "1.8.22",
     "typescript": "4.9.3"
   },
   "devDependencies": {
