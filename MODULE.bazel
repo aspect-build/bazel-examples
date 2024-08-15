@@ -126,6 +126,15 @@ rules_ts_ext = use_extension(
 rules_ts_ext.deps()
 use_repo(rules_ts_ext, "npm_typescript")
 
+pkg_fetch = use_extension("//vercel_pkg/defs:vercel_pkg_fetch.bzl", "pkg_fetch")
+use_repo(
+    pkg_fetch,
+    "pkg_fetch_node_linux_arm64",
+    "pkg_fetch_node_linux_x64",
+    "pkg_fetch_node_macos_arm64",
+    "pkg_fetch_node_macos_x64",
+)
+
 #########################
 # Go
 # See https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md

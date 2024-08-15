@@ -5,7 +5,7 @@ be run even on devices without Node.js installed.
 """
 
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
-load("@npm//:pkg/package_json.bzl", pkg_bin = "bin")
+load("@npm//vercel_pkg:pkg/package_json.bzl", pkg_bin = "bin")
 
 # buildifier: disable=function-docstring
 def vercel_pkg(name, entry_point, out, node_major_version, **kwargs):
@@ -56,10 +56,10 @@ def vercel_pkg(name, entry_point, out, node_major_version, **kwargs):
     copy_file(
         name = name,
         src = select({
-            "//defs:linux_aarch64": "{}-{}".format(out, "linux-arm64"),
-            "//defs:linux_x86_64": "{}-{}".format(out, "linux-x64"),
-            "//defs:macos_aarch64": "{}-{}".format(out, "macos-arm64"),
-            "//defs:macos_x86_64": "{}-{}".format(out, "macos-x64"),
+            "//vercel_pkg/defs:linux_aarch64": "{}-{}".format(out, "linux-arm64"),
+            "//vercel_pkg/defs:linux_x86_64": "{}-{}".format(out, "linux-x64"),
+            "//vercel_pkg/defs:macos_aarch64": "{}-{}".format(out, "macos-arm64"),
+            "//vercel_pkg/defs:macos_x86_64": "{}-{}".format(out, "macos-x64"),
         }),
         is_executable = True,
         out = out,

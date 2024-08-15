@@ -3,3 +3,4 @@
 packages:
   - logger/frontend
   - logger/schema
+  - vercel_pkg
