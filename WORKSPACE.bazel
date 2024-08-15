@@ -1,0 +1,2 @@
+# Marker file that makes this the root of a Bazel workspace
+# See https://bazel.build/concepts/build-ref#workspace

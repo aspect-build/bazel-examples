@@ -1,0 +1,32 @@
+{
+  "direct_dep_identities": ["swifterswift"],
+  "modules": [
+    {
+      "name": "SwifterSwift",
+      "c99name": "SwifterSwift",
+      "src_type": "swift",
+      "label": "@swiftpkg_swifterswift//:Sources_SwifterSwift",
+      "package_identity": "swifterswift",
+      "product_memberships": ["SwifterSwift"]
+    }
+  ],
+  "products": [
+    {
+      "identity": "swifterswift",
+      "name": "SwifterSwift",
+      "type": "library",
+      "target_labels": ["@swiftpkg_swifterswift//:Sources_SwifterSwift"]
+    }
+  ],
+  "packages": [
+    {
+      "name": "swiftpkg_swifterswift",
+      "identity": "swifterswift",
+      "remote": {
+        "commit": "933f27d8e7fa0bf8200a5d6235e0de383b801126",
+        "remote": "https://github.com/SwifterSwift/SwifterSwift.git",
+        "version": "5.3.0"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+# Nested projects that should be moved into the root workspace
+angular/
+angular-ngc/
+bazelrc/
+bufbuild/
+bzlmod/
+check-npm-determinism/
+directory_path/
+eager-fetch/
+git_push/
+go_workspaces/
+java-soap/
+jest/
+nestjs/
+node_snapshot_flags/
+oci_go_image/
+oci_java_image/
+oci_python_image/
+pnpm-workspaces/
+prisma/
+protobufjs/
+rules_nodejs_to_rules_js_migration/
+ts_project_transpiler/
+vercel_pkg/
+write_source_files/

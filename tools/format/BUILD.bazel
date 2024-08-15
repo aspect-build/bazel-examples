@@ -1,0 +1,23 @@
+"""BUILD definition for the formatter binary
+
+This is in its own package because it has so many loading-time symbols,
+we don't want to trigger eager fetches of these for builds that don't want to run format.
+"""
+
+load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
+load("@npm//:prettier/package_json.bzl", prettier = "bin")
+
+package(default_visibility = ["//:__subpackages__"])
+
+prettier.prettier_binary(
+    name = "prettier",
+    env = {"BAZEL_BINDIR": "."},
+)
+
+format_multirun(
+    name = "format",
+    go = "@aspect_rules_lint//format:gofumpt",
+    javascript = ":prettier",
+    python = "@aspect_rules_lint//format:ruff",
+    starlark = "@buildifier_prebuilt//:buildifier",
+)

@@ -1,3 +1,2 @@
-.vscode
 bazel-*
-MODULE.bazel.lock
+node_modules
