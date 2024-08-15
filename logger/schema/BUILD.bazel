@@ -16,7 +16,7 @@ proto_library(
 go_proto_library(
     name = "logger_go_proto",
     compilers = ["@rules_go//proto:go_grpc"],
-    importpath = "bootcamp/schema/logger",
+    importpath = "github.com/aspect-build/bazel-examples/logger",
     proto = ":logger_proto",
 )
 

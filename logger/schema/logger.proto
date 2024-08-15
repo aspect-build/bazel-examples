@@ -1,14 +1,11 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "bazel.bootcamp";
+option java_package = "build.aspect.examples";
 option java_outer_classname = "GreeterProto";
-// TODO(dannark): change to "github.com/dkelmer/bootcamp/schema/logger" when
-// moved
-option go_package = "bootcamp/schema/logger";
+option go_package = "github.com/aspect-build/bazel-examples/logger";
 
-// TODO(dannark): why does typescript fail when package is set?
-// package logger;
+package logger;
 
 service Logger {
   rpc SendLogMessage(LogMessage) returns (Empty) {}

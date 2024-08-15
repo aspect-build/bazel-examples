@@ -1,0 +1,4 @@
+alias(
+    name = "backend",
+    actual = "//logger/backend/cmd/server",
+)
