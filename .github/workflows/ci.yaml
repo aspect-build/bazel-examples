@@ -50,6 +50,7 @@ jobs:
       matrix:
         os: ${{ fromJSON(needs.matrix-prep-os.outputs.os) }}
         folder:
+          - '.'
           - 'angular'
           - 'angular-ngc'
           - 'bazelrc'

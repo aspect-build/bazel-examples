@@ -1,0 +1,28 @@
+# Import Aspect bazelrc presets
+import %workspace%/.aspect/bazelrc/bazel7.bazelrc
+import %workspace%/.aspect/bazelrc/convenience.bazelrc
+import %workspace%/.aspect/bazelrc/correctness.bazelrc
+import %workspace%/.aspect/bazelrc/debug.bazelrc
+import %workspace%/.aspect/bazelrc/javascript.bazelrc
+import %workspace%/.aspect/bazelrc/performance.bazelrc
+
+### YOUR PROJECT SPECIFIC OPTIONS GO HERE ###
+
+# for speed, passes an argument `--skipLibCheck` to *every* spawn of tsc
+common --@aspect_rules_ts//ts:skipLibCheck=always
+# use `tsc` for transpiling, even though it's slow.
+# TODO(alex): change to SWC by default
+common --@aspect_rules_ts//ts:default_to_tsc_transpiler
+
+# To stamp release builds, run with
+# --config=release
+common:release --stamp --workspace_status_command=./tools/workspace_status.sh
+
+# Allow resolving protoc from a pre-built toolchain
+common --incompatible_enable_proto_toolchain_resolution
+
+# Load any settings & overrides specific to the current user from `.aspect/bazelrc/user.bazelrc`.
+# This file should appear in `.gitignore` so that settings are not shared with team members. This
+# should be last statement in this config so the user configuration is able to overwrite flags from
+# this file. See https://bazel.build/configure/best-practices#bazelrc-file.
+try-import %workspace%/.aspect/bazelrc/user.bazelrc
