@@ -1,7 +1,6 @@
 # Nested projects that should be moved into the root workspace
 angular/
 angular-ngc/
-bazelrc/
 bufbuild/
 bzlmod/
 check-npm-determinism/
