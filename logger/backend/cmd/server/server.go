@@ -55,7 +55,7 @@ func saveLogMessage(lm pb.LogMessage) {
 
 func writeToFile(lm pb.LogMessage) {
 	js, _ := protojson.Marshal(&lm)
-	err := ioutil.WriteFile("/tmp/bootcamp_server_last_message.txt", js, 0o644)
+	err := ioutil.WriteFile("/tmp/server_last_message.txt", js, 0o644)
 	if err != nil {
 		panic(err)
 	}

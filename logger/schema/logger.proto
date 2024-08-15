@@ -5,8 +5,6 @@ option java_package = "build.aspect.examples";
 option java_outer_classname = "GreeterProto";
 option go_package = "github.com/aspect-build/bazel-examples/logger";
 
-package logger;
-
 service Logger {
   rpc SendLogMessage(LogMessage) returns (Empty) {}
 }

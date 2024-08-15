@@ -1,0 +1,4 @@
+alias(
+    name = "client",
+    actual = "//logger/client/src/build/aspect:JavaLoggingClient",
+)
