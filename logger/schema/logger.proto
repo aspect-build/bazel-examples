@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "bazel.bootcamp";
+option java_outer_classname = "GreeterProto";
+// TODO(dannark): change to "github.com/dkelmer/bootcamp/schema/logger" when
+// moved
+option go_package = "bootcamp/schema/logger";
+
+// TODO(dannark): why does typescript fail when package is set?
+// package logger;
+
+service Logger {
+  rpc SendLogMessage(LogMessage) returns (Empty) {}
+}
+
+message LogMessage {
+  string message = 1;
+  int64 time = 2;
+}
+
+message Empty {}

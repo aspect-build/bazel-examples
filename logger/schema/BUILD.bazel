@@ -1,0 +1,31 @@
+load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_swift//swift:swift.bzl", "swift_grpc_library", "swift_proto_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+package(default_visibility = ["//visibility:public"])
+
+proto_library(
+    name = "logger_proto",
+    srcs = ["logger.proto"],
+)
+
+go_proto_library(
+    name = "logger_go_proto",
+    compilers = ["@rules_go//proto:go_grpc"],
+    importpath = "bootcamp/schema/logger",
+    proto = ":logger_proto",
+)
+
+ts_proto_library(
+    name = "logger_proto_ts",
+    files_to_copy = [
+        "logger_connect.d.ts",
+        "logger_pb.d.ts",
+    ],
+    node_modules = ":node_modules",
+    proto = ":logger_proto",
+)
