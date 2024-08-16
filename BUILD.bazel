@@ -1,10 +1,16 @@
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-load("@rules_swift_package_manager//swiftpkg:defs.bzl", "swift_update_packages")
 
 npm_link_all_packages(name = "node_modules")
 
 alias(
     name = "format",
     actual = "//tools/format",
+)
+
+exports_files(
+    [
+        ".shellcheckrc",
+        "pyproject.toml",
+    ],
+    visibility = ["//:__subpackages__"],
 )

@@ -1,0 +1,5 @@
+# Collect all dependencies, to pass to pip.parse and create the @pip repository.
+# Workaround for https://github.com/bazelbuild/rules_python/issues/1971
+# See ./README.md
+-r test.in
+-r runtime.txt

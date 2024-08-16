@@ -1,3 +1,5 @@
 maven_install.json     linguist-generated=true
 pnpm-lock.yaml         linguist-generated=true
 swift_deps_index.json  linguist-generated=true
+logger/schema/*.d.ts   linguist-generated=true
+**/*.pb.go             linguist-generated=true
