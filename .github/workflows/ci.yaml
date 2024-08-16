@@ -70,7 +70,6 @@ jobs:
           - 'bufbuild'
           - 'rules_nodejs_to_rules_js_migration'
           - 'ts_project_transpiler'
-          - 'write_source_files'
 
     steps:
       - uses: actions/checkout@v3

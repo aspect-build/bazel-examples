@@ -3,7 +3,7 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@aspect_bazel_lib//lib:output_files.bzl", "make_output_files")
 load("@bazel_skylib//lib:paths.bzl", "paths")
-load("@io_bazel_rules_go//proto:def.bzl", _go_proto_library = "go_proto_library")
+load("@rules_go//proto:def.bzl", _go_proto_library = "go_proto_library")
 
 def go_proto_library(name, importpath, proto_srcs = [], **kwargs):
     """Wrap go_proto_library with write_source_files.
@@ -40,5 +40,5 @@ def go_proto_library(name, importpath, proto_srcs = [], **kwargs):
             base + ".pb.go": make_output_files(base + "_pb_go", name, [proto_out_path % base], output_group = "go_generated_srcs")
             for base in [paths.replace_extension(p, "") for p in proto_srcs]
         },
-        visibility = ["//:__pkg__"],
+        visibility = ["//write_source_files:__pkg__"],
     )
