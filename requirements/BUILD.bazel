@@ -6,11 +6,16 @@ compile_pip_requirements(
     requirements_txt = "runtime.txt",
 )
 
+# A single constraint-solution for the full monorepo.
+# Allows dependencies between different applications without risk of version skew.
+# NB: this can easily become overconstrained. It's okay to have applications opt-out.
+# they can use virtual deps in rules_py in complex cases.
 compile_pip_requirements(
     name = "requirements.all",
     data = [
         "runtime.txt",
         "test.in",
+        "//logger/cli:requirements",
     ],
     requirements_in = "all.in",
     requirements_txt = "all.txt",
