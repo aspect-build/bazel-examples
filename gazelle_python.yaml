@@ -6,137 +6,17 @@
 manifest:
   modules_mapping:
     certifi: certifi
-    certifi.core: certifi
     charset_normalizer: charset_normalizer
-    charset_normalizer.api: charset_normalizer
-    charset_normalizer.assets: charset_normalizer
-    charset_normalizer.cd: charset_normalizer
-    charset_normalizer.cli: charset_normalizer
-    charset_normalizer.cli.normalizer: charset_normalizer
-    charset_normalizer.constant: charset_normalizer
-    charset_normalizer.legacy: charset_normalizer
-    charset_normalizer.md: charset_normalizer
-    charset_normalizer.models: charset_normalizer
-    charset_normalizer.utils: charset_normalizer
-    charset_normalizer.version: charset_normalizer
     exceptiongroup: exceptiongroup
     google.protobuf: protobuf
-    google.protobuf.any_pb2: protobuf
-    google.protobuf.api_pb2: protobuf
-    google.protobuf.compiler: protobuf
-    google.protobuf.compiler.plugin_pb2: protobuf
-    google.protobuf.descriptor: protobuf
-    google.protobuf.descriptor_database: protobuf
-    google.protobuf.descriptor_pb2: protobuf
-    google.protobuf.descriptor_pool: protobuf
-    google.protobuf.duration_pb2: protobuf
-    google.protobuf.empty_pb2: protobuf
-    google.protobuf.field_mask_pb2: protobuf
-    google.protobuf.internal: protobuf
-    google.protobuf.internal.api_implementation: protobuf
-    google.protobuf.internal.builder: protobuf
-    google.protobuf.internal.containers: protobuf
-    google.protobuf.internal.decoder: protobuf
-    google.protobuf.internal.encoder: protobuf
-    google.protobuf.internal.enum_type_wrapper: protobuf
-    google.protobuf.internal.extension_dict: protobuf
-    google.protobuf.internal.field_mask: protobuf
-    google.protobuf.internal.message_listener: protobuf
-    google.protobuf.internal.python_edition_defaults: protobuf
-    google.protobuf.internal.python_message: protobuf
-    google.protobuf.internal.testing_refleaks: protobuf
-    google.protobuf.internal.type_checkers: protobuf
-    google.protobuf.internal.well_known_types: protobuf
-    google.protobuf.internal.wire_format: protobuf
-    google.protobuf.json_format: protobuf
-    google.protobuf.message: protobuf
-    google.protobuf.message_factory: protobuf
-    google.protobuf.proto_builder: protobuf
-    google.protobuf.pyext: protobuf
-    google.protobuf.pyext.cpp_message: protobuf
-    google.protobuf.reflection: protobuf
-    google.protobuf.service: protobuf
-    google.protobuf.service_reflection: protobuf
-    google.protobuf.source_context_pb2: protobuf
-    google.protobuf.struct_pb2: protobuf
-    google.protobuf.symbol_database: protobuf
-    google.protobuf.testdata: protobuf
-    google.protobuf.text_encoding: protobuf
-    google.protobuf.text_format: protobuf
-    google.protobuf.timestamp_pb2: protobuf
-    google.protobuf.type_pb2: protobuf
-    google.protobuf.unknown_fields: protobuf
-    google.protobuf.util: protobuf
-    google.protobuf.wrappers_pb2: protobuf
     idna: idna
-    idna.codec: idna
-    idna.compat: idna
-    idna.core: idna
-    idna.idnadata: idna
-    idna.intranges: idna
-    idna.package_data: idna
-    idna.uts46data: idna
     iniconfig: iniconfig
-    iniconfig.exceptions: iniconfig
     packaging: packaging
-    packaging.markers: packaging
-    packaging.metadata: packaging
-    packaging.requirements: packaging
-    packaging.specifiers: packaging
-    packaging.tags: packaging
-    packaging.utils: packaging
-    packaging.version: packaging
     pluggy: pluggy
     py: pytest
     pytest: pytest
     requests: requests
-    requests.adapters: requests
-    requests.api: requests
-    requests.auth: requests
-    requests.certs: requests
-    requests.compat: requests
-    requests.cookies: requests
-    requests.exceptions: requests
-    requests.help: requests
-    requests.hooks: requests
-    requests.models: requests
-    requests.packages: requests
-    requests.sessions: requests
-    requests.status_codes: requests
-    requests.structures: requests
-    requests.utils: requests
     tomli: tomli
     urllib3: urllib3
-    urllib3.connection: urllib3
-    urllib3.connectionpool: urllib3
-    urllib3.contrib: urllib3
-    urllib3.contrib.appengine: urllib3
-    urllib3.contrib.ntlmpool: urllib3
-    urllib3.contrib.pyopenssl: urllib3
-    urllib3.contrib.securetransport: urllib3
-    urllib3.contrib.socks: urllib3
-    urllib3.exceptions: urllib3
-    urllib3.fields: urllib3
-    urllib3.filepost: urllib3
-    urllib3.packages: urllib3
-    urllib3.packages.backports: urllib3
-    urllib3.packages.backports.makefile: urllib3
-    urllib3.packages.six: urllib3
-    urllib3.poolmanager: urllib3
-    urllib3.request: urllib3
-    urllib3.response: urllib3
-    urllib3.util: urllib3
-    urllib3.util.connection: urllib3
-    urllib3.util.proxy: urllib3
-    urllib3.util.queue: urllib3
-    urllib3.util.request: urllib3
-    urllib3.util.response: urllib3
-    urllib3.util.retry: urllib3
-    urllib3.util.ssl_: urllib3
-    urllib3.util.ssl_match_hostname: urllib3
-    urllib3.util.ssltransport: urllib3
-    urllib3.util.timeout: urllib3
-    urllib3.util.url: urllib3
-    urllib3.util.wait: urllib3
   pip_repository:
     name: pip
