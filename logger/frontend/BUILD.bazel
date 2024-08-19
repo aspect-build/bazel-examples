@@ -6,6 +6,7 @@ load("@npm//logger/frontend:http-server/package_json.bzl", "bin")
 
 npm_link_all_packages(name = "node_modules")
 
+# gazelle:js_project_naming_convention {dirname}_compile
 ts_project(
     name = "compile",
     srcs = ["index.ts"],
