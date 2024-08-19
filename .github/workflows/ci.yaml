@@ -99,6 +99,6 @@ jobs:
         if: steps.has_test_sh.outputs.files_exists != 'true'
         run: |
           bazel \
-            --bazelrc=$GITHUB_WORKSPACE/bazelrc/.aspect/bazelrc/ci.bazelrc \
+            --bazelrc=$GITHUB_WORKSPACE/.aspect/bazelrc/ci.bazelrc \
             --bazelrc=$GITHUB_WORKSPACE/.github/workflows/ci.bazelrc \
             test //...
