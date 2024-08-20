@@ -1,4 +1,4 @@
-# Bazel Examples
+# Aspect Bazel Examples
 
 This variety of examples is provided by Aspect.
 

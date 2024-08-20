@@ -6,7 +6,7 @@ on:
     schedule:
       # Mondays at 5am UTC / midnight EST
       - cron: '0 5 * * 1'
-  
+
 jobs:
   tagger:
     runs-on: ubuntu-latest
