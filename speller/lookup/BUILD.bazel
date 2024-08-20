@@ -1,4 +1,4 @@
-load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
 
 cc_library(
     name = "lookup",
@@ -8,7 +8,7 @@ cc_library(
         "//speller/data_driven_tests:__pkg__",
         "//speller/main:__pkg__",
     ],
-    deps = ["@sqlite//:org_sqlite"],
+    deps = ["@sqlite3"],
 )
 
 cc_test(
