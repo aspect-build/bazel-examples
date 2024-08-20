@@ -1113,7 +1113,7 @@
         "recordedFileInputs": {
           "@@stardoc~//maven_install.json": "de0bfa778b4ed6aebb77509362dd87ab8d20fc7c7c18d2a7429cdfee03949a21",
           "@@rules_jvm_external~//rules_jvm_external_deps_install.json": "3ab1f67b0de4815df110bc72ccd6c77882b3b21d3d1e0a84445847b6ce3235a3",
-          "@@//maven_install.json": "d1ff8ea5421616eedf02eb4162bb79bcaa20eabc409155f0b1ecf628af37ec8b"
+          "@@//maven_install.json": "178b28a656f9f4984f784c3db4f18099f01d121afb105ceb0a063a00921afa77"
         },
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1126,7 +1126,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2-sources.jar"
+              "downloaded_file_path": "commons-logging/commons-logging/1.2/commons-logging-1.2-sources.jar"
             }
           },
           "com_google_api_gax_1_60_0": {
@@ -1139,17 +1139,6 @@
                 "https://maven.google.com/com/google/api/gax/1.60.0/gax-1.60.0.jar"
               ],
               "downloaded_file_path": "com/google/api/gax/1.60.0/gax-1.60.0.jar"
-            }
-          },
-          "com_google_guava_guava_jar_sources_31_1_android": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "sha256": "57f3d51d8095b148383f1cb402dd11ef8676c32974a67190c3ad4cf2ef2b2f0f",
-              "urls": [
-                "https://repo1.maven.org/maven2/com/google/guava/guava/31.1-android/guava-31.1-android-sources.jar"
-              ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/guava/guava/31.1-android/guava-31.1-android-sources.jar"
             }
           },
           "com_google_http_client_google_http_client_appengine_1_38_0": {
@@ -1172,7 +1161,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-testing/1.51.1/grpc-testing-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-testing/1.51.1/grpc-testing-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-testing/1.51.1/grpc-testing-1.51.1-sources.jar"
             }
           },
           "com_google_auth_google_auth_library_oauth2_http_0_22_0": {
@@ -1195,7 +1184,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/conscrypt/conscrypt-openjdk-uber/2.5.2/conscrypt-openjdk-uber-2.5.2-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/conscrypt/conscrypt-openjdk-uber/2.5.2/conscrypt-openjdk-uber-2.5.2-sources.jar"
+              "downloaded_file_path": "org/conscrypt/conscrypt-openjdk-uber/2.5.2/conscrypt-openjdk-uber-2.5.2-sources.jar"
             }
           },
           "org_reactivestreams_reactive_streams_1_0_3": {
@@ -1229,7 +1218,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7.jar"
+              "downloaded_file_path": "com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7.jar"
             }
           },
           "io_netty_netty_transport_4_1_72_Final": {
@@ -1264,7 +1253,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/2.9.0/proto-google-common-protos-2.9.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/2.9.0/proto-google-common-protos-2.9.0-sources.jar"
+              "downloaded_file_path": "com/google/api/grpc/proto-google-common-protos/2.9.0/proto-google-common-protos-2.9.0-sources.jar"
             }
           },
           "io_grpc_grpc_core_1_51_1": {
@@ -1275,7 +1264,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-core/1.51.1/grpc-core-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-core/1.51.1/grpc-core-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-core/1.51.1/grpc-core-1.51.1.jar"
             }
           },
           "software_amazon_awssdk_netty_nio_client_2_17_183": {
@@ -1290,25 +1279,13 @@
               "downloaded_file_path": "software/amazon/awssdk/netty-nio-client/2.17.183/netty-nio-client-2.17.183.jar"
             }
           },
-          "com_google_guava_guava_31_1_android": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "sha256": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
-              "urls": [
-                "https://repo1.maven.org/maven2/com/google/guava/guava/31.1-android/guava-31.1-android.jar"
-              ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/guava/guava/31.1-android/guava-31.1-android.jar"
-            }
-          },
           "com_google_guava_guava_31_1_jre": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
             "attributes": {
               "sha256": "a42edc9cab792e39fe39bb94f3fca655ed157ff87a8af78e1d6ba5b07c4a00ab",
               "urls": [
-                "https://repo1.maven.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar",
-                "https://maven.google.com/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar"
+                "https://repo1.maven.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar"
               ],
               "downloaded_file_path": "com/google/guava/guava/31.1-jre/guava-31.1-jre.jar"
             }
@@ -1345,7 +1322,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-rls/1.51.1/grpc-rls-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-rls/1.51.1/grpc-rls-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-rls/1.51.1/grpc-rls-1.51.1-sources.jar"
             }
           },
           "io_opencensus_opencensus_proto_jar_sources_0_2_0": {
@@ -1356,7 +1333,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/opencensus/opencensus-proto/0.2.0/opencensus-proto-0.2.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/opencensus/opencensus-proto/0.2.0/opencensus-proto-0.2.0-sources.jar"
+              "downloaded_file_path": "io/opencensus/opencensus-proto/0.2.0/opencensus-proto-0.2.0-sources.jar"
             }
           },
           "org_apache_httpcomponents_httpcore_4_4_13": {
@@ -1379,7 +1356,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.4.15/httpcore-4.4.15.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.4.15/httpcore-4.4.15.jar"
+              "downloaded_file_path": "org/apache/httpcomponents/httpcore/4.4.15/httpcore-4.4.15.jar"
             }
           },
           "io_netty_netty_common_4_1_72_Final": {
@@ -1414,7 +1391,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-common/4.1.79.Final/netty-common-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-common/4.1.79.Final/netty-common-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-common/4.1.79.Final/netty-common-4.1.79.Final-sources.jar"
             }
           },
           "io_netty_netty_codec_socks_jar_sources_4_1_79_Final": {
@@ -1425,7 +1402,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-codec-socks/4.1.79.Final/netty-codec-socks-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-codec-socks/4.1.79.Final/netty-codec-socks-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-codec-socks/4.1.79.Final/netty-codec-socks-4.1.79.Final-sources.jar"
             }
           },
           "io_grpc_grpc_context_1_51_1": {
@@ -1436,7 +1413,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-context/1.51.1/grpc-context-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-context/1.51.1/grpc-context-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-context/1.51.1/grpc-context-1.51.1.jar"
             }
           },
           "io_netty_netty_codec_4_1_79_Final": {
@@ -1447,7 +1424,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-codec/4.1.79.Final/netty-codec-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-codec/4.1.79.Final/netty-codec-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-codec/4.1.79.Final/netty-codec-4.1.79.Final.jar"
             }
           },
           "unpinned_maven": {
@@ -1499,7 +1476,18 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-codec-http2/4.1.79.Final/netty-codec-http2-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-codec-http2/4.1.79.Final/netty-codec-http2-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-codec-http2/4.1.79.Final/netty-codec-http2-4.1.79.Final-sources.jar"
+            }
+          },
+          "net_bytebuddy_byte_buddy_1_12_7": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "d2e46555699e70361b5471a7e142f9c67855bba6907a285177ebd8ad973775d8",
+              "urls": [
+                "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7.jar"
+              ],
+              "downloaded_file_path": "net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7.jar"
             }
           },
           "org_checkerframework_checker_compat_qual_2_5_5": {
@@ -1512,6 +1500,17 @@
                 "https://maven.google.com/org/checkerframework/checker-compat-qual/2.5.5/checker-compat-qual-2.5.5.jar"
               ],
               "downloaded_file_path": "org/checkerframework/checker-compat-qual/2.5.5/checker-compat-qual-2.5.5.jar"
+            }
+          },
+          "org_ow2_asm_asm_9_0": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "0df97574914aee92fd349d0cb4e00f3345d45b2c239e0bb50f0a90ead47888e0",
+              "urls": [
+                "https://repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar"
+              ],
+              "downloaded_file_path": "org/ow2/asm/asm/9.0/asm-9.0.jar"
             }
           },
           "org_ow2_asm_asm_9_1": {
@@ -1545,7 +1544,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-auth/1.51.1/grpc-auth-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-auth/1.51.1/grpc-auth-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-auth/1.51.1/grpc-auth-1.51.1.jar"
             }
           },
           "com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava": {
@@ -1556,7 +1555,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"
+              "downloaded_file_path": "com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"
             }
           },
           "com_google_auth_google_auth_library_credentials_jar_sources_1_4_0": {
@@ -1567,7 +1566,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/auth/google-auth-library-credentials/1.4.0/google-auth-library-credentials-1.4.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/auth/google-auth-library-credentials/1.4.0/google-auth-library-credentials-1.4.0-sources.jar"
+              "downloaded_file_path": "com/google/auth/google-auth-library-credentials/1.4.0/google-auth-library-credentials-1.4.0-sources.jar"
             }
           },
           "io_netty_netty_transport_native_unix_common_jar_sources_4_1_79_Final": {
@@ -1578,7 +1577,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-transport-native-unix-common/4.1.79.Final/netty-transport-native-unix-common-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-transport-native-unix-common/4.1.79.Final/netty-transport-native-unix-common-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-transport-native-unix-common/4.1.79.Final/netty-transport-native-unix-common-4.1.79.Final-sources.jar"
             }
           },
           "io_netty_netty_codec_socks_4_1_79_Final": {
@@ -1589,7 +1588,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-codec-socks/4.1.79.Final/netty-codec-socks-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-codec-socks/4.1.79.Final/netty-codec-socks-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-codec-socks/4.1.79.Final/netty-codec-socks-4.1.79.Final.jar"
             }
           },
           "software_amazon_awssdk_auth_2_17_183": {
@@ -1612,7 +1611,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-protobuf/1.51.1/grpc-protobuf-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-protobuf/1.51.1/grpc-protobuf-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-protobuf/1.51.1/grpc-protobuf-1.51.1.jar"
             }
           },
           "io_netty_netty_codec_4_1_72_Final": {
@@ -1647,7 +1646,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-transport/4.1.79.Final/netty-transport-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-transport/4.1.79.Final/netty-transport-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-transport/4.1.79.Final/netty-transport-4.1.79.Final-sources.jar"
             }
           },
           "com_google_re2j_re2j_1_6": {
@@ -1658,7 +1657,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/re2j/re2j/1.6/re2j-1.6.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/re2j/re2j/1.6/re2j-1.6.jar"
+              "downloaded_file_path": "com/google/re2j/re2j/1.6/re2j-1.6.jar"
             }
           },
           "unpinned_stardoc_maven": {
@@ -1705,7 +1704,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/errorprone/error_prone_annotations/2.14.0/error_prone_annotations-2.14.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/errorprone/error_prone_annotations/2.14.0/error_prone_annotations-2.14.0.jar"
+              "downloaded_file_path": "com/google/errorprone/error_prone_annotations/2.14.0/error_prone_annotations-2.14.0.jar"
             }
           },
           "com_google_api_api_common_1_10_1": {
@@ -1728,7 +1727,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-common/4.1.79.Final/netty-common-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-common/4.1.79.Final/netty-common-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-common/4.1.79.Final/netty-common-4.1.79.Final.jar"
             }
           },
           "javax_annotation_javax_annotation_api_1_3_2": {
@@ -1751,18 +1750,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar"
-            }
-          },
-          "junit_junit_4_12": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "sha256": "59721f0805e223d84b90677887d9ff567dc534d7c502ca903c0c2b17f05c116a",
-              "urls": [
-                "https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.jar"
-              ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.jar"
+              "downloaded_file_path": "com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar"
             }
           },
           "io_grpc_grpc_api_jar_sources_1_51_1": {
@@ -1773,7 +1761,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-api/1.51.1/grpc-api-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-api/1.51.1/grpc-api-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-api/1.51.1/grpc-api-1.51.1-sources.jar"
             }
           },
           "io_netty_netty_codec_http2_4_1_72_Final": {
@@ -1796,7 +1784,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-grpclb/1.51.1/grpc-grpclb-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-grpclb/1.51.1/grpc-grpclb-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-grpclb/1.51.1/grpc-grpclb-1.51.1.jar"
             }
           },
           "rules_jvm_external_deps": {
@@ -1845,7 +1833,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-services/1.51.1/grpc-services-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-services/1.51.1/grpc-services-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-services/1.51.1/grpc-services-1.51.1-sources.jar"
             }
           },
           "software_amazon_awssdk_http_client_spi_2_17_183": {
@@ -1868,7 +1856,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-handler-proxy/4.1.79.Final/netty-handler-proxy-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-handler-proxy/4.1.79.Final/netty-handler-proxy-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-handler-proxy/4.1.79.Final/netty-handler-proxy-4.1.79.Final-sources.jar"
             }
           },
           "com_google_oauth_client_google_oauth_client_1_31_1": {
@@ -1891,7 +1879,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-all/1.51.1/grpc-all-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-all/1.51.1/grpc-all-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-all/1.51.1/grpc-all-1.51.1.jar"
             }
           },
           "software_amazon_awssdk_annotations_2_17_183": {
@@ -1926,7 +1914,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-auth/1.51.1/grpc-auth-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-auth/1.51.1/grpc-auth-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-auth/1.51.1/grpc-auth-1.51.1-sources.jar"
             }
           },
           "io_grpc_grpc_netty_jar_sources_1_51_1": {
@@ -1937,18 +1925,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-netty/1.51.1/grpc-netty-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-netty/1.51.1/grpc-netty-1.51.1-sources.jar"
-            }
-          },
-          "org_hamcrest_hamcrest_core_jar_sources_1_3": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "sha256": "e223d2d8fbafd66057a8848cc94222d63c3cedd652cc48eddc0ab5c39c0f84df",
-              "urls": [
-                "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar"
-              ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-netty/1.51.1/grpc-netty-1.51.1-sources.jar"
             }
           },
           "junit_junit_4_13_2": {
@@ -1962,6 +1939,17 @@
               "downloaded_file_path": "junit/junit/4.13.2/junit-4.13.2.jar"
             }
           },
+          "org_hamcrest_hamcrest_core_jar_sources_1_3": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "e223d2d8fbafd66057a8848cc94222d63c3cedd652cc48eddc0ab5c39c0f84df",
+              "urls": [
+                "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar"
+              ],
+              "downloaded_file_path": "org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar"
+            }
+          },
           "io_netty_netty_resolver_4_1_79_Final": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -1970,7 +1958,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-resolver/4.1.79.Final/netty-resolver-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-resolver/4.1.79.Final/netty-resolver-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-resolver/4.1.79.Final/netty-resolver-4.1.79.Final.jar"
             }
           },
           "com_google_auth_google_auth_library_credentials_0_22_0": {
@@ -1993,7 +1981,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/http-client/google-http-client-gson/1.41.0/google-http-client-gson-1.41.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/http-client/google-http-client-gson/1.41.0/google-http-client-gson-1.41.0.jar"
+              "downloaded_file_path": "com/google/http-client/google-http-client-gson/1.41.0/google-http-client-gson-1.41.0.jar"
             }
           },
           "com_google_http_client_google_http_client_gson_jar_sources_1_41_0": {
@@ -2004,7 +1992,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/http-client/google-http-client-gson/1.41.0/google-http-client-gson-1.41.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/http-client/google-http-client-gson/1.41.0/google-http-client-gson-1.41.0-sources.jar"
+              "downloaded_file_path": "com/google/http-client/google-http-client-gson/1.41.0/google-http-client-gson-1.41.0-sources.jar"
             }
           },
           "io_netty_netty_transport_native_unix_common_4_1_79_Final": {
@@ -2015,7 +2003,18 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-transport-native-unix-common/4.1.79.Final/netty-transport-native-unix-common-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-transport-native-unix-common/4.1.79.Final/netty-transport-native-unix-common-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-transport-native-unix-common/4.1.79.Final/netty-transport-native-unix-common-4.1.79.Final.jar"
+            }
+          },
+          "com_google_guava_guava_testlib_31_1_jre": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "aadc71b10d5c3ac474dd16be84cfb18d257e584d1e0a59f8cab64ef4376226ce",
+              "urls": [
+                "https://repo1.maven.org/maven2/com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre.jar"
+              ],
+              "downloaded_file_path": "com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre.jar"
             }
           },
           "org_hamcrest_hamcrest_core_1_3": {
@@ -2026,7 +2025,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+              "downloaded_file_path": "org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
             }
           },
           "com_google_cloud_google_cloud_core_http_1_93_10": {
@@ -2089,7 +2088,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/squareup/okio/okio/1.17.5/okio-1.17.5.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/squareup/okio/okio/1.17.5/okio-1.17.5.jar"
+              "downloaded_file_path": "com/squareup/okio/okio/1.17.5/okio-1.17.5.jar"
             }
           },
           "software_amazon_awssdk_aws_query_protocol_2_17_183": {
@@ -2112,7 +2111,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-codec-http/4.1.79.Final/netty-codec-http-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-codec-http/4.1.79.Final/netty-codec-http-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-codec-http/4.1.79.Final/netty-codec-http-4.1.79.Final-sources.jar"
             }
           },
           "io_netty_netty_codec_http_4_1_72_Final": {
@@ -2135,7 +2134,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/http-client/google-http-client/1.41.0/google-http-client-1.41.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/http-client/google-http-client/1.41.0/google-http-client-1.41.0-sources.jar"
+              "downloaded_file_path": "com/google/http-client/google-http-client/1.41.0/google-http-client-1.41.0-sources.jar"
             }
           },
           "com_google_j2objc_j2objc_annotations_jar_sources_1_3": {
@@ -2146,7 +2145,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3-sources.jar"
+              "downloaded_file_path": "com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3-sources.jar"
             }
           },
           "stardoc_maven": {
@@ -2191,7 +2190,29 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-handler-proxy/4.1.79.Final/netty-handler-proxy-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-handler-proxy/4.1.79.Final/netty-handler-proxy-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-handler-proxy/4.1.79.Final/netty-handler-proxy-4.1.79.Final.jar"
+            }
+          },
+          "com_google_truth_truth_1_1_2": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "a85e03b8b6ae8780f060cfded9500a3d1b5f52808f99a2ea6da9c683313c7518",
+              "urls": [
+                "https://repo1.maven.org/maven2/com/google/truth/truth/1.1.2/truth-1.1.2.jar"
+              ],
+              "downloaded_file_path": "com/google/truth/truth/1.1.2/truth-1.1.2.jar"
+            }
+          },
+          "net_bytebuddy_byte_buddy_jar_sources_1_12_7": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "94a6f5d7d8491ca7541f2da90bac4f084e04264112e936334493b2c2f094455d",
+              "urls": [
+                "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7-sources.jar"
+              ],
+              "downloaded_file_path": "net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7-sources.jar"
             }
           },
           "com_google_truth_truth_1_1_3": {
@@ -2203,6 +2224,17 @@
                 "https://repo1.maven.org/maven2/com/google/truth/truth/1.1.3/truth-1.1.3.jar"
               ],
               "downloaded_file_path": "com/google/truth/truth/1.1.3/truth-1.1.3.jar"
+            }
+          },
+          "com_google_guava_guava_jar_sources_31_1_jre": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "8ab1853cdaf936ec88be80c17302b7c20abafbd4f54d4fb54d7011c529e3a44a",
+              "urls": [
+                "https://repo1.maven.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre-sources.jar"
+              ],
+              "downloaded_file_path": "com/google/guava/guava/31.1-jre/guava-31.1-jre-sources.jar"
             }
           },
           "com_google_http_client_google_http_client_1_38_0": {
@@ -2225,7 +2257,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-testing/1.51.1/grpc-testing-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-testing/1.51.1/grpc-testing-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-testing/1.51.1/grpc-testing-1.51.1.jar"
             }
           },
           "com_google_auto_value_auto_value_annotations_1_8_1": {
@@ -2247,7 +2279,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"
+              "downloaded_file_path": "com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"
             }
           },
           "io_grpc_grpc_protobuf_jar_sources_1_51_1": {
@@ -2258,7 +2290,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-protobuf/1.51.1/grpc-protobuf-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-protobuf/1.51.1/grpc-protobuf-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-protobuf/1.51.1/grpc-protobuf-1.51.1-sources.jar"
             }
           },
           "com_google_protobuf_protobuf_java_util_jar_sources_3_21_7": {
@@ -2269,7 +2301,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java-util/3.21.7/protobuf-java-util-3.21.7-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/protobuf/protobuf-java-util/3.21.7/protobuf-java-util-3.21.7-sources.jar"
+              "downloaded_file_path": "com/google/protobuf/protobuf-java-util/3.21.7/protobuf-java-util-3.21.7-sources.jar"
             }
           },
           "com_google_re2j_re2j_jar_sources_1_6": {
@@ -2280,7 +2312,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/re2j/re2j/1.6/re2j-1.6-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/re2j/re2j/1.6/re2j-1.6-sources.jar"
+              "downloaded_file_path": "com/google/re2j/re2j/1.6/re2j-1.6-sources.jar"
             }
           },
           "com_google_protobuf_protobuf_java_util_3_13_0": {
@@ -2303,7 +2335,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/http-client/google-http-client/1.41.0/google-http-client-1.41.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/http-client/google-http-client/1.41.0/google-http-client-1.41.0.jar"
+              "downloaded_file_path": "com/google/http-client/google-http-client/1.41.0/google-http-client-1.41.0.jar"
             }
           },
           "commons_codec_commons_codec_jar_sources_1_11": {
@@ -2314,7 +2346,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/commons-codec/commons-codec/1.11/commons-codec-1.11-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/commons-codec/commons-codec/1.11/commons-codec-1.11-sources.jar"
+              "downloaded_file_path": "commons-codec/commons-codec/1.11/commons-codec-1.11-sources.jar"
             }
           },
           "com_google_guava_failureaccess_1_0_1": {
@@ -2325,7 +2357,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar"
+              "downloaded_file_path": "com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar"
             }
           },
           "io_grpc_grpc_all_jar_sources_1_51_1": {
@@ -2336,7 +2368,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-all/1.51.1/grpc-all-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-all/1.51.1/grpc-all-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-all/1.51.1/grpc-all-1.51.1-sources.jar"
             }
           },
           "io_grpc_grpc_context_1_33_1": {
@@ -2359,7 +2391,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-alts/1.51.1/grpc-alts-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-alts/1.51.1/grpc-alts-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-alts/1.51.1/grpc-alts-1.51.1.jar"
             }
           },
           "com_google_api_grpc_proto_google_iam_v1_1_0_3": {
@@ -2382,7 +2414,18 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-stub/1.51.1/grpc-stub-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-stub/1.51.1/grpc-stub-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-stub/1.51.1/grpc-stub-1.51.1.jar"
+            }
+          },
+          "org_objenesis_objenesis_3_2": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "03d960bd5aef03c653eb000413ada15eb77cdd2b8e4448886edf5692805e35f3",
+              "urls": [
+                "https://repo1.maven.org/maven2/org/objenesis/objenesis/3.2/objenesis-3.2.jar"
+              ],
+              "downloaded_file_path": "org/objenesis/objenesis/3.2/objenesis-3.2.jar"
             }
           },
           "io_grpc_grpc_stub_jar_sources_1_51_1": {
@@ -2393,7 +2436,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-stub/1.51.1/grpc-stub-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-stub/1.51.1/grpc-stub-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-stub/1.51.1/grpc-stub-1.51.1-sources.jar"
             }
           },
           "com_google_auth_google_auth_library_oauth2_http_1_4_0": {
@@ -2404,7 +2447,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/auth/google-auth-library-oauth2-http/1.4.0/google-auth-library-oauth2-http-1.4.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/auth/google-auth-library-oauth2-http/1.4.0/google-auth-library-oauth2-http-1.4.0.jar"
+              "downloaded_file_path": "com/google/auth/google-auth-library-oauth2-http/1.4.0/google-auth-library-oauth2-http-1.4.0.jar"
             }
           },
           "software_amazon_awssdk_metrics_spi_2_17_183": {
@@ -2439,7 +2482,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/opencensus/opencensus-api/0.28.0/opencensus-api-0.28.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/opencensus/opencensus-api/0.28.0/opencensus-api-0.28.0.jar"
+              "downloaded_file_path": "io/opencensus/opencensus-api/0.28.0/opencensus-api-0.28.0.jar"
             }
           },
           "com_beust_jcommander_1_82": {
@@ -2461,7 +2504,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-netty-shaded/1.51.1/grpc-netty-shaded-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-netty-shaded/1.51.1/grpc-netty-shaded-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-netty-shaded/1.51.1/grpc-netty-shaded-1.51.1.jar"
             }
           },
           "io_opencensus_opencensus_contrib_http_util_0_28_0": {
@@ -2472,7 +2515,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/opencensus/opencensus-contrib-http-util/0.28.0/opencensus-contrib-http-util-0.28.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/opencensus/opencensus-contrib-http-util/0.28.0/opencensus-contrib-http-util-0.28.0.jar"
+              "downloaded_file_path": "io/opencensus/opencensus-contrib-http-util/0.28.0/opencensus-contrib-http-util-0.28.0.jar"
             }
           },
           "software_amazon_awssdk_third_party_jackson_core_2_17_183": {
@@ -2519,7 +2562,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-codec-http2/4.1.79.Final/netty-codec-http2-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-codec-http2/4.1.79.Final/netty-codec-http2-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-codec-http2/4.1.79.Final/netty-codec-http2-4.1.79.Final.jar"
             }
           },
           "org_codehaus_mojo_animal_sniffer_annotations_1_21": {
@@ -2530,7 +2573,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.21/animal-sniffer-annotations-1.21.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.21/animal-sniffer-annotations-1.21.jar"
+              "downloaded_file_path": "org/codehaus/mojo/animal-sniffer-annotations/1.21/animal-sniffer-annotations-1.21.jar"
             }
           },
           "com_fasterxml_jackson_core_jackson_core_2_11_3": {
@@ -2565,7 +2608,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/auto/value/auto-value-annotations/1.9/auto-value-annotations-1.9-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/auto/value/auto-value-annotations/1.9/auto-value-annotations-1.9-sources.jar"
+              "downloaded_file_path": "com/google/auto/value/auto-value-annotations/1.9/auto-value-annotations-1.9-sources.jar"
             }
           },
           "org_apache_httpcomponents_httpclient_jar_sources_4_5_13": {
@@ -2576,7 +2619,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13-sources.jar"
+              "downloaded_file_path": "org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13-sources.jar"
             }
           },
           "io_netty_netty_handler_4_1_79_Final": {
@@ -2587,7 +2630,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-handler/4.1.79.Final/netty-handler-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-handler/4.1.79.Final/netty-handler-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-handler/4.1.79.Final/netty-handler-4.1.79.Final.jar"
             }
           },
           "org_checkerframework_checker_qual_3_12_0": {
@@ -2598,7 +2641,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar"
+              "downloaded_file_path": "org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0.jar"
             }
           },
           "io_netty_netty_transport_classes_epoll_4_1_72_Final": {
@@ -2613,6 +2656,17 @@
               "downloaded_file_path": "io/netty/netty-transport-classes-epoll/4.1.72.Final/netty-transport-classes-epoll-4.1.72.Final.jar"
             }
           },
+          "com_google_truth_truth_jar_sources_1_1_2": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "a98b2f82af388484dfe1b2b859c3c05a28fcae000fc532ef0155e1814fa3af05",
+              "urls": [
+                "https://repo1.maven.org/maven2/com/google/truth/truth/1.1.2/truth-1.1.2-sources.jar"
+              ],
+              "downloaded_file_path": "com/google/truth/truth/1.1.2/truth-1.1.2-sources.jar"
+            }
+          },
           "io_grpc_grpc_xds_jar_sources_1_51_1": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -2621,7 +2675,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-xds/1.51.1/grpc-xds-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-xds/1.51.1/grpc-xds-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-xds/1.51.1/grpc-xds-1.51.1-sources.jar"
             }
           },
           "com_google_auth_google_auth_library_oauth2_http_jar_sources_1_4_0": {
@@ -2632,7 +2686,18 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/auth/google-auth-library-oauth2-http/1.4.0/google-auth-library-oauth2-http-1.4.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/auth/google-auth-library-oauth2-http/1.4.0/google-auth-library-oauth2-http-1.4.0-sources.jar"
+              "downloaded_file_path": "com/google/auth/google-auth-library-oauth2-http/1.4.0/google-auth-library-oauth2-http-1.4.0-sources.jar"
+            }
+          },
+          "org_objenesis_objenesis_jar_sources_3_2": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "56a7987f5746bd809c363e29055c41f5472a086b0e0e32248693e064d10bc306",
+              "urls": [
+                "https://repo1.maven.org/maven2/org/objenesis/objenesis/3.2/objenesis-3.2-sources.jar"
+              ],
+              "downloaded_file_path": "org/objenesis/objenesis/3.2/objenesis-3.2-sources.jar"
             }
           },
           "com_google_errorprone_error_prone_annotations_jar_sources_2_14_0": {
@@ -2643,7 +2708,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/errorprone/error_prone_annotations/2.14.0/error_prone_annotations-2.14.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/errorprone/error_prone_annotations/2.14.0/error_prone_annotations-2.14.0-sources.jar"
+              "downloaded_file_path": "com/google/errorprone/error_prone_annotations/2.14.0/error_prone_annotations-2.14.0-sources.jar"
             }
           },
           "io_grpc_grpc_okhttp_1_51_1": {
@@ -2654,7 +2719,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-okhttp/1.51.1/grpc-okhttp-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-okhttp/1.51.1/grpc-okhttp-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-okhttp/1.51.1/grpc-okhttp-1.51.1.jar"
             }
           },
           "software_amazon_awssdk_regions_2_17_183": {
@@ -2677,7 +2742,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/auth/google-auth-library-credentials/1.4.0/google-auth-library-credentials-1.4.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/auth/google-auth-library-credentials/1.4.0/google-auth-library-credentials-1.4.0.jar"
+              "downloaded_file_path": "com/google/auth/google-auth-library-credentials/1.4.0/google-auth-library-credentials-1.4.0.jar"
             }
           },
           "io_perfmark_perfmark_api_0_25_0": {
@@ -2688,7 +2753,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/perfmark/perfmark-api/0.25.0/perfmark-api-0.25.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/perfmark/perfmark-api/0.25.0/perfmark-api-0.25.0.jar"
+              "downloaded_file_path": "io/perfmark/perfmark-api/0.25.0/perfmark-api-0.25.0.jar"
             }
           },
           "io_grpc_grpc_netty_shaded_jar_sources_1_51_1": {
@@ -2699,7 +2764,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-netty-shaded/1.51.1/grpc-netty-shaded-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-netty-shaded/1.51.1/grpc-netty-shaded-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-netty-shaded/1.51.1/grpc-netty-shaded-1.51.1-sources.jar"
             }
           },
           "io_netty_netty_handler_4_1_72_Final": {
@@ -2722,7 +2787,18 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-grpclb/1.51.1/grpc-grpclb-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-grpclb/1.51.1/grpc-grpclb-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-grpclb/1.51.1/grpc-grpclb-1.51.1-sources.jar"
+            }
+          },
+          "net_bytebuddy_byte_buddy_agent_jar_sources_1_12_7": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "a6d5b1157061231f61c833f1cc76c71287947c75b4064404a47f01f6e970c544",
+              "urls": [
+                "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7-sources.jar"
+              ],
+              "downloaded_file_path": "net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7-sources.jar"
             }
           },
           "io_netty_netty_resolver_4_1_72_Final": {
@@ -2735,6 +2811,17 @@
                 "https://maven.google.com/io/netty/netty-resolver/4.1.72.Final/netty-resolver-4.1.72.Final.jar"
               ],
               "downloaded_file_path": "io/netty/netty-resolver/4.1.72.Final/netty-resolver-4.1.72.Final.jar"
+            }
+          },
+          "org_mockito_mockito_core_4_3_1": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "148de2c6928365db29443ca12d35c930d9f481172b934fdd801d1cb1409ea83a",
+              "urls": [
+                "https://repo1.maven.org/maven2/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1.jar"
+              ],
+              "downloaded_file_path": "org/mockito/mockito-core/4.3.1/mockito-core-4.3.1.jar"
             }
           },
           "software_amazon_awssdk_protocol_core_2_17_183": {
@@ -2757,7 +2844,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.4.15/httpcore-4.4.15-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpcore/4.4.15/httpcore-4.4.15-sources.jar"
+              "downloaded_file_path": "org/apache/httpcomponents/httpcore/4.4.15/httpcore-4.4.15-sources.jar"
             }
           },
           "io_grpc_grpc_api_1_51_1": {
@@ -2768,7 +2855,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-api/1.51.1/grpc-api-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-api/1.51.1/grpc-api-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-api/1.51.1/grpc-api-1.51.1.jar"
             }
           },
           "io_netty_netty_buffer_4_1_79_Final": {
@@ -2779,7 +2866,29 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-buffer/4.1.79.Final/netty-buffer-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-buffer/4.1.79.Final/netty-buffer-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-buffer/4.1.79.Final/netty-buffer-4.1.79.Final.jar"
+            }
+          },
+          "org_ow2_asm_asm_jar_sources_9_0": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "829bc5eb0ccd705a7c8afbf7cdc4b7e9a9f733d3a1a954b9afffd99c8e063366",
+              "urls": [
+                "https://repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0-sources.jar"
+              ],
+              "downloaded_file_path": "org/ow2/asm/asm/9.0/asm-9.0-sources.jar"
+            }
+          },
+          "net_bytebuddy_byte_buddy_agent_1_12_7": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "73d84bb6e8e8980e674d796a29063f510ceb527c6f8c912a08a13e236be05c71",
+              "urls": [
+                "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7.jar"
+              ],
+              "downloaded_file_path": "net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7.jar"
             }
           },
           "software_amazon_awssdk_s3_2_17_183": {
@@ -2794,17 +2903,6 @@
               "downloaded_file_path": "software/amazon/awssdk/s3/2.17.183/s3-2.17.183.jar"
             }
           },
-          "junit_junit_jar_sources_4_12": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "sha256": "9f43fea92033ad82bcad2ae44cec5c82abc9d6ee4b095cab921d11ead98bf2ff",
-              "urls": [
-                "https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12-sources.jar"
-              ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/junit/junit/4.12/junit-4.12-sources.jar"
-            }
-          },
           "io_grpc_grpc_protobuf_lite_jar_sources_1_51_1": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -2813,7 +2911,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-protobuf-lite/1.51.1/grpc-protobuf-lite-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-protobuf-lite/1.51.1/grpc-protobuf-lite-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-protobuf-lite/1.51.1/grpc-protobuf-lite-1.51.1-sources.jar"
             }
           },
           "io_netty_netty_codec_jar_sources_4_1_79_Final": {
@@ -2824,7 +2922,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-codec/4.1.79.Final/netty-codec-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-codec/4.1.79.Final/netty-codec-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-codec/4.1.79.Final/netty-codec-4.1.79.Final-sources.jar"
             }
           },
           "com_google_protobuf_protobuf_java_jar_sources_3_21_7": {
@@ -2835,7 +2933,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7-sources.jar"
+              "downloaded_file_path": "com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7-sources.jar"
             }
           },
           "org_apache_httpcomponents_httpclient_4_5_13": {
@@ -2846,7 +2944,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar"
+              "downloaded_file_path": "org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar"
             }
           },
           "io_grpc_grpc_alts_jar_sources_1_51_1": {
@@ -2857,7 +2955,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-alts/1.51.1/grpc-alts-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-alts/1.51.1/grpc-alts-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-alts/1.51.1/grpc-alts-1.51.1-sources.jar"
             }
           },
           "org_checkerframework_checker_qual_jar_sources_3_12_0": {
@@ -2868,7 +2966,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0-sources.jar"
+              "downloaded_file_path": "org/checkerframework/checker-qual/3.12.0/checker-qual-3.12.0-sources.jar"
             }
           },
           "io_netty_netty_resolver_jar_sources_4_1_79_Final": {
@@ -2879,7 +2977,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-resolver/4.1.79.Final/netty-resolver-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-resolver/4.1.79.Final/netty-resolver-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-resolver/4.1.79.Final/netty-resolver-4.1.79.Final-sources.jar"
             }
           },
           "com_google_code_gson_gson_2_9_0": {
@@ -2890,7 +2988,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar"
+              "downloaded_file_path": "com/google/code/gson/gson/2.9.0/gson-2.9.0.jar"
             }
           },
           "io_netty_netty_buffer_4_1_72_Final": {
@@ -2913,7 +3011,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-core/1.51.1/grpc-core-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-core/1.51.1/grpc-core-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-core/1.51.1/grpc-core-1.51.1-sources.jar"
             }
           },
           "io_grpc_grpc_protobuf_lite_1_51_1": {
@@ -2924,7 +3022,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-protobuf-lite/1.51.1/grpc-protobuf-lite-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-protobuf-lite/1.51.1/grpc-protobuf-lite-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-protobuf-lite/1.51.1/grpc-protobuf-lite-1.51.1.jar"
             }
           },
           "io_netty_netty_buffer_jar_sources_4_1_79_Final": {
@@ -2935,7 +3033,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-buffer/4.1.79.Final/netty-buffer-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-buffer/4.1.79.Final/netty-buffer-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-buffer/4.1.79.Final/netty-buffer-4.1.79.Final-sources.jar"
             }
           },
           "io_opencensus_opencensus_proto_0_2_0": {
@@ -2946,7 +3044,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/opencensus/opencensus-proto/0.2.0/opencensus-proto-0.2.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/opencensus/opencensus-proto/0.2.0/opencensus-proto-0.2.0.jar"
+              "downloaded_file_path": "io/opencensus/opencensus-proto/0.2.0/opencensus-proto-0.2.0.jar"
             }
           },
           "org_slf4j_slf4j_api_1_7_30": {
@@ -2969,7 +3067,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-transport/4.1.79.Final/netty-transport-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-transport/4.1.79.Final/netty-transport-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-transport/4.1.79.Final/netty-transport-4.1.79.Final.jar"
             }
           },
           "com_google_api_grpc_proto_google_common_protos_2_0_1": {
@@ -2992,7 +3090,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"
+              "downloaded_file_path": "commons-logging/commons-logging/1.2/commons-logging-1.2.jar"
             }
           },
           "com_google_cloud_google_cloud_storage_1_113_4": {
@@ -3015,7 +3113,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-okhttp/1.51.1/grpc-okhttp-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-okhttp/1.51.1/grpc-okhttp-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-okhttp/1.51.1/grpc-okhttp-1.51.1-sources.jar"
             }
           },
           "io_grpc_grpc_netty_1_51_1": {
@@ -3026,7 +3124,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-netty/1.51.1/grpc-netty-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-netty/1.51.1/grpc-netty-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-netty/1.51.1/grpc-netty-1.51.1.jar"
             }
           },
           "org_conscrypt_conscrypt_openjdk_uber_2_5_2": {
@@ -3037,7 +3135,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/conscrypt/conscrypt-openjdk-uber/2.5.2/conscrypt-openjdk-uber-2.5.2.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/conscrypt/conscrypt-openjdk-uber/2.5.2/conscrypt-openjdk-uber-2.5.2.jar"
+              "downloaded_file_path": "org/conscrypt/conscrypt-openjdk-uber/2.5.2/conscrypt-openjdk-uber-2.5.2.jar"
             }
           },
           "com_typesafe_netty_netty_reactive_streams_2_0_5": {
@@ -3072,7 +3170,18 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/perfmark/perfmark-api/0.25.0/perfmark-api-0.25.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/perfmark/perfmark-api/0.25.0/perfmark-api-0.25.0-sources.jar"
+              "downloaded_file_path": "io/perfmark/perfmark-api/0.25.0/perfmark-api-0.25.0-sources.jar"
+            }
+          },
+          "junit_junit_jar_sources_4_13_2": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "34181df6482d40ea4c046b063cb53c7ffae94bdf1b1d62695bdf3adf9dea7e3a",
+              "urls": [
+                "https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2-sources.jar"
+              ],
+              "downloaded_file_path": "junit/junit/4.13.2/junit-4.13.2-sources.jar"
             }
           },
           "io_grpc_grpc_context_jar_sources_1_51_1": {
@@ -3083,7 +3192,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-context/1.51.1/grpc-context-1.51.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-context/1.51.1/grpc-context-1.51.1-sources.jar"
+              "downloaded_file_path": "io/grpc/grpc-context/1.51.1/grpc-context-1.51.1-sources.jar"
             }
           },
           "org_threeten_threetenbp_1_5_0": {
@@ -3106,7 +3215,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/opencensus/opencensus-contrib-http-util/0.28.0/opencensus-contrib-http-util-0.28.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/opencensus/opencensus-contrib-http-util/0.28.0/opencensus-contrib-http-util-0.28.0-sources.jar"
+              "downloaded_file_path": "io/opencensus/opencensus-contrib-http-util/0.28.0/opencensus-contrib-http-util-0.28.0-sources.jar"
             }
           },
           "io_grpc_grpc_services_1_51_1": {
@@ -3117,7 +3226,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-services/1.51.1/grpc-services-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-services/1.51.1/grpc-services-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-services/1.51.1/grpc-services-1.51.1.jar"
             }
           },
           "maven": {
@@ -3167,7 +3276,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/squareup/okio/okio/1.17.5/okio-1.17.5-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/squareup/okio/okio/1.17.5/okio-1.17.5-sources.jar"
+              "downloaded_file_path": "com/squareup/okio/okio/1.17.5/okio-1.17.5-sources.jar"
             }
           },
           "com_google_code_gson_gson_jar_sources_2_9_0": {
@@ -3178,7 +3287,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0-sources.jar"
+              "downloaded_file_path": "com/google/code/gson/gson/2.9.0/gson-2.9.0-sources.jar"
             }
           },
           "io_grpc_grpc_xds_1_51_1": {
@@ -3189,7 +3298,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-xds/1.51.1/grpc-xds-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-xds/1.51.1/grpc-xds-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-xds/1.51.1/grpc-xds-1.51.1.jar"
             }
           },
           "software_amazon_awssdk_profiles_2_17_183": {
@@ -3212,7 +3321,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/2.9.0/proto-google-common-protos-2.9.0.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/api/grpc/proto-google-common-protos/2.9.0/proto-google-common-protos-2.9.0.jar"
+              "downloaded_file_path": "com/google/api/grpc/proto-google-common-protos/2.9.0/proto-google-common-protos-2.9.0.jar"
             }
           },
           "org_apache_commons_commons_lang3_3_8_1": {
@@ -3259,7 +3368,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.21/animal-sniffer-annotations-1.21-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/org/codehaus/mojo/animal-sniffer-annotations/1.21/animal-sniffer-annotations-1.21-sources.jar"
+              "downloaded_file_path": "org/codehaus/mojo/animal-sniffer-annotations/1.21/animal-sniffer-annotations-1.21-sources.jar"
             }
           },
           "com_google_errorprone_error_prone_annotations_2_11_0": {
@@ -3282,7 +3391,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java-util/3.21.7/protobuf-java-util-3.21.7.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/protobuf/protobuf-java-util/3.21.7/protobuf-java-util-3.21.7.jar"
+              "downloaded_file_path": "com/google/protobuf/protobuf-java-util/3.21.7/protobuf-java-util-3.21.7.jar"
             }
           },
           "io_netty_netty_codec_http_4_1_79_Final": {
@@ -3293,7 +3402,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-codec-http/4.1.79.Final/netty-codec-http-4.1.79.Final.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-codec-http/4.1.79.Final/netty-codec-http-4.1.79.Final.jar"
+              "downloaded_file_path": "io/netty/netty-codec-http/4.1.79.Final/netty-codec-http-4.1.79.Final.jar"
             }
           },
           "com_google_apis_google_api_services_storage_v1_rev20200927_1_30_10": {
@@ -3306,6 +3415,17 @@
                 "https://maven.google.com/com/google/apis/google-api-services-storage/v1-rev20200927-1.30.10/google-api-services-storage-v1-rev20200927-1.30.10.jar"
               ],
               "downloaded_file_path": "com/google/apis/google-api-services-storage/v1-rev20200927-1.30.10/google-api-services-storage-v1-rev20200927-1.30.10.jar"
+            }
+          },
+          "com_google_guava_guava_testlib_jar_sources_31_1_jre": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "7149659f8966197dcd91a42183349f862d3973f8e65efe6d03e678464fa13bfd",
+              "urls": [
+                "https://repo1.maven.org/maven2/com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre-sources.jar"
+              ],
+              "downloaded_file_path": "com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre-sources.jar"
             }
           },
           "com_google_api_client_google_api_client_1_30_11": {
@@ -3340,7 +3460,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/auto/value/auto-value-annotations/1.9/auto-value-annotations-1.9.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/auto/value/auto-value-annotations/1.9/auto-value-annotations-1.9.jar"
+              "downloaded_file_path": "com/google/auto/value/auto-value-annotations/1.9/auto-value-annotations-1.9.jar"
             }
           },
           "software_amazon_awssdk_apache_client_2_17_183": {
@@ -3367,6 +3487,17 @@
               "downloaded_file_path": "software/amazon/awssdk/arns/2.17.183/arns-2.17.183.jar"
             }
           },
+          "org_mockito_mockito_core_jar_sources_4_3_1": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "7d530f39577843b16f6dba2c49846f07101f3ce734ac8caef4ba932f6527f1f6",
+              "urls": [
+                "https://repo1.maven.org/maven2/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1-sources.jar"
+              ],
+              "downloaded_file_path": "org/mockito/mockito-core/4.3.1/mockito-core-4.3.1-sources.jar"
+            }
+          },
           "com_google_android_annotations_jar_sources_4_1_1_4": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -3375,7 +3506,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4-sources.jar"
+              "downloaded_file_path": "com/google/android/annotations/4.1.1.4/annotations-4.1.1.4-sources.jar"
             }
           },
           "commons_codec_commons_codec_1_11": {
@@ -3386,7 +3517,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/commons-codec/commons-codec/1.11/commons-codec-1.11.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/commons-codec/commons-codec/1.11/commons-codec-1.11.jar"
+              "downloaded_file_path": "commons-codec/commons-codec/1.11/commons-codec-1.11.jar"
             }
           },
           "com_google_android_annotations_4_1_1_4": {
@@ -3397,7 +3528,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar"
+              "downloaded_file_path": "com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar"
             }
           },
           "com_google_guava_failureaccess_jar_sources_1_0_1": {
@@ -3408,7 +3539,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1-sources.jar"
+              "downloaded_file_path": "com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1-sources.jar"
             }
           },
           "software_amazon_awssdk_json_utils_2_17_183": {
@@ -3431,7 +3562,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/opencensus/opencensus-api/0.28.0/opencensus-api-0.28.0-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/opencensus/opencensus-api/0.28.0/opencensus-api-0.28.0-sources.jar"
+              "downloaded_file_path": "io/opencensus/opencensus-api/0.28.0/opencensus-api-0.28.0-sources.jar"
             }
           },
           "org_codehaus_plexus_plexus_utils_3_3_1": {
@@ -3454,7 +3585,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2-sources.jar"
+              "downloaded_file_path": "com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2-sources.jar"
             }
           },
           "io_grpc_grpc_rls_1_51_1": {
@@ -3465,7 +3596,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/grpc/grpc-rls/1.51.1/grpc-rls-1.51.1.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/grpc/grpc-rls/1.51.1/grpc-rls-1.51.1.jar"
+              "downloaded_file_path": "io/grpc/grpc-rls/1.51.1/grpc-rls-1.51.1.jar"
             }
           },
           "org_checkerframework_checker_qual_3_13_0": {
@@ -3487,7 +3618,7 @@
               "urls": [
                 "https://repo1.maven.org/maven2/io/netty/netty-handler/4.1.79.Final/netty-handler-4.1.79.Final-sources.jar"
               ],
-              "downloaded_file_path": "v1/https/repo1.maven.org/maven2/io/netty/netty-handler/4.1.79.Final/netty-handler-4.1.79.Final-sources.jar"
+              "downloaded_file_path": "io/netty/netty-handler/4.1.79.Final/netty-handler-4.1.79.Final-sources.jar"
             }
           },
           "com_google_protobuf_protobuf_java_3_13_0": {
