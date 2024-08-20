@@ -2,12 +2,8 @@
 // @generated from file logger/schema/logger.proto (syntax proto3)
 /* eslint-disable */
 
-import type {
-  GenFile,
-  GenMessage,
-  GenService,
-} from '@bufbuild/protobuf/codegenv1';
-import type { Message } from '@bufbuild/protobuf';
+import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv1";
+import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file logger/schema/logger.proto.
@@ -17,7 +13,7 @@ export declare const file_logger_schema_logger: GenFile;
 /**
  * @generated from message LogMessage
  */
-export declare type LogMessage = Message<'LogMessage'> & {
+export declare type LogMessage = Message<"LogMessage"> & {
   /**
    * @generated from field: string message = 1;
    */
@@ -38,7 +34,8 @@ export declare const LogMessageSchema: GenMessage<LogMessage>;
 /**
  * @generated from message Empty
  */
-export declare type Empty = Message<'Empty'> & {};
+export declare type Empty = Message<"Empty"> & {
+};
 
 /**
  * Describes the message Empty.
@@ -54,8 +51,9 @@ export declare const Logger: GenService<{
    * @generated from rpc Logger.SendLogMessage
    */
   sendLogMessage: {
-    methodKind: 'unary';
+    methodKind: "unary";
     input: typeof LogMessageSchema;
     output: typeof EmptySchema;
-  };
+  },
 }>;
+
