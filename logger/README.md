@@ -14,3 +14,21 @@ Here are the components of the application:
 It was originally in the https://github.com/aspect-build/codelabs repo.
 We stopped maintaining that because it's confusing for novice product engineers to drop into an "all languages at once"
 monorepo, and have an easier time starting from `aspect init`.
+
+## Running the frontend
+
+Frontend developers are already trained how to run their code: with `npm` scripts.
+There's no need to force them to change their behavior when adopting Bazel.
+
+For example you can
+
+```shell
+cd logger/frontend
+npm start
+```
+
+Thanks to the `start` entry in the `package.json#scripts` object, this knows to run `ibazel run [some-target]`
+to correctly bring up the devserver in watch mode.
+
+Now try changing the TypeScript or HTML code for the web frontend.
+As soon as you save, the browser should auto-refresh with the changed code.
