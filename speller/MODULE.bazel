@@ -1,0 +1,37 @@
+module(
+    name = "example",
+    version = "0.0.1",
+)
+
+# External dependency: GoogleTest ("GTest")
+
+# It ships with a BUILD.bazel already set up, a good example of a
+# medium-complex library build with a single BUILD file:
+# https://github.com/google/googletest/blob/main/BUILD.bazel
+
+# "We recommend building GoogleTest from the latest commit"
+# "We Recommend That You Choose to Live at Head"
+# https://abseil.io/about/philosophy#upgrade-support
+
+bazel_dep(name = "googletest", version = "1.15.2")
+
+# Use hermetic toolchain-based LLVM CC
+
+bazel_dep(name = "rules_cc", version = "0.0.9")
+bazel_dep(name = "toolchains_llvm", version = "1.1.2")
+
+# Configure and register the toolchain.
+llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
+llvm.toolchain(
+    llvm_version = "16.0.0",
+)
+
+use_repo(llvm, "llvm_toolchain")
+
+register_toolchains("@llvm_toolchain//:all")
+
+# It is apparently possible, though we haven't found the right
+# invocation, to use GTEST_OS_STACK_TRACE_GETTER_ with a stack
+# unwinder provided by Abseil. It will eventually be in the box
+# automatically:
+# https://github.com/google/googletest/issues/3485

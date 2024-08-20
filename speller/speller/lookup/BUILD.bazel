@@ -1,0 +1,22 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
+
+cc_library(
+    name = "lookup",
+    srcs = ["lookup.cc"],
+    hdrs = ["lookup.h"],
+    visibility = [
+        "//speller/data_driven_tests:__pkg__",
+        "//speller/main:__pkg__",
+    ],
+    deps = ["@sqlite//:org_sqlite"],
+)
+
+cc_test(
+    name = "lookup-test",
+    size = "small",
+    srcs = ["lookup-test.cc"],
+    deps = [
+        ":lookup",
+        "@googletest//:gtest_main",
+    ],
+)

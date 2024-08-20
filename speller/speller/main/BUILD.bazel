@@ -1,0 +1,45 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+    name = "spell",
+    srcs = ["spell.cc"],
+    # Runtime (data) dependencies:
+    # Only used when running via bazel run, not when running the
+    # binary yourself:
+    data = [":dictionary"],
+    env = {
+        "DICTIONARY_FILE": "$(location :dictionary)",
+    },
+    deps = [
+        "//speller/announce",
+        "//speller/lookup",
+    ],
+)
+
+cc_binary(
+    name = "build-dictionary",
+    srcs = ["build-dictionary.cc"],
+    deps = [
+        "//speller/lookup",
+    ],
+)
+
+# Sometimes we need the output of running out code to become build output.
+# It will land in bazel-bin/speller/main/spell.db
+
+genrule(
+    name = "dictionary",
+    srcs = [],
+    outs = ["spell.db"],
+    # Glue to capture output from the sandbox, when a poorly-written
+    # program doesnt have configurable output. Dealing with lack of
+    # configurable input is much more irritating.
+    cmd = "$(location :build-dictionary) ; cp spell.db \"$@\"",
+    tools = [":build-dictionary"],
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "main",
+    actual = ":spell",
+)

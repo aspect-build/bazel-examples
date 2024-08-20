@@ -1,0 +1,35 @@
+workspace(
+    name = "bazel-c-cpp-example",
+)
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# External dependency: SQLite
+
+# SQLite is available in the Bazel Central Registry, which bundles in
+# the necessary BUILD file; but we'll load it the old way, using it as
+# an example of how to handle external code that doesn't arrive with a
+# BUILD file.
+
+# (Tip: Look at other simpler part of this workspace first, before the
+# custom inserted BUILD file.)
+
+http_archive(
+    name = "sqlite",
+    build_file = "//third_party:sqlite.BUILD",  # BUILD
+    sha256 = "bd90c3eb96bee996206b83be7065c9ce19aef38c3f4fb53073ada0d0b69bbce3",
+    strip_prefix = "sqlite-autoconf-3360000",
+    urls = [
+        "https://sqlite.org/2021/sqlite-autoconf-3360000.tar.gz",
+    ],
+)
+
+# You can also bring in dependencies using your source control system,
+# such as git with submodules. Then write a BUILD.bazel file one level
+# up from the submodule with cc_library. But that's not any different
+# from code in this repo, from Bazel's point of view, so we don't show
+# an example. Helpful example commands, for those interested:
+
+# cd third_party
+# git submodule add --depth 1 https://github.com/Tencent/rapidjson.git
+# git config -f .gitmodules submodule.path/to/submodule.shallow true

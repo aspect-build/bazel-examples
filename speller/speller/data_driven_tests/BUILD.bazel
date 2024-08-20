@@ -1,0 +1,23 @@
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
+# Define a test for each of the test case data files
+
+# List comprehension, a Python construct available in Starlark
+[
+    cc_test(
+        # test-001, test-002
+        name = testfile.replace("testcases/", "").replace(".json", ""),
+        size = "small",
+        srcs = ["lookup-datatest.cc"],
+        data = [testfile],
+        env = {
+            "TEST_CONFIG_FILE": "$(location :%s)" % testfile,
+        },
+        deps = [
+            "//speller/lookup",
+            "//third_party/nlohmann-json:json",
+            "@googletest//:gtest_main",
+        ],
+    )
+    for testfile in glob(["testcases/*.json"])
+]

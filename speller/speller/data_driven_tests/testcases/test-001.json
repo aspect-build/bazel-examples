@@ -1,0 +1,5 @@
+{
+  "words": ["air", "phone", "person"],
+  "testWord": "yes",
+  "expected": 0
+}
