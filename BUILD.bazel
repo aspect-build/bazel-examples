@@ -1,3 +1,5 @@
+# A top-level build file most often contains tooling and convenience aliases.
+
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")

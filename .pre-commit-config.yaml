@@ -1,3 +1,7 @@
+# This pre-commit configuration demonstrates how to automatically lint and
+# format files. See tools/format/BUILD.bazel for the specifics of the formatting
+# configuration.
+
 # Developers should run 'pre-commit install' in this repo.
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
