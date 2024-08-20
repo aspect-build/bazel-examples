@@ -695,7 +695,7 @@
     },
     "@@aspect_rules_js~//npm:extensions.bzl%pnpm": {
       "general": {
-        "bzlTransitiveDigest": "VoDqa/7jBjNuPlGbXmR4516vnhVgpkwsx/NoPaYSe4s=",
+        "bzlTransitiveDigest": "+FomhWkV/fX+UAwinUE6a+cZMTa8/Se9KIVFHlLhG5E=",
         "usagesDigest": "riLP5twNTStXFpzv8opi5CQS6XqrLXlhIVz9yLn42ZU=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -3531,7 +3531,7 @@
     },
     "@@rules_multitool~//multitool:extension.bzl%multitool": {
       "general": {
-        "bzlTransitiveDigest": "vsngWOA3FfO5iP2VN5FCmGTZsAgm6rUrWUqSeoHasCU=",
+        "bzlTransitiveDigest": "G2CL37NxIhoaFlv/ma9cj0lSmLvPkIRHTKSLOFO7HFs=",
         "usagesDigest": "kz9y/hUguwJl/QtmiBsodkhb5adBSsFMCuHEMd2ZnVA=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
