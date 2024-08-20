@@ -16,6 +16,7 @@ prettier.prettier_binary(
 
 format_multirun(
     name = "format",
+    cc = "@llvm_toolchain_llvm//:bin/clang-format",
     go = "@aspect_rules_lint//format:gofumpt",
     javascript = ":prettier",
     python = "@aspect_rules_lint//format:ruff",
