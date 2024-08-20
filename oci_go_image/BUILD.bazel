@@ -62,4 +62,5 @@ container_structure_test(
     configs = ["test.yaml"],
     # Use the image built for the exec platform rather than the target platform
     image = ":image",
+    tags = ["requires-docker"],
 )

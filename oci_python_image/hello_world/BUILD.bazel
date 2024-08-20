@@ -78,6 +78,7 @@ container_structure_test(
     name = "test",
     configs = ["test.yaml"],
     image = ":platform_image",
+    tags = ["requires-docker"],
 )
 
 py_test(
@@ -89,6 +90,7 @@ py_test(
     # the test Setup has to do some sophisticated work to load each layer.
     data = [":platform_image"],
     main = "app_test.py",
+    tags = ["requires-docker"],
     deps = [
         requirement("testcontainers"),
     ],

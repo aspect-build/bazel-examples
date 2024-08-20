@@ -76,7 +76,12 @@ jobs:
       - uses: bazel-contrib/setup-bazel@0.8.5
         with:
           repository-cache: true
-          bazelrc: common --announce_rc --color=yes
+          bazelrc: |
+            common --announce_rc --color=yes
+            common --enable_platform_specific_config
+            # TODO: bring up a docker or podman container on our macos runners, OR
+            # use our testcontainers cloud account to get a remote one.
+            test:macos --test_tag_filters=-requires_docker
 
       - name: Test Type
         id: has_test_sh
