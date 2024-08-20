@@ -81,7 +81,7 @@ jobs:
             common --enable_platform_specific_config
             # TODO: bring up a docker or podman container on our macos runners, OR
             # use our testcontainers cloud account to get a remote one.
-            test:macos --test_tag_filters=-requires_docker
+            test:macos --test_tag_filters=-requires-docker
 
       - name: Test Type
         id: has_test_sh
