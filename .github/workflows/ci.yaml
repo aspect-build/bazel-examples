@@ -73,14 +73,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Mount bazel caches
-        uses: actions/cache@v3
+      - uses: bazel-contrib/setup-bazel@0.8.5
         with:
-          path: |
-            "~/.cache/bazel"
-            "~/.cache/bazel-repo"
-          key: bazel-cache-${{ matrix.folder }}-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
-          restore-keys: bazel-cache-
+          repository-cache: true
+          bazelrc: common --announce_rc --color=yes
 
       - name: Test Type
         id: has_test_sh
