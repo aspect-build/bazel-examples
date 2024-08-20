@@ -27,7 +27,7 @@ def _validate_schema(ctx, schema):
 
 def _format_schema(ctx, schema):
     ctx.actions.run_shell(
-        command = "cp --no-preserve=mode $2 $3 && $1 format --schema $3",
+        command = "cp $2 $3 && chmod 644 $3 && $1 format --schema $3",
         arguments = [
             ctx.executable._prisma_tool.path,
             schema.path,
