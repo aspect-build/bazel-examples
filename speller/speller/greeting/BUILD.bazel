@@ -1,0 +1,25 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
+
+cc_library(
+    name = "greeting",
+    srcs = ["greeting.cc"],
+    hdrs = ["greeting.h"],
+    visibility = ["//speller/announce:__pkg__"],
+)
+
+cc_test(
+    name = "greeting-test",
+    size = "small",
+    srcs = ["greeting-test.cc"],
+    deps = [
+        ":greeting",
+        "@googletest//:gtest_main",
+    ],
+)
+
+# Occasionally, to support external or legacy code we want to add a
+# header directory that is part of the dependency, without globbing or
+# declaring those headers (making them part of our build graph). For
+# example:
+
+# copts = ["-Iexternal/gtest/include"],

@@ -1,0 +1,28 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
+
+cc_library(
+    name = "announce",
+    # srcs are the files internal to this library: .cc, .c,
+    # internal-to-this-library .h, and occasionally externally
+    # compiled .o. Beware of glob performance at scale.
+    srcs = glob(["*.cc"]),
+    # hdrs are the public interface to this library. If they change,
+    # users of this library have to recompile.
+    hdrs = glob(["*.h"]),
+    visibility = ["//speller/main:__pkg__"],
+    # deps are other targets needed for this code to compile. Deps are
+    # made available transitively to libraries that depend on this
+    # one, automatically accumulating include paths and headers.
+    deps = [
+        "//speller/greeting",
+    ],
+    # implementation_deps makes dependencies available only for
+    # compiling this library, not downstream. This should speed large
+    # builds, but experimentally commenters people who have tried it
+    # (We have not done so yet) have not seen have seen modest
+    # improvements. It requires --experimental_cc_implementation_deps.
+    # implementation_deps = [],
+)
+
+# This code writes its output directly, which would require extra
+# setup to intercept for an automated test.
