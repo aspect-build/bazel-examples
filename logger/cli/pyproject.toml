@@ -1,0 +1,14 @@
+[project]
+name = "logger"
+classifiers = ["Private :: Do Not Upload"]
+version = "0"
+
+# Note that pip-compile will ensure the resolved versions of
+# direct and indirect dependencies are pinned.
+# Therefore we only need to constrain versions when some ranges 
+# of dependency versions are not compatible.
+dependencies = [
+    # An example unconstrained dependency; any version probably works
+    "requests",
+]
+

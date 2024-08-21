@@ -1,6 +1,11 @@
 load("@pip//:requirements.bzl", "requirement")
 load("@rules_python//python:defs.bzl", "py_binary")
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@rules_uv//uv:pip.bzl", "pip_compile")
+
+exports_files(
+    ["requirements.txt"],
+    visibility = ["//requirements:__pkg__"],
+)
 
 py_binary(
     name = "cli",
@@ -9,9 +14,9 @@ py_binary(
     deps = [requirement("requests")],
 )
 
-compile_pip_requirements(
+pip_compile(
     name = "requirements",
-    requirements_in = "requirements.in",
+    requirements_in = "pyproject.toml",
     requirements_txt = "requirements.txt",
     visibility = ["//requirements:__pkg__"],
 )

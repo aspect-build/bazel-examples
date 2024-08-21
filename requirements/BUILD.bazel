@@ -1,6 +1,6 @@
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@rules_uv//uv:pip.bzl", "pip_compile")
 
-compile_pip_requirements(
+pip_compile(
     name = "runtime",
     requirements_in = "//:pyproject.toml",
     requirements_txt = "runtime.txt",
@@ -10,12 +10,12 @@ compile_pip_requirements(
 # Allows dependencies between different applications without risk of version skew.
 # NB: this can easily become overconstrained. It's okay to have applications opt-out.
 # they can use virtual deps in rules_py in complex cases.
-compile_pip_requirements(
+pip_compile(
     name = "requirements.all",
     data = [
         "runtime.txt",
         "test.in",
-        "//logger/cli:requirements",
+        "//logger/cli:requirements.txt",
     ],
     requirements_in = "all.in",
     requirements_txt = "all.txt",
