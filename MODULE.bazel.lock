@@ -1113,7 +1113,7 @@
         "recordedFileInputs": {
           "@@stardoc~//maven_install.json": "de0bfa778b4ed6aebb77509362dd87ab8d20fc7c7c18d2a7429cdfee03949a21",
           "@@rules_jvm_external~//rules_jvm_external_deps_install.json": "3ab1f67b0de4815df110bc72ccd6c77882b3b21d3d1e0a84445847b6ce3235a3",
-          "@@//maven_install.json": "178b28a656f9f4984f784c3db4f18099f01d121afb105ceb0a063a00921afa77"
+          "@@//maven_install.json": "532e74d0fffcbade8c39cd8c46734eabab65d9f624f852963bc79d76a2db927e"
         },
         "recordedDirentsInputs": {},
         "envVariables": {},
