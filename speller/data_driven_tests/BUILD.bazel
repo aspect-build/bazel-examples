@@ -2,7 +2,14 @@ load("@rules_cc//cc:defs.bzl", "cc_test")
 
 # Define a test for each of the test case data files
 
-# List comprehension, a Python construct available in Starlark
+# Here we use a list comprehension, a Python construct also available in
+# Starlark. This generates a set of test targets, one for each test case. Bazel
+# can then spread these out across build infrastructure for performance.
+
+# Of course, it is possible to achieve the same thing using a test runner's
+# parameterization and parallelization capabilities. But those would be specific
+# to the test runner rather than generically applicable.
+
 [
     cc_test(
         # test-001, test-002

@@ -8,7 +8,7 @@
 
 // Some people advocate keeping GoogleTest tests in the default
 // namespace, for shorter test code files and because some test
-// machinery expects globaly unique test names anyway.
+// machinery expects globally unique test names anyway.
 
 using namespace Speller;
 

@@ -24,8 +24,12 @@ cc_binary(
     ],
 )
 
-# Sometimes we need the output of running out code to become build output.
-# It will land in bazel-bin/speller/main/spell.db
+# Sometimes we need the output of running our code to become build output. It
+# will land in bazel-bin/speller/main/spell.db, then a bit of hackery copies
+# that to where Bazel expects the output.
+
+# This is an example of genrule (generic rule), which is somewhat common in
+# older Bazel projects. Newly engineered builds should use run_binary() instead.
 
 genrule(
     name = "dictionary",

@@ -1,3 +1,7 @@
+# This is a good first example of C++ code with Bazel configuration to build it.
+# There are no outgoing dependencies from here. Just a small chunk of code and a
+# test to validate it.
+
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
 
 cc_library(

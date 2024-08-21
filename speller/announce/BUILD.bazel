@@ -1,3 +1,6 @@
+# This is a good second example of a build configuration for C++ code as it has
+# only a single outgoing dependency.
+
 load("@rules_cc//cc:defs.bzl", "cc_library")
 
 cc_library(
@@ -16,13 +19,13 @@ cc_library(
     deps = [
         "//speller/greeting",
     ],
-    # implementation_deps makes dependencies available only for
-    # compiling this library, not downstream. This should speed large
-    # builds, but experimentally commenters people who have tried it
-    # (We have not done so yet) have not seen have seen modest
-    # improvements. It requires --experimental_cc_implementation_deps.
+    # implementation_deps makes dependencies available only for compiling this
+    # library, not downstream. This should speed large builds, but
+    # experimentally commenters who have tried it (We have not done so yet) have
+    # seen only modest improvements. It requires
+    # --experimental_cc_implementation_deps.
     # implementation_deps = [],
 )
 
-# This code writes its output directly, which would require extra
+# This code writes its output directly to the console - it would require extra
 # setup to intercept for an automated test.
