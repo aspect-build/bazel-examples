@@ -1,5 +1,7 @@
 7.3.1
 
-# The first line of this file is the version of Bazel that Bazelisk will download.
-# We use the latest version of Bazel because we rely on strong testing the Bazel team performs on every LTS release.
+# The first line of this file is the version of Bazel that Bazelisk will
+# download. We use the latest version of Bazel because we rely on strong testing
+# the Bazel team performs on every LTS release.
+
 # More about Bazel's Long-Term Support model: https://bazel.build/release

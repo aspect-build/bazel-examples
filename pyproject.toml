@@ -4,10 +4,10 @@ classifiers = ["Private :: Do Not Upload"]
 version = "0"
 
 # An example unpinned dependency.
-# Note that pip-compile will ensure the resolved versions of
-# direct and indirect dependencies are pinned.
-# Therefore we only need to constrain versions when some ranges 
-# of dependency versions are not compatible.
+
+# Note that pip-compile will ensure the resolved versions of direct and indirect
+# dependencies are pinned. Therefore we only need to constrain versions when
+# some ranges of dependency versions are not compatible.
 dependencies = ["protobuf"]
 
 # See https://docs.astral.sh/ruff/configuration/

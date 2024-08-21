@@ -1,5 +1,10 @@
 "Declare dependencies for bzlmod, see https://bazel.build/build/bzlmod"
 
+# We declare all of the direct dependencies of all of the code in this
+# workspace. A single version of each of these is declared, implying that all of
+# the code will use the same version of all of these tools and libraries listed.
+# For bzlmod dependencies, this implements the "single version policy".
+
 bazel_dep(name = "apple_support", version = "1.11.1")
 bazel_dep(name = "aspect_bazel_lib", version = "2.8.0")
 bazel_dep(name = "aspect_rules_js", version = "2.0.0")
@@ -21,11 +26,14 @@ bazel_dep(name = "rules_python_gazelle_plugin", version = "0.35.0")
 bazel_dep(name = "rules_swift", version = "1.12.0")
 bazel_dep(name = "rules_swift_package_manager", version = "0.12.0")
 bazel_dep(name = "rules_xcodeproj", version = "1.11.0")
-bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1")
+bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1") # C code for SQLite.
 bazel_dep(name = "toolchains_llvm", version = "1.1.2")
 bazel_dep(name = "toolchains_protoc", version = "0.3.1")
 
-# Demonstrate that you can copy "arbitrary fetches" like http_archive from the WORKSPACE file
+# Just like in the old WORKSPACE file approach, you can directly grab some code
+# with HTTP and make it available. The syntax is slightly different,
+# demonstrated here.
+
 http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
 
 http_jar(
@@ -42,7 +50,7 @@ multitool.hub(lockfile = "//tools:tools.lock.json")
 use_repo(multitool, "multitool")
 
 #########################
-# Hermetic C++
+# Hermetic C++ toolchain, to relieve the dependency on a locally installed CC etc.
 llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
 llvm.toolchain(
     llvm_versions = {
@@ -56,6 +64,10 @@ use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
 #########################
 # Protobuf and gRPC
 # https://github.com/aspect-build/toolchains_protoc
+
+# This Aspect-provided ProC tool chain removes the need to compile ProtoC from
+# source, speeding up initial builds.
+
 protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
 protoc.toolchain(
     google_protobuf = "com_google_protobuf",
@@ -72,6 +84,13 @@ register_toolchains("//tools/toolchains:all")
 #########################
 # Python
 # https://github.com/bazelbuild/rules_python/tree/main/examples/bzlmod
+
+# This pattern is repeated across many languages: First, bzlmod is used to bring
+# in language support. Then, an extension is grabbed from that language support
+# repository and used to configure the language version and additional
+# dependencies using a language-specific mechanism popular in the relevant
+# ecosystem.
+
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
@@ -90,6 +109,10 @@ use_repo(pip, "pip")
 # Java and other JVM languages:
 # https://github.com/bazelbuild/rules_jvm_external/blob/master/examples/bzlmod/MODULE.bazel
 # https://github.com/bazelbuild/rules_jvm_external#pinning-artifacts-and-integration-with-bazels-downloader
+
+# In the Maven support variation, the dependencies are conveniently listed here
+# in the MODULE.bazel file.
+
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     artifacts = ["io.grpc:grpc-all:1.51.1"],
@@ -105,6 +128,12 @@ use_repo(
 # JavaScript and TypeScript
 # https://github.com/aspect-build/rules_js/tree/main/e2e/bzlmod
 # https://github.com/aspect-build/rules_ts/tree/main/e2e/bzlmod
+
+# In keeping with the single version policy, in this example, the NPM ecosystem
+# dependencies are specified at the top level rather than in each sub-project.
+# However, it is possible to have multiple different sets of NPM dependencies
+# across a workspace.
+
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 
 # Allows developers to get a local node_modules tree, using

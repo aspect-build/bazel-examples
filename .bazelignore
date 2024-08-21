@@ -3,7 +3,7 @@
 # are various reasons to do that. One common one is that you have a separate
 # Bazel workspace in a directory.
 
-# Nested projects that should be moved into the root workspace
+# Nested projects that should be moved into the root workspace:
 angular/
 angular-ngc/
 bufbuild/
