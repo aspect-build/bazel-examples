@@ -27,8 +27,14 @@ cd logger/frontend
 npm start
 ```
 
-Thanks to the `start` entry in the `package.json#scripts` object, this knows to run `ibazel run [some-target]`
-to correctly bring up the devserver in watch mode.
+Thanks to the `start` entry in the `package.json#scripts` object, this knows to
+run `ibazel run [some-target]` to correctly bring up the devserver (in this
+case, Vite) in watch mode.
 
 Now try changing the TypeScript or HTML code for the web frontend.
 As soon as you save, the browser should auto-refresh with the changed code.
+
+Coming from the npm ecosystem, you may be surprised that no `npm install` is
+necessary or helpful. Using ibazel to run the target directs Bazel to build
+everything needed for that target, which includes any necessary dependency
+fetching.
