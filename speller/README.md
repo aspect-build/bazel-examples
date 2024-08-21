@@ -1,9 +1,4 @@
-# Bazel examples
-
-We use these examples to teach Bazel, but you are welcome to study them
-for your own purposes!
-
-## C++ Bazel setup
+# C++ Bazel setup
 
 From a Github comment:
 
@@ -26,7 +21,9 @@ https://github.com/bazelbuild/intellij/issues/1545
 
 add this to your shell setup:
 
+```
 export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+```
 
 ## MacOS C/C++ debugging trouble
 
@@ -38,10 +35,15 @@ https://github.com/bazelbuild/bazel/issues/6327
 The problem can be worked around by disabling the sandbox, i.e. use the
 local strategy:
 
+```
 build --spawn_strategy=local
+```
+
+or by other approached discussed in the issue thread linked above.
 
 Bazel does not consider the strategy as part of its cache key, so you may
 need to clean the cache or change the source file to see this take effect.
 Debugging then works in CLion.
 
-The root cause is probably that nearly all Google developers work on Linux.
+The root cause is probably that nearly all Google developers, and the bulk of
+other Bazel users, work on Linux.
