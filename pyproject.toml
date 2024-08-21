@@ -3,12 +3,18 @@ name = "aspect_bazel_examples"
 classifiers = ["Private :: Do Not Upload"]
 version = "0"
 
-# An example unpinned dependency.
-
-# Note that pip-compile will ensure the resolved versions of direct and indirect
-# dependencies are pinned. Therefore we only need to constrain versions when
-# some ranges of dependency versions are not compatible.
-dependencies = ["protobuf"]
+# Note that pip-compile will ensure the resolved versions of
+# direct and indirect dependencies are pinned.
+# Therefore we only need to constrain versions when some ranges 
+# of dependency versions are not compatible.
+# In fact, using an exact contraint like foo==1.2.3 is a bad idea:
+# it provides a false guarantee of reproducibility, while making
+# it impossible to constraint-solve if foo==1.2.4 is requested by
+# another requirements file.
+dependencies = [
+    # A minimum bound on the protobuf version
+    "protobuf>=5",
+]
 
 # See https://docs.astral.sh/ruff/configuration/
 [tool.ruff]

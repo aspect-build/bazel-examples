@@ -160,6 +160,7 @@
     "https://bcr.bazel.build/modules/rules_python/0.27.1/MODULE.bazel": "65dc875cc1a06c30d5bbdba7ab021fd9e551a6579e408a3943a61303e2228a53",
     "https://bcr.bazel.build/modules/rules_python/0.31.0/MODULE.bazel": "93a43dc47ee570e6ec9f5779b2e64c1476a6ce921c48cc9a1678a91dd5f8fd58",
     "https://bcr.bazel.build/modules/rules_python/0.33.2/MODULE.bazel": "3e036c4ad8d804a4dad897d333d8dce200d943df4827cb849840055be8d2e937",
+    "https://bcr.bazel.build/modules/rules_python/0.34.0/MODULE.bazel": "1d623d026e075b78c9fde483a889cda7996f5da4f36dffb24c246ab30f06513a",
     "https://bcr.bazel.build/modules/rules_python/0.35.0/MODULE.bazel": "c3657951764cdcdb5a7370d5e885fad5e8c1583320aad18d46f9f110d2c22755",
     "https://bcr.bazel.build/modules/rules_python/0.35.0/source.json": "8fd2681b96184fa441f07f7d58462361366c216ce920f6c3e3c42c27e02c3931",
     "https://bcr.bazel.build/modules/rules_python/0.4.0/MODULE.bazel": "9208ee05fd48bf09ac60ed269791cf17fb343db56c8226a720fbb1cdf467166c",
@@ -172,6 +173,8 @@
     "https://bcr.bazel.build/modules/rules_swift/1.9.0/MODULE.bazel": "e2ba3a3d8bddb6af8dc47120ee571fbe674f46e24bd1bfd427d46a0b9a036a3c",
     "https://bcr.bazel.build/modules/rules_swift_package_manager/0.12.0/MODULE.bazel": "88f12c1a65b28e4ab429405557be0ef89ebbfb464bafe15c8bbe2aba0b521927",
     "https://bcr.bazel.build/modules/rules_swift_package_manager/0.12.0/source.json": "a1b8e5b095654e666182e1e15c4d4a78d843947f38706023614dabb1b8e6a9d3",
+    "https://bcr.bazel.build/modules/rules_uv/0.25.0/MODULE.bazel": "9212a06f0d8ef846a413ea351460aed3865cb95329ca7189d24c1fbaaffbde1f",
+    "https://bcr.bazel.build/modules/rules_uv/0.25.0/source.json": "4325ce7e2368abd8e4dec13c0bb71ce391ad6721754e709ce4531ad522274a52",
     "https://bcr.bazel.build/modules/rules_xcodeproj/1.11.0/MODULE.bazel": "521dabdc73bca4c975e5fc8aec0094a9645a0cf86e3c0bffc1ebbd07283a3915",
     "https://bcr.bazel.build/modules/rules_xcodeproj/1.11.0/source.json": "044fe1e73e086331b439da35a356b56042343d0e3c83830e0316aaf31442888f",
     "https://bcr.bazel.build/modules/sqlite3/3.42.0.bcr.1/MODULE.bazel": "e58096b04bc268d13f6b9047c385b7d38ac62f4d1ebd1ed3d0a852378c10b05a",
@@ -3663,7 +3666,7 @@
     "@@rules_multitool~//multitool:extension.bzl%multitool": {
       "general": {
         "bzlTransitiveDigest": "G2CL37NxIhoaFlv/ma9cj0lSmLvPkIRHTKSLOFO7HFs=",
-        "usagesDigest": "kz9y/hUguwJl/QtmiBsodkhb5adBSsFMCuHEMd2ZnVA=",
+        "usagesDigest": "net5jPle7OIjDokjTCX9DiYSjVgtqi2otjV1pk4ASgw=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -3673,6 +3676,7 @@
             "ruleClassName": "_env_specific_tools",
             "attributes": {
               "lockfiles": [
+                "@@rules_uv~//uv/private:uv.lock.json",
                 "@@aspect_rules_lint~//format:multitool.lock.json",
                 "@@aspect_rules_lint~//lint:multitool.lock.json",
                 "@@//tools:tools.lock.json"
@@ -3686,6 +3690,7 @@
             "ruleClassName": "_env_specific_tools",
             "attributes": {
               "lockfiles": [
+                "@@rules_uv~//uv/private:uv.lock.json",
                 "@@aspect_rules_lint~//format:multitool.lock.json",
                 "@@aspect_rules_lint~//lint:multitool.lock.json",
                 "@@//tools:tools.lock.json"
@@ -3699,6 +3704,7 @@
             "ruleClassName": "_env_specific_tools",
             "attributes": {
               "lockfiles": [
+                "@@rules_uv~//uv/private:uv.lock.json",
                 "@@aspect_rules_lint~//format:multitool.lock.json",
                 "@@aspect_rules_lint~//lint:multitool.lock.json",
                 "@@//tools:tools.lock.json"
@@ -3712,6 +3718,7 @@
             "ruleClassName": "_env_specific_tools",
             "attributes": {
               "lockfiles": [
+                "@@rules_uv~//uv/private:uv.lock.json",
                 "@@aspect_rules_lint~//format:multitool.lock.json",
                 "@@aspect_rules_lint~//lint:multitool.lock.json",
                 "@@//tools:tools.lock.json"
@@ -3725,6 +3732,7 @@
             "ruleClassName": "_env_specific_tools",
             "attributes": {
               "lockfiles": [
+                "@@rules_uv~//uv/private:uv.lock.json",
                 "@@aspect_rules_lint~//format:multitool.lock.json",
                 "@@aspect_rules_lint~//lint:multitool.lock.json",
                 "@@//tools:tools.lock.json"
@@ -3738,6 +3746,7 @@
             "ruleClassName": "_multitool_hub",
             "attributes": {
               "lockfiles": [
+                "@@rules_uv~//uv/private:uv.lock.json",
                 "@@aspect_rules_lint~//format:multitool.lock.json",
                 "@@aspect_rules_lint~//lint:multitool.lock.json",
                 "@@//tools:tools.lock.json"
@@ -3749,6 +3758,7 @@
             "ruleClassName": "_env_specific_tools",
             "attributes": {
               "lockfiles": [
+                "@@rules_uv~//uv/private:uv.lock.json",
                 "@@aspect_rules_lint~//format:multitool.lock.json",
                 "@@aspect_rules_lint~//lint:multitool.lock.json",
                 "@@//tools:tools.lock.json"
