@@ -65,8 +65,8 @@ use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
 # Protobuf and gRPC
 # https://github.com/aspect-build/toolchains_protoc
 
-# This Aspect-provided ProC tool chain removes the need to compile ProtoC from
-# source, speeding up initial builds.
+# This Aspect-provided protobuf toolchain removes the need to compile ProtoC from
+# source, speeding up builds where a cached protoc isn't used.
 
 protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
 protoc.toolchain(
