@@ -1,7 +1,7 @@
 import type { LogMessage } from '../schema/logger_pb';
 
 class ServerLogs {
-  getServerLogs(): Promise<LogMessage[]> {
+  getServerLogs(): Promise<LogMessage[] | undefined> {
     return fetch('http://localhost:8081')
       .then((response) => this.checkStatus(response))
       .then((response) =>
@@ -42,7 +42,7 @@ class ServerLogs {
   private displayServerLogs(data: Response) {
     console.log('in display');
 
-    const el: HTMLElement = document.getElementById('log_results');
+    const el: HTMLElement = document.getElementById('log_results')!;
     el.innerHTML = '';
 
     const jsonData = JSON.parse(JSON.stringify(data));
