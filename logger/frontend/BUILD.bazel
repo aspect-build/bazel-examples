@@ -1,10 +1,17 @@
 load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
 load("@aspect_rules_swc//swc:defs.bzl", "swc")
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//logger/frontend:vite/package_json.bzl", "bin")
 
 npm_link_all_packages(name = "node_modules")
+
+# eslint wants to read this file to power type-aware linter rules.
+# So we have to expose it for the eslint aspect to be able to include it as an action input.
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+)
 
 ts_project(
     name = "compile",

@@ -17,7 +17,10 @@ eslint = lint_eslint_aspect(
     # ESLint will resolve the configuration file by looking in the working directory first.
     # See https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file-resolution
     # We must also include any other config files we expect eslint to be able to locate, e.g. tsconfigs
-    configs = ["@@//:eslintrc"],
+    configs = [
+        "@@//:eslintrc",
+        "@@//logger/frontend:tsconfig",
+    ],
 )
 
 ruff = lint_ruff_aspect(
