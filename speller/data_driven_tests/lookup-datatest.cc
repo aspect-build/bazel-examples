@@ -16,7 +16,7 @@ using json = nlohmann::json;
 struct test_config {
   list<string> words;
   string testWord;
-  int expected;
+  int expected{};
 };
 
 void from_json(const json& j, test_config& p) {
@@ -27,7 +27,7 @@ void from_json(const json& j, test_config& p) {
 
 TEST(LookupEngineTest, DataDriven) {
   if (const char* env_config_file = std::getenv("TEST_CONFIG_FILE")) {
-    string config_file = env_config_file;
+    string const config_file = env_config_file;
 
     ifstream json_stream(config_file);
     json j;

@@ -13,7 +13,7 @@
 namespace Speller {
 
 void announce(const std::string &word) {
-  std::time_t result = std::time(nullptr);
+  std::time_t const result = std::time(nullptr);
   std::cout << std::endl
             << "Speller executed at "
             << std::asctime(std::localtime(&result));

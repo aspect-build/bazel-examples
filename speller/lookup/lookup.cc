@@ -19,18 +19,18 @@ void LookupEngine::checkSqlite(int result) {
 
 LookupEngine::LookupEngine(const std::string &file_name,
                            bool writable) {
-  int flags = writable ? SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE
+  int const flags = writable ? SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE
                        : SQLITE_OPEN_READONLY;
   checkSqlite(
-      sqlite3_open_v2(file_name.c_str(), &database, flags, NULL));
+      sqlite3_open_v2(file_name.c_str(), &database, flags, nullptr));
 
-  char *error_msg = 0;
+  char *error_msg = nullptr;
   checkSqlite(sqlite3_exec(
       database, "create TABLE IF NOT EXISTS words (word varchar);",
-      nullptr, 0, &error_msg));
+      nullptr, nullptr, &error_msg));
   // TODO sqlite3_free(ErrMsg) if an error occurred
 
-  const char **tail = 0;
+  const char **tail = nullptr;
 
   checkSqlite(sqlite3_prepare_v3(
       database, "insert into words values (?);", -1, 0,
@@ -65,7 +65,7 @@ int LookupEngine::CheckEntry(const std::string &Word) {
   checkSqlite(sqlite3_bind_text(check_statement, 1, Word.c_str(),
                                 Word.length(), SQLITE_TRANSIENT));
   sqlite3_step(check_statement);  // first result row
-  int retVal = sqlite3_column_int(check_statement, 0);
+  int const retVal = sqlite3_column_int(check_statement, 0);
   sqlite3_step(check_statement);  // at the end
   checkSqlite(sqlite3_reset(check_statement));
 

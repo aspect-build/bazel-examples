@@ -25,7 +25,7 @@ const list<string> common_words{
     "you",   "your",
 };
 
-int main(int argc, char **argv) {
+int main(int  /*argc*/, char ** /*argv*/) {
   Speller::LookupEngine engine("spell.db", true);
 
   for_each(common_words.begin(), common_words.end(),

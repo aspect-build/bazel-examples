@@ -8,6 +8,32 @@ This repository uses Bazel to provide a monorepo developer experience.
 - Run `bazel run format path/to/file` to re-format a single file.
 - Run `pre-commit install` to auto-format changed files on `git commit`; see https://pre-commit.com/.
 
+## Linting code
+
+We use [rules_lint](https://github.com/aspect-build/rules_lint) to run linting tools using Bazel's aspects feature.
+Linters produce report files, which are cached like any other Bazel actions.
+Printing the report files to the terminal can be done in a couple ways, as follows.
+
+### With Aspect CLI
+
+The [`lint` command](https://docs.aspect.build/cli/commands/aspect_lint) is provided by Aspect CLI but is *not* part of the Bazel CLI provided by Google.
+It collects the correct report files, presents them with nice colored boundaries, gives you interactive suggestions to apply fixes, produces a matching exit code, and more.
+
+- Run `bazel lint //...` to check for lint violations.
+
+See comments on https://github.com/aspect-build/bazel-examples/pull/335 for some examples of how to exercise the linters.
+
+### With vanilla Bazel
+
+Aspect CLI makes the developer experience for linting a lot nicer, but it's not required.
+
+1. Run `bazel build --config=lint //...` to produce lint reports.
+  (See the `build:lint` lines in `.bazelrc` for the flags this config option expands to.)
+1. Print the resulting reports, for example a simplistic one-liner using `find` looks like:
+  `find $(bazel info bazel-bin) -name "*AspectRulesLint*report" -exec cat {} \; `
+
+For a more robust developer experience, see the [sample shell script](https://github.com/aspect-build/rules_lint/blob/main/example/lint.sh) in the rules_lint example.
+
 ## Installing dev tools
 
 For developers to be able to run a CLI tool without needing manual installation:
