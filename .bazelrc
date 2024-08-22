@@ -8,6 +8,16 @@ import %workspace%/.aspect/bazelrc/performance.bazelrc
 
 ### YOUR PROJECT SPECIFIC OPTIONS GO HERE ###
 
+# As an alternative to using Aspect CLI to get the 'bazel lint' command,
+# users could run 'bazel build --config=lint' to produce the linter reports.
+build:lint --aspects=//tools/lint:linters.bzl%buf
+build:lint --aspects=//tools/lint:linters.bzl%clang_tidy
+build:lint --aspects=//tools/lint:linters.bzl%eslint
+build:lint --aspects=//tools/lint:linters.bzl%shellcheck
+build:lint --aspects=//tools/lint:linters.bzl%ruff
+# Request linters produce human-readable output rather than machine-readable
+build:lint --output_groups=+rules_lint_human
+
 # for speed, passes an argument `--skipLibCheck` to *every* spawn of tsc
 common --@aspect_rules_ts//ts:skipLibCheck=always
 # use `tsc` for transpiling, even though it's slow.
