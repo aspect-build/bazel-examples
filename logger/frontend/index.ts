@@ -66,7 +66,7 @@ class ServerLogs {
   }
 
   private throwError(error) {
-    const el: HTMLElement = document.getElementById('log_results');
+    const el: HTMLElement = document.getElementById('log_results')!;
     el.innerHTML = 'No logs found, sorry. Try again once the server has logs?';
     console.log(error);
     return Promise.reject(error);

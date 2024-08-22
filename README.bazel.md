@@ -18,6 +18,8 @@ This repository uses Bazel to provide a monorepo developer experience.
 > So you could have some other way of wrapping this for users, like in a Makefile.
 > The rules_lint example provides a [sample shell script](https://github.com/aspect-build/rules_lint/blob/main/example/lint.sh) to drive the linting experience with vanilla Bazel.
 
+See comments on https://github.com/aspect-build/bazel-examples/pull/335 for some examples of how to exercise the linters.
+
 ## Installing dev tools
 
 For developers to be able to run a CLI tool without needing manual installation:
