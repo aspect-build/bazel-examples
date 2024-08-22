@@ -1,0 +1,4 @@
+version: v2
+lint:
+  use:
+    - IMPORT_USED
