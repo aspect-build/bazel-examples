@@ -13,17 +13,17 @@
 using namespace Speller;
 
 TEST(LookupEngineTest, CreateAndDestroy) {
-  LookupEngine engine(":memory:", true);
+  LookupEngine const engine(":memory:", true);
   // No exception, no problem
 }
 
 TEST(LookupEngineTest, PersistsFile) {
-  std::string tempFileName = "testdb.db";
+  std::string const tempFileName = "testdb.db";
   {
     LookupEngine engine(tempFileName, true);
     engine.AddEntry("Bazel");
   }
-  std::filesystem::path f{tempFileName};
+  std::filesystem::path const f{tempFileName};
   EXPECT_TRUE(std::filesystem::exists(f));
   std::filesystem::remove(f);
 }

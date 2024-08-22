@@ -11,7 +11,7 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-  std::string word = "";
+  std::string word;
   if (argc > 1) {
     word = argv[1];
   }
@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 
   Speller::LookupEngine engine(dictionary_file, false);
 
-  if (engine.CheckEntry(word)) {
+  if (engine.CheckEntry(word) != 0) {
     cout << "Found it" << endl;
     return 0;
   } else {
