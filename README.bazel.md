@@ -12,6 +12,12 @@ This repository uses Bazel to provide a monorepo developer experience.
 
 - Run `bazel lint //...` or any other target pattern to check for lint violations.
 
+> Note: the `lint` command is provided by Aspect CLI but is *not* part of the Bazel CLI provided by Google.
+> Aspect CLI makes the developer experience for linting a lot nicer, but it's not required.
+> At its core, linting is powered by a `bazel build --aspects=[linting aspects...]` command.
+> So you could have some other way of wrapping this for users, like in a Makefile.
+> The rules_lint example provides a [sample shell script](https://github.com/aspect-build/rules_lint/blob/main/example/lint.sh) to drive the linting experience with vanilla Bazel.
+
 ## Installing dev tools
 
 For developers to be able to run a CLI tool without needing manual installation:
