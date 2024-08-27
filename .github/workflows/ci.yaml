@@ -64,7 +64,6 @@ jobs:
           - 'oci_python_image'
           - 'pnpm-workspaces'
           - 'prisma'
-          - 'protobufjs'
           - 'bufbuild'
           # FIXME(jbedard): re-enable CI for this folder, currently failing with
           # Unable to load package for @nodejs_darwin_arm64//:bin/node: The repository '@nodejs_darwin_arm64' could not be resolved: Repository '@nodejs_darwin_arm64' is not defined
