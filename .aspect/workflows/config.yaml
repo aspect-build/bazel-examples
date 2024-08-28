@@ -1,0 +1,9 @@
+tasks:
+  - checkout:
+      update_strategy: rebase
+  - test:
+      bazel:
+          flags:
+            - --config=rbe
+notifications:
+  github: {}
