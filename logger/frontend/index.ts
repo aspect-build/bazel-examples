@@ -30,7 +30,7 @@ class ServerLogs {
 
   private timestampToString(timestamp): string {
     // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
-    const date = new Date(timestamp * 1000);
+    let date = new Date(timestamp * 1000);
     const hours = date.getHours();
     const minutes = '0' + date.getMinutes();
     const seconds = '0' + date.getSeconds();
