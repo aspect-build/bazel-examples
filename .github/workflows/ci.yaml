@@ -1,3 +1,10 @@
+# Configure plain GitHub Actions to run `bazel` commands on PRs to main as well as commits landed on main.
+# This demonstrates one way to do Continuous Integration.
+#
+# Aspect Workflows is a more feature-rich, powerful, and cheaper approach.
+# See the configuration in /.aspect/workflows for how that CI/CD system is configured.
+# Note that the root module in this repo is tested on Aspect Workflows, so
+# this file only executes tests for the nested sub-modules.
 name: CI
 
 # Controls when the action will run.
@@ -46,7 +53,6 @@ jobs:
       matrix:
         os: ${{ fromJSON(needs.matrix-prep-os.outputs.os) }}
         folder:
-          - '.'
           # FIXME(jbedard): re-enable CI for this folder, currently failing with
           # Error: Cannot find module 'execroot/__main__/bazel-out/darwin_arm64-fastbuild/bin/external/aspect_rules_js/npm/private/lifecycle/node_modules/node-gyp/bin/node-gyp.js'
           # - 'angular'
