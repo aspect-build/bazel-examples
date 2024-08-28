@@ -3,6 +3,7 @@
 load("@aspect_rules_lint//lint:buf.bzl", "lint_buf_aspect")
 load("@aspect_rules_lint//lint:clang_tidy.bzl", "lint_clang_tidy_aspect")
 load("@aspect_rules_lint//lint:eslint.bzl", "lint_eslint_aspect")
+load("@aspect_rules_lint//lint:pmd.bzl", "lint_pmd_aspect")
 load("@aspect_rules_lint//lint:ruff.bzl", "lint_ruff_aspect")
 load("@aspect_rules_lint//lint:shellcheck.bzl", "lint_shellcheck_aspect")
 
@@ -39,4 +40,9 @@ clang_tidy = lint_clang_tidy_aspect(
     lint_target_headers = True,
     angle_includes_are_system = False,
     verbose = False,
+)
+
+pmd = lint_pmd_aspect(
+    binary = "@@//tools/lint:pmd",
+    rulesets = ["@@//:pmd.xml"],
 )
