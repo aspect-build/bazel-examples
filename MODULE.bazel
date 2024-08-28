@@ -39,9 +39,9 @@ bazel_dep(name = "toolchains_protoc", version = "0.3.1")
 http_jar = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_jar")
 
 http_jar(
-    name = "protobuf-java",
-    integrity = "sha256-eYx59sn8aFnMdqpUdCKKrSUIIUOOEATa00iA1TqnRfk=",
-    urls = ["https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/4.27.1/protobuf-java-4.27.1.jar"],
+    name = "google-java-format",
+    sha256 = "33068bbbdce1099982ec1171f5e202898eb35f2919cf486141e439fc6e3a4203",
+    url = "https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar",
 )
 
 #########################
@@ -120,7 +120,10 @@ use_repo(pip, "pip")
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
-    artifacts = ["io.grpc:grpc-all:1.51.1"],
+    artifacts = [
+        "com.google.protobuf:protobuf-java:4.27.1",
+        "io.grpc:grpc-all:1.51.1",
+    ],
     lock_file = "//:maven_install.json",
 )
 use_repo(
