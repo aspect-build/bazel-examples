@@ -1114,11 +1114,11 @@
     "@@rules_jvm_external~//:extensions.bzl%maven": {
       "general": {
         "bzlTransitiveDigest": "U98JuBYMWVrcyiXT1L6KAYSAA0chnjRZZloIUmNmZ7M=",
-        "usagesDigest": "7nQGbzBfTj6VRvt2T/IGUJw/91I8mB1MN9qOZ1UIvw8=",
+        "usagesDigest": "LjqOcxZoyk42no2vw3aRdgkrVx5rqkgshjepLvCeeVg=",
         "recordedFileInputs": {
           "@@stardoc~//maven_install.json": "de0bfa778b4ed6aebb77509362dd87ab8d20fc7c7c18d2a7429cdfee03949a21",
           "@@rules_jvm_external~//rules_jvm_external_deps_install.json": "3ab1f67b0de4815df110bc72ccd6c77882b3b21d3d1e0a84445847b6ce3235a3",
-          "@@//maven_install.json": "532e74d0fffcbade8c39cd8c46734eabab65d9f624f852963bc79d76a2db927e"
+          "@@//maven_install.json": "529d2b6ad51fc253b54693c7da05a04d844d8bbd4b5467ffb66188e9d1f79710"
         },
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1213,17 +1213,6 @@
                 "https://repo1.maven.org/maven2/com/google/escapevelocity/escapevelocity/1.1/escapevelocity-1.1.jar"
               ],
               "downloaded_file_path": "com/google/escapevelocity/escapevelocity/1.1/escapevelocity-1.1.jar"
-            }
-          },
-          "com_google_protobuf_protobuf_java_3_21_7": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "sha256": "a204ec68748a7b26351ae37a311e8de468f248d1916d5f8dbe812c1289d0a0ff",
-              "urls": [
-                "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7.jar"
-              ],
-              "downloaded_file_path": "com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7.jar"
             }
           },
           "io_netty_netty_transport_4_1_72_Final": {
@@ -1341,6 +1330,17 @@
               "downloaded_file_path": "io/opencensus/opencensus-proto/0.2.0/opencensus-proto-0.2.0-sources.jar"
             }
           },
+          "com_google_protobuf_protobuf_java_jar_sources_4_27_1": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "e918bb0767c4e19e3bab588d0c1bd2b1faa9a3b9a6e7cb88fd14b3aa3e53eeca",
+              "urls": [
+                "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/4.27.1/protobuf-java-4.27.1-sources.jar"
+              ],
+              "downloaded_file_path": "com/google/protobuf/protobuf-java/4.27.1/protobuf-java-4.27.1-sources.jar"
+            }
+          },
           "org_apache_httpcomponents_httpcore_4_4_13": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -1440,6 +1440,7 @@
                 "{ \"repo_url\": \"https://repo1.maven.org/maven2\" }"
               ],
               "artifacts": [
+                "{ \"group\": \"com.google.protobuf\", \"artifact\": \"protobuf-java\", \"version\": \"4.27.1\" }",
                 "{ \"group\": \"io.grpc\", \"artifact\": \"grpc-all\", \"version\": \"1.51.1\" }",
                 "{ \"group\": \"com.google.code.findbugs\", \"artifact\": \"jsr305\", \"version\": \"3.0.2\" }",
                 "{ \"group\": \"com.google.code.gson\", \"artifact\": \"gson\", \"version\": \"2.8.9\" }",
@@ -2930,17 +2931,6 @@
               "downloaded_file_path": "io/netty/netty-codec/4.1.79.Final/netty-codec-4.1.79.Final-sources.jar"
             }
           },
-          "com_google_protobuf_protobuf_java_jar_sources_3_21_7": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "sha256": "c664e12e6e3fea801477edf95014980a8a96528d3904d2add90c68b5d047a6c2",
-              "urls": [
-                "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7-sources.jar"
-              ],
-              "downloaded_file_path": "com/google/protobuf/protobuf-java/3.21.7/protobuf-java-3.21.7-sources.jar"
-            }
-          },
           "org_apache_httpcomponents_httpclient_4_5_13": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -3242,6 +3232,7 @@
                 "{ \"repo_url\": \"https://repo1.maven.org/maven2\" }"
               ],
               "artifacts": [
+                "{ \"group\": \"com.google.protobuf\", \"artifact\": \"protobuf-java\", \"version\": \"4.27.1\" }",
                 "{ \"group\": \"io.grpc\", \"artifact\": \"grpc-all\", \"version\": \"1.51.1\" }",
                 "{ \"group\": \"com.google.code.findbugs\", \"artifact\": \"jsr305\", \"version\": \"3.0.2\" }",
                 "{ \"group\": \"com.google.code.gson\", \"artifact\": \"gson\", \"version\": \"2.8.9\" }",
@@ -3293,6 +3284,17 @@
                 "https://repo1.maven.org/maven2/com/google/code/gson/gson/2.9.0/gson-2.9.0-sources.jar"
               ],
               "downloaded_file_path": "com/google/code/gson/gson/2.9.0/gson-2.9.0-sources.jar"
+            }
+          },
+          "com_google_protobuf_protobuf_java_4_27_1": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "sha256": "798c79f6c9fc6859cc76aa5474228aad250821438e1004dad34880d53aa745f9",
+              "urls": [
+                "https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/4.27.1/protobuf-java-4.27.1.jar"
+              ],
+              "downloaded_file_path": "com/google/protobuf/protobuf-java/4.27.1/protobuf-java-4.27.1.jar"
             }
           },
           "io_grpc_grpc_xds_1_51_1": {

@@ -99,6 +99,15 @@ If the package is not already a dependency of the project, you'll have to do som
 % bazel configure
 ```
 
+## Working with Java maven dependencies
+
+Maven coordinates for third-party packages live in the `MODULE.bazel` file.
+
+After changing them, run `bazel run @unpinned_maven//:pin` to update the `maven_install.json` file.
+This file is used by `rules_jvm_external` to fetch packages.
+
+Then use the `artifact("some.org:coordinate")` helper to resolve a label to the resulting `java_library` targets.
+
 ## Stamping release builds
 
 Stamping produces non-deterministic outputs by including information such as a version number or commit hash.
