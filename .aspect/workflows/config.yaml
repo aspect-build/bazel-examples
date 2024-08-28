@@ -1,6 +1,7 @@
 tasks:
   - checkout:
       update_strategy: rebase
+  - lint:
   - test:
       bazel:
           flags:
