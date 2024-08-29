@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Run the overall tests and then run the Speller-specific C++ testing.
 
 bazel \
