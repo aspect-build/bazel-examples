@@ -5,6 +5,7 @@ TODO(alex): add Java linting
 
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 load("@npm//:eslint/package_json.bzl", eslint_bin = "bin")
+load("@rules_java//java:defs.bzl", "java_binary")
 
 package(default_visibility = ["//:__subpackages__"])
 
@@ -14,6 +15,12 @@ alias(
 )
 
 eslint_bin.eslint_binary(name = "eslint")
+
+java_binary(
+    name = "pmd",
+    main_class = "net.sourceforge.pmd.PMD",
+    runtime_deps = ["@net_sourceforge_pmd"],
+)
 
 native_binary(
     name = "clang_tidy",

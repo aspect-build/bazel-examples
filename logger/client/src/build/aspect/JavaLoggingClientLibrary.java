@@ -1,13 +1,13 @@
 package build.aspect;
 
+import build.aspect.examples.LogMessage;
+import build.aspect.examples.LoggerGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import build.aspect.examples.LogMessage;
-import build.aspect.examples.LoggerGrpc;
 
 public class JavaLoggingClientLibrary {
   private static final Logger logger = Logger.getLogger(JavaLoggingClientLibrary.class.getName());
@@ -23,6 +23,9 @@ public class JavaLoggingClientLibrary {
             .usePlaintext()
             .build());
   }
+
+  // this is confusing and probably a bug
+  protected void finalize(int a) {}
 
   /** Construct client for accessing the Logging server using the existing channel. */
   JavaLoggingClientLibrary(ManagedChannel channel) {
@@ -45,5 +48,4 @@ public class JavaLoggingClientLibrary {
       return;
     }
   }
-
 }

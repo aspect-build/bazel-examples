@@ -17,3 +17,4 @@ lint:
     - //tools/lint:linters.bzl%eslint
     - //tools/lint:linters.bzl%shellcheck
     - //tools/lint:linters.bzl%ruff
+    - //tools/lint:linters.bzl%pmd
