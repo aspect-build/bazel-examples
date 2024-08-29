@@ -38,3 +38,9 @@ native_binary(
     ),
     out = "clang_tidy",
 )
+
+java_binary(
+    name = "checkstyle",
+    main_class = "com.puppycrawl.tools.checkstyle.Main",
+    runtime_deps = ["@com_puppycrawl_tools_checkstyle//jar"],
+)

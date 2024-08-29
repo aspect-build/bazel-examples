@@ -17,6 +17,7 @@ exports_files(
         ".ruff.toml",
         ".shellcheckrc",
         "buf.yaml",
+        "checkstyle.xml",
         "pmd.xml",
         "pyproject.toml",
     ],

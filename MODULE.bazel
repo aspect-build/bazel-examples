@@ -8,7 +8,7 @@
 bazel_dep(name = "apple_support", version = "1.11.1")
 bazel_dep(name = "aspect_bazel_lib", version = "2.8.0")
 bazel_dep(name = "aspect_rules_js", version = "2.0.0")
-bazel_dep(name = "aspect_rules_lint", version = "1.0.0-rc9")
+bazel_dep(name = "aspect_rules_lint", version = "1.0.0-rc10")
 bazel_dep(name = "aspect_rules_swc", version = "2.0.0")
 bazel_dep(name = "aspect_rules_ts", version = "3.0.0")
 bazel_dep(name = "bazel_skylib", version = "1.4.2")
@@ -46,6 +46,12 @@ http_archive(
     sha256 = "21acf96d43cb40d591cacccc1c20a66fc796eaddf69ea61812594447bac7a11d",
     strip_prefix = "pmd-bin-6.55.0/lib",
     url = "https://github.com/pmd/pmd/releases/download/pmd_releases/6.55.0/pmd-bin-6.55.0.zip",
+)
+
+http_jar(
+    name = "com_puppycrawl_tools_checkstyle",
+    sha256 = "51c34d738520c1389d71998a9ab0e6dabe0d7cf262149f3e01a7294496062e42",
+    url = "https://github.com/checkstyle/checkstyle/releases/download/checkstyle-10.17.0/checkstyle-10.17.0-all.jar",
 )
 
 http_jar(
