@@ -3,8 +3,6 @@
 #
 # Aspect Workflows is a more feature-rich, powerful, and cheaper approach.
 # See the configuration in /.aspect/workflows for how that CI/CD system is configured.
-# Note that the root module in this repo is tested on Aspect Workflows, so
-# this file only executes tests for the nested sub-modules.
 name: CI
 
 # Controls when the action will run.
@@ -19,65 +17,102 @@ on:
   workflow_dispatch:
 
 jobs:
-  # matrix-prep-* steps dynamically generate a bit of JSON depending on whether our action has
-  # access to repository secrets. When running on a pull_request from a fork, the author is
-  # untrusted so the secret will be absent. Insanely complex for how simple this requirement is...
-  # inspired from
-  # https://stackoverflow.com/questions/65384420/how-to-make-a-github-action-matrix-element-conditional
-
+  # matrix-prep-* jobs dynamically generate a bit of JSON which we read later to construct a matrix of test jobs
   matrix-prep-os:
     # Prepares the 'os' axis of the test matrix
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - id: linux
         run: echo "os=ubuntu-latest" >> $GITHUB_OUTPUT
       - id: macos
         run: echo "os=macos-latest" >> $GITHUB_OUTPUT
-        # Only run on main branch (not PRs) to minimize macOS minutes (billed at 10X)
+        # Only run on main branch (or branches that contain 'macos') to minimize macOS minutes (billed at 10X)
         # https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#included-storage-and-minutes
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: github.ref == 'refs/heads/main' || contains(github.head_ref, 'macos')
+      - id: windows
+        run: echo "os=windows-latest" >> $GITHUB_OUTPUT
+        # Only run on branches that contain 'windows' to minimize Windows minutes (billed at 2X) and because Windows support is spotty.
+        if: contains(github.head_ref, 'windows')
     outputs:
       # Will look like ["ubuntu-latest", "macos-latest"]
       os: ${{ toJSON(steps.*.outputs.os) }}
 
+  # The goal of this matrix prep is to determine whether nested Bazel modules need to be tested.
+  # When they do, we create a separate "matrix" job so they are tested in parallel with the root module.
+  matrix-prep-folder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Clone the last two commits, so we can see what files were changed.
+          fetch-depth: 2
+      # Get a list of nested Bazel modules that were touched
+      - uses: tj-actions/changed-files@v45
+        with:
+          # NB: this list must match all files that live within a nested Bazel module.
+          # Should match the /.bazelignore file as well.
+          files: |
+            angular/**
+            angular-ngc/**
+            jest/**
+            bzlmod/**
+            check-npm-determinism/**
+            directory_path/**
+            eager-fetch/**
+            git_push/**
+            go_workspaces/**
+            jest/**
+            nestjs/**
+            oci_go_image/**
+            oci_python_image/**
+            pnpm-workspaces/**
+            prisma/**
+            bufbuild/**
+            rules_nodejs_to_rules_js_migration/**
+            ts_project_transpiler/**
+          # Just print the top-level directory names
+          dir_names: true
+          dir_names_max_depth: 1
+          # Print results as json to files in .github/outputs folder.
+          json: true
+          write_output_files: true
+
+      # Unconditionally add the root folder. There are three cases to consider:
+      # 1. No nested Bazel modules were touched: zero results in the all_changed_and_modified_files.json. So the changed files are in the root module.
+      # 2. Only files in the root module were touched: run CI anyway since Aspect Workflows runs unconditionally, and we want to be able to compare.
+      # 3. Root module AND nested module touched in the PR: we need to add the root module since it won't match any entry above.
+      - run: (echo -n "dirs="; jq --compact-output '. + ["."]' < .github/outputs/all_changed_and_modified_files.json) >> $GITHUB_OUTPUT
+        id: changed-toplevel-dirs
+    outputs:
+      # Will look like [".", "some_folder"]
+      folder: ${{ steps.changed-toplevel-dirs.outputs.dirs }}
+
   test:
+    # Wait for all matrix-prep jobs so we can reference the result
+    needs:
+      - matrix-prep-folder
+      - matrix-prep-os
+
     # The type of runner that the job will run on
     runs-on: ${{ matrix.os }}
-
-    needs:
-      - matrix-prep-os
 
     strategy:
       fail-fast: false
       matrix:
         os: ${{ fromJSON(needs.matrix-prep-os.outputs.os) }}
-        folder:
-          # FIXME(jbedard): re-enable CI for this folder, currently failing with
-          # Error: Cannot find module 'execroot/__main__/bazel-out/darwin_arm64-fastbuild/bin/external/aspect_rules_js/npm/private/lifecycle/node_modules/node-gyp/bin/node-gyp.js'
-          # - 'angular'
-          - 'angular-ngc'
-          - 'bzlmod'
-          - 'check-npm-determinism'
-          - 'directory_path'
-          # TODO: intentionally fails
-          # - 'eager-fetch'
-          - 'git_push'
-          - 'go_workspaces'
-          - 'jest'
-          - 'nestjs'
-          - 'oci_go_image'
-          - 'oci_python_image'
-          - 'pnpm-workspaces'
-          - 'prisma'
-          - 'bufbuild'
-          # FIXME(jbedard): re-enable CI for this folder, currently failing with
-          # Unable to load package for @nodejs_darwin_arm64//:bin/node: The repository '@nodejs_darwin_arm64' could not be resolved: Repository '@nodejs_darwin_arm64' is not defined
-          # - 'rules_nodejs_to_rules_js_migration'
-          - 'ts_project_transpiler'
+        folder: ${{ fromJSON(needs.matrix-prep-folder.outputs.folder) }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          # Clone the last two commits, so we can see what files were changed.
+          fetch-depth: 2
+      # Get a list of top-level directories that were touched
+      - uses: tj-actions/changed-files@v45
+        id: changed-toplevel-dirs
+        with:
+          dir_names: true
+          dir_names_max_depth: 1
       - uses: bazel-contrib/setup-bazel@0.8.5
         with:
           repository-cache: true
@@ -90,7 +125,7 @@ jobs:
 
       - name: Test Type
         id: has_test_sh
-        uses: andstor/file-existence-action@v1
+        uses: andstor/file-existence-action@076e0072799f4942c8bc574a82233e1e4d13e9d6 # v3.0.0
         with:
           files: '${{ matrix.folder }}/test.sh'
 
