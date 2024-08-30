@@ -1,5 +1,6 @@
 """This Starlark file sets up the aspect rules in this example
-repository to automatically generate several types of rules for C code."""
+repository to automatically generate several types of rules for C code.
+"""
 
 aspect.register_rule_kind("cc_binary", {
     "From": "@rules_cc//cc:defs.bzl",
