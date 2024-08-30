@@ -123,6 +123,16 @@ jobs:
             # use our testcontainers cloud account to get a remote one.
             test:macos --test_tag_filters=-requires-docker
 
+      - name: fetch
+        working-directory: ${{ matrix.folder }}
+        run: bazel fetch //...
+        shell: bash
+
+      - name: build
+        working-directory: ${{ matrix.folder }}
+        run: bazel build //...
+        shell: bash
+
       - name: Test Type
         id: has_test_sh
         uses: andstor/file-existence-action@076e0072799f4942c8bc574a82233e1e4d13e9d6 # v3.0.0
