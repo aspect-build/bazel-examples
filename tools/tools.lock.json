@@ -1,34 +1,91 @@
 {
   "$schema": "https://raw.githubusercontent.com/theoremlp/rules_multitool/main/lockfile.schema.json",
+  "buf": {
+    "binaries": [
+      {
+        "kind": "file",
+        "url": "https://github.com/bufbuild/buf/releases/download/v1.39.0/buf-Linux-aarch64",
+        "sha256": "e22b59798211d0904553f891861208222d88e2cf0257a370440f7817a21dffd3",
+        "os": "linux",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/bufbuild/buf/releases/download/v1.39.0/buf-Linux-x86_64",
+        "sha256": "657eaafbe1cbeafecfda15386004bd3253fc91162e68cd52185937e3ff4d7afe",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/bufbuild/buf/releases/download/v1.39.0/buf-Darwin-arm64",
+        "sha256": "7163faf9da829afa633194ffa11e4a4ef8d7b8359cefbc13f71a58cc3b860d9e",
+        "os": "macos",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/bufbuild/buf/releases/download/v1.39.0/buf-Darwin-x86_64",
+        "sha256": "b44da381dfc9980aed822476d12645f981761ea8ac7f135772d9f02246c8ac31",
+        "os": "macos",
+        "cpu": "x86_64"
+      }
+    ]
+  },
   "buildozer": {
     "binaries": [
       {
         "kind": "file",
-        "url": "https://github.com/bazelbuild/buildtools/releases/download/v7.1.1/buildozer-darwin-arm64",
-        "os": "macos",
-        "cpu": "arm64",
-        "sha256": "0a2f70aa7b864de9bf71d1aac39659017b7a84169506e350d9ec77c609265212"
-      },
-      {
-        "kind": "file",
-        "url": "https://github.com/bazelbuild/buildtools/releases/download/v7.1.1/buildozer-darwin-amd64",
-        "os": "macos",
-        "cpu": "x86_64",
-        "sha256": "6286bbbcb5314d675fcb4ede30edf397a68c611005412c937b2cc0c4bf4b714b"
-      },
-      {
-        "kind": "file",
-        "url": "https://github.com/bazelbuild/buildtools/releases/download/v7.1.1/buildozer-linux-amd64",
+        "url": "https://github.com/bazelbuild/buildtools/releases/download/v7.3.1/buildozer-linux-arm64",
+        "sha256": "0b5a2a717ac4fc911e1fec8d92af71dbb4fe95b10e5213da0cc3d56cea64a328",
         "os": "linux",
-        "cpu": "x86_64",
-        "sha256": "9a7424aca7ca911c85cfedeadf065f0d95c492e80f0e29bd07ea98f6eb087259"
+        "cpu": "arm64"
       },
       {
         "kind": "file",
-        "url": "https://github.com/bazelbuild/buildtools/releases/download/v7.1.1/buildozer-linux-arm64",
+        "url": "https://github.com/bazelbuild/buildtools/releases/download/v7.3.1/buildozer-linux-amd64",
+        "sha256": "3305e287b3fcc68b9a35fd8515ee617452cd4e018f9e6886b6c7cdbcba8710d4",
         "os": "linux",
-        "cpu": "arm64",
-        "sha256": "07c8ed5ca3efea7e20756e9060660b7e658c781953c60650a1b99cd8bb857fcf"
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/bazelbuild/buildtools/releases/download/v7.3.1/buildozer-darwin-arm64",
+        "sha256": "31b1bfe20d7d5444be217af78f94c5c43799cdf847c6ce69794b7bf3319c5364",
+        "os": "macos",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/bazelbuild/buildtools/releases/download/v7.3.1/buildozer-darwin-amd64",
+        "sha256": "854c9583efc166602276802658cef3f224d60898cfaa60630b33d328db3b0de2",
+        "os": "macos",
+        "cpu": "x86_64"
+      }
+    ]
+  },
+  "docker-compose": {
+    "binaries": [
+      {
+        "kind": "file",
+        "url": "https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-aarch64",
+        "sha256": "1caa6c39b9df88dbd8522403d78b786a4151fa4e881c866725f75b5d99500a9d",
+        "os": "linux",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-x86_64",
+        "sha256": "d037bd4937bf18fba67cff4366e084ee125a3e15c25657ee1aeceff8db3672b4",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-darwin-aarch64",
+        "sha256": "518c4c4aacaa3f5175356e2c47ffcd278e7dd4228c97d83d1f396a9819d4f030",
+        "os": "macos",
+        "cpu": "arm64"
       }
     ]
   },
@@ -36,24 +93,80 @@
     "binaries": [
       {
         "kind": "file",
-        "url": "https://github.com/bazelbuild/bazel-watcher/releases/download/v0.25.2/ibazel_darwin_arm64",
+        "url": "https://github.com/bazelbuild/bazel-watcher/releases/download/v0.25.3/ibazel_linux_arm64",
+        "sha256": "3fa76bef2a1eac55975a0e6949c133d0a9898eb1e5425ce4f7df0289859f56c5",
+        "os": "linux",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/bazelbuild/bazel-watcher/releases/download/v0.25.3/ibazel_linux_amd64",
+        "sha256": "d8e1ea02777670a095719ed3800e9bbf814269b05edf901992c1e7c5eca0e3b6",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "file",
+        "url": "https://github.com/bazelbuild/bazel-watcher/releases/download/v0.25.3/ibazel_darwin_arm64",
+        "sha256": "c2da75cbab7a4b2b97ba534653bb12e4dd731157bb1c9d660f79df3b330a7239",
         "os": "macos",
-        "cpu": "arm64",
-        "sha256": "e4d5e04a2a0e4dda21350ffe26623469a85ab8786570aea962b058a954dcd3f1"
+        "cpu": "arm64"
+      }
+    ]
+  },
+  "multitool": {
+    "binaries": [
+      {
+        "kind": "archive",
+        "url": "https://github.com/theoremlp/multitool/releases/download/v0.8.0/multitool-aarch64-unknown-linux-gnu.tar.xz",
+        "file": "multitool-aarch64-unknown-linux-gnu/multitool",
+        "sha256": "e249591e31fd3f7f27782d3b3da1ce077f9432fdfc7e163bac2b7cf43c3f87a0",
+        "os": "linux",
+        "cpu": "arm64"
       },
       {
-        "kind": "file",
-        "url": "https://github.com/bazelbuild/bazel-watcher/releases/download/v0.25.2/ibazel_linux_amd64",
+        "kind": "archive",
+        "url": "https://github.com/theoremlp/multitool/releases/download/v0.8.0/multitool-x86_64-unknown-linux-gnu.tar.xz",
+        "file": "multitool-x86_64-unknown-linux-gnu/multitool",
+        "sha256": "fc7e5e78f8efa6173cb82659f48ef0acd6ae6f0b906781ab9d4b058f774f657c",
         "os": "linux",
-        "cpu": "x86_64",
-        "sha256": "1377caf887a7a239106ad6408fca1e14dfb239b3072b3abddbb660ff994b62aa"
+        "cpu": "x86_64"
       },
       {
-        "kind": "file",
-        "url": "https://github.com/bazelbuild/bazel-watcher/releases/download/v0.25.2/ibazel_linux_arm64",
+        "kind": "archive",
+        "url": "https://github.com/theoremlp/multitool/releases/download/v0.8.0/multitool-aarch64-apple-darwin.tar.xz",
+        "file": "multitool-aarch64-apple-darwin/multitool",
+        "sha256": "3187c94895358820c656c6a1736d442b3a568a5b1dd17c4c35f3903a07b709a2",
+        "os": "macos",
+        "cpu": "arm64"
+      }
+    ]
+  },
+  "terraform": {
+    "binaries": [
+      {
+        "kind": "archive",
+        "url": "https://releases.hashicorp.com/terraform/1.9.3/terraform_1.9.3_linux_arm64.zip",
+        "file": "terraform",
+        "sha256": "193ce269aafd5c44f359cd73a75c5cc7aaab924eb5c3601784c1873575828ec7",
         "os": "linux",
-        "cpu": "arm64",
-        "sha256": "3c15af15ffe77f7c4ed799a6a7c539541922a4811b8b9f4fbac044060ef89b64"
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://releases.hashicorp.com/terraform/1.9.3/terraform_1.9.3_linux_amd64.zip",
+        "file": "terraform",
+        "sha256": "e52520cf6d677155e69a8fcfe64054891f4d991802b0d36d4c8b670d60a7e899",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://releases.hashicorp.com/terraform/1.9.3/terraform_1.9.3_darwin_arm64.zip",
+        "file": "terraform",
+        "sha256": "168cfeb339dbbfea6be651573ec168e6ca08bab79a4fc0474681eee1e9a95de9",
+        "os": "macos",
+        "cpu": "arm64"
       }
     ]
   }
