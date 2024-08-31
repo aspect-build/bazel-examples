@@ -39,20 +39,34 @@ For a more robust developer experience, see the [sample shell script](https://gi
 For developers to be able to run a CLI tool without needing manual installation:
 
 1. Add the tool to `tools/tools.lock.json`
-2. `cd tools; ln -s _multitool_run_under_cwd.sh name_of_tool`
+2. `cd tools; ln -s _run_under_cwd.sh name_of_tool`
 3. Instruct developers to run `./tools/name_of_tool` rather than install that tool on their machine.
+
+To update the versions of installed tools, run:
+
+```shell
+% cd $(bazel info workspace)/tools; ./multitool --lockfile tools.lock.json update
+```
 
 See https://blog.aspect.build/run-tools-installed-by-bazel for details.
 
 ## Working with npm packages
 
-To install a `node_modules` tree locally for the editor or other tooling outside of Bazel:
+To install a `node_modules` tree locally for the editor or other tooling outside of Bazel,
+run this command from any folder with a `package.json` file:
 
-```
-bazel run -- @pnpm --dir $PWD install
+```shell
+% $(bazel info workspace)/tools/pnpm install
 ```
 
-Similarly, you can run other `pnpm` commands to install or remove packages.
+> NB: `bazel info workspace` avoids having a bunch of `../` segments when running tools from a subdirectory.
+
+Similarly, you can run other `pnpm` commands to add or remove packages.
+
+```shell
+% $(bazel info workspace)/tools/pnpm add http-server
+```
+
 This ensures you use the same pnpm version as other developers, and the lockfile format will stay constant.
 
 ## Working with Python packages
@@ -88,11 +102,12 @@ Then edit the new entry in `tools/BUILD` to replace `package_name_snake_case` wi
 
 After adding a new `import` statement in Go code, run `bazel configure` to update the BUILD file.
 
-If the package is not already a dependency of the project, you'll have to do some additional steps:
+If the package is not already a dependency of the project, you'll have to do some additional steps.
+Run these commands from the workspace root:
 
 ```shell
 # Update go.mod and go.sum, using same Go SDK as Bazel
-% bazel run @rules_go//go -- mod tidy -v
+% ./tools/go mod tidy -v
 # Update MODULE.bazel to include the package in `use_repo`
 % bazel mod tidy
 # Repeat
