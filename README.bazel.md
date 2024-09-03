@@ -107,7 +107,7 @@ Run these commands from the workspace root:
 
 ```shell
 # Update go.mod and go.sum, using same Go SDK as Bazel
-% ./tools/go mod tidy -v
+% $(bazel info workspace)/tools/go mod tidy -v
 # Update MODULE.bazel to include the package in `use_repo`
 % bazel mod tidy
 # Repeat
