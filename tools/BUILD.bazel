@@ -1,1 +1,8 @@
-# No targets in this package
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//tools:svg-term-cli/package_json.bzl", "bin")
+
+npm_link_all_packages(name = "node_modules")
+
+bin.svg_term_binary(
+    name = "svg-term",
+)
