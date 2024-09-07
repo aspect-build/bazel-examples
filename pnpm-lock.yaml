@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+packageExtensionsChecksum: 8737b025ff7a3214e95089d0873ac0fa
+
 importers:
 
   .:
@@ -284,6 +286,7 @@ packages:
       '@stiligita/stylesheets': 1.0.0-0
       '@stiligita/templates': 1.0.0-0
       '@stiligita/utils': 1.0.0-0
+      react: 16.14.0
     dev: true
 
   /@stiligita/store@1.0.0-0:
