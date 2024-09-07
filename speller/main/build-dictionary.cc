@@ -22,7 +22,7 @@ const list<string> common_words{
     "think", "this",  "time",  "to",    "two",   "up",      "us",
     "use",   "want",  "way",   "we",    "well",  "what",    "when",
     "which", "who",   "will",  "with",  "work",  "would",   "year",
-    "you",   "your",
+    "you",   "your",  "yours"
 };
 
 int main(int  /*argc*/, char ** /*argv*/) {
