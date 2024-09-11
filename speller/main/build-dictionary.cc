@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const list<string> common_words{
+const list<string> common_words {
     "a",     "about", "after", "all",   "also",  "an",      "and",
     "any",   "as",    "at",    "back",  "be",    "because", "but",
     "by",    "can",   "come",  "could", "day",   "do",      "even",
