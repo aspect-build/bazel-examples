@@ -40,7 +40,7 @@ def py_layers(name, binary):
         name = name + ".interpreter_tar_manifest",
         srcs = [name + ".mf"],
         outs = [name + ".interpreter_tar_manifest.spec"],
-        cmd = "grep '{}' $< >$@".format(PY_INTERPRETER_REGEX),
+        cmd = "grep -v '{}' $< | grep '{}' >$@".format(SITE_PACKAGES_REGEX, PY_INTERPRETER_REGEX),
     )
 
     native.genrule(
