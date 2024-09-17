@@ -10,7 +10,7 @@
     "declaration": true,
     "declarationDir": "lib-types",
     "resolveJsonModule": true,
-    "moduleResolution": "Bundler",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "incremental": true,
