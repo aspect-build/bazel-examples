@@ -1,6 +1,0 @@
-{
-    "name": "qwik",
-    "version": "1.0.0",
-    "description": "Main package for Qwik monorepo example",
-    "private": true
-}

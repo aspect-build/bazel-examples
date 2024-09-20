@@ -4,3 +4,4 @@ packages:
   - logger/frontend
   - logger/schema
   - tools
+  - qwik/*
