@@ -16,6 +16,7 @@ BUILD_DEPS = [":node_modules/" + d for d in [
     "@builder.io/qwik",
     "@builder.io/qwik-city",
     "vite-tsconfig-paths",
+    "my-qwik-library-name",
 ]]
 
 copy_to_bin(
@@ -35,6 +36,14 @@ vite_bin.vite(
     srcs = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
     args = ["build --config vite.config.ts"],
     chdir = package_name(),
-    out_dirs = ["dist"],
+    out_dirs = ["server"],
+    visibility = ["//visibility:public"],
+)
+
+vite_bin.vite_binary(
+    name = "start",
+    args = ["--mode ssr --config vite.config.ts"],
+    chdir = package_name(),
+    data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
     visibility = ["//visibility:public"],
 )

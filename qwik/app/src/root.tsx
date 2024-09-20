@@ -1,13 +1,14 @@
-import { component$ } from "@builder.io/qwik";
+import { component$ } from '@builder.io/qwik';
 import {
   QwikCityProvider,
   RouterOutlet,
   ServiceWorkerRegister,
-} from "@builder.io/qwik-city";
-import { RouterHead } from "./components/router-head/router-head";
-import { isDev } from "@builder.io/qwik/build";
+} from '@builder.io/qwik-city';
+import { RouterHead } from './components/router-head/router-head';
+import { isDev } from '@builder.io/qwik/build';
 
-import "./global.css";
+import './global.css';
+import { Counter, Logo } from 'my-qwik-library-name';
 
 export default component$(() => {
   /**
@@ -32,6 +33,10 @@ export default component$(() => {
       <body lang="en">
         <RouterOutlet />
         {!isDev && <ServiceWorkerRegister />}
+        <h2>Below is content from the component library</h2>
+        <h2>Try editing the library and rebuilding with iBazel and without.</h2>
+        <Logo />
+        <Counter />
       </body>
     </QwikCityProvider>
   );

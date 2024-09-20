@@ -1,3 +1,4 @@
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 load("@npm//qwik/lib:vite/package_json.bzl", vite_bin = "bin")
@@ -27,8 +28,19 @@ copy_to_bin(
 vite_bin.vite(
     name = "vite",
     srcs = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
-    args = ["build --config vite.config.ts"],
+    args = ["build --mode lib --config vite.config.ts"],
     chdir = package_name(),
-    out_dirs = ["dist"],
+    out_dirs = [
+        "lib",
+        "lib-types",
+    ],
+)
+
+npm_package(
+    name = "pkg",
+    srcs = [
+        "package.json",
+        ":vite",
+    ],
     visibility = ["//visibility:public"],
 )

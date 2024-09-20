@@ -77,6 +77,9 @@ importers:
       eslint-plugin-qwik:
         specifier: ^1.8.0
         version: 1.8.0(eslint@8.57.0)
+      my-qwik-library-name:
+        specifier: workspace:*
+        version: link:../lib
       prettier:
         specifier: 3.3.3
         version: 3.3.3
