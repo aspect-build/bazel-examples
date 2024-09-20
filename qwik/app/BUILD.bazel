@@ -37,7 +37,7 @@ vite_bin.vite(
     srcs = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
     args = ["build --config vite.config.ts"],
     chdir = package_name(),
-    out_dirs = ["server"],
+    out_dirs = ["dist"],
 )
 
 vite_bin.vite_binary(
@@ -53,12 +53,9 @@ vite_bin.vite_binary(
 #
 # The main app will update fast using Vite, but the libraries will need a restart.
 #
-# Until this is resolved, maybe the start command will be of better use.
-
+# Until this is resolved, maybe the start command will be of better use for hot reload.
 vite_bin.vite_binary(
-    name = "start_devserver",
-    args = ["--mode ssr --config vite.config.ts"],
-    data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
+    name = "vite_tool",
 )
 
 js_run_devserver(
@@ -66,5 +63,5 @@ js_run_devserver(
     args = ["--mode ssr --config vite.config.ts"],
     chdir = package_name(),
     data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
-    tool = ":start_devserver",
+    tool = ":vite_tool",
 )
