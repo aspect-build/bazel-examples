@@ -1,4 +1,5 @@
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
 load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 load("@npm//qwik/app:vite/package_json.bzl", vite_bin = "bin")
 
@@ -37,7 +38,6 @@ vite_bin.vite(
     args = ["build --config vite.config.ts"],
     chdir = package_name(),
     out_dirs = ["server"],
-    visibility = ["//visibility:public"],
 )
 
 vite_bin.vite_binary(
@@ -45,5 +45,26 @@ vite_bin.vite_binary(
     args = ["--mode ssr --config vite.config.ts"],
     chdir = package_name(),
     data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
-    visibility = ["//visibility:public"],
+)
+
+# Hot reload development server.
+# Vite has a problem with reloading libraries: https://github.com/vitejs/vite/issues/8619
+# the current solution works for a single library update, then it needs to restart the ibazel execution.
+#
+# The main app will update fast using Vite, but the libraries will need a restart.
+#
+# Until this is resolved, maybe the start command will be of better use.
+
+vite_bin.vite_binary(
+    name = "start_devserver",
+    args = ["--mode ssr --config vite.config.ts"],
+    data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
+)
+
+js_run_devserver(
+    name = "devserver",
+    args = ["--mode ssr --config vite.config.ts"],
+    chdir = package_name(),
+    data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
+    tool = ":start_devserver",
 )

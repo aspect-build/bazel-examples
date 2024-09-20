@@ -2,31 +2,46 @@
  * This is the base config for vite.
  * When building, the adapter config is used which loads this file and extends it.
  */
-import { defineConfig, type UserConfig } from "vite";
-import { qwikVite } from "@builder.io/qwik/optimizer";
-import { qwikCity } from "@builder.io/qwik-city/vite";
+import {defineConfig, PluginOption, type UserConfig} from "vite";
+import {qwikVite} from "@builder.io/qwik/optimizer";
+import {qwikCity} from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 
 type PkgDep = Record<string, string>;
-const { dependencies = {}, devDependencies = {} } = pkg as any as {
+const {dependencies = {}, devDependencies = {}} = pkg as any as {
   dependencies: PkgDep;
   devDependencies: PkgDep;
   [key: string]: unknown;
 };
 errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 
+function watchNodeModules(modules: string[]): PluginOption {
+  return {
+    name: 'watch-node-modules',
+    config() {
+      return {
+        server: {
+          watch: {
+            ignored: modules.map((m) => `!**/node_modules/${m}/**`),
+          },
+        },
+      };
+    },
+  };
+}
+
 /**
  * Note that Vite normally starts from `index.html` but the qwikCity plugin makes start at `src/entry.ssr.tsx` instead.
  */
-export default defineConfig(({ command, mode }): UserConfig => {
+export default defineConfig(({command, mode}): UserConfig => {
   return {
-    plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
+    plugins: [qwikCity(), qwikVite(), tsconfigPaths(), watchNodeModules(["my-qwik-library-name"])],
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.
       // For example ['better-sqlite3'] if you use that in server functions.
-      exclude: [],
+      exclude: ["my-qwik-library-name"],
     },
 
     /**
