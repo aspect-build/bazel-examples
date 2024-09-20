@@ -10,7 +10,7 @@
     "declaration": true,
     "declarationDir": "lib-types",
     "resolveJsonModule": true,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "incremental": true,
