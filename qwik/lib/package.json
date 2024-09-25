@@ -22,8 +22,7 @@
   "private": false,
   "type": "module",
   "scripts": {
-    "build": "qwik build",
-    "build.lib": "vite build --mode lib",
+    "build": "bazel build //qwik/lib/...",
     "build.types": "tsc --emitDeclarationOnly",
     "dev": "vite --mode ssr",
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
@@ -32,8 +31,7 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "release": "np",
     "start": "vite --open --mode ssr",
-    "test": "echo \"No test specified\" && exit 0",
-    "test.unit": "vitest components",
+    "test.unit": "bazel test //qwik/lib/...",
     "test.unit.ui": "vitest --ui components",
     "qwik": "qwik"
   },
