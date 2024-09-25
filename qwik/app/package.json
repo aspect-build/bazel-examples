@@ -24,6 +24,8 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
+    "test.unit": "vitest components",
+    "test.unit.ui": "vitest --ui components",
     "qwik": "qwik"
   },
   "devDependencies": {
@@ -33,13 +35,15 @@
     "@types/node": "20.14.11",
     "@typescript-eslint/eslint-plugin": "7.16.1",
     "@typescript-eslint/parser": "7.16.1",
+    "@vitest/ui": "^0.34.6",
     "eslint": "8.57.0",
     "eslint-plugin-qwik": "^1.8.0",
+    "my-qwik-library-name": "workspace:*",
     "prettier": "3.3.3",
     "typescript": "5.4.5",
     "undici": "*",
     "vite": "5.3.5",
     "vite-tsconfig-paths": "^4.2.1",
-    "my-qwik-library-name": "workspace:*"
+    "vitest": "^0.34.6"
   }
 }
