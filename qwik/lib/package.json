@@ -31,6 +31,7 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "release": "np",
     "start": "vite --open --mode ssr",
+    "test": "npm run test.unit",
     "test.unit": "bazel test //qwik/lib/...",
     "test.unit.ui": "vitest --ui components",
     "qwik": "qwik"

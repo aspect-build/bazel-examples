@@ -3,29 +3,36 @@ In this folder you will find a monorepo example of a Qwik app and a Qwik library
 
 The app uses the library as an internal dependency. Using Bazel we can build and test both of them in parallel.
 
-And using IBazel we can have a hot reload of the app when the library changes.
+## About Bazel
 
-## Commands:
+See the [root README](/README.bazel.md) for general information about using Bazel in this monorepo.
 
-### Build the example:
-```
-bazel build //qwik/...
-```
+## Developer Workflows
 
-### Test the example:
-```
+### Run Tests
+
+Do one of these:
+
+```shell
+# Test the app using typical JS commands
+cd qwik/app; npm test
+# Test the lib using typical JS commands
+cd qwik/lib; npm test
+# Use the Bazel CLI directly, testing all apps and libs
 bazel test //qwik/...
 ```
 
 
-### Start the hot reload app server:
-```
-ibazel run //qwik/app:devserver
-```
-* On Linux the hot reload works just once (see alternative below)
-* On MacOS the hot reload works as expected
+### Start the App
 
-### For Linux you can use a slower approach like so (>5s for update):
+**With hot-reload**:
+
+```shell
+cd qwik/app; npm run dev
 ```
-ibazel run //qwik/app:start
+
+**With vite restarting (>5s for update)**:
+
+```shell
+./tools/ibazel run //qwik/app:start
 ```
