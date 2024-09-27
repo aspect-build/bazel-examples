@@ -16,21 +16,20 @@ use_repo(python, "python_3_9")
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
-    requirements_lock = "//:requirements.txt",
     hub_name = "pip",
     python_version = "3.9",
+    requirements_lock = "//:requirements.txt",
 )
 use_repo(pip, "pip")
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
-
 oci.pull(
     name = "ubuntu",
     image = "ubuntu",
-    tag = "latest",
     platforms = [
         "linux/arm64/v8",
         "linux/amd64",
     ],
+    tag = "latest",
 )
 use_repo(oci, "ubuntu")
