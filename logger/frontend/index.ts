@@ -76,9 +76,7 @@ class ServerLogs {
 const serverLogs = new ServerLogs();
 const button = document.createElement('button');
 button.textContent = 'Get Server Logs';
-button.onclick = function () {
-  serverLogs.getServerLogs();
-};
+button.onclick = function () { serverLogs.getServerLogs(); };
 
 const logResultsDiv = document.createElement('div');
 logResultsDiv.setAttribute('id', 'log_results');
