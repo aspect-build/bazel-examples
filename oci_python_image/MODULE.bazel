@@ -4,7 +4,7 @@ bazel_dep(name = "aspect_bazel_lib", version = "2.7.8")
 bazel_dep(name = "container_structure_test", version = "1.16.0")
 bazel_dep(name = "aspect_rules_py", version = "0.7.3")
 bazel_dep(name = "rules_python", version = "0.34.0")
-bazel_dep(name = "rules_oci", version = "1.8.0")
+bazel_dep(name = "rules_oci", version = "2.0.0")
 bazel_dep(name = "platforms", version = "0.0.10")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
@@ -16,21 +16,20 @@ use_repo(python, "python_3_9")
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
-    requirements_lock = "//:requirements.txt",
     hub_name = "pip",
     python_version = "3.9",
+    requirements_lock = "//:requirements.txt",
 )
 use_repo(pip, "pip")
 
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
-
 oci.pull(
     name = "ubuntu",
     image = "ubuntu",
-    tag = "latest",
     platforms = [
         "linux/arm64/v8",
         "linux/amd64",
     ],
+    tag = "latest",
 )
 use_repo(oci, "ubuntu")

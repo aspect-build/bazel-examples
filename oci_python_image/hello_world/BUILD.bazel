@@ -2,7 +2,7 @@ load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@pip//:requirements.bzl", "requirement")
-load("@rules_oci//oci:defs.bzl", "oci_tarball")
+load("@rules_oci//oci:defs.bzl", "oci_load")
 load("//:py_layer.bzl", "py_oci_image")
 
 py_library(
@@ -66,12 +66,21 @@ platform_transition_filegroup(
     }),
 )
 
-# $ bazel run //hello_world:tarball
+# To build the image and load it into it into a local runtime:
+# $ bazel run //hello_world:image_load
 # $ docker run --rm gcr.io/oci_python_hello_world:latest
-oci_tarball(
-    name = "tarball",
+oci_load(
+    name = "image_load",
     image = ":platform_image",
     repo_tags = ["gcr.io/oci_python_hello_world:latest"],
+)
+
+# Use this if you need a tarball:
+# $ bazel build //hello_world:image_load.tar
+filegroup(
+    name = "image_load.tar",
+    srcs = [":image_load"],
+    output_group = "tarball",
 )
 
 container_structure_test(
