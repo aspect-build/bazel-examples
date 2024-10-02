@@ -31,3 +31,8 @@ js_library(
         ":node_modules/typescript-eslint",
     ],
 )
+
+sh_test(
+    name = "slow",
+    srcs = ["slow.sh"],
+)
