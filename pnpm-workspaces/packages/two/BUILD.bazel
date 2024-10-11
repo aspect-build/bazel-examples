@@ -2,7 +2,7 @@ load("@aspect_rules_js//npm:defs.bzl", "npm_package")
 
 # make this library available via node_modules
 npm_package(
-    name = "two",
+    name = "pkg",
     srcs = [
         "package.json",
         "src/main.js",
@@ -11,7 +11,5 @@ npm_package(
         "//:node_modules/@bazel-poc/first",
         "//:node_modules/cowsay",
     ],
-    # This is a perf improvement; the default will be flipped to False in rules_js 2.0
-    include_runfiles = False,
     visibility = ["//visibility:public"],
 )

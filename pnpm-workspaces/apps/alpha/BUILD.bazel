@@ -7,7 +7,7 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 npm_link_all_packages(name = "node_modules")
 
 ts_project(
-    name = "alpha",
+    name = "pkg",
     srcs = ["src/main.ts"],
     declaration = True,
     transpiler = partial.make(
@@ -26,6 +26,6 @@ ts_project(
 
 js_binary(
     name = "main",
-    data = [":alpha"],
+    data = [":pkg"],
     entry_point = "src/main.js",
 )

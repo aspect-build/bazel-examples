@@ -1,7 +1,7 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 
 js_library(
-    name = "beta",
+    name = "pkg",
     srcs = ["src/main.js"],
     deps = [
         "//:node_modules/@bazel-poc/shared",
@@ -13,6 +13,6 @@ js_library(
 
 js_binary(
     name = "main",
-    data = [":beta"],
+    data = [":pkg"],
     entry_point = "src/main.js",
 )
