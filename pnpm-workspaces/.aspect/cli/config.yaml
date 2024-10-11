@@ -1,0 +1,3 @@
+configure:
+  languages:
+    javascript: true
