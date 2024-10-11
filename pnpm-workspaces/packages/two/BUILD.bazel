@@ -1,15 +1,20 @@
-load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
 
-# make this library available via node_modules
-npm_package(
-    name = "pkg",
-    srcs = [
-        "package.json",
-        "src/main.js",
-    ],
-    data = [
+npm_link_all_packages(name = "node_modules")
+
+js_library(
+    name = "tsc",
+    srcs = ["src/main.js"],
+    deps = [
         "//:node_modules/@bazel-poc/first",
         "//:node_modules/cowsay",
     ],
+)
+
+js_library(
+    name = "pkg",
+    srcs = ["package.json"],
     visibility = ["//visibility:public"],
+    deps = [":tsc"],
 )
