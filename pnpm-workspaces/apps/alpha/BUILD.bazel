@@ -26,6 +26,6 @@ js_library(
 
 js_binary(
     name = "main",
-    data = [":pkg"],
+    data = [":tsc"],
     entry_point = "src/main.js",
 )
