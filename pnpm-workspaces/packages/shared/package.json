@@ -1,4 +1,4 @@
 {
   "name": "@bazel-poc/shared",
-  "main": "src/main.js"
+  "main": "src/lib.js"
 }
