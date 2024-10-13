@@ -30,7 +30,10 @@ def declare_main_js(ctx):
 aspect.register_configure_extension(
     id = "main_js",
     prepare = lambda _: aspect.PrepareResult(
-        sources = [aspect.SourceFiles("src/main.js", "src/main.ts")],
+        sources = [
+            aspect.SourceGlobs("**/main.ts"),
+            aspect.SourceGlobs("**/main.js"),
+        ],
     ),
     declare = declare_main_js,
 )
