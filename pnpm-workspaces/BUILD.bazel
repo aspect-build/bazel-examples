@@ -37,4 +37,5 @@ tsconfig_to_swcconfig.t2s(
 js_library(
     name = "pkg",
     srcs = ["package.json"],
+    visibility = ["//visibility:public"],
 )
