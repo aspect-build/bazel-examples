@@ -19,6 +19,8 @@ import %workspace%/.aspect/bazelrc/bazel6.bazelrc
 ### YOUR PROJECT SPECIFIC SETTINGS GO HERE ###
 common --enable_bzlmod
 
+common --@aspect_rules_ts//ts:skipLibCheck=always
+
 # Load any settings & overrides specific to the current user from `.aspect/bazelrc/user.bazelrc`.
 # This file should appear in `.gitignore` so that settings are not shared with team members. This
 # should be last statement in this config so the user configuration is able to overwrite flags from

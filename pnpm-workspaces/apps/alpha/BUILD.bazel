@@ -1,31 +1,31 @@
-load("@aspect_rules_swc//swc:defs.bzl", "swc")
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
-load("@aspect_rules_js//js:defs.bzl", "js_binary")
-load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//:defs.bzl", "ts_project")
 
 npm_link_all_packages(name = "node_modules")
 
 ts_project(
-    name = "alpha",
+    name = "tsc",
     srcs = ["src/main.ts"],
     declaration = True,
-    transpiler = partial.make(
-        swc,
-        swcrc = "//:.swcrc",
-    ),
     tsconfig = "//:tsconfig",
     deps = [
         ":node_modules/inspirational-quotes",  # this uses the version defined in the local package.json
         "//:node_modules/@bazel-poc/one",
         "//:node_modules/@bazel-poc/shared",
-        "//:node_modules/@types/node",
+        "//:node_modules/@types/node",  # keep
         "//:node_modules/star-wars-quotes",
     ],
 )
 
+js_library(
+    name = "pkg",
+    srcs = ["package.json"],
+    deps = [":tsc"],
+)
+
 js_binary(
     name = "main",
-    data = [":alpha"],
+    data = [":tsc"],
     entry_point = "src/main.js",
 )

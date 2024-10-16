@@ -1,0 +1,83 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@npm//qwik/app:vite/package_json.bzl", vite_bin = "bin")
+load("@npm//qwik/app:vitest/package_json.bzl", vitest_bin = "bin")
+
+npm_link_all_packages(name = "node_modules")
+
+CONFIGS = [
+    "vite.config.ts",
+    "package.json",
+    "qwik.env.d.ts",
+    "tsconfig.json",
+]
+
+BUILD_DEPS = [":node_modules/" + d for d in [
+    "vite",
+    "@builder.io/qwik",
+    "@builder.io/qwik-city",
+    "vite-tsconfig-paths",
+    "my-qwik-library-name",
+]]
+
+copy_to_bin(
+    name = "vite_srcs_export",
+    srcs = glob([
+        "src/**/*.css",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "public/**/*.json",
+        "public/**/*.svg",
+        "public/**/*.txt",
+    ]),
+)
+
+vite_bin.vite(
+    name = "vite",
+    srcs = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
+    args = ["build --config vite.config.ts"],
+    chdir = package_name(),
+    out_dirs = ["dist"],
+)
+
+vite_bin.vite_binary(
+    name = "start",
+    args = ["--mode ssr --config vite.config.ts"],
+    chdir = package_name(),
+    data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
+)
+
+vitest_bin.vitest_test(
+    name = "vitest",
+    args = [
+        "run",
+        "--config=vite.config.ts",
+    ],
+    chdir = package_name(),
+    data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"] + [":node_modules/vitest"] + glob([
+        "src/**/*.spec.tsx",
+    ]),
+)
+
+# Hot reload development server.
+# Vite has a problem with reloading libraries: https://github.com/vitejs/vite/issues/8619
+# the current solution works for a single library update (on Linux),
+# then it needs to restart the ibazel execution.
+#
+# For MacOS it should work just fine.
+#
+# The main app will update fast using Vite, but the libraries will need a restart.
+#
+# Until this is resolved, maybe the start command will be of better use for hot reload.
+vite_bin.vite_binary(
+    name = "vite_tool",
+)
+
+js_run_devserver(
+    name = "devserver",
+    args = ["--mode ssr --config vite.config.ts"],
+    chdir = package_name(),
+    data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
+    tool = ":vite_tool",
+)

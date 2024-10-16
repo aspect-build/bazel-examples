@@ -1,13 +1,16 @@
-load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
 
-# make this library available via node_modules
-npm_package(
-    name = "first",
-    srcs = [
-        "package.json",
-        "src/main.js",
-    ],
-    # This is a perf improvement; the default will be flipped to False in rules_js 2.0
-    include_runfiles = False,
+npm_link_all_packages(name = "node_modules")
+
+js_library(
+    name = "tsc",
+    srcs = ["src/lib.js"],
+)
+
+js_library(
+    name = "pkg",
+    srcs = ["package.json"],
     visibility = ["//visibility:public"],
+    deps = [":tsc"],
 )

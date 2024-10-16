@@ -1,30 +1,22 @@
-load("@aspect_rules_swc//swc:defs.bzl", "swc")
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
-load("@aspect_rules_js//npm:defs.bzl", "npm_package")
-load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//:defs.bzl", "ts_project")
+
+npm_link_all_packages(name = "node_modules")
 
 ts_project(
-    name = "shared_ts",
-    srcs = ["src/main.ts"],
+    name = "tsc",
+    srcs = ["src/lib.ts"],
     declaration = True,
-    transpiler = partial.make(
-        swc,
-        swcrc = "//:.swcrc",
-    ),
     tsconfig = "//:tsconfig",
     deps = [
-        "//:node_modules/@types/node",
+        "//:node_modules/@types/node",  # keep
     ],
 )
 
-# make this library available via node_modules
-npm_package(
-    name = "shared",
-    srcs = [
-        "package.json",
-        "src/main.js",
-    ],
-    # This is a perf improvement; the default will be flipped to False in rules_js 2.0
-    include_runfiles = False,
+js_library(
+    name = "pkg",
+    srcs = ["package.json"],
     visibility = ["//visibility:public"],
+    deps = [":tsc"],
 )
