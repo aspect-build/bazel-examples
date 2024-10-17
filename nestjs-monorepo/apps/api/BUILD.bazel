@@ -1,0 +1,45 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+
+ts_config(
+    name = "api_tsconfig",
+    src = "tsconfig.app.json",
+)
+
+ts_project(
+    name = "api",
+    srcs = glob(["src/**/*.ts"], ["src/**/*.spec.ts"]),
+    extends = "//:root_tsconfig",
+    incremental = True,
+    source_map = True,
+    declaration = True,
+    # transpiler = "tsc",
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:.swcrc",
+    ),
+    tsconfig = ":api_tsconfig",
+    deps = [
+        "//:node_modules/@nestjs/common",
+        "//:node_modules/@types/node",
+        "//:node_modules/@nestjs/core",
+
+        # For lib in monorepo with import alias (e.g. @app/auth which defined in tsconfig.json)
+        "//:node_modules/@app/auth",
+    ],
+)
+
+
+# bazel run //src:server
+js_binary(
+    name = "bin",
+    data = [
+        ":api",
+
+        "//:node_modules/regenerator-runtime",
+    ],
+    entry_point = "src/main.js",
+    log_level = "debug",
+)
