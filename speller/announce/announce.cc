@@ -8,7 +8,7 @@
 // compatibility with code written that way, but I can't recall it
 // while writing this comment.
 
-#include "speller/greeting/greeting.h"
+#include "speller/greeting/greeting"
 
 namespace Speller {
 
