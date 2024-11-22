@@ -1,5 +1,5 @@
-load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -13,5 +13,6 @@ ts_proto_library(
     name = "eliza_ts_proto",
     node_modules = "//packages/connect:node_modules",
     proto = ":eliza_proto",
+    proto_srcs = ["eliza.proto"],
     visibility = ["//visibility:public"],
 )
