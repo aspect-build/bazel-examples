@@ -1,0 +1,98 @@
+"Bazel module dependencies"
+
+bazel_dep(name = "aspect_bazel_lib", version = "2.9.4")
+bazel_dep(name = "aspect_rules_esbuild", version = "0.21.0")
+bazel_dep(name = "aspect_rules_js", version = "2.1.0")
+bazel_dep(name = "aspect_rules_ts", version = "3.3.1")
+bazel_dep(name = "rules_nodejs", version = "6.3.2")
+
+# Duplicates the definition in sass_workaround.bzl.
+# Required because MODULE.bazel cannot load() symbols from other starlark code.
+# TODO(alexeagle): find a better way
+SASS_DEPS = ["@angular/cdk"] + [
+    "@material/" + p
+    for p in [
+        "animation",
+        "base",
+        "button",
+        "card",
+        "checkbox",
+        "chips",
+        "circular-progress",
+        "data-table",
+        "density",
+        "dialog",
+        "dom",
+        "elevation",
+        "fab",
+        "feature-targeting",
+        "floating-label",
+        "focus-ring",
+        "form-field",
+        "line-ripple",
+        "linear-progress",
+        "list",
+        "menu",
+        "menu-surface",
+        "notched-outline",
+        "icon-button",
+        "radio",
+        "ripple",
+        "rtl",
+        "select",
+        "shape",
+        "slider",
+        "snackbar",
+        "switch",
+        "tab",
+        "tab-bar",
+        "tab-indicator",
+        "tab-scroller",
+        "textfield",
+        "theme",
+        "tooltip",
+        "touch-target",
+        "tokens",
+        "typography",
+    ]
+]
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+
+ts = use_extension("@aspect_rules_ts//ts:extensions.bzl", "ext")
+
+node.toolchain(node_version = "16.14.2")
+
+npm.npm_translate_lock(
+    name = "npm",
+    bins = {
+        "@angular/compiler-cli": [
+            "ngcc=./bundles/ngcc/main-ngcc.js",
+        ],
+    },
+    custom_postinstalls = {
+        "ng2-dragula": "ngcc --source .",
+    },
+    npm_package_target_name = "{dirname}",
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+    public_hoist_packages = {
+        p: ["packages/lib-a"]
+        for p in SASS_DEPS
+    },
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+
+ts.deps(
+    ts_version_from = "//:package.json",
+)
+
+use_repo(pnpm, "pnpm")
+
+use_repo(npm, "npm")
+
+use_repo(ts, "npm_typescript")
