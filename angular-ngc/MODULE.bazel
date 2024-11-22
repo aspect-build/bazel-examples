@@ -75,6 +75,9 @@ npm.npm_translate_lock(
         ],
     },
     custom_postinstalls = {
+        # ngcc wants to write a lockfile in its own, so we must make that writeable.
+        # https://github.com/angular/angular/blob/15.2.10/packages/compiler-cli/ngcc/src/locking/lock_file.ts#L23
+        "@angular/compiler-cli": "chmod -R a+X .",
         "ng2-dragula": "ngcc --source .",
     },
     npm_package_target_name = "{dirname}",
