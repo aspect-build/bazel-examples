@@ -9,9 +9,7 @@ ts_project(
     srcs = ["src/lib.ts"],
     declaration = True,
     tsconfig = "//:tsconfig",
-    deps = [
-        "//:node_modules/@types/node",  # keep
-    ],
+    deps = ["//:node_modules/@types/node"],
 )
 
 js_library(

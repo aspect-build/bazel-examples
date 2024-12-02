@@ -10,10 +10,10 @@ ts_project(
     declaration = True,
     tsconfig = "//:tsconfig",
     deps = [
-        ":node_modules/inspirational-quotes",  # this uses the version defined in the local package.json
+        ":node_modules/inspirational-quotes",
         "//:node_modules/@bazel-poc/one",
         "//:node_modules/@bazel-poc/shared",
-        "//:node_modules/@types/node",  # keep
+        "//:node_modules/@types/node",
         "//:node_modules/star-wars-quotes",
     ],
 )
@@ -21,6 +21,7 @@ ts_project(
 js_library(
     name = "pkg",
     srcs = ["package.json"],
+    visibility = ["//visibility:public"],
     deps = [":tsc"],
 )
 

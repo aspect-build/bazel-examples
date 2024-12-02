@@ -1,3 +1,4 @@
+import { format } from 'node:util';
 export function shared() {
-  console.log('Sharing is indeed caring!');
+  console.log(format('Sharing is indeed %s!', 'caring'));
 }
