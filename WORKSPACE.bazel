@@ -1,5 +1,1 @@
-# Marker file that makes this the root of a Bazel workspace
-# See https://bazel.build/concepts/build-ref#workspace
-
-# Older workspaces often contain significant configuration in this file, but
-# that has been replaced by the bzlmod mechanism configured in MODULE.bazel.
+# Workaround https://github.com/bazelbuild/bazel-watcher/pull/647
