@@ -1,6 +1,7 @@
 # List generated files
 # - prevents GitHub from showing deltas during code review
 # - informs the rules_lint formatter not to apply formatting rules
+MODULE.bazel.lock      linguist-generated=true
 maven_install.json     linguist-generated=true
 pnpm-lock.yaml         linguist-generated=true
 swift_deps_index.json  linguist-generated=true
