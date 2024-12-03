@@ -36,7 +36,7 @@ func startGrpc() error {
 
 type server struct{}
 
-// SendLogMessage implements logger.LoggerServer by recieving a message and storing it with a timestamp
+// SendLogMessage implements logger.LoggerServer by receiving a message and storing it with a timestamp
 func (s *server) SendLogMessage(ctx context.Context, in *pb.LogMessage) (*pb.Empty, error) {
 	t := int64(time.Now().Unix())
 	fmt.Printf("Log received: {%s, %d}\n", in.Message, t)
