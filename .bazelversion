@@ -1,4 +1,4 @@
-7.3.1
+7.4.1
 
 # The first line of this file is the version of Bazel that Bazelisk will
 # download. We use the latest version of Bazel because we rely on strong testing
