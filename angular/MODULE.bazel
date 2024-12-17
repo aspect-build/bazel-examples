@@ -4,3 +4,33 @@
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
+module(
+    name = "angular-example",
+    compatibility_level = 1,
+)
+
+bazel_dep(name = "aspect_rules_js", version = "2.1.2")
+bazel_dep(name = "aspect_bazel_lib", version = "2.10.0")
+bazel_dep(name = "rules_nodejs", version = "6.3.2")
+
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+
+### Use default Node
+node.toolchain()
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
+npm.npm_translate_lock(
+    name = "npm",
+    bins = {
+        "@angular/compiler-cli": [
+            "ngcc=./bundles/ngcc/main-ngcc.js",
+        ],
+    },
+    custom_postinstalls = {
+        "ng2-dragula": "ngcc --source .",
+    },
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+use_repo(npm, "npm")
