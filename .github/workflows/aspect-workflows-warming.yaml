@@ -1,0 +1,34 @@
+name: Aspect Workflows Warming
+
+on:
+    # Run the workflows on a cron schedule to periodically create an up-to-date warming archive
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+    schedule:
+        - cron: '0 8 * * *'
+
+    # Allow this to be triggered manually via the GitHub UI Actions tab
+    workflow_dispatch:
+
+jobs:
+    warming-archive:
+        name: Aspect Workflows Warming
+        runs-on: [self-hosted, aspect-workflows, aspect-warming]
+        env:
+            ASPECT_WORKFLOWS_BIN_DIR: /etc/aspect/workflows/bin
+        steps:
+            - name: Workflows environment
+              run: ${ASPECT_WORKFLOWS_BIN_DIR}/configure_workflows_env
+            - uses: actions/checkout@v4
+              with:
+                  ref: main-gha
+            - name: Agent health check
+              # Set RUNNER_TRACKER_ID="" to prevent GitHub Actions from killing the Bazel server started
+              # during health check when "Cleaning up orphan processes" in the "Complete job" step.
+              # See https://github.com/actions/runner/issues/598.
+              run: RUNNER_TRACKER_ID="" && ${ASPECT_WORKFLOWS_BIN_DIR}/agent_health_check
+            - name: Create warming archive
+              uses: aspect-build/workflows-action@5.12.0-alpha0.dev.68.g41b1e2f
+              with:
+                  task: warming
+            - name: Archive warming tars
+              run: ${ASPECT_WORKFLOWS_BIN_DIR}/warming_archive
