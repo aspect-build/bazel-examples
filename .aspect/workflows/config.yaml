@@ -4,8 +4,5 @@ tasks:
   - lint:
   - format:
   - test:
-      bazel:
-          flags:
-            - --config=rbe
 notifications:
   github: {}
