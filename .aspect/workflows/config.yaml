@@ -7,5 +7,6 @@ tasks:
       bazel:
           flags:
             - --config=rbe
+            - --action_env=FOO=bar
 notifications:
   github: {}
