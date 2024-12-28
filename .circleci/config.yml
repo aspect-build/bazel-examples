@@ -1,0 +1,200 @@
+# GENERATED FILE - DO NOT EDIT!
+# Update with: bazel run //.circleci:write_merged_config
+version: 2.1
+workflows:
+  aspect-workflows:
+    jobs:
+    - aw-format:
+        context: []
+        workspace: .
+    - aw-lint:
+        context: []
+        workspace: .
+    - aw-test:
+        context: []
+        workspace: .
+    when:
+      not:
+        equal:
+        - scheduled_pipeline
+        - << pipeline.trigger_source >>
+  aspect-workflows-warming:
+    jobs:
+    - aw-warming: {}
+    when:
+      and:
+      - equal:
+        - scheduled_pipeline
+        - << pipeline.trigger_source >>
+      - equal:
+        - aspect-workflows-warming
+        - << pipeline.schedule.name >>
+  user-workflow:
+    jobs:
+    - user-job
+    when:
+      and:
+      - not:
+          equal:
+          - << pipeline.trigger_source >>
+          - scheduled_pipeline
+jobs:
+  aw-format:
+    environment:
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
+      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
+      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
+      ASPECT_WORKFLOWS_WORKSPACE: << parameters.workspace >>
+      XDG_CACHE_HOME: /mnt/ephemeral/caches
+    machine: true
+    parameters:
+      workspace:
+        type: string
+    resource_class: aspect-build/aspect-default
+    steps:
+    - run:
+        command: /etc/aspect/workflows/bin/configure_workflows_env
+        name: Workflows environment
+    - checkout
+    - run:
+        command: rm -rf /workflows/artifacts /workflows/testlogs
+        name: Prepare archive directories
+    - run:
+        command: /etc/aspect/workflows/bin/agent_health_check
+        name: Agent health check
+        no_output_timeout: 180m
+    - run:
+        command: rosetta run checkout
+        name: Checkout health
+        no_output_timeout: 180m
+    - run:
+        command: rosetta run format --workspace << parameters.workspace >>
+        name: Format
+        no_output_timeout: 180m
+    - store_artifacts:
+        path: /workflows/artifacts
+    - run:
+        command: rosetta run finalization
+        name: Finalization
+        no_output_timeout: 10m
+        when: always
+    working_directory: /mnt/ephemeral/workdir
+  aw-lint:
+    environment:
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
+      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
+      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
+      ASPECT_WORKFLOWS_WORKSPACE: << parameters.workspace >>
+      XDG_CACHE_HOME: /mnt/ephemeral/caches
+    machine: true
+    parameters:
+      workspace:
+        type: string
+    resource_class: aspect-build/aspect-default
+    steps:
+    - run:
+        command: /etc/aspect/workflows/bin/configure_workflows_env
+        name: Workflows environment
+    - checkout
+    - run:
+        command: rm -rf /workflows/artifacts /workflows/testlogs
+        name: Prepare archive directories
+    - run:
+        command: /etc/aspect/workflows/bin/agent_health_check
+        name: Agent health check
+        no_output_timeout: 180m
+    - run:
+        command: rosetta run checkout
+        name: Checkout health
+        no_output_timeout: 180m
+    - run:
+        command: rosetta run lint --workspace << parameters.workspace >>
+        name: Lint
+        no_output_timeout: 180m
+    - store_artifacts:
+        path: /workflows/artifacts
+    - run:
+        command: rosetta run finalization
+        name: Finalization
+        no_output_timeout: 10m
+        when: always
+    working_directory: /mnt/ephemeral/workdir
+  aw-test:
+    environment:
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
+      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
+      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
+      ASPECT_WORKFLOWS_WORKSPACE: << parameters.workspace >>
+      XDG_CACHE_HOME: /mnt/ephemeral/caches
+    machine: true
+    parameters:
+      workspace:
+        type: string
+    resource_class: aspect-build/aspect-default
+    steps:
+    - run:
+        command: /etc/aspect/workflows/bin/configure_workflows_env
+        name: Workflows environment
+    - checkout
+    - run:
+        command: rm -rf /workflows/artifacts /workflows/testlogs
+        name: Prepare archive directories
+    - run:
+        command: /etc/aspect/workflows/bin/agent_health_check
+        name: Agent health check
+        no_output_timeout: 180m
+    - run:
+        command: rosetta run checkout
+        name: Checkout health
+        no_output_timeout: 180m
+    - run:
+        command: rosetta run test --workspace << parameters.workspace >>
+        name: Test
+        no_output_timeout: 180m
+    - store_test_results:
+        path: /workflows/testlogs
+    - store_artifacts:
+        path: /workflows/testlogs
+    - store_artifacts:
+        path: /workflows/artifacts
+    - run:
+        command: rosetta run finalization
+        name: Finalization
+        no_output_timeout: 10m
+        when: always
+    working_directory: /mnt/ephemeral/workdir
+  aw-warming:
+    environment:
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
+      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
+      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
+      XDG_CACHE_HOME: /mnt/ephemeral/caches
+    machine: true
+    resource_class: aspect-build/aspect-warming
+    steps:
+    - run:
+        command: /etc/aspect/workflows/bin/configure_workflows_env
+        name: Workflows environment
+    - checkout
+    - run:
+        command: /etc/aspect/workflows/bin/agent_health_check
+        name: Agent health check
+        no_output_timeout: 180m
+    - run:
+        command: rosetta run warming --workspace .
+        name: Create warming archive for root
+        no_output_timeout: 180m
+    - run:
+        command: /etc/aspect/workflows/bin/warming_archive
+        name: Archive warming tars
+    working_directory: /mnt/ephemeral/workdir
+  user-job:
+    docker:
+    - image: cimg/base:2023.03
+    steps:
+    - checkout
+    - run: echo "Example user CircleCI job that is not generated by Aspect Workflows."
