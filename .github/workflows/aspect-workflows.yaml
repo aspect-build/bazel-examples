@@ -1,0 +1,29 @@
+name: Aspect Workflows
+
+on:
+    # Triggers the workflow on the main-gha branch and on pull requests with main-gha bases
+    push:
+        branches: [main-gha]
+    pull_request:
+        branches: [main-gha]
+
+    # Run the workflows on a cron schedule to run once a day on main branch
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+    schedule:
+        - cron: '0 14 * * 1-5'
+
+    # Allow this to be triggered manually via the GitHub UI Actions tab
+    workflow_dispatch:
+
+concurrency:
+    # Cancel previous actions from the same PR or branch except 'main-gha' branch.
+    # See https://docs.github.com/en/actions/using-jobs/using-concurrency and https://docs.github.com/en/actions/learn-github-actions/contexts for more info.
+    group: concurrency-group::${{ github.workflow }}::${{ github.event.pull_request.number > 0 && format('pr-{0}', github.event.pull_request.number) || github.ref_name }}${{ github.ref_name == 'main-gha' && format('::{0}', github.run_id) || ''}}
+    cancel-in-progress: ${{ github.ref_name != 'main-gha' }}
+
+jobs:
+    aspect-workflows:
+        name: Aspect Workflows
+        uses: ./.github/workflows/.aspect-workflows-reusable.yaml
+        with:
+            queue: aspect-small
