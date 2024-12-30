@@ -2,7 +2,7 @@ load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
 
 CIRCLECI_ORG = "aspect-build"
 
-CIRCLECI_USER_CONFIG_FILE = "//.circleci:user-config.yml"
+CIRCLECI_USER_CONFIG_FILE = "//.circleci:user.yml"
 
 alias(
     name = "rosetta",
