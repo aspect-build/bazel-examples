@@ -19,8 +19,6 @@ jobs:
             - name: Workflows environment
               run: ${ASPECT_WORKFLOWS_BIN_DIR}/configure_workflows_env
             - uses: actions/checkout@v4
-              with:
-                  ref: main-gha
             - name: Agent health check
               # Set RUNNER_TRACKER_ID="" to prevent GitHub Actions from killing the Bazel server started
               # during health check when "Cleaning up orphan processes" in the "Complete job" step.

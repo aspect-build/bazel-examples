@@ -1,11 +1,11 @@
 name: Aspect Workflows
 
 on:
-    # Triggers the workflow on the main-gha branch and on pull requests with main-gha bases
+    # Triggers the workflow on main and on pull request to main
     push:
-        branches: [main-gha]
+        branches: [main]
     pull_request:
-        branches: [main-gha]
+        branches: [main]
 
     # Run the workflows on a cron schedule to run once a day on main branch
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
@@ -16,10 +16,10 @@ on:
     workflow_dispatch:
 
 concurrency:
-    # Cancel previous actions from the same PR or branch except 'main-gha' branch.
+    # Cancel previous actions from the same PR or branch except 'main' branch.
     # See https://docs.github.com/en/actions/using-jobs/using-concurrency and https://docs.github.com/en/actions/learn-github-actions/contexts for more info.
-    group: concurrency-group::${{ github.workflow }}::${{ github.event.pull_request.number > 0 && format('pr-{0}', github.event.pull_request.number) || github.ref_name }}${{ github.ref_name == 'main-gha' && format('::{0}', github.run_id) || ''}}
-    cancel-in-progress: ${{ github.ref_name != 'main-gha' }}
+    group: concurrency-group::${{ github.workflow }}::${{ github.event.pull_request.number > 0 && format('pr-{0}', github.event.pull_request.number) || github.ref_name }}${{ github.ref_name == 'main' && format('::{0}', github.run_id) || ''}}
+    cancel-in-progress: ${{ github.ref_name != 'main' }}
 
 jobs:
     aspect-workflows:
