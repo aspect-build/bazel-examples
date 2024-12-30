@@ -1,3 +1,4 @@
+# See https://docs.aspect.build/workflows/configuration
 tasks:
   - checkout:
       update_strategy: rebase
