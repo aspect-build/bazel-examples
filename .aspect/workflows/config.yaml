@@ -10,7 +10,8 @@ tasks:
       rules:
         - condition:
             only_on_change: false
-            tags:
+            branches:
+              - ^delivery$
               - ^delivery-v[0-9]+$
 notifications:
   github: {}

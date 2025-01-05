@@ -7,8 +7,9 @@ workflows:
     - aw-auto-deliver:
         context: []
         filters:
-          tags:
+          branches:
             only:
+            - /^delivery$/
             - /^delivery-v[0-9]+$/
         requires:
         - aw-test
@@ -266,8 +267,11 @@ jobs:
           - <<parameters.delivery_manifest>>
           - or:
             - matches:
+                pattern: ^delivery$
+                value: << pipeline.git.branch >>
+            - matches:
                 pattern: ^delivery-v[0-9]+$
-                value: << pipeline.git.tag >>
+                value: << pipeline.git.branch >>
         steps:
         - run:
             command: rosetta run delivery_manifest --workspace << parameters.workspace
