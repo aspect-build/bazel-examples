@@ -4,6 +4,15 @@ version: 2.1
 workflows:
   aspect-workflows:
     jobs:
+    - aw-auto-deliver:
+        context: []
+        filters:
+          tags:
+            only:
+            - /^delivery-v[0-9]+$/
+        requires:
+        - aw-test
+        workspace: .
     - aw-format:
         context: []
         workspace: .
@@ -50,6 +59,43 @@ workflows:
           - << pipeline.trigger_source >>
           - scheduled_pipeline
 jobs:
+  aw-auto-deliver:
+    environment:
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
+      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
+      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
+      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
+      ASPECT_WORKFLOWS_DELIVERY_COMMIT: << pipeline.parameters.delivery_commit >>
+      ASPECT_WORKFLOWS_WORKSPACE: << parameters.workspace >>
+      XDG_CACHE_HOME: /mnt/ephemeral/caches
+    machine: true
+    parameters:
+      workspace:
+        type: string
+    resource_class: aspect-build/aspect-default
+    steps:
+    - run:
+        command: /etc/aspect/workflows/bin/configure_workflows_env
+        name: Workflows environment
+    - checkout
+    - run:
+        command: /etc/aspect/workflows/bin/agent_health_check
+        name: Agent health check
+        no_output_timeout: 180m
+    - run:
+        command: git fetch
+        name: Git fetch
+    - when:
+        condition: << pipeline.parameters.delivery_commit >>
+        steps:
+        - run:
+            command: git checkout << pipeline.parameters.delivery_commit >>
+            name: Checkout release commit
+    - run:
+        command: rosetta run delivery
+        name: Delivery
+        no_output_timeout: 180m
+    working_directory: /mnt/ephemeral/workdir
   aw-format:
     environment:
       ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
@@ -220,8 +266,8 @@ jobs:
           - <<parameters.delivery_manifest>>
           - or:
             - matches:
-                pattern: ^delivery$
-                value: << pipeline.git.branch >>
+                pattern: ^delivery-v[0-9]+$
+                value: << pipeline.git.tag >>
         steps:
         - run:
             command: rosetta run delivery_manifest --workspace << parameters.workspace

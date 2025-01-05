@@ -6,11 +6,11 @@ tasks:
   - format:
   - test:
   - delivery:
-      auto_deliver: false
+      auto_deliver: true
       rules:
         - condition:
             only_on_change: false
-            branches:
-              - ^delivery$
+            tags:
+              - ^delivery-v[0-9]+$
 notifications:
   github: {}
