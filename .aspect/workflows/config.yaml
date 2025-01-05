@@ -5,5 +5,12 @@ tasks:
   - lint:
   - format:
   - test:
+  - delivery:
+      auto_deliver: false
+      rules:
+        - condition:
+            only_on_change: false
+            branches:
+              - ^delivery$
 notifications:
   github: {}

@@ -31,3 +31,9 @@ js_library(
         ":node_modules/typescript-eslint",
     ],
 )
+
+sh_binary(
+    name = "deliverable",
+    srcs = ["deliverable.sh"],
+    tags = ["deliverable"],
+)
