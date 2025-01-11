@@ -6,7 +6,7 @@
 # For bzlmod dependencies, this implements the "single version policy".
 
 bazel_dep(name = "apple_support", version = "1.11.1")
-bazel_dep(name = "aspect_bazel_lib", version = "2.8.0")
+bazel_dep(name = "aspect_bazel_lib", version = "2.10.0")
 bazel_dep(name = "aspect_rules_js", version = "2.0.0")
 bazel_dep(name = "aspect_rules_lint", version = "1.0.0-rc10")
 bazel_dep(name = "aspect_rules_swc", version = "2.0.0")
