@@ -1,0 +1,87 @@
+{
+  "$schema": "https://raw.githubusercontent.com/theoremlp/rules_multitool/main/lockfile.schema.json",
+  "circleci-config-merge": {
+    "binaries": [
+      {
+        "kind": "archive",
+        "url": "https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.6/circleci-config-merge_1.1.6_linux_arm64.tar.gz",
+        "file": "circleci-config-merge",
+        "sha256": "31a5d542644af6af4b82c7cce59cf1088213f2b51c3816f327c6950e02bacd6b",
+        "os": "linux",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.6/circleci-config-merge_1.1.6_linux_amd64.tar.gz",
+        "file": "circleci-config-merge",
+        "sha256": "dde6099fb7528590f5a224b77205dfa97c1d0f37257ff37dec0da787b65f5bec",
+        "os": "linux",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.6/circleci-config-merge_1.1.6_darwin_arm64.tar.gz",
+        "file": "circleci-config-merge",
+        "sha256": "edc41e2eb49545947e990bbf9e39fec7ffc421bd9b853576f89f1f69f447a6be",
+        "os": "macos",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.6/circleci-config-merge_1.1.6_darwin_amd64.tar.gz",
+        "file": "circleci-config-merge",
+        "sha256": "bc728349d0da60ae7c31ab9d27dc8e3d12a1f8e4ff2e24d057ff44d3b44bf2a0",
+        "os": "macos",
+        "cpu": "x86_64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.6/circleci-config-merge_1.1.6_windows_arm64.zip",
+        "file": "circleci-config-merge.exe",
+        "sha256": "f29886c2e65027efe3fc648cacb9adf3b2fc9665e86737271bd0d78a754b461c",
+        "os": "windows",
+        "cpu": "arm64"
+      },
+      {
+        "kind": "archive",
+        "url": "https://github.com/suzuki-shunsuke/circleci-config-merge/releases/download/v1.1.6/circleci-config-merge_1.1.6_windows_amd64.zip",
+        "file": "circleci-config-merge.exe",
+        "sha256": "14e2bd8fcfd72dc5c990a51a76ba0d03e97f8d3301ed6f0017961b25b75cdb99",
+        "os": "windows",
+        "cpu": "x86_64"
+      }
+    ]
+  },
+  "rosetta": {
+    "binaries": [
+      {
+        "kind": "file",
+        "os": "linux",
+        "cpu": "arm64",
+        "url": "https://static.aspect.build/aspect/5.11.0/rosetta_real_linux_arm64",
+        "sha256": "ab0b1c12093d91d327359f5d7fe0b0f1a3e8d59a242075624bafba9c24ac7d25"
+      },
+      {
+        "kind": "file",
+        "os": "linux",
+        "cpu": "x86_64",
+        "url": "https://static.aspect.build/aspect/5.11.0/rosetta_real_linux_x86_64",
+        "sha256": "5a00dac4eb2c99aef30c71a1fa2678a7733206f20193a9b5dfc656cd1e388364"
+      },
+      {
+        "kind": "file",
+        "os": "macos",
+        "cpu": "arm64",
+        "url": "https://static.aspect.build/aspect/5.11.0/rosetta_real_darwin_arm64",
+        "sha256": "ce659dc6ca6e9e973d4b3e6264ea30d05a2d13ae8419ee9615e1e4e7ebf0309f"
+      },
+      {
+        "kind": "file",
+        "os": "macos",
+        "cpu": "x86_64",
+        "url": "https://static.aspect.build/aspect/5.11.0/rosetta_real_darwin_x86_64",
+        "sha256": "e55e92c6f2f741859b044fc6bb03f545e270a5ed339339dbfa3f27e15dfa3be1"
+      }
+    ]
+  }
+}

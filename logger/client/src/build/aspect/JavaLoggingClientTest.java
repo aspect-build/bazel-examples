@@ -2,7 +2,6 @@ package build.aspect;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -18,6 +17,6 @@ public final class JavaLoggingClientTest {
 
   @Test
   public void testHelloAgain() throws Exception {
-    assertEquals(1, 1);
+    assertEquals(1, 2 - 1);
   }
 }
