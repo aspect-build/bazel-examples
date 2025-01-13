@@ -3,7 +3,7 @@ import type { LogMessage } from '../schema/logger_pb';
 class ServerLogs {
   getServerLogs(): Promise<LogMessage[] | undefined> {
     return fetch('http://localhost:8081')
-      .then((response) => this.checkStatus(response))
+      .then(response => this.checkStatus(response))
       .then((response) =>
         this.parseJSON(response)
           .then((response) => {
@@ -14,7 +14,8 @@ class ServerLogs {
   }
 
   private checkStatus(response: Response): Promise<Response> {
-    console.log('in check status');
+    const msg: string = 'in check status';
+    console.log(msg);
     if (response.status >= 200 && response.status < 300) {
       return Promise.resolve(response);
     } else {
