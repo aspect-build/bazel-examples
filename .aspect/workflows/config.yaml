@@ -5,5 +5,11 @@ tasks:
   - lint:
   - format:
   - test:
+  - delivery:
+      hooks:
+        - type: before_task
+          command: echo $GITHUB_TOKEN | docker login $REGISTRY -u $GITHUB_ACTOR --password-stdin
+      rules:
+        - deliverable: 'kind("oci_push rule", //...)'
 notifications:
   github: {}
