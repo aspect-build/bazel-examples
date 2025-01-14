@@ -17,7 +17,6 @@ java-soap/
 jest/
 nestjs/
 node_snapshot_flags/
-oci_go_image/
 oci_java_image/
 oci_python_image/
 pnpm-workspaces/

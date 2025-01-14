@@ -63,7 +63,6 @@ jobs:
             go_workspaces/**
             jest/**
             nestjs/**
-            oci_go_image/**
             oci_python_image/**
             pnpm-workspaces/**
             prisma/**
