@@ -14,5 +14,11 @@ tasks:
           -  --test_tag_filters=-skip-on-aspect-workflows
       coverage:
         codecov_upload: true
+  - delivery:
+    hooks:
+      - type: before_task
+        command: echo $GITHUB_TOKEN | docker login $REGISTRY -u $GITHUB_ACTOR --password-stdin
+    rules:
+      - deliverable: 'kind("oci_push rule", //...)'
 notifications:
   github: {}
