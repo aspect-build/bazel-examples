@@ -23,9 +23,16 @@ jobs:
         with:
             path: fresh-clone
             fetch-depth: 0
-      - name: Push commits with credentials
-        working-directory: fresh-clone
+      - name: Setup credentials (cci)
+        if: matrix.dest == 'cci'
+        run: |
+            eval $(ssh-agent -s)
+            ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_CCI_DEPLOY_TOKEN }}'
+      - name: Setup credentials (gha)
+        if: matrix.dest == 'gha'
         run: |
             eval $(ssh-agent -s)
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GHA_DEPLOY_TOKEN }}'
-            git push git@github.com:aspect-build/bazel-examples-${{ matrix.dest }}.git HEAD:main
+      - name: Push commits
+        working-directory: fresh-clone
+        run: git push git@github.com:aspect-build/bazel-examples-${{ matrix.dest }}.git HEAD:main
