@@ -1,0 +1,39 @@
+# We maintain mirrors of this repo for demonstrating Aspect Workflows on other CI platforms.
+# This is documented in /.aspect/workflows/README.md.
+# The primary repo is tested on Buildkite because it's the best
+# https://buildkite.com/aspect/bazel-examples
+# When commits land there, we sync them to the others:
+# CircleCI: https://app.circleci.com/pipelines/github/aspect-build/bazel-examples-cci
+# GitHub Actions: https://github.com/aspect-build/bazel-examples-gha/actions/workflows/aspect-workflows.yaml
+name: Sync Mirrors
+on:
+  workflow_dispatch:
+  push:
+    branches: ['main']
+jobs:
+  push-cci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get a full history so all commits are present
+        uses: actions/checkout@v4
+        with:
+            path: fresh-clone
+            fetch-depth: 0
+      - working-directory: fresh-clone
+        run: |
+            eval $(ssh-agent -s)
+            ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_CCI_DEPLOY_TOKEN }}'
+            git push git@github.com:aspect-build/bazel-examples-cci.git HEAD:main
+  push-gha:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get a full history so all commits are present
+        uses: actions/checkout@v4
+        with:
+            path: fresh-clone
+            fetch-depth: 0                
+      - working-directory: fresh-clone
+        run: |
+            eval $(ssh-agent -s)
+            ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GHA_DEPLOY_TOKEN }}'
+            git push git@github.com:aspect-build/bazel-examples-gha.git HEAD:main
