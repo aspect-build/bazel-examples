@@ -233,6 +233,8 @@ use_repo(
     "swiftpkg_swifterswift",
 )
 
+##########################
+# Container images
 oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
 oci.pull(
     name = "distroless_base",
