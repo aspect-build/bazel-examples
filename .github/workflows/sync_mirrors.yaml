@@ -12,6 +12,7 @@ on:
     branches: ['main']
 jobs:
   push-cci:
+    if: github.repository == 'aspect-build/bazel-examples'
     runs-on: ubuntu-latest
     steps:
       - name: Get a full history so all commits are present
@@ -25,6 +26,7 @@ jobs:
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_CCI_DEPLOY_TOKEN }}'
             git push git@github.com:aspect-build/bazel-examples-cci.git HEAD:main
   push-gha:
+    if: github.repository == 'aspect-build/bazel-examples'
     runs-on: ubuntu-latest
     steps:
       - name: Get a full history so all commits are present
