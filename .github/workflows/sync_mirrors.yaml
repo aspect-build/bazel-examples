@@ -35,4 +35,4 @@ jobs:
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GHA_DEPLOY_TOKEN }}'
       - name: Push commits
         working-directory: fresh-clone
-        run: git push git@github.com:aspect-build/bazel-examples-${{ matrix.dest }}.git HEAD:main
+        run: git push git@github.com:aspect-build/bazel-examples-${{ matrix.dest }}.git HEAD:alex-test
