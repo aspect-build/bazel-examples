@@ -39,6 +39,10 @@ oci_image(
     # This is defined by an oci.pull() call in /MODULE.bazel
     base = "@distroless_base",
     entrypoint = ["/app"],
+    # Link the resulting image back to the repository where the build is defined.
+    labels = {
+        "org.opencontainers.image.source": "https://github.com/aspect-build/bazel-examples",
+    },
     tars = [":app_layer"],
 )
 
