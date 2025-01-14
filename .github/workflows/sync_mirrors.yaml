@@ -3,8 +3,8 @@
 # The primary repo is tested on Buildkite because it's the best
 # https://buildkite.com/aspect/bazel-examples
 # When commits land there, we sync them to the others:
-# CircleCI: https://app.circleci.com/pipelines/github/aspect-build/bazel-examples-cci
-# GitHub Actions: https://github.com/aspect-build/bazel-examples-gha/actions/workflows/aspect-workflows.yaml
+# CircleCI: https://buildkite.com/aspect/bazel-examples-cci
+# GitHub Actions: https://buildkite.com/aspect/bazel-examples-gha
 name: Sync Mirrors
 on:
   workflow_dispatch:
