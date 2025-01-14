@@ -11,7 +11,11 @@ on:
   push:
     branches: ['main']
 jobs:
-  push-cci:
+  sync:
+    if: github.repository == 'aspect-build/bazel-examples'
+    strategy:
+      matrix:
+        dest: ["cci", "gha"]
     runs-on: ubuntu-latest
     steps:
       - name: Get a full history so all commits are present
@@ -19,21 +23,11 @@ jobs:
         with:
             path: fresh-clone
             fetch-depth: 0
-      - working-directory: fresh-clone
+      - name: Setup credentials
         run: |
             eval $(ssh-agent -s)
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_CCI_DEPLOY_TOKEN }}'
-            git push git@github.com:aspect-build/bazel-examples-cci.git HEAD:main
-  push-gha:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get a full history so all commits are present
-        uses: actions/checkout@v4
-        with:
-            path: fresh-clone
-            fetch-depth: 0                
-      - working-directory: fresh-clone
-        run: |
-            eval $(ssh-agent -s)
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GHA_DEPLOY_TOKEN }}'
-            git push git@github.com:aspect-build/bazel-examples-gha.git HEAD:main
+      - name: Push commits
+        working-directory: fresh-clone
+        run: git push git@github.com:aspect-build/bazel-examples-${{ matrix.dest }}.git HEAD:main
