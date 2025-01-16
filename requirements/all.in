@@ -4,3 +4,4 @@
 -r test.in
 -r runtime.txt
 -r ../logger/cli/requirements.txt
+-r ../oci_python_image/requirements.txt
