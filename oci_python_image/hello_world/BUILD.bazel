@@ -3,7 +3,7 @@ load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@pip//:requirements.bzl", "requirement")
 load("@rules_oci//oci:defs.bzl", "oci_load")
-load("//:py_layer.bzl", "py_oci_image")
+load("//oci_python_image:py_layer.bzl", "py_oci_image")
 
 py_library(
     name = "hello_world_lib",
@@ -12,7 +12,6 @@ py_library(
         "app.py",
     ],
     imports = [".."],
-    visibility = ["//:__subpackages__"],
     deps = [
         requirement("cowsay"),
     ],
@@ -23,7 +22,6 @@ py_binary(
     srcs = ["__main__.py"],
     imports = [".."],
     main = "__main__.py",
-    visibility = ["//:__subpackages__"],
     deps = [":hello_world_lib"],
 )
 
@@ -36,9 +34,10 @@ py_binary(
 #9296e9071c11: Loading layer [==================================================>]  16.24kB/16.24kB
 py_oci_image(
     name = "image",
+    # This is defined by an oci.pull() call in /MODULE.bazel
     base = "@ubuntu",
     binary = "hello_world",
-    entrypoint = ["/hello_world/hello_world"],
+    entrypoint = ["/oci_python_image/hello_world/hello_world"],
 )
 
 platform(

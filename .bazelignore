@@ -18,7 +18,6 @@ jest/
 nestjs/
 node_snapshot_flags/
 oci_java_image/
-oci_python_image/
 pnpm-workspaces/
 prisma/
 rules_nodejs_to_rules_js_migration/
