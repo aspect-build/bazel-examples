@@ -4,5 +4,5 @@ metadataTest:
   entrypoint: ['/oci_python_image/hello_world/hello_world']
 commandTests:
   - name: run
-    command: /hello_world/hello_world
+    command: /oci_python_image/hello_world/hello_world
     expectedOutput: ['hello py_image_layer!']
