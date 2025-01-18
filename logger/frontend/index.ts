@@ -25,7 +25,7 @@ class ServerLogs {
 
   private parseJSON(response: Response): Promise<Response> {
     console.log('in parse json');
-    return response.json();
+    return response.json( );
   }
 
   private timestampToString(timestamp): string {
