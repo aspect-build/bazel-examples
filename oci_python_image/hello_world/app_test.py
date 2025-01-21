@@ -48,12 +48,12 @@ def OCIImageContainer(image):
     # Probe and layer loading phase
     layers = manifest["layers"]
     needed = []
-    i = 0
-    while i < len(layers):
-        layer = layers[i]
+
+    
+    # Probing phase
+    for i, layer in enumerate(layers):
         tmp = tempfile.NamedTemporaryFile(suffix=".tar")
         tar = tarfile.open(fileobj=tmp, mode="w")
-
         add_json_file(
             tar,
             name="manifest.json",
@@ -61,9 +61,7 @@ def OCIImageContainer(image):
                 {
                     "Config": "config.json",
                     "RepoTags": [],
-                    "Layers": list(
-                        map(lambda x: x["digest"], manifest["layers"][: i + 1])
-                    ),
+                    "Layers": [layer['digest']],
                 }
             ],
         )
@@ -73,27 +71,22 @@ def OCIImageContainer(image):
             contents={
                 "rootfs": {
                     "type": "layers",
-                    "diff_ids": config["rootfs"]["diff_ids"][: i + 1],
+                    "diff_ids": [config["rootfs"]["diff_ids"][i]],
                 }
             },
         )
 
-        if layer["digest"] in needed:
-            add_file(
-                tar, name=layer["digest"], fileobj=open_blob(image, layer["digest"])
-            )
-
         tar.close()
 
         try:
-            r = client.images.load(open(tmp.name, "rb"))
-            i += 1
-            # print(r[0].id)
             # os.system("tar -tvf %s" % tmp.name)
+            client.images.load(
+                open(tmp.name, "rb"),
+            )
         except docker.errors.ImageLoadError as e:
             needed.append(layer["digest"])
 
-    # Config loading phase
+    # Loading phase
     tmp = tempfile.NamedTemporaryFile(suffix=".tar")
     tar = tarfile.open(fileobj=tmp, mode="w")
     add_json_file(
@@ -110,12 +103,16 @@ def OCIImageContainer(image):
     add_file(
         tar, name="config.json", fileobj=open_blob(image, manifest["config"]["digest"])
     )
+    for layer in needed:
+        add_file(tar, name=layer, fileobj=open_blob(image, layer))
+
     tar.close()
     r = client.images.load(open(tmp.name, "rb"))
     return DockerContainer(r[0].id)
 
 
 def test_wait_for_hello():
+    print("Starting container")
     with OCIImageContainer("oci_python_image/hello_world/image") as container:
         wait_for_logs(container, "hello py_image_layer!")
 

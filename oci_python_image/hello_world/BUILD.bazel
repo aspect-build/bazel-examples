@@ -1,9 +1,8 @@
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
-load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library", "py_image_layer")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@pip//:requirements.bzl", "requirement")
-load("@rules_oci//oci:defs.bzl", "oci_load")
-load("//oci_python_image:py_layer.bzl", "py_oci_image")
+load("@rules_oci//oci:defs.bzl", "oci_load", "oci_image")
 
 py_library(
     name = "hello_world_lib",
@@ -32,13 +31,20 @@ py_binary(
 #2f2353bd5bea: Loading layer [==================================================>]  47.13MB/47.13MB
 #f02532d45017: Loading layer [==================================================>]   3.62MB/3.62MB
 #9296e9071c11: Loading layer [==================================================>]  16.24kB/16.24kB
-py_oci_image(
+py_image_layer(
+    name = "layers",
+    binary = ":hello_world",
+)
+
+oci_image(
     name = "image",
     # This is defined by an oci.pull() call in /MODULE.bazel
     base = "@ubuntu",
-    binary = "hello_world",
     entrypoint = ["/oci_python_image/hello_world/hello_world"],
+    tars = [":layers"],
 )
+
+# This is defined by an oci.pull() call in /MODULE.bazel
 
 platform(
     name = "aarch64_linux",
