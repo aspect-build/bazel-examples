@@ -9,3 +9,6 @@ common:rbe --remote_executor=unix:///mnt/ephemeral/buildbarn/.cache/bb_clientd/g
 common:rbe --genrule_strategy=remote,local
 common:rbe --jobs=32
 common:rbe --remote_timeout=3600
+
+# retry flaky tests
+common --flaky_test_attempts=5

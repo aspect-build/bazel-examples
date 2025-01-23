@@ -31,3 +31,12 @@ js_library(
         ":node_modules/typescript-eslint",
     ],
 )
+
+sh_test(
+    name = "flaky_sh_test",
+    srcs = ["flake.sh"],
+    flaky = True,
+    tags = [
+        "expected_to_fail",
+    ],
+)
