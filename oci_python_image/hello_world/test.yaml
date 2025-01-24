@@ -1,8 +1,8 @@
 # See https://github.com/GoogleContainerTools/container-structure-test#command-tests
 schemaVersion: 2.0.0
 metadataTest:
-  entrypoint: ['/hello_world/hello_world']
+  entrypoint: ['/oci_python_image/hello_world/hello_world']
 commandTests:
   - name: run
-    command: /hello_world/hello_world
+    command: /oci_python_image/hello_world/hello_world
     expectedOutput: ['hello py_image_layer!']

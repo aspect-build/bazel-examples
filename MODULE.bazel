@@ -9,6 +9,7 @@ bazel_dep(name = "apple_support", version = "1.15.1")
 bazel_dep(name = "aspect_bazel_lib", version = "2.10.0")
 bazel_dep(name = "aspect_rules_js", version = "2.0.0")
 bazel_dep(name = "aspect_rules_lint", version = "1.0.0-rc10")
+bazel_dep(name = "aspect_rules_py", version = "1.0.0")
 bazel_dep(name = "aspect_rules_swc", version = "2.0.0")
 bazel_dep(name = "aspect_rules_ts", version = "3.0.0")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
@@ -245,4 +246,14 @@ oci.pull(
         "linux/arm64",
     ],
 )
-use_repo(oci, "distroless_base")
+oci.pull(
+    name = "ubuntu",
+    digest = "sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab",
+    image = "ubuntu",
+    platforms = [
+        "linux/arm64/v8",
+        "linux/amd64",
+    ],
+    tag = "latest",
+)
+use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_base_linux_arm64", "ubuntu", "ubuntu_linux_amd64", "ubuntu_linux_arm64_v8")
