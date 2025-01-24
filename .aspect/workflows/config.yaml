@@ -5,5 +5,9 @@ tasks:
   - lint:
   - format:
   - test:
+      bazel:
+        flags:
+          -  --test_tag_filters=-skip-on-aspect-workflows
+      
 notifications:
   github: {}
