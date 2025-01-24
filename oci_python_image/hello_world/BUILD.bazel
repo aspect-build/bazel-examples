@@ -1,8 +1,8 @@
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
-load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_library", "py_image_layer")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_image_layer", "py_library")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@pip//:requirements.bzl", "requirement")
-load("@rules_oci//oci:defs.bzl", "oci_load", "oci_image")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
 
 py_library(
     name = "hello_world_lib",

@@ -49,7 +49,6 @@ def OCIImageContainer(image):
     layers = manifest["layers"]
     needed = []
 
-    
     # Probing phase
     for i, layer in enumerate(layers):
         tmp = tempfile.NamedTemporaryFile(suffix=".tar")
@@ -61,7 +60,7 @@ def OCIImageContainer(image):
                 {
                     "Config": "config.json",
                     "RepoTags": [],
-                    "Layers": [layer['digest']],
+                    "Layers": [layer["digest"]],
                 }
             ],
         )
