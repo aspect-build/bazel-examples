@@ -1,5 +1,5 @@
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
-load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_image_layer", "py_library")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_image_layer", "py_library", "py_pytest_main")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@pip//:requirements.bzl", "requirement")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
@@ -97,13 +97,13 @@ container_structure_test(
 
 py_test(
     name = "test_container",
-    srcs = ["app_test.py"],
+    srcs = ["integration_test.py"],
     # NB: this depends on the image rather than the tarball, to avoid the test needing to wait for
     # an action that reads all bytes of the layers and writes all those bytes again.
     # However, in order for the image to be loaded into the Docker daemon from files on disk,
     # the test Setup has to do some sophisticated work to load each layer.
     data = [":platform_image"],
-    main = "app_test.py",
+    main = "integration_test.py",
     tags = [
         "requires-docker",
         # TODO(sahin/derek?): this test passes on GitHub Actions runners but fails on AW
@@ -111,5 +111,27 @@ py_test(
     ],
     deps = [
         requirement("testcontainers"),
+    ],
+)
+
+py_pytest_main(
+    name = "__test__",
+    deps = [
+        requirement("coverage"),
+        requirement("pytest"),
+    ],
+)
+
+py_test(
+    name = "unit_test",
+    size = "small",
+    srcs = [
+        "app_test.py",
+        ":__test__",
+    ],
+    main = ":__test__.py",
+    deps = [
+        ":__test__",
+        ":hello_world_lib",
     ],
 )

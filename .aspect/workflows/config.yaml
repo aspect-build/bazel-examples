@@ -8,6 +8,7 @@ tasks:
       bazel:
         flags:
           -  --test_tag_filters=-skip-on-aspect-workflows
-      
+      coverage:
+        codecov_upload: true
 notifications:
   github: {}
