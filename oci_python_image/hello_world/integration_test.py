@@ -82,7 +82,7 @@ def OCIImageContainer(image):
             client.images.load(
                 open(tmp.name, "rb"),
             )
-        except docker.errors.ImageLoadError as e:
+        except docker.errors.ImageLoadError:
             needed.append(layer["digest"])
 
     # Loading phase
