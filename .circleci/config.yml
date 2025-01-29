@@ -1,6 +1,8 @@
 # GENERATED FILE - DO NOT EDIT!
 # Update with: bazel run //.circleci:write_merged_config
 version: 2.1
+orbs:
+  codecov: codecov/codecov@3.1.1
 workflows:
   aspect-workflows:
     jobs:
@@ -156,6 +158,8 @@ jobs:
         no_output_timeout: 180m
     - store_test_results:
         path: /workflows/testlogs
+    - codecov/upload:
+        file: bazel-out/_coverage/_coverage_report.dat
     - store_artifacts:
         path: /workflows/testlogs
     - store_artifacts:

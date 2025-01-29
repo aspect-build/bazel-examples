@@ -1,3 +1,4 @@
 # See README.md
 -c runtime.txt
 pytest
+coverage
