@@ -81,7 +81,10 @@ container_structure_test(
     configs = ["test.yaml"],
     # Use the image built for the target platform as it runs through docker
     image = ":transitioned_image",
-    tags = ["requires-docker"],
+    tags = [
+        "no-remote-exec",
+        "requires-docker",
+    ],
 )
 
 oci_push(
