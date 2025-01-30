@@ -15,4 +15,5 @@ test:rbe --strategy=CoverageReport=local
 test:rbe --experimental_split_coverage_postprocessing
 test:rbe --experimental_fetch_all_coverage_outputs
 test:rbe --remote_download_outputs=all
+# from https://github.com/bazelbuild/bazel/issues/4685#issuecomment-1599671891
 test:rbe --experimental_remote_download_regex=.*/(coverage.dat$|_coverage/_coverage_report.dat$) 
