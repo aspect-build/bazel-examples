@@ -1,7 +1,7 @@
 load("@aspect_bazel_lib//lib:testing.bzl", "assert_archive_contains")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load", "oci_push")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 
@@ -11,6 +11,13 @@ go_library(
     importpath = "github.com/aspect-build/bazel-examples/oci_go_image",
     visibility = ["//visibility:private"],
     deps = ["@com_github_google_go_cmp//cmp"],
+)
+
+go_test(
+    name = "app_test",
+    size = "small",
+    srcs = ["main_test.go"],
+    embed = [":app_lib"],
 )
 
 go_binary(
