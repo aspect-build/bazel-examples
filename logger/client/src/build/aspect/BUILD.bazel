@@ -3,6 +3,7 @@ load("@rules_jvm_external//:defs.bzl", "artifact")
 java_library(
     name = "JavaLoggingClientLibrary",
     srcs = ["JavaLoggingClientLibrary.java"],
+    tags = ["no-remote-exec"],
     deps = [
         "//logger/schema:logger_java_grpc",
         "//logger/schema:logger_java_proto",
@@ -14,6 +15,7 @@ java_library(
 java_binary(
     name = "JavaLoggingClient",
     srcs = ["JavaLoggingClient.java"],
+    tags = ["no-remote-exec"],
     visibility = ["//visibility:public"],
     deps = [":JavaLoggingClientLibrary"],
 )

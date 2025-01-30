@@ -64,6 +64,7 @@ java_proto_library(
 java_library(
     name = "logger_java_grpc",
     srcs = ["LoggerGrpc.java"],
+    tags = ["no-remote-exec"],
     deps = [
         ":logger_java_proto",
         artifact("com.google.guava:guava"),

@@ -92,7 +92,10 @@ container_structure_test(
     name = "test",
     configs = ["test.yaml"],
     image = ":platform_image",
-    tags = ["requires-docker"],
+    tags = [
+        "no-remote-exec",
+        "requires-docker",
+    ],
 )
 
 py_test(

@@ -3,9 +3,16 @@ common --remote_download_outputs=minimal
 common --nobuild_runfile_links
 
 # remote execution
-common:rbe --extra_execution_platforms=//bazel/platforms:x86_64_linux_remote
-common:rbe --host_platform=//bazel/platforms:x86_64_linux_remote
+common:rbe --extra_execution_platforms=//tools/platforms:buildbarn_remote
+common:rbe --host_platform=//tools/platforms:buildbarn_remote
 common:rbe --remote_executor=unix:///mnt/ephemeral/buildbarn/.cache/bb_clientd/grpc
 common:rbe --genrule_strategy=remote,local
 common:rbe --jobs=32
 common:rbe --remote_timeout=3600
+
+# from https://github.com/bazelbuild/bazel/issues/4685#issuecomment-1366208392
+test:rbe --strategy=CoverageReport=local
+test:rbe --experimental_split_coverage_postprocessing
+test:rbe --experimental_fetch_all_coverage_outputs
+test:rbe --remote_download_outputs=all
+test:rbe --experimental_remote_download_regex=.*/(coverage.dat$|_coverage/_coverage_report.dat$) 
