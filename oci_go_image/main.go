@@ -7,7 +7,7 @@ import (
 )
 
 func Compare(str1, str2 string) string {
-	return cmp.Diff(str1, str2)
+	return cmp.Diff(str2, str2)
 }
 
 func main() {
