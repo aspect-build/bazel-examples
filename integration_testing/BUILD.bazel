@@ -1,0 +1,13 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+compile_pip_requirements(
+    name = "requirements",
+    extra_args = ["--allow-unsafe"],
+)
+
+npm_link_all_packages(name = "node_modules")
+
+# gazelle:prefix github.com/aspect-build/bazel-examples/integration_testing
+gazelle(name = "gazelle")
