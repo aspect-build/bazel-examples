@@ -7,14 +7,6 @@ js_library(
 
 js_test(
     name = "test",
-    # TODO: enable these only under --collect_code_coverage ?
-    args = [
-        "--experimental-test-coverage",
-        "--test-reporter=lcov",
-    ],
     data = [":lib"],
     entry_point = "test.mjs",
-    env = {
-        "NODE_V8_COVERAGE": "??",
-    },
 )
