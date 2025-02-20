@@ -66,6 +66,11 @@ http_jar(
     url = "https://github.com/google/google-java-format/releases/download/v1.17.0/google-java-format-1.17.0-all-deps.jar",
 )
 
+http_jar(
+    name = "error-prone-annotations",
+    url = "https://repo1.maven.org/maven2/com/google/errorprone/error_prone_annotations/2.36.0/error_prone_annotations-2.36.0.jar",
+)
+
 #########################
 # Fetch tools
 # https://blog.aspect.build/run-tools-installed-by-bazel

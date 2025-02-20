@@ -18,7 +18,10 @@ java_binary(
     srcs = ["JavaLoggingClient.java"],
     tags = ["no-remote-exec"],  # see above
     visibility = ["//visibility:public"],
-    deps = [":JavaLoggingClientLibrary"],
+    deps = [
+        ":JavaLoggingClientLibrary",
+        "@error-prone-annotations//jar",
+    ],
 )
 
 java_test(

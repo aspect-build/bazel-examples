@@ -1,10 +1,12 @@
 package build.aspect;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.Scanner;
 
 /** A simple client that sends messages to the server to be stored. */
 public class JavaLoggingClient {
 
+  @CanIgnoreReturnValue
   public static void main(String[] args) throws Exception {
     JavaLoggingClientLibrary client = new JavaLoggingClientLibrary("localhost", 50051);
     System.out.println(
