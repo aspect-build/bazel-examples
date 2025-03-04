@@ -1,6 +1,9 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
+# aspect:js disabled
+# aspect:generation_mode update
+
 # Link npm packages
 npm_link_all_packages(name = "node_modules")
 
