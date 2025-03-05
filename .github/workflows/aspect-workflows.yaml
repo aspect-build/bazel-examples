@@ -7,11 +7,6 @@ on:
     pull_request:
         branches: [main]
 
-    # Run the workflows on a cron schedule to run once a day on main branch
-    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
-    schedule:
-        - cron: '0 14 * * 1-5'
-
     # Allow this to be triggered manually via the GitHub UI Actions tab
     workflow_dispatch:
 
