@@ -1,0 +1,3 @@
+load("@other//packages:packages.bzl", "sync_npm_packages")
+
+sync_npm_packages()
