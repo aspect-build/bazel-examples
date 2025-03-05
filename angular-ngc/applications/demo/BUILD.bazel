@@ -1,5 +1,5 @@
-load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
 load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
+load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("//:defs.bzl", "ng_application")
 

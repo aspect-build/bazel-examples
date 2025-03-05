@@ -1,0 +1,5 @@
+configure:
+  languages:
+    javascript: true
+  plugins:
+    - .aspect/cli/postcss.star
