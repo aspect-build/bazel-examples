@@ -47,7 +47,7 @@ jobs:
           # Clone the last two commits, so we can see what files were changed.
           fetch-depth: 2
       # Get a list of nested Bazel modules that were touched
-      - uses: tj-actions/changed-files@v45
+      - uses: REPACE-ME/changed-files@v45
         with:
           # NB: this list must match all files that live within a nested Bazel module.
           # Should match the /.bazelignore file as well.
@@ -106,7 +106,7 @@ jobs:
           # Clone the last two commits, so we can see what files were changed.
           fetch-depth: 2
       # Get a list of top-level directories that were touched
-      - uses: tj-actions/changed-files@v45
+      - uses: REPACE-ME/changed-files@v45
         id: changed-toplevel-dirs
         with:
           dir_names: true
