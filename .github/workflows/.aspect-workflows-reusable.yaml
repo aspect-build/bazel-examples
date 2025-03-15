@@ -110,13 +110,6 @@ jobs:
           echo "filtered_secrets=${FILTERED_SECRETS}" | tee ${GITHUB_OUTPUT}
       - name: Prepare archive directories
         run: rm -rf ${{ join(fromJson(needs.setup.outputs.cfg).workflows_config[matrix.job].artifact_paths, ' ') }}
-      - name: Determine changed files
-        uses: tj-actions/changed-files@v42
-        if: endsWith(matrix.job, 'format')
-        with:
-          json: true
-          write_output_files: true
-          output_dir: ${{ fromJson(needs.setup.outputs.cfg).platform.directories.ARTIFACTS_DIR }}
       - name: Checkout health
         uses: aspect-build/workflows-action@5.12.1
         timeout-minutes: ${{ fromJson(needs.setup.outputs.cfg).workflows_config[matrix.job].checkout_task_timeout }}
