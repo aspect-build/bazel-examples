@@ -1,13 +1,15 @@
-load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+"Macros to make BUILD files more ergonomic."
+
 load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
 load("@aspect_rules_esbuild//esbuild:defs.bzl", "esbuild")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@npm//:history-server/package_json.bzl", history_server_bin = "bin")
 load("@npm//:html-insert-assets/package_json.bzl", html_insert_assets_bin = "bin")
 load("@npm//:karma/package_json.bzl", _karma_bin = "bin")
+load("//tools:karma.bzl", "generate_karma_config", "generate_test_bootstrap", "generate_test_setup")
 load("//tools:ng.bzl", "ng_esbuild", "ng_project")
 load("//tools:ts.bzl", "ts_project")
-load("//tools:karma.bzl", "generate_karma_config", "generate_test_bootstrap", "generate_test_setup")
 
 # Common dependencies of Angular applications
 APPLICATION_DEPS = [
@@ -60,7 +62,7 @@ NG_PROD_DEFINE = {
     "ngJitMode": "false",
 }
 
-def ng_application(name, deps = [], test_deps = [], assets = None, html_assets = APPLICATION_HTML_ASSETS, visibility = ["//visibility:public"], **kwargs):
+def ng_application(name, deps = [], test_deps = [], assets = None, html_assets = APPLICATION_HTML_ASSETS, visibility = ["//visibility:public"]):
     """
     Bazel macro for compiling an Angular application. Creates {name}, test, serve targets.
 
@@ -83,7 +85,6 @@ def ng_application(name, deps = [], test_deps = [], assets = None, html_assets =
       html_assets: assets to insert into the index.html, [styles.css, favicon.ico] by default
       assets: assets to include in the file bundle
       visibility: visibility of the primary targets ({name}, 'test', 'serve')
-      **kwargs: extra args passed to main Angular CLI rules
     """
     assets = assets if assets else native.glob(["assets/**/*"])
     html_assets = html_assets if html_assets else []
@@ -246,7 +247,7 @@ def ng_pkg(name, srcs, deps = [], test_deps = [], visibility = ["//visibility:pu
       visibility: visibility of the primary targets ('{name}', 'test')
     """
 
-    test_spec_srcs = native.glob(["src/**/*.spec.ts"])
+    test_spec_srcs = native.glob(["src/**/*.spec.ts"], allow_empty = True)
 
     # An index file to allow direct imports of the directory similar to a package.json "main"
     write_file(
