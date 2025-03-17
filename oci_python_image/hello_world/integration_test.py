@@ -10,10 +10,8 @@ def OCIImageContainer(image):
     import docker
     import tarfile
     import json
-    import os
     import io
     import logging
-    import hashlib
 
     logger = logging.getLogger("incremental_loader")
     def tar(*args):
