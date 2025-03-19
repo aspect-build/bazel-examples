@@ -27,23 +27,19 @@ To take a simple example, let's say that we have a small build graph
 
 ```dot
 digraph G {
-  a [label="py_library a"];
-  b [label="py_library b"];
-  c [label="py_library c"];
-  d [label="py_library d"];
+  data_models [label="py_library data_models"];
+  order_processing [label="py_library order_processing"];
+  inventory_management [label="py_library inventory_management"];
+  data_persistence [label="py_library data_persistence"];
   click [label="py_library click (3rdparty)"];
   cli [label="py_binary cli"];
-  
-  a -> b;
-  
-  a -> c;
-  
-  c -> d;
-  b -> d;
-  
-  b -> cli;
-  d -> cli;
-  
+
+  data_models -> order_processing;
+  data_models -> inventory_management;
+  inventory_management -> data_persistence;
+  order_processing -> data_persistence;
+  order_processing -> cli;
+  data_persistence -> cli;
   click -> cli;
 }
 ```
@@ -56,3 +52,10 @@ We can demonstrate this by looking at the results of `bazel aquery`, which will 
 But more on that in a minute.
 
 ## Setup
+
+In this example we've set up `rules_python` in combination with `rules_uv`, which provides lockfile compilation.
+These two give us a Python dependency solution (including the MyPy we want to use), which we'll feed into `rules_mypy`.
+
+The main trick is in `//tools/mypy:BUILD.bazel`, where we provide a definition of the MyPy CLI binary which we can feed into the checking aspect.
+This is important because it allows us to use our locked requirement for MyPy, and to provide MyPy plugins.
+If we didn't do this, `rules_mypy` would "helpfully" provide an embedded default version and configuration of MyPy which may or may not be what we want.
