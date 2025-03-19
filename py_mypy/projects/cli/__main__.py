@@ -6,7 +6,7 @@ from inventory_management import adjust_stock
 def cli():
     pass
 
-@cli.command()
+@cli.command("create-order")
 @click.option("--customer-id", type=int, required=True)
 @click.option("--items", type=str, required=True) # example: "1:2,2:1"
 @click.option("--shipping-address", type=str)
@@ -15,14 +15,14 @@ def create_order_cmd(customer_id, items, shipping_address):
     order = create_order(customer_id, items_list, shipping_address)
     click.echo(f"Order created: {order.order_id}")
 
-@cli.command()
+@cli.command("update-shipping")
 @click.option("--order-id", type=int, required=True)
 @click.option("--new-address", type=str, required=True)
 def update_shipping_cmd(order_id, new_address):
     update_order_shipping(order_id, new_address)
     click.echo(f"Shipping address updated for order {order_id}")
 
-@cli.command()
+@cli.command("adjust-stock")
 @click.option("--product-id", type=int, required=True)
 @click.option("--quantity-change", type=int, required=True)
 def adjust_stock_cmd(product_id, quantity_change):
