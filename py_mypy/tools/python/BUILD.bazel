@@ -1,0 +1,7 @@
+load("@rules_uv//uv:pip.bzl", "pip_compile")
+
+pip_compile(
+    name = "generate_requirements_txt",
+    requirements_in = ":requirements.in", # default
+    requirements_txt = ":requirements_lock.txt", # default
+)
