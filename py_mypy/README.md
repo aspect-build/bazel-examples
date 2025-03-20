@@ -25,23 +25,15 @@ This all has the effect of creating a build sub-graph parallel to our normal bui
 
 To take a simple example, let's say that we have a small build graph
 
-```dot
-digraph G {
-  data_models [label="py_library data_models"];
-  order_processing [label="py_library order_processing"];
-  inventory_management [label="py_library inventory_management"];
-  data_persistence [label="py_library data_persistence"];
-  click [label="py_library click (3rdparty)"];
-  cli [label="py_binary cli"];
-
-  data_models -> order_processing;
-  data_models -> inventory_management;
-  inventory_management -> data_persistence;
-  order_processing -> data_persistence;
-  order_processing -> cli;
-  data_persistence -> cli;
-  click -> cli;
-}
+```mermaid
+graph TD
+    A[py_library data_models] --> B[py_library order_processing];
+    A --> C[py_library inventory_management];
+    C --> D[py_library data_persistence];
+    B --> D;
+    B --> E[py_binary cli];
+    D --> E;
+    F[py_library click (3rdparty)] --> E;
 ```
 
 Ordinarily the dependencies between these rules take the form of the Python source files underlying the rules.
@@ -59,3 +51,54 @@ These two give us a Python dependency solution (including the MyPy we want to us
 The main trick is in `//tools/mypy:BUILD.bazel`, where we provide a definition of the MyPy CLI binary which we can feed into the checking aspect.
 This is important because it allows us to use our locked requirement for MyPy, and to provide MyPy plugins.
 If we didn't do this, `rules_mypy` would "helpfully" provide an embedded default version and configuration of MyPy which may or may not be what we want.
+
+We also need the `.bazelrc` as previously discussed to enable both the aspect and the typecheck output group.
+
+## Demo
+
+If we use `bazel aquery //projects/cli`, we will see among much other output
+
+```
+action 'mypy //projects/cli:cli'
+  Mnemonic: mypy
+  Target: //projects/cli:cli
+  Configuration: darwin_arm64-fastbuild
+  Execution platform: @@platforms//host:host
+  AspectDescriptors: [
+    //tools/mypy:defs.bzl%mypy_aspect(cache='true', color='true')
+]
+  ActionKey: ...
+  Inputs: [
+    bazel-out/.../bin/projects/inventory_management/inventory_management.mypy_cache,
+    bazel-out/.../bin/projects/order_processing/order_processing.mypy_cache,
+    bazel-out/.../bin/tools/mypy/mypy,
+    ...
+  ]
+```
+
+This is the actual typecheck action of the `//projects/cli:cli` target, showing that as inputs it takes (among many other things) the `.mypy_cache` tree results from typechecking the two sub-libraries `inventory_management` and `order_processing`.
+
+If we dig around in the action plan a bit more, we'll also find the typecheck definitions for those products.
+For instance if we inspect the `inventory_management` build, we'll find the production action for those cache files.
+
+```
+action 'mypy //projects/inventory_management:inventory_management'
+  Mnemonic: mypy
+  Target: //projects/inventory_management:inventory_management
+  Configuration: darwin_arm64-fastbuild
+  Execution platform: @@platforms//host:host
+  AspectDescriptors: [
+    //tools/mypy:defs.bzl%mypy_aspect(cache='true', color='true')
+  ]
+  ActionKey: ...
+  Inputs: [
+    bazel-out/.../bin/projects/data_models/data_models.mypy_cache,
+    bazel-out/.../bin/tools/mypy/mypy,
+    ...
+  ]
+```
+
+This demonstrates that the `rules_mypy` configuration will perform incremental typechecking (only targets which changed will be re-checked except in the case of a cascading failure), to the limit of 1stparty code.
+
+Per [rules_mypy#23](https://github.com/theoremlp/rules_mypy/issues/23), the aspect which creates typecheck rules short-circuits and stops to create annotations when it encounters 3rdparty code.
+This bypasses the problem of attempting to apply 1stparty typecheck rules to code which may not conform to them, but creates the problem that because there is no shared `pyspark.mypy_cache` output, 3rdparty libraries may be typechecked (or at least analyzed as part of typechecking) more than once.
