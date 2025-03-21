@@ -48,7 +48,7 @@ vite_bin.vite_binary(
     data = BUILD_DEPS + CONFIGS + [":vite_srcs_export"],
 )
 
-vitest_bin.vitest_test(
+vitest_bin.vitest_test(!
     name = "vitest",
     args = [
         "run",
