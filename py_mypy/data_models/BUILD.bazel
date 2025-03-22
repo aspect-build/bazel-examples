@@ -1,4 +1,4 @@
-package(default_visibility=["//projects:__subpackages__"])
+package(default_visibility=["//py_mypy:__subpackages__",])
 
 py_library(
     name = "data_models",

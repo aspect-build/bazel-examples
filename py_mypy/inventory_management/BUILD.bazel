@@ -1,5 +1,5 @@
 package(default_visibility=[
-    "//projects/cli:__pkg__",
+    "//py_mypy/cli:__pkg__",
 ])
 
 py_library(
@@ -11,7 +11,7 @@ py_library(
         ".",
     ],
     deps = [
-        "//projects/data_models",
-        "//projects/data_persistence",
+        "//py_mypy/data_models",
+        "//py_mypy/data_persistence",
     ]
 )

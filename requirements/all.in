@@ -5,3 +5,5 @@
 -r runtime.txt
 -r ../logger/cli/requirements.txt
 -r ../oci_python_image/requirements.txt
+-r ../py_mypy/requirements.txt
+-r ../tools/mypy/requirements.txt

@@ -29,6 +29,7 @@ bazel_dep(name = "rules_oci", version = "2.0.1")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
 bazel_dep(name = "rules_proto", version = "7.1.0")
 bazel_dep(name = "rules_python", version = "0.40.0")
+bazel_dep(name = "rules_mypy", version = "0.29.0")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "0.35.0")
 bazel_dep(name = "rules_swift", version = "1.12.0")
 bazel_dep(name = "rules_swift_package_manager", version = "0.12.0")
@@ -132,6 +133,15 @@ pip.parse(
     requirements_lock = "//requirements:all.txt",
 )
 use_repo(pip, "pip")
+
+# rules_mypy requires some co-initialization with rules_python
+types = use_extension("@rules_mypy//mypy:types.bzl", "types")
+types.requirements(
+    name = "pip_types",
+    pip_requirements = "@pip//:requirements.bzl",
+    requirements_txt = "//requirements:all.txt",
+)
+use_repo(types, "pip_types")
 
 #########################
 # Java and other JVM languages:
