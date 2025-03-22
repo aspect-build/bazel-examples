@@ -11,7 +11,7 @@ def _impl(ctx):
     for dep in ctx.attr.deps:
         if JsInfo in dep:
             files_depsets.append(dep[JsInfo].transitive_sources)
-            files_depsets.append(dep[JsInfo].transitive_declarations)
+            files_depsets.append(dep[JsInfo].transitive_types)
 
     files = []
     for file in depset(transitive = files_depsets).to_list():
