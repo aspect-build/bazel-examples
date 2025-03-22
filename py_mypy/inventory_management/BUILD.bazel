@@ -1,0 +1,17 @@
+package(default_visibility=[
+    "//py_mypy/cli:__pkg__",
+])
+
+py_library(
+    name = "inventory_management",
+    srcs = [
+        "inventory_management.py",
+    ],
+    imports = [
+        ".",
+    ],
+    deps = [
+        "//py_mypy/data_models",
+        "//py_mypy/data_persistence",
+    ]
+)

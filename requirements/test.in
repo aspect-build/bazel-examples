@@ -2,3 +2,4 @@
 -c runtime.txt
 pytest
 coverage
+mypy
