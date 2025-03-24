@@ -123,6 +123,9 @@ py_pytest_main(
         requirement("coverage"),
         requirement("pytest"),
     ],
+    tags = [
+        "no-mypy",
+    ],
 )
 
 py_test(

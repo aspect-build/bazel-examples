@@ -9,4 +9,8 @@ mypy_aspect = mypy(
     types = types,
     mypy_cli = "@@//tools/mypy:mypy",
     mypy_ini = "@@//tools/mypy:mypy.ini",
+    suppression_tags = [
+        "no-mypy",
+        "no-checks",
+    ],
 )
