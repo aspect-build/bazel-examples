@@ -7,6 +7,6 @@ load("@rules_mypy//mypy:mypy.bzl", "mypy")
 # defaults in the ruleset.
 mypy_aspect = mypy(
     types = types,
-    mypy_cli = ":mypy",
-    mypy_ini = ":mypy.ini",
+    mypy_cli = "@@//tools/mypy:mypy",
+    mypy_ini = "@@//tools/mypy:mypy.ini",
 )
