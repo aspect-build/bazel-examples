@@ -1,0 +1,17 @@
+package(default_visibility=[
+    "//projects/cli:__pkg__",
+])
+
+py_library(
+    name = "order_processing",
+    srcs = [
+        "order_processing.py",
+    ],
+    imports = [
+        ".",
+    ],
+    deps = [
+        "//projects/data_models",
+        "//projects/data_persistence",
+    ]
+)

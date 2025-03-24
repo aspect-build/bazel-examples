@@ -1,0 +1,11 @@
+package(default_visibility=["//projects:__subpackages__"])
+
+py_library(
+    name = "data_models",
+    srcs = [
+        "data_models.py",
+    ],
+    imports = [
+        ".",
+    ]
+)

@@ -1,0 +1,10 @@
+py_binary(
+    name = "cli",
+    main = "__main__.py",
+    srcs = ["__main__.py"],
+    deps = [
+        "//projects/order_processing",
+        "//projects/inventory_management",
+        "@pip//click",
+    ]
+)
