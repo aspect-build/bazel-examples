@@ -27,13 +27,15 @@ To take a simple example, let's say that we have a small build graph
 
 ```mermaid
 graph TD
-    A[py_library data_models] --> B[py_library order_processing];
-    A --> C[py_library inventory_management];
-    C --> D[py_library data_persistence];
+    A[data_models] --> B[data_persistence];
+    A --> C[inventory_management];
+    A --> D[order_processing];
+    B --> C;
     B --> D;
-    B --> E[py_binary cli];
+    C --> E[cli];
     D --> E;
-    F[py_library click (3rdparty)] --> E;
+    F["click (3rdparty)"] --> E;
+    G["pydantic (3rdparty)"] --> A;
 ```
 
 Ordinarily the dependencies between these rules take the form of the Python source files underlying the rules.
