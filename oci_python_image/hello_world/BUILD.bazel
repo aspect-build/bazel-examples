@@ -140,4 +140,7 @@ py_test(
         ":__test__",
         ":hello_world_lib",
     ],
+    tags = [
+        "no-mypy",
+    ],
 )
