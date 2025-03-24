@@ -123,9 +123,6 @@ py_pytest_main(
         requirement("coverage"),
         requirement("pytest"),
     ],
-    tags = [
-        "no-mypy",
-    ],
 )
 
 py_test(
@@ -139,8 +136,5 @@ py_test(
     deps = [
         ":__test__",
         ":hello_world_lib",
-    ],
-    tags = [
-        "no-mypy",
     ],
 )

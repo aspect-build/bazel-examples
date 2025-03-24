@@ -13,5 +13,9 @@ py_library(
     deps = [
         "//py_mypy/data_models",
         "//py_mypy/data_persistence",
-    ]
+    ],
+    tags = [
+        "mypy",
+    ],
+
 )

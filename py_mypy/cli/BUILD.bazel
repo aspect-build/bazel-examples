@@ -6,5 +6,8 @@ py_binary(
         "//py_mypy/order_processing",
         "//py_mypy/inventory_management",
         "@pip//click",
-    ]
+    ],
+    tags = [
+        "mypy",
+    ],
 )
