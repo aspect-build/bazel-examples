@@ -5,6 +5,9 @@ py_library(
     srcs = [
         "data_models.py",
     ],
+    deps = [
+        "@pip//pydantic",
+    ],
     imports = [
         ".",
     ]
