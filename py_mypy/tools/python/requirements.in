@@ -1,0 +1,3 @@
+click
+mypy ~= 1.15.0
+pydantic ~= 1.10.0

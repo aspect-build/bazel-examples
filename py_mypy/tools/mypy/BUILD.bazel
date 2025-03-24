@@ -1,0 +1,15 @@
+load("@pip//:requirements.bzl", "requirement")
+load("@rules_mypy//mypy:mypy.bzl", "mypy_cli")
+
+exports_files(["mypy.ini"])
+
+# Use the `mypy_cli` macro to create a tool the aspect can us to invoke MyPy as
+# defined by our lockfile rather than the lockfile embedded in rules_mypy. This
+# also allows us to drop in MyPy plugins if we wish.
+mypy_cli(
+    name = "mypy",
+    mypy_requirement = requirement("mypy"),
+    deps = [
+        requirement("pydantic"),
+    ],
+)

@@ -1,0 +1,9 @@
+common --enable_bzlmod
+
+common --lockfile_mode=off
+
+test --test_output=errors
+
+# add mypy_aspect and enable it by default
+build --aspects //tools/mypy:defs.bzl%mypy_aspect
+build --output_groups=+mypy
