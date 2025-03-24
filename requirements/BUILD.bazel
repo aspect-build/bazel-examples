@@ -17,6 +17,8 @@ pip_compile(
         "test.in",
         "//logger/cli:requirements.txt",
         "//oci_python_image:requirements.txt",
+        "//py_mypy:requirements.txt",
+        "//tools/mypy:requirements.txt",
     ],
     requirements_in = "all.in",
     requirements_txt = "all.txt",

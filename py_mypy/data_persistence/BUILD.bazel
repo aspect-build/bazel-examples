@@ -1,6 +1,6 @@
 package(default_visibility=[
-    "//projects/order_processing:__pkg__",
-    "//projects/inventory_management:__pkg__",
+    "//py_mypy/order_processing:__pkg__",
+    "//py_mypy/inventory_management:__pkg__",
 ])
 
 py_library(
@@ -12,6 +12,6 @@ py_library(
         ".",
     ],
     deps = [
-        "//projects/data_models",
+        "//py_mypy/data_models",
     ]
 )

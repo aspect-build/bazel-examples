@@ -1,7 +1,7 @@
 load("@pip//:requirements.bzl", "requirement")
 load("@rules_mypy//mypy:mypy.bzl", "mypy_cli")
 
-exports_files(["mypy.ini"])
+exports_files(["mypy.ini", "requirements.txt"])
 
 # Use the `mypy_cli` macro to create a tool the aspect can us to invoke MyPy as
 # defined by our lockfile rather than the lockfile embedded in rules_mypy. This
@@ -12,4 +12,5 @@ mypy_cli(
     deps = [
         requirement("pydantic"),
     ],
+    python_version = "3.9"  # FIXME: We're on an oldish interpreter
 )

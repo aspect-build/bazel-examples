@@ -58,12 +58,12 @@ We also need the `.bazelrc` as previously discussed to enable both the aspect an
 
 ## Demo
 
-If we use `bazel aquery //projects/cli`, we will see among much other output
+If we use `bazel aquery //py_mypy/cli`, we will see among much other output
 
 ```
-action 'mypy //projects/cli:cli'
+action 'mypy //py_mypy/cli:cli'
   Mnemonic: mypy
-  Target: //projects/cli:cli
+  Target: //py_mypy/cli:cli
   Configuration: darwin_arm64-fastbuild
   Execution platform: @@platforms//host:host
   AspectDescriptors: [
@@ -71,22 +71,22 @@ action 'mypy //projects/cli:cli'
 ]
   ActionKey: ...
   Inputs: [
-    bazel-out/.../bin/projects/inventory_management/inventory_management.mypy_cache,
-    bazel-out/.../bin/projects/order_processing/order_processing.mypy_cache,
+    bazel-out/.../bin/py_mypy/inventory_management/inventory_management.mypy_cache,
+    bazel-out/.../bin/py_mypy/order_processing/order_processing.mypy_cache,
     bazel-out/.../bin/tools/mypy/mypy,
     ...
   ]
 ```
 
-This is the actual typecheck action of the `//projects/cli:cli` target, showing that as inputs it takes (among many other things) the `.mypy_cache` tree results from typechecking the two sub-libraries `inventory_management` and `order_processing`.
+This is the actual typecheck action of the `//py_mypy/cli:cli` target, showing that as inputs it takes (among many other things) the `.mypy_cache` tree results from typechecking the two sub-libraries `inventory_management` and `order_processing`.
 
 If we dig around in the action plan a bit more, we'll also find the typecheck definitions for those products.
 For instance if we inspect the `inventory_management` build, we'll find the production action for those cache files.
 
 ```
-action 'mypy //projects/inventory_management:inventory_management'
+action 'mypy //py_mypy/inventory_management:inventory_management'
   Mnemonic: mypy
-  Target: //projects/inventory_management:inventory_management
+  Target: //py_mypy/inventory_management:inventory_management
   Configuration: darwin_arm64-fastbuild
   Execution platform: @@platforms//host:host
   AspectDescriptors: [
@@ -94,7 +94,7 @@ action 'mypy //projects/inventory_management:inventory_management'
   ]
   ActionKey: ...
   Inputs: [
-    bazel-out/.../bin/projects/data_models/data_models.mypy_cache,
+    bazel-out/.../bin/py_mypy/data_models/data_models.mypy_cache,
     bazel-out/.../bin/tools/mypy/mypy,
     ...
   ]
