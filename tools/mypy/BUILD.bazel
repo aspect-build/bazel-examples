@@ -12,5 +12,5 @@ mypy_cli(
     deps = [
         requirement("pydantic"),
     ],
-    python_version = "3.9"  # FIXME: We're on an oldish interpreter
+    python_version = "3.11"  # FIXME: We're on an oldish interpreter
 )
