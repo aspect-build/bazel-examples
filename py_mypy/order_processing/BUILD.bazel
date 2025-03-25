@@ -1,0 +1,21 @@
+package(default_visibility=[
+    "//py_mypy/cli:__pkg__",
+])
+
+py_library(
+    name = "order_processing",
+    srcs = [
+        "order_processing.py",
+    ],
+    imports = [
+        ".",
+    ],
+    deps = [
+        "//py_mypy/data_models",
+        "//py_mypy/data_persistence",
+    ],
+    tags = [
+        "mypy",  # We've explicitly configured the aspect for opt-in
+    ],
+
+)

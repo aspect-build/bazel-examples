@@ -36,6 +36,14 @@ common --incompatible_enable_proto_toolchain_resolution
 # see https://github.com/bazelbuild/rules_jvm_external/issues/445
 build --repo_env=JAVA_HOME=../bazel_tools/jdk
 
+# In support of py_mypy/...
+
+# register mypy_aspect with Bazel
+build --aspects //tools/mypy:defs.bzl%mypy_aspect
+
+# optionally, default enable the mypy checks
+build --output_groups=+mypy
+
 # Load any settings & overrides specific to the current user from `.aspect/bazelrc/user.bazelrc`.
 # This file should appear in `.gitignore` so that settings are not shared with team members. This
 # should be last statement in this config so the user configuration is able to overwrite flags from

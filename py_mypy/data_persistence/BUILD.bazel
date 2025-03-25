@@ -1,0 +1,21 @@
+package(default_visibility=[
+    "//py_mypy/order_processing:__pkg__",
+    "//py_mypy/inventory_management:__pkg__",
+])
+
+py_library(
+    name = "data_persistence",
+    srcs = [
+        "data_persistence.py",
+    ],
+    imports = [
+        ".",
+    ],
+    deps = [
+        "//py_mypy/data_models",
+    ],
+    tags = [
+        "mypy",  # We've explicitly configured the aspect for opt-in
+    ],
+
+)
