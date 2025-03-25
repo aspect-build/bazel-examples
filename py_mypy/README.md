@@ -15,11 +15,9 @@ Outputs may be selected during a build using the [`--output_groups`](https://baz
 
 Notionally how this will all work is that:
 
-- We need to create an aspect configured to use whatever `mypy` tool we may want
+- We need to create an aspect configured to use whatever `mypy` tool we may want.
 - That aspect will extend the `py_*` rules in the build graph to add an output group capturing the MyPy typecheck cache.
   These typecheck cache outputs will depend on the typecheck cache outputs of all dependencies.
-- We will configure our `.bazelrc` to apply the aspect so that users don't have to think about it.
-- We will configure our `.bazelrc` to select the typecheck output group in addition to the default outputs of rules.
 
 This all has the effect of creating a build sub-graph parallel to our normal build graph which instead of producing and consuming Python files as dependencies produces and consumes the MyPy analysis caches.
 
@@ -54,11 +52,15 @@ The main trick is in `//tools/mypy:BUILD.bazel`, where we provide a definition o
 This is important because it allows us to use our locked requirement for MyPy, and to provide MyPy plugins.
 If we didn't do this, `rules_mypy` would "helpfully" provide an embedded default version and configuration of MyPy which may or may not be what we want.
 
-We also need the `.bazelrc` as previously discussed to enable both the aspect and the typecheck output group.
-
+We've configured our `.bazelrc` to apply the aspect so that users don't have to think about separately enabling it.
 Since there's other Python code in this monorepo which doesn't typecheck and we don't want to have to address that to adopt typing, we're going to use the `opt_in_tags` parameter on the aspect configuration.
 This allows us to specify `tags=["mypy"]` on relevant Python targets to selectively apply typechecking rather than just getting mypy checks applied to everything.
 We could also use the `opt_out_tags` parameter on the aspect and annotate stuff we don't want to typecheck, but that has more impact for initial adoption.
+
+Otherwise users explicitly have to list `--aspects=...` when they're interested in leveraging typechecks.
+
+For the same reason we've also configured our `.bazelrc` to enable the `mypy` output group by default.
+This may or may not be desired behavior, since enabling the `mypy` output makes passing typechecks a blocker for build and test operations.
 
 ## Demo
 
