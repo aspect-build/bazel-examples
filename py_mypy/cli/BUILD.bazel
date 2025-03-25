@@ -8,6 +8,6 @@ py_binary(
         "@pip//click",
     ],
     tags = [
-        "mypy",
+        "mypy",  # We've explicitly configured the aspect for opt-in
     ],
 )

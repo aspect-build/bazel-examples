@@ -15,7 +15,7 @@ py_library(
         "//py_mypy/data_persistence",
     ],
     tags = [
-        "mypy",
+        "mypy",  # We've explicitly configured the aspect for opt-in
     ],
 
 )

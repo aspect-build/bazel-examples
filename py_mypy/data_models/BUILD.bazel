@@ -12,6 +12,6 @@ py_library(
         ".",
     ],
     tags = [
-        "mypy",
+        "mypy",  # We've explicitly configured the aspect for opt-in
     ],
 )
