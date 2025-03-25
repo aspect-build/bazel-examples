@@ -58,6 +58,7 @@ We also need the `.bazelrc` as previously discussed to enable both the aspect an
 
 Since there's other Python code in this monorepo which doesn't typecheck and we don't want to have to address that to adopt typing, we're going to use the `opt_in_tags` parameter on the aspect configuration.
 This allows us to specify `tags=["mypy"]` on relevant Python targets to selectively apply typechecking rather than just getting mypy checks applied to everything.
+We could also use the `opt_out_tags` parameter on the aspect and annotate stuff we don't want to typecheck, but that has more impact for initial adoption.
 
 ## Demo
 
