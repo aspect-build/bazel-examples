@@ -2,20 +2,35 @@ package(default_visibility=[
     "//py_mypy/cli:__pkg__",
 ])
 
-py_library(
-    name = "inventory_management",
+py_binary(
+    name = "inventory_management_tool",
+    main = "src/inventory_management/tool.py",
     srcs = [
-        "inventory_management.py",
+        "src/inventory_management/tool.py",
     ],
     imports = [
-        ".",
+        "src",
     ],
     deps = [
         "//py_mypy/data_models",
         "//py_mypy/data_persistence",
+        "@pip//click",
     ],
     tags = [
         "mypy",  # We've explicitly configured the aspect for opt-in
     ],
 
+)
+
+py_library(
+    name = "inventory_management",
+    srcs = [
+        "src/inventory_management/__init__.py",
+    ],
+    deps = [
+        ":inventory_management_tool"
+    ],
+    tags = [
+        "mypy",
+    ]
 )
