@@ -1,4 +1,4 @@
-from data_models import Order, Customer, Product, OrderItem
+from data_models import Order, Product, OrderItem
 from data_persistence import save_order, get_customer
 from typing import List
 

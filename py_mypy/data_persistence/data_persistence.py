@@ -1,5 +1,4 @@
-from data_models import Order, Customer, Product
-import json
+from data_models import Order, Customer
 
 def save_order(order: Order):
     with open(f"order_{order.order_id}.json", "w") as f:
