@@ -134,7 +134,10 @@ pip.parse(
 )
 use_repo(pip, "pip")
 
-# rules_mypy requires some co-initialization with rules_python
+# rules_mypy co-initializes with rules_python in order to discover types and
+# stubs packages in your requirements lock and create a mapping from normal
+# requirements to stub requirements which can be used to add appropriate stub
+# dependencies automatically during typechecking.
 types = use_extension("@rules_mypy//mypy:types.bzl", "types")
 types.requirements(
     name = "pip_types",
