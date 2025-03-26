@@ -2,6 +2,7 @@
 # See https://pnpm.io/pnpm-workspace_yaml
 packages:
   - angular19
+  - angular19/projects/*
   - logger/frontend
   - logger/schema
   - tools

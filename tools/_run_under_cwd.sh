@@ -9,6 +9,9 @@ case "$(basename "$0")" in
     # https://github.com/aspect-build/rules_js/blob/main/docs/faq.md#can-i-use-bazel-managed-pnpm
     target="@pnpm"
     ;;
+  ng)
+    target="//angular19:ng"
+    ;;
   *)
     target="@multitool//tools/$(basename "$0")"
     ;;
