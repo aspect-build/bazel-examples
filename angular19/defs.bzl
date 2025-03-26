@@ -6,6 +6,7 @@ load("@aspect_rules_js//js:defs.bzl", "js_library")
 load("@npm//angular19:@angular-devkit/architect-cli/package_json.bzl", architect_cli = "bin")
 
 # JQ expressions to update Angular project output paths from dist/* to projects/*/dist
+# We do this to avoid mutating the files in the source tree, so that the native tooling without Bazel continues to work.
 JQ_DIST_REPLACE_TSCONFIG = """
     .compilerOptions.paths |= map_values(
       map(
@@ -15,18 +16,20 @@ JQ_DIST_REPLACE_TSCONFIG = """
 """
 JQ_DIST_REPLACE_NG_PACKAGE = """.dest = "dist" """
 
+# Minor syntax sugar
 def node_modules(pkgs):
     return ["//angular19:node_modules/" + s for s in pkgs]
 
-COMMON_CONFIG = "//angular19:ng-config"
+TEST_PATTERNS = [
+    "src/**/*.spec.ts",
+    "src/test.ts",
+    "dist/",
+]
 
-LIBRARY_DEPS = node_modules([
-    "@angular/common",
-    "@angular/core",
-    "@angular/router",
-    "rxjs",
-    "tslib",
-])
+# Idiomatic configuration files created by `ng generate`
+TEST_CONFIG = [
+    ":tsconfig.spec.json",
+]
 
 # Common dependencies of Angular CLI libraries
 LIBRARY_CONFIG = [
@@ -39,6 +42,7 @@ APPLICATION_CONFIG = [
     ":tsconfig.app.json",
 ]
 
+# Typical dependencies of angular apps
 APPLICATION_DEPS = node_modules([
     "@angular/common",
     "@angular/core",
@@ -48,6 +52,14 @@ APPLICATION_DEPS = node_modules([
     "rxjs",
     "tslib",
     "zone.js",
+])
+
+LIBRARY_DEPS = node_modules([
+    "@angular/common",
+    "@angular/core",
+    "@angular/router",
+    "rxjs",
+    "tslib",
 ])
 
 TEST_DEPS = node_modules([
@@ -64,10 +76,6 @@ TEST_DEPS = node_modules([
     "tslib",
     "zone.js",
 ])
-
-TEST_CONFIG = [
-    ":tsconfig.spec.json",
-]
 
 TOOLS = node_modules([
     "@angular-devkit/build-angular",
@@ -97,85 +105,81 @@ def ng_config(name, **kwargs):
         **kwargs
     )
 
-def ng_lib(name, project_name = None, deps = [], test_deps = [], **kwargs):
+def ng_library(name, project_name = None, deps = [], ng_config = "//angular19:ng-config", **kwargs):
     """
-    Bazel macro for compiling an NG library project. Creates {name}, test, targets.
+    Bazel macro for compiling an NG library project that was produced by 'ng generate library'.
 
     Args:
       name: the rule name
       project_name: the Angular CLI project name, defaults to current directory name
       deps: dependencies of the library
-      test_deps: additional dependencies for tests
+      ng_config: root configurations (angular.json, tsconfig.json)
       **kwargs: extra args passed to main Angular CLI rules
     """
-    srcs = native.glob(
-        ["src/**/*"],
-        exclude = [
-            "src/**/*.spec.ts",
-            "src/test.ts",
-            "dist/",
-        ],
-    )
+    srcs = native.glob(["src/**/*"], exclude = TEST_PATTERNS)
 
-    test_srcs = srcs + native.glob(["src/test.ts", "src/**/*.spec.ts"], allow_empty = True)
-
-    project_name = project_name if project_name else native.package_name().split("/").pop()
+    project_name = project_name or native.package_name().split("/").pop()
 
     # NOTE: dist directories are under the project dir instead of the Angular CLI default of the root dist folder
     jq(
-        name = "ng-package",
+        name = "ng-package",  # outputs ng-package.json. Can only have one per package.
         srcs = ["ng-package.json"],
         filter = JQ_DIST_REPLACE_NG_PACKAGE,
         visibility = ["//visibility:private"],
     )
 
     architect_cli.architect(
-        name = "_%s" % name,
+        name = "%s.build" % name,
         chdir = native.package_name(),
         args = ["%s:build" % project_name],
         out_dirs = ["dist"],
-        srcs = srcs + deps + LIBRARY_DEPS + LIBRARY_CONFIG + TOOLS + [COMMON_CONFIG, ":ng-package"],
+        srcs = srcs + deps + LIBRARY_DEPS + LIBRARY_CONFIG + TOOLS + [ng_config, "ng-package"],
         visibility = ["//visibility:private"],
-        **kwargs
-    )
-
-    architect_cli.architect_test(
-        name = "test",
-        chdir = native.package_name(),
-        args = ["%s:test" % project_name, "--no-watch"],
-        data = test_srcs + deps + test_deps + TEST_DEPS + TEST_CONFIG + TOOLS + [COMMON_CONFIG, ":ng-package"],
-        log_level = "debug",
         **kwargs
     )
 
     # Output the compiled library and its dependencies
     js_library(
         name = name,
-        srcs = [":_%s" % name],
+        srcs = [":%s.build" % name],
         deps = deps + LIBRARY_DEPS,
     )
 
-def ng_app(name, project_name = None, deps = [], test_deps = [], **kwargs):
+def ng_test(name, project_name = None, deps = [], ng_config = "//angular19:ng-config", **kwargs):
     """
-    Bazel macro for compiling an NG application project. Creates {name}, test, serve targets.
+    Bazel macro for compiling an NG library project.
+
+    Args:
+      name: the rule name
+      project_name: the Angular CLI project name, defaults to current directory name
+      deps: additional dependencies for tests
+      ng_config: root configurations (angular.json, tsconfig.json)
+      **kwargs: extra args passed to main Angular CLI rules
+    """
+    srcs = native.glob(["src/**/*"], exclude = ["dist/"])
+
+    project_name = project_name if project_name else native.package_name().split("/").pop()
+
+    architect_cli.architect_test(
+        name = name,
+        chdir = native.package_name(),
+        args = ["%s:test" % project_name, "--no-watch"],
+        data = srcs + deps + TEST_DEPS + TEST_CONFIG + TOOLS + [ng_config, ":ng-package"],
+        log_level = "debug",
+        **kwargs
+    )
+
+def ng_application(name, project_name = None, deps = [], **kwargs):
+    """
+    Bazel macro for compiling an NG application project. Creates {name}, {name}.serve targets.
 
     Args:
       name: the rule name
       project_name: the Angular CLI project name, to the rule name
-      deps: dependencies of the library
-      test_deps: additional dependencies for tests
+      deps: dependencies of the application, typically ng_library rules
       **kwargs: extra args passed to main Angular CLI rules
     """
-    srcs = native.glob(
-        ["src/**/*"],
-        exclude = [
-            "src/**/*.spec.ts",
-            "src/test.ts",
-            "dist/",
-        ],
-    )
-
-    test_srcs = native.glob(["src/test.ts", "src/**/*.spec.ts"], allow_empty = True)
+    srcs = native.glob(["src/**/*"], exclude = TEST_PATTERNS)
 
     project_name = project_name if project_name else name
 
@@ -184,23 +188,14 @@ def ng_app(name, project_name = None, deps = [], test_deps = [], **kwargs):
         chdir = native.package_name(),
         args = ["%s:build" % project_name],
         out_dirs = ["dist/%s" % project_name],
-        srcs = srcs + deps + APPLICATION_DEPS + APPLICATION_CONFIG + TOOLS + [COMMON_CONFIG],
+        srcs = srcs + deps + APPLICATION_DEPS + APPLICATION_CONFIG + TOOLS,
         **kwargs
     )
 
     architect_cli.architect_binary(
-        name = "serve",
+        name = name + ".serve",
         chdir = native.package_name(),
         args = ["%s:serve" % project_name],
-        data = srcs + deps + APPLICATION_DEPS + APPLICATION_CONFIG + TOOLS + [COMMON_CONFIG],
-        **kwargs
-    )
-
-    architect_cli.architect_test(
-        name = "test",
-        chdir = native.package_name(),
-        args = ["%s:test" % project_name],
-        data = srcs + test_srcs + deps + test_deps + TEST_DEPS + TEST_CONFIG + TOOLS + [COMMON_CONFIG],
-        log_level = "debug",
+        data = srcs + deps + APPLICATION_DEPS + APPLICATION_CONFIG + TOOLS,
         **kwargs
     )

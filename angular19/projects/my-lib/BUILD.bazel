@@ -1,7 +1,11 @@
-load("//angular19:defs.bzl", "ng_lib")
+load("//angular19:defs.bzl", "ng_library", "ng_test")
 
 package(default_visibility = ["//visibility:public"])
 
-ng_lib(
+ng_library(
     name = "my-lib",
+)
+
+ng_test(
+    name = "test",
 )
