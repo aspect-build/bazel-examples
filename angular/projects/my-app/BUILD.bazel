@@ -1,0 +1,10 @@
+load("@rules_angular//architect:ng_application.bzl", "ng_application")
+
+ng_application(
+    name = "my-app",
+    ng_config = "//angular:ng-config",
+    node_modules = "//angular:node_modules",
+    deps = [
+        "//angular/projects/my-lib",
+    ],
+)
