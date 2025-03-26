@@ -4,7 +4,7 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-packageExtensionsChecksum: 8737b025ff7a3214e95089d0873ac0fa
+packageExtensionsChecksum: ed636bfdd9432b6cd050e83fe6c629df
 
 importers:
 
@@ -312,7 +312,7 @@ packages:
       '@angular-devkit/architect': 0.1900.0
       '@angular-devkit/build-webpack': 0.1900.0(webpack-dev-server@5.1.0)(webpack@5.96.1)
       '@angular-devkit/core': 19.0.0
-      '@angular/build': 19.0.0(@angular/compiler-cli@19.0.0)(@angular/compiler@19.0.0)(@types/node@18.0.0)(less@4.2.0)(postcss@8.4.49)(terser@5.36.0)(typescript@5.6.2)
+      '@angular/build': 19.0.0(@angular/compiler-cli@19.0.0)(@angular/compiler@19.0.0)(@types/node@18.0.0)(less@4.2.0)(postcss@8.4.49)(terser@5.36.0)(tslib@2.8.1)(typescript@5.6.2)
       '@angular/compiler-cli': 19.0.0(@angular/compiler@19.0.0)(typescript@5.6.2)
       '@babel/core': 7.26.0
       '@babel/generator': 7.26.2
@@ -445,7 +445,7 @@ packages:
       tslib: 2.7.0
     dev: false
 
-  /@angular/build@19.0.0(@angular/compiler-cli@19.0.0)(@angular/compiler@19.0.0)(@types/node@18.0.0)(less@4.2.0)(postcss@8.4.49)(terser@5.36.0)(typescript@5.6.2):
+  /@angular/build@19.0.0(@angular/compiler-cli@19.0.0)(@angular/compiler@19.0.0)(@types/node@18.0.0)(less@4.2.0)(postcss@8.4.49)(terser@5.36.0)(tslib@2.8.1)(typescript@5.6.2):
     resolution: {integrity: sha512-OLyUwAVCSqW589l19g19aP2O1NpBMRPsqKmYLaTYvYSIcZkNRJPxOcsCIDGB3FUQUEjpouYtzPA3RtBuJWsCwQ==}
     engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
     peerDependencies:
@@ -458,6 +458,7 @@ packages:
       less: ^4.2.0
       postcss: ^8.4.0
       tailwindcss: ^2.0.0 || ^3.0.0
+      tslib: '*'
       typescript: '>=5.5 <5.7'
     peerDependenciesMeta:
       '@angular/localize':
@@ -502,6 +503,7 @@ packages:
       rollup: 4.26.0
       sass: 1.80.7
       semver: 7.6.3
+      tslib: 2.8.1
       typescript: 5.6.2
       vite: 5.4.11(@types/node@18.0.0)(less@4.2.0)(sass@1.80.7)(terser@5.36.0)
       watchpack: 2.4.2
@@ -1923,7 +1925,7 @@ packages:
     resolution: {integrity: sha512-bV21/9LQmcQeCPEg3BDFtvwL6cwiTMksYNWQQ4KOxCZikEGalWtenoZ0wCiukJINlGCIi2KXx01g4FoH/LxpzQ==}
     requiresBuild: true
     dependencies:
-      tslib: 2.7.0
+      tslib: 2.8.1
     dev: true
     optional: true
 
