@@ -23,9 +23,3 @@ prisma/
 rules_nodejs_to_rules_js_migration/
 ts_project_transpiler/
 vercel_pkg/
-
-# node_modules and dist directories that should be ignored:
-qwik/app/node_modules/
-qwik/app/dist/
-qwik/lib/node_modules/
-qwik/lib/dist/
