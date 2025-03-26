@@ -10,7 +10,7 @@ case "$(basename "$0")" in
     target="@pnpm"
     ;;
   ng)
-    target="//angular19:ng"
+    target="//tools:ng"
     ;;
   *)
     target="@multitool//tools/$(basename "$0")"

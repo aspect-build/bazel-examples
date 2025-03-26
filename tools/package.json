@@ -1,6 +1,7 @@
 {
   "private": true,
   "devDependencies": {
+    "@angular/cli": "^19",
     "svg-term-cli": "^2"
   }
 }
