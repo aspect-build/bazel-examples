@@ -22,11 +22,6 @@
         "peerDependencies": {
           "tslib": "*"
         }
-      },
-      "@angular-devkit/architect": {
-        "peerDependencies": {
-          "@angular-devkit/build-angular": "*"
-        }
       }
     }
   }
