@@ -1,8 +1,13 @@
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("@npm//tools:svg-term-cli/package_json.bzl", "bin")
+load("@npm//tools:@angular/cli/package_json.bzl", angular_cli = "bin")
+load("@npm//tools:svg-term-cli/package_json.bzl", svg_term_cli = "bin")
 
 npm_link_all_packages(name = "node_modules")
 
-bin.svg_term_binary(
+angular_cli.ng_binary(
+    name = "ng",
+)
+
+svg_term_cli.svg_term_binary(
     name = "svg-term",
 )

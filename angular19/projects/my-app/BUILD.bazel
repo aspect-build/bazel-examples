@@ -1,0 +1,9 @@
+load("//angular19:defs.bzl", "ng_app")
+
+ng_app(
+    name = "my-app",
+    deps = [
+        # "//:node_modules/ng2-dragula",
+        "//angular19/projects/my-lib",
+    ],
+)
