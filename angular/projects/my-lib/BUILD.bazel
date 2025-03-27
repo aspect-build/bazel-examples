@@ -1,7 +1,12 @@
 load("@rules_angular//architect:ng_library.bzl", "ng_library")
 load("@rules_angular//architect:ng_test.bzl", "ng_test")
+# load("@rules_angular//src/ng_package:index.bzl", "ng_package")
 
 package(default_visibility = ["//visibility:public"])
+
+# ng_package(
+#     name = "my-lib-pkg",
+# )
 
 ng_library(
     name = "my-lib",
@@ -13,4 +18,5 @@ ng_test(
     name = "test",
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
+    tags = ["no-sandbox"],
 )
