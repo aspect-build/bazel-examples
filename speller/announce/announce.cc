@@ -1,7 +1,7 @@
 #include "announce.h"
 
 #include <ctime>
-#include <iostream>
+// #include <iostream>
 
 // Bazel recommends that your code refer to each header from the
 // workspace root. There is a way to support "greeting.h" instead, for
@@ -13,7 +13,7 @@
 namespace Speller {
 
 void announce(const std::string &word) {
-  std::time_t const result = std::time(nullptr);
+  std::time_t const result = std::time();
   std::cout << std::endl
             << "Speller executed at "
             << std::asctime(std::localtime(&result));
