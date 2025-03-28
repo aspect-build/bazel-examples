@@ -40,9 +40,10 @@ bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1")  # C code for SQLite.
 bazel_dep(name = "toolchains_llvm", version = "1.1.2")
 bazel_dep(name = "toolchains_protoc", version = "0.3.6")
 
+# local_path_override(module_name = "rules_angular", path = "../rules_angular")
 git_override(
     module_name = "rules_angular",
-    commit = "ae8fd185cec4c359d10c0fe1f8c7360e503e3bca",
+    commit = "23803af9588515c8d191a2cad5afa9ec075eaeb3",
     remote = "https://github.com/alexeagle/rules_angular.git",
 )
 
