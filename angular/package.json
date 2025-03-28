@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "start": "bazel run //angular/projects/my-app:my-app.serve",
+    "build": "bazel build //angular/projects/my-app",
+    "watch": "../tools/ibazel build //angular/projects/my-app",
+    "test": "bazel test //angular/..."
   },
   "private": true,
   "dependencies": {

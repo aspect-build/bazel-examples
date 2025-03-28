@@ -1,13 +1,23 @@
 # Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0-next.3.
+
+We ran `ng generate application my-app` and `ng generate application my-lib`.
+
+Bazel BUILD files were then added to the my-app and my-lib folders.
 
 ## Development server
 
-To start a local development server, run:
+To start a local development server using "native" tooling, run:
 
 ```bash
-ng serve
+../tools/ng serve
+```
+
+To start it with Bazel, run:
+
+```bash
+npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -17,31 +27,43 @@ Once the server is running, open your browser and navigate to `http://localhost:
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-ng generate component component-name
+../tools/ng generate component component-name
 ```
 
 For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
 ```bash
-ng generate --help
+../tools/ng generate --help
 ```
 
 ## Building
 
-To build the project run:
+To build the project using "native" tooling, run:
 
 ```bash
-ng build
+../tools/ng build
+```
+
+To build with Bazel, run:
+
+```bash
+npm run build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
 ## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner and "native" tools, use the following command:
 
 ```bash
 ng test
+```
+
+To run them with Bazel, run:
+
+```bash
+npm test
 ```
 
 ## Running end-to-end tests
