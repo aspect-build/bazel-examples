@@ -3,34 +3,57 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "my-lib": {
+      "projectType": "library",
+      "root": "projects/my-lib",
+      "sourceRoot": "projects/my-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "projects/my-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/my-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/my-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/my-lib/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
     "my-app": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "projects/my-app",
       "sourceRoot": "projects/my-app/src",
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/my-app",
             "index": "projects/my-app/src/index.html",
             "browser": "projects/my-app/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/my-app/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "projects/my-app/public"
               }
             ],
-            "styles": ["projects/my-app/src/styles.scss"],
-            "scripts": []
+            "styles": ["projects/my-app/src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -57,7 +80,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "my-app:build:production"
@@ -69,52 +92,20 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/my-app/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "projects/my-app/public"
               }
             ],
-            "styles": ["projects/my-app/src/styles.scss"],
-            "scripts": []
-          }
-        }
-      }
-    },
-    "my-lib": {
-      "projectType": "library",
-      "root": "projects/my-lib",
-      "sourceRoot": "projects/my-lib/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/my-lib/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/my-lib/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/my-lib/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/my-lib/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "styles": ["projects/my-app/src/styles.css"]
           }
         }
       }

@@ -241,8 +241,8 @@ importers:
   tools:
     devDependencies:
       '@angular/cli':
-        specifier: ^19
-        version: 19.0.0(@types/node@18.0.0)
+        specifier: ^20.0.0-next.3
+        version: 20.0.0-next.3(@types/node@18.0.0)
       svg-term-cli:
         specifier: ^2
         version: 2.0.0
@@ -268,16 +268,6 @@ packages:
       progress: 2.0.3
       symbol-observable: 4.0.0
       yargs-parser: 21.1.1
-    transitivePeerDependencies:
-      - chokidar
-    dev: true
-
-  /@angular-devkit/architect@0.1900.0:
-    resolution: {integrity: sha512-oC2CyKf9olKvthEwp2wmkKw+H9NhpnK9cWYHvajWeCRJ8A4DLaKwfMuZ9lioi92QPourrJzoikgp7C6m2AuuZQ==}
-    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
-    dependencies:
-      '@angular-devkit/core': 19.0.0
-      rxjs: 7.8.1
     transitivePeerDependencies:
       - chokidar
     dev: true
@@ -440,23 +430,6 @@ packages:
       - chokidar
     dev: true
 
-  /@angular-devkit/core@19.0.0:
-    resolution: {integrity: sha512-/EJQOKVFb9vsFbPR+57C7fJHFVr7le9Ru6aormIKw24xyZZHtt5X4rwdeN7l6Zkv8F0cJ2EoTSiQoY17090DLQ==}
-    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
-    peerDependencies:
-      chokidar: ^4.0.0
-    peerDependenciesMeta:
-      chokidar:
-        optional: true
-    dependencies:
-      ajv: 8.17.1
-      ajv-formats: 3.0.1(ajv@8.17.1)
-      jsonc-parser: 3.3.1
-      picomatch: 4.0.2
-      rxjs: 7.8.1
-      source-map: 0.7.4
-    dev: true
-
   /@angular-devkit/core@20.0.0-next.3:
     resolution: {integrity: sha512-4u0FmzFjluX/2G2DBzPvcajMUA66zp2tjv/31s7yu83mTtTmaSD5femxDbeLDLXMhVWyC25d4I6ki96cbvV5rg==}
     engines: {node: ^20.11.1 || >=22.11.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
@@ -472,19 +445,6 @@ packages:
       picomatch: 4.0.2
       rxjs: 7.8.2
       source-map: 0.7.4
-    dev: true
-
-  /@angular-devkit/schematics@19.0.0:
-    resolution: {integrity: sha512-90pGZtpZgjDk1UgRBatfeqYP6qUZL9fLh+8zIpavOr2ey5bW2lADO7mS2Qrc7U1SmGqnxQXQQ7uIS+50gYm0tQ==}
-    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
-    dependencies:
-      '@angular-devkit/core': 19.0.0
-      jsonc-parser: 3.3.1
-      magic-string: 0.30.12
-      ora: 5.4.1
-      rxjs: 7.8.1
-    transitivePeerDependencies:
-      - chokidar
     dev: true
 
   /@angular-devkit/schematics@20.0.0-next.3:
@@ -599,34 +559,6 @@ packages:
       - terser
       - tsx
       - yaml
-    dev: true
-
-  /@angular/cli@19.0.0(@types/node@18.0.0):
-    resolution: {integrity: sha512-7FTNkMtTuaXp4CCWZlRIwFZtnkDJg+YjqAuloDNGhIXDjDsb9gWihepWpWXSMBTg4XI1OdsT+oYt38Z0YMck0A==}
-    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
-    hasBin: true
-    dependencies:
-      '@angular-devkit/architect': 0.1900.0
-      '@angular-devkit/core': 19.0.0
-      '@angular-devkit/schematics': 19.0.0
-      '@inquirer/prompts': 7.1.0(@types/node@18.0.0)
-      '@listr2/prompt-adapter-inquirer': 2.0.18(@inquirer/prompts@7.1.0)
-      '@schematics/angular': 19.0.0
-      '@yarnpkg/lockfile': 1.1.0
-      ini: 5.0.0
-      jsonc-parser: 3.3.1
-      listr2: 8.2.5
-      npm-package-arg: 12.0.0
-      npm-pick-manifest: 10.0.0
-      pacote: 20.0.0
-      resolve: 1.22.8
-      semver: 7.6.3
-      symbol-observable: 4.0.0
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - '@types/node'
-      - chokidar
-      - supports-color
     dev: true
 
   /@angular/cli@20.0.0-next.3(@types/node@18.0.0):
@@ -3076,25 +3008,6 @@ packages:
       ansi-escapes: 4.3.2
     dev: true
 
-  /@inquirer/prompts@7.1.0(@types/node@18.0.0):
-    resolution: {integrity: sha512-5U/XiVRH2pp1X6gpNAjWOglMf38/Ys522ncEHIKT1voRUvSj/DQnR22OVxHnwu5S+rCFaUiPQ57JOtMFQayqYA==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@types/node': '>=18'
-    dependencies:
-      '@inquirer/checkbox': 4.1.4(@types/node@18.0.0)
-      '@inquirer/confirm': 5.1.8(@types/node@18.0.0)
-      '@inquirer/editor': 4.2.9(@types/node@18.0.0)
-      '@inquirer/expand': 4.0.11(@types/node@18.0.0)
-      '@inquirer/input': 4.1.8(@types/node@18.0.0)
-      '@inquirer/number': 3.0.11(@types/node@18.0.0)
-      '@inquirer/password': 4.0.11(@types/node@18.0.0)
-      '@inquirer/rawlist': 4.0.11(@types/node@18.0.0)
-      '@inquirer/search': 3.0.11(@types/node@18.0.0)
-      '@inquirer/select': 4.1.0(@types/node@18.0.0)
-      '@types/node': 18.0.0
-    dev: true
-
   /@inquirer/prompts@7.4.0(@types/node@18.0.0):
     resolution: {integrity: sha512-EZiJidQOT4O5PYtqnu1JbF0clv36oW2CviR66c7ma4LsupmmQlUwmdReGKRp456OWPWMz3PdrPiYg3aCk3op2w==}
     engines: {node: '>=18'}
@@ -3285,16 +3198,6 @@ packages:
 
   /@leichtgewicht/ip-codec@2.0.5:
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
-    dev: true
-
-  /@listr2/prompt-adapter-inquirer@2.0.18(@inquirer/prompts@7.1.0):
-    resolution: {integrity: sha512-0hz44rAcrphyXcA8IS7EJ2SCoaBZD2u5goE8S/e+q/DL+dOGpqpcLidVOFeLG3VgML62SXmfRLAhWt0zL1oW4Q==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      '@inquirer/prompts': '>= 3 < 8'
-    dependencies:
-      '@inquirer/prompts': 7.1.0(@types/node@18.0.0)
-      '@inquirer/type': 1.5.5
     dev: true
 
   /@listr2/prompt-adapter-inquirer@2.0.18(@inquirer/prompts@7.4.0):
@@ -4266,17 +4169,6 @@ packages:
       rxjs: 6.6.7
     transitivePeerDependencies:
       - zenObservable
-    dev: true
-
-  /@schematics/angular@19.0.0:
-    resolution: {integrity: sha512-2U8dlhURoQfS99ZF67RVeARFeJn4Z0Lg2dfYbGj+ooRH5YMtAZq8zAIRCfyC3OMiJEZM6BbGigCD6gNoAhP0RQ==}
-    engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
-    dependencies:
-      '@angular-devkit/core': 19.0.0
-      '@angular-devkit/schematics': 19.0.0
-      jsonc-parser: 3.3.1
-    transitivePeerDependencies:
-      - chokidar
     dev: true
 
   /@schematics/angular@20.0.0-next.3:
@@ -8959,7 +8851,7 @@ packages:
       mute-stream: 1.0.0
       ora: 5.4.1
       run-async: 3.0.0
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
@@ -10070,12 +9962,6 @@ packages:
       '@jridgewell/sourcemap-codec': 1.5.0
     dev: true
 
-  /magic-string@0.30.12:
-    resolution: {integrity: sha512-Ea8I3sQMVXr8JhN4z+H/d8zwo+tYDgHE9+5G4Wnrwhs0gaK9fXTKx0Tw5Xwsd/bCPTTZNRAdpyzvoeORe9LYpw==}
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.0
-    dev: true
-
   /magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
     dependencies:
@@ -11135,16 +11021,6 @@ packages:
   /npm-normalize-package-bin@4.0.0:
     resolution: {integrity: sha512-TZKxPvItzai9kN9H/TkmCtx/ZN/hvr3vUycjlfmH0ootY9yFBzNOpiXAdIn1Iteqsvk4lQn6B5PTrt+n6h8k/w==}
     engines: {node: ^18.17.0 || >=20.5.0}
-    dev: true
-
-  /npm-package-arg@12.0.0:
-    resolution: {integrity: sha512-ZTE0hbwSdTNL+Stx2zxSqdu2KZfNDcrtrLdIk7XGnQFYBWYDho/ORvXtn5XEePcL3tFpGjHCV3X3xrtDh7eZ+A==}
-    engines: {node: ^18.17.0 || >=20.5.0}
-    dependencies:
-      hosted-git-info: 8.0.2
-      proc-log: 5.0.0
-      semver: 7.7.1
-      validate-npm-package-name: 6.0.0
     dev: true
 
   /npm-package-arg@12.0.2:
