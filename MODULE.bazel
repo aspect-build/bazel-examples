@@ -7,7 +7,7 @@
 
 bazel_dep(name = "apple_support", version = "1.15.1")
 bazel_dep(name = "aspect_bazel_lib", version = "2.10.0")
-bazel_dep(name = "aspect_rules_js", version = "2.0.0")
+bazel_dep(name = "aspect_rules_js", version = "2.3.3")
 bazel_dep(name = "aspect_rules_lint", version = "1.0.0-rc10")
 bazel_dep(name = "aspect_rules_py", version = "1.3.1")
 bazel_dep(name = "aspect_rules_swc", version = "2.0.0")
@@ -18,6 +18,7 @@ bazel_dep(name = "container_structure_test", version = "1.19.1")
 bazel_dep(name = "gazelle", version = "0.40.0")
 bazel_dep(name = "googletest", version = "1.15.2")
 bazel_dep(name = "platforms", version = "0.0.10")
+bazel_dep(name = "rules_angular", version = "0.0.0")
 bazel_dep(name = "rules_apple", version = "3.0.0")
 bazel_dep(name = "rules_buf", version = "0.3.0")
 bazel_dep(name = "rules_cc", version = "0.1.1")
@@ -25,6 +26,7 @@ bazel_dep(name = "rules_go", version = "0.50.1")
 bazel_dep(name = "rules_java", version = "8.6.1")
 bazel_dep(name = "rules_jvm_external", version = "6.3")
 bazel_dep(name = "rules_multitool", version = "0.12.0")
+bazel_dep(name = "rules_nodejs", version = "6.3.4")
 bazel_dep(name = "rules_oci", version = "2.0.1")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
 bazel_dep(name = "rules_proto", version = "7.1.0")
@@ -38,6 +40,22 @@ bazel_dep(name = "rules_xcodeproj", version = "1.11.0")
 bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1")  # C code for SQLite.
 bazel_dep(name = "toolchains_llvm", version = "1.1.2")
 bazel_dep(name = "toolchains_protoc", version = "0.3.6")
+
+git_override(
+    module_name = "aspect_rules_js",
+    commit = "0b21e0b8c87869ac0fe9e59290357f8b27866f33",
+    remote = "https://github.com/aspect-build/rules_js.git",
+)
+
+local_path_override(
+    module_name = "rules_angular",
+    path = "../rules_angular",
+)
+# git_override(
+#     module_name = "rules_angular",
+#     commit = "23803af9588515c8d191a2cad5afa9ec075eaeb3",
+#     remote = "https://github.com/alexeagle/rules_angular.git",
+# )
 
 # Just like in the old WORKSPACE file approach, you can directly grab some code
 # with HTTP and make it available. The syntax is slightly different,
@@ -177,6 +195,8 @@ use_repo(
 # dependencies are specified at the top level rather than in each sub-project.
 # However, it is possible to have multiple different sets of NPM dependencies
 # across a workspace.
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+node.toolchain(node_version = "20.18.0")
 
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 
