@@ -1,5 +1,5 @@
-load("@rules_angular//architect:ng_library.bzl", "ng_library")
-load("@rules_angular//architect:ng_test.bzl", "ng_test")
+load("@rules_angular//src/architect:ng_library.bzl", "ng_library")
+load("@rules_angular//src/architect:ng_test.bzl", "ng_test")
 
 package(default_visibility = ["//visibility:public"])
 

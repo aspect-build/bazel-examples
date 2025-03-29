@@ -6,7 +6,8 @@
     "start": "bazel run //angular/projects/my-app:my-app.serve",
     "build": "bazel build //angular/projects/my-app",
     "watch": "../tools/ibazel build //angular/projects/my-app",
-    "test": "bazel test //angular/..."
+    "test": "bazel test //angular/...",
+    "build2": "architect my-lib:build"
   },
   "private": true,
   "dependencies": {

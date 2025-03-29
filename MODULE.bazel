@@ -41,12 +41,21 @@ bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1")  # C code for SQLite.
 bazel_dep(name = "toolchains_llvm", version = "1.1.2")
 bazel_dep(name = "toolchains_protoc", version = "0.3.6")
 
-# local_path_override(module_name = "rules_angular", path = "../rules_angular")
 git_override(
-    module_name = "rules_angular",
-    commit = "23803af9588515c8d191a2cad5afa9ec075eaeb3",
-    remote = "https://github.com/alexeagle/rules_angular.git",
+    module_name = "aspect_rules_js",
+    commit = "0b21e0b8c87869ac0fe9e59290357f8b27866f33",
+    remote = "https://github.com/aspect-build/rules_js.git",
 )
+
+local_path_override(
+    module_name = "rules_angular",
+    path = "../rules_angular",
+)
+# git_override(
+#     module_name = "rules_angular",
+#     commit = "23803af9588515c8d191a2cad5afa9ec075eaeb3",
+#     remote = "https://github.com/alexeagle/rules_angular.git",
+# )
 
 # Just like in the old WORKSPACE file approach, you can directly grab some code
 # with HTTP and make it available. The syntax is slightly different,
