@@ -1,37 +1,81 @@
 # Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14. A bazel build was then configured alongside the Angular CLI using the Angular Architect tooling - the same tooling used by the CLI used within bazel. This shows how a project can be in a "hybrid mode" where some developers (and maybe the CI system) can use Bazel, but others can continue using their familiar tools.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0-next.3.
 
-An alternative and more "bazel idiomatic" way would be using the Angular compiler directly. See the [Angular NGC](../angular-ngc/) example for a comparison and more information about different methods of configuring an Angular project with bazel.
+We ran `ng generate application my-app` and `ng generate application my-lib`.
 
-## Project structure
-
-The `lib-a` and `common` projects were added to demonstrate dependencies between multiple projects and application.
-
-Look at the early commit history to this folder to better understand which changes were made after the Angular CLI created the project:
-<https://github.com/aspect-build/bazel-examples/commits/main/angular>
+Bazel BUILD files were then added to the my-app and my-lib folders.
 
 ## Development server
 
-Run `ng serve` for a dev server using the Angular CLI.
-Run `bazel run //:serve` for a dev server using bazel.
+To start a local development server using "native" tooling, run:
 
-Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+../tools/ng serve
+```
+
+To start it with Bazel, run:
+
+```bash
+npm start
+```
+
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-## Build
+```bash
+../tools/ng generate component component-name
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-Run `bazel build //...`  to build the project using bazel. The build artifacts will be stored in the `bazel-bin/` directory.
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+../tools/ng generate --help
+```
+
+## Building
+
+To build the project using "native" tooling, run:
+
+```bash
+../tools/ng build
+```
+
+To build with Bazel, run:
+
+```bash
+npm run build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests.
-Run `bazel test //...` to execute the unit tests using bazel.
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner and "native" tools, use the following command:
 
-# NOTE
+```bash
+ng test
+```
 
-Executing tests with `bazel test //...` currently fails on MacOS due to sandboxing issues. To debug tests run `bazel run //path/to:test`.
+To run them with Bazel, run:
+
+```bash
+npm test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -17,6 +17,16 @@
         "dependencies": {
           "react": "*"
         }
+      },
+      "@angular/build": {
+        "peerDependencies": {
+          "tslib": "*"
+        }
+      },
+      "@angular-devkit/architect": {
+        "peerDependencies": {
+          "@angular/build": "*"
+        }
       }
     }
   }
