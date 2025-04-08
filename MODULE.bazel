@@ -47,15 +47,11 @@ git_override(
     remote = "https://github.com/aspect-build/rules_js.git",
 )
 
-local_path_override(
+git_override(
     module_name = "rules_angular",
-    path = "../rules_angular",
+    commit = "6aa7459527162d152bc402e6fde28d49ec88858a",
+    remote = "https://github.com/alexeagle/rules_angular.git",
 )
-# git_override(
-#     module_name = "rules_angular",
-#     commit = "23803af9588515c8d191a2cad5afa9ec075eaeb3",
-#     remote = "https://github.com/alexeagle/rules_angular.git",
-# )
 
 # Just like in the old WORKSPACE file approach, you can directly grab some code
 # with HTTP and make it available. The syntax is slightly different,
