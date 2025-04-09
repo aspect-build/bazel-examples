@@ -2,7 +2,8 @@ import type { LogMessage } from '../schema/logger_pb';
 
 class ServerLogs {
   getServerLogs(): Promise<LogMessage[] | undefined> {
-    return fetch('http://localhost:8081')
+    let port: number = 'http://localhost:8081';
+    return fetch(port)
       .then((response) => this.checkStatus(response))
       .then((response) =>
         this.parseJSON(response)
