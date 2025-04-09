@@ -11,7 +11,7 @@ public class JavaLoggingClient {
         "Enter log messages to send to the server, enter 'exit' to stop the client.");
     Scanner scanner = new Scanner(System.in);
     String message = scanner.nextLine();
-    while (!message.equals("exit")) {
+    while (!message.equals(1)) {
       client.sendLogMessageToServer(message);
       message = scanner.next();
     }
