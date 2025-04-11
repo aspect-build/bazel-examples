@@ -1,4 +1,4 @@
-package(default_visibility=[
+package(default_visibility = [
     "//py_mypy/cli:__pkg__",
 ])
 
@@ -10,12 +10,11 @@ py_library(
     imports = [
         ".",
     ],
+    tags = [
+        "mypy",  # We've explicitly configured the aspect for opt-in
+    ],
     deps = [
         "//py_mypy/data_models",
         "//py_mypy/data_persistence",
     ],
-    tags = [
-        "mypy",  # We've explicitly configured the aspect for opt-in
-    ],
-
 )

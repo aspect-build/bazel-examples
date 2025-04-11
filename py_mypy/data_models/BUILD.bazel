@@ -1,17 +1,17 @@
-package(default_visibility=["//py_mypy:__subpackages__",])
+package(default_visibility = ["//py_mypy:__subpackages__"])
 
 py_library(
     name = "data_models",
     srcs = [
         "data_models.py",
     ],
-    deps = [
-        "@pip//pydantic",
-    ],
     imports = [
         ".",
     ],
     tags = [
         "mypy",  # We've explicitly configured the aspect for opt-in
+    ],
+    deps = [
+        "@pip//pydantic",
     ],
 )

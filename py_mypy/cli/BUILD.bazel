@@ -1,13 +1,13 @@
 py_binary(
     name = "cli",
-    main = "__main__.py",
     srcs = ["__main__.py"],
-    deps = [
-        "//py_mypy/order_processing",
-        "//py_mypy/inventory_management",
-        "@pip//click",
-    ],
+    main = "__main__.py",
     tags = [
         "mypy",  # We've explicitly configured the aspect for opt-in
+    ],
+    deps = [
+        "//py_mypy/inventory_management",
+        "//py_mypy/order_processing",
+        "@pip//click",
     ],
 )
