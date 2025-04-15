@@ -1,6 +1,6 @@
-package(default_visibility=[
-    "//py_mypy/order_processing:__pkg__",
+package(default_visibility = [
     "//py_mypy/inventory_management:__pkg__",
+    "//py_mypy/order_processing:__pkg__",
 ])
 
 py_library(
@@ -11,11 +11,10 @@ py_library(
     imports = [
         ".",
     ],
-    deps = [
-        "//py_mypy/data_models",
-    ],
     tags = [
         "mypy",  # We've explicitly configured the aspect for opt-in
     ],
-
+    deps = [
+        "//py_mypy/data_models",
+    ],
 )

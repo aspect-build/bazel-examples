@@ -2,6 +2,14 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
+# JS BUILD generation is opt-in per project
+# aspect:js disabled
+
+# Global config shared across monorepo.
+# aspect:js_npm_package_target_name pkg
+# aspect:js_package_rule_kind js_library
+# aspect:js_project_naming_convention tsc
+
 package(default_visibility = ["//:__subpackages__"])
 
 npm_link_all_packages(name = "node_modules")
