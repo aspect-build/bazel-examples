@@ -20,19 +20,10 @@ jobs:
   # matrix-prep-* jobs dynamically generate a bit of JSON which we read later to construct a matrix of test jobs
   matrix-prep-os:
     # Prepares the 'os' axis of the test matrix
-    runs-on: ubuntu-latest
+    runs-on: aspect-default
     steps:
       - id: linux
         run: echo "os=ubuntu-latest" >> $GITHUB_OUTPUT
-      - id: macos
-        run: echo "os=macos-latest" >> $GITHUB_OUTPUT
-        # Only run on main branch (or branches that contain 'macos') to minimize macOS minutes (billed at 10X)
-        # https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#included-storage-and-minutes
-        if: github.ref == 'refs/heads/main' || contains(github.head_ref, 'macos')
-      - id: windows
-        run: echo "os=windows-latest" >> $GITHUB_OUTPUT
-        # Only run on branches that contain 'windows' to minimize Windows minutes (billed at 2X) and because Windows support is spotty.
-        if: contains(github.head_ref, 'windows')
     outputs:
       # Will look like ["ubuntu-latest", "macos-latest"]
       os: ${{ toJSON(steps.*.outputs.os) }}
@@ -47,7 +38,7 @@ jobs:
           # Clone the last two commits, so we can see what files were changed.
           fetch-depth: 2
       # Get a list of nested Bazel modules that were touched
-      - uses: REPACE-ME/changed-files@v45
+      - uses: tj-actions/changed-files@v45
         with:
           # NB: this list must match all files that live within a nested Bazel module.
           # Should match the /.bazelignore file as well.
