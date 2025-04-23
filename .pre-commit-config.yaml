@@ -10,7 +10,7 @@ repos:
   hooks:
   - id: format
     name: Format
-    entry: aspect run //tools/format:format
+    entry: bazel run //tools/format:format
     language: system
     types: [text]
 # Lint for starlark code.
