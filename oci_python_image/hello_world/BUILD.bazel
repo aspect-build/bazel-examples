@@ -95,6 +95,8 @@ container_structure_test(
     tags = [
         "no-remote-exec",
         "requires-docker",
+        # TODO(sahin/derek?): this test passes on GitHub Actions runners but fails on AW
+        "skip-on-aspect-workflows",
     ],
 )
 
