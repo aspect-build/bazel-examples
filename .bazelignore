@@ -4,7 +4,6 @@
 # Bazel workspace in a directory.
 
 # Nested projects that should be moved into the root workspace:
-angular/
 angular-ngc/
 bufbuild/
 bzlmod/
