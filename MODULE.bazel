@@ -43,7 +43,7 @@ bazel_dep(name = "toolchains_protoc", version = "0.3.6")
 
 git_override(
     module_name = "rules_angular",
-    commit = "be32410fcf198d500ace78469de12d5f4db458fd",
+    commit = "711f20b42f3819504c859b352069fd18fd9176f8",
     remote = "https://github.com/devversion/rules_angular.git",
 )
 
