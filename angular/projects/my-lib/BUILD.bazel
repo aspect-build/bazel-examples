@@ -1,10 +1,20 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 load("@rules_angular//src/architect:ng_library.bzl", "ng_library")
 load("@rules_angular//src/architect:ng_test.bzl", "ng_test")
 
 package(default_visibility = ["//visibility:public"])
 
+copy_to_bin(
+    name = "srcs",
+    srcs = glob(
+        ["src/**/*"],
+        exclude = ["dist/"],
+    ),
+)
+
 ng_library(
     name = "my-lib",
+    srcs = [":srcs"],
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
 )
@@ -12,7 +22,12 @@ ng_library(
 ng_test(
     name = "test",
     size = "small",
+    srcs = [":srcs"],
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
-    tags = ["no-sandbox"],
+    # Remote executor doesn't have Chrome installed
+    tags = [
+        "no-remote-exec",
+        "no-sandbox",
+    ],
 )
