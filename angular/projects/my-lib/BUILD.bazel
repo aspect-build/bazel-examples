@@ -11,6 +11,7 @@ ng_library(
 
 ng_test(
     name = "test",
+    size = "small",
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
     tags = ["no-sandbox"],
