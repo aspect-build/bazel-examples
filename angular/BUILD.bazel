@@ -1,0 +1,9 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_angular//src/architect:ng_config.bzl", "ng_config")
+
+npm_link_all_packages()
+
+ng_config(
+    name = "ng-config",
+    visibility = ["//angular:__subpackages__"],
+)
