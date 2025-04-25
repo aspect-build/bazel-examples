@@ -18,6 +18,7 @@ bazel_dep(name = "container_structure_test", version = "1.19.1")
 bazel_dep(name = "gazelle", version = "0.40.0")
 bazel_dep(name = "googletest", version = "1.15.2")
 bazel_dep(name = "platforms", version = "0.0.10")
+bazel_dep(name = "rules_angular", version = "0.0.0")
 bazel_dep(name = "rules_apple", version = "3.0.0")
 bazel_dep(name = "rules_buf", version = "0.3.0")
 bazel_dep(name = "rules_cc", version = "0.1.1")
@@ -39,6 +40,12 @@ bazel_dep(name = "rules_xcodeproj", version = "1.11.0")
 bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1")  # C code for SQLite.
 bazel_dep(name = "toolchains_llvm", version = "1.1.2")
 bazel_dep(name = "toolchains_protoc", version = "0.3.6")
+
+git_override(
+    module_name = "rules_angular",
+    commit = "be32410fcf198d500ace78469de12d5f4db458fd",
+    remote = "https://github.com/devversion/rules_angular.git",
+)
 
 # Just like in the old WORKSPACE file approach, you can directly grab some code
 # with HTTP and make it available. The syntax is slightly different,
@@ -186,6 +193,9 @@ use_repo(pnpm, "pnpm")
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
     name = "npm",
+    lifecycle_hooks_execution_requirements = {
+        "lmdb": ["no-remote-exec"],  # requires non-hermetic GLIBCXX_3.4.29 which is not found on remote executors but is available on host
+    },
     npmrc = "//:.npmrc",
     pnpm_lock = "//:pnpm-lock.yaml",
 )
