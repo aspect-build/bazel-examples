@@ -23,11 +23,16 @@ ng_test(
     name = "test",
     size = "small",
     srcs = [":srcs"],
+    env = {
+        "CHROME_BIN": "/ms-playwright/chromium_headless_shell-1169/chrome-linux/headless_shell",
+    },
+    exec_properties = {
+        "OSFamily": "Linux",
+        "container-image": "docker://mcr.microsoft.com/playwright:v1.52.0-noble@sha256:a021500a801bab0611049217ffad6b9697d827205c15babb86a53bc1a61c02d5",
+    },
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
-    # Remote executor doesn't have Chrome installed
     tags = [
-        "no-remote-exec",
         "no-sandbox",
     ],
 )
