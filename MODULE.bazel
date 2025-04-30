@@ -41,6 +41,8 @@ bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1")  # C code for SQLite.
 bazel_dep(name = "toolchains_llvm", version = "1.1.2")
 bazel_dep(name = "toolchains_protoc", version = "0.3.6")
 
+# This ruleset isn't published to any Bazel registry yet, so we must fetch sources.
+# TODO(alex): add Publish-to-BCR release mechanics.
 git_override(
     module_name = "rules_angular",
     commit = "755e5c7c967d38158a4e5defacd2e2e34090e54d",

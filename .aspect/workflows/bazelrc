@@ -3,7 +3,7 @@ common --remote_download_outputs=minimal
 common --nobuild_runfile_links
 
 # remote execution
-common:rbe --extra_execution_platforms=//tools/platforms:buildbarn_remote,//tools/platforms:buildbarn_puppeteer
+common:rbe --extra_execution_platforms=//tools/platforms:buildbarn_remote,//tools/platforms:buildbarn_browser
 common:rbe --host_platform=//tools/platforms:buildbarn_remote
 common:rbe --remote_executor=unix:///mnt/ephemeral/buildbarn/.cache/bb_clientd/grpc
 common:rbe --genrule_strategy=remote,local

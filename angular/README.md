@@ -1,6 +1,13 @@
 # Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0-next.7.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0-next.7, referenced at tools/package.json, by running `tools/ng new`.
+
+> `/tools/ng` is a symlink to `/tools/_run_under_cwd.sh` which executes the `angular_cli.ng_binary(name = "ng")` defined in `/tools/BUILD`.
+
+A bazel build was then configured alongside the Angular CLI using https://github.com/devversion/rules_angular.
+This runs exactly the same commands that Angular CLI would, but under Bazel. This shows how a project can be in a "hybrid mode" where some developers (and maybe the CI system) can use Bazel, but others can continue using their familiar tools.
+
+See `/angular-ngc` for a different example where the Angular tooling is discarded and replaced by a more Bazel-idiomatic build pipeline.
 
 ## Development server
 
