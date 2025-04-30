@@ -30,6 +30,84 @@
           }
         }
       }
+    },
+    "my-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/my-app",
+      "sourceRoot": "projects/my-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "index": "projects/my-app/src/index.html",
+            "browser": "projects/my-app/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/my-app/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/my-app/public"
+              }
+            ],
+            "styles": ["projects/my-app/src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "my-app:build:production"
+            },
+            "development": {
+              "buildTarget": "my-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "browsers": "ChromeHeadlessNoSandbox",
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/my-app/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/my-app/public"
+              }
+            ],
+            "styles": ["projects/my-app/src/styles.css"]
+          }
+        }
+      }
     }
   }
 }

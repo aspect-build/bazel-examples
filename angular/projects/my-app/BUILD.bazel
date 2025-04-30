@@ -1,0 +1,38 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@rules_angular//src/architect:ng_application.bzl", "ng_application")
+load("@rules_angular//src/architect:ng_test.bzl", "ng_test")
+load("//tools/platforms:defs.bzl", "PLAYWRIGHT_IMAGE", "PLAYWRIGHT_IMAGE_CHROME_PATH")
+
+package(default_visibility = ["//visibility:public"])
+
+copy_to_bin(
+    name = "srcs",
+    srcs = glob(
+        ["src/**/*"],
+        exclude = ["dist/"],
+    ),
+)
+
+ng_application(
+    name = "my-app",
+    ng_config = "//angular:ng-config",
+    node_modules = "//angular:node_modules",
+    tags = ["no-sandbox"],
+)
+
+ng_test(
+    name = "test",
+    size = "small",
+    srcs = [":srcs"],
+    # FIXME(alex): this variable is required for remote/docker spawn in the specified container-image,
+    # but breaks the ability to spawn locally.
+    env = {
+        "CHROME_BIN": PLAYWRIGHT_IMAGE_CHROME_PATH,
+    },
+    exec_properties = {
+        "OSFamily": "Linux",
+        "container-image": PLAYWRIGHT_IMAGE,
+    },
+    ng_config = "//angular:ng-config",
+    node_modules = "//angular:node_modules",
+)
