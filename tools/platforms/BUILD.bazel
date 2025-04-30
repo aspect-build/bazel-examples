@@ -1,3 +1,5 @@
+load("defs.bzl", "PLAYWRIGHT_IMAGE")
+
 platform(
     name = "buildbarn_remote",
     constraint_values = [
@@ -12,14 +14,14 @@ platform(
 )
 
 platform(
-    name = "buildbarn_puppeteer",
+    name = "buildbarn_browser",
     constraint_values = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
     exec_properties = {
         "OSFamily": "Linux",
-        "container-image": "docker://mcr.microsoft.com/playwright:v1.52.0-noble@sha256:a021500a801bab0611049217ffad6b9697d827205c15babb86a53bc1a61c02d5",
+        "container-image": PLAYWRIGHT_IMAGE,
     },
     visibility = ["//visibility:public"],
 )
