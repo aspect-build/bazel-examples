@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "vite": "^3",
+    "vite": "^4",
     "typescript": "4.8.2"
   },
   "scripts": {
