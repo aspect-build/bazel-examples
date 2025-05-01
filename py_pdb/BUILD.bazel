@@ -1,0 +1,41 @@
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_test")
+
+exports_files(["requirements.txt"])
+
+py_binary(
+    name = "bin_pdb",
+    srcs = ["test_pdb.py"],
+    main = "test_pdb.py",
+    deps = [
+        "@pip//pytest",
+    ]
+)
+
+py_test(
+    name = "test_pdb",
+    srcs = ["test_pdb.py"],
+    main = "test_pdb.py",
+    deps = [
+        "@pip//pytest",
+    ]
+)
+
+py_binary(
+    name = "bin_pudb",
+    srcs = ["test_pudb.py"],
+    main = "test_pudb.py",
+    deps = [
+        "@pip//pudb",
+        "@pip//pytest",
+    ]
+)
+
+py_test(
+    name = "test_pudb",
+    srcs = ["test_pudb.py"],
+    main = "test_pudb.py",
+    deps = [
+        "@pip//pudb",
+        "@pip//pytest",
+    ]
+)

@@ -187,6 +187,10 @@ iniconfig==2.0.0 \
     --hash=sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3 \
     --hash=sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374
     # via pytest
+jedi==0.19.2 \
+    --hash=sha256:4770dc3de41bde3966b02eb84fbcf557fb33cce26ad23da12c742fb50ecb11f0 \
+    --hash=sha256:a8ef22bde8490f57fe5c7681a3c83cb58874daf72b4784de3cce5b6ef6edb5b9
+    # via pudb
 mypy==1.15.0 \
     --hash=sha256:1124a18bc11a6a62887e3e137f37f53fbae476dc36c185d549d4f837a2a6a14e \
     --hash=sha256:171a9ca9a40cd1843abeca0e405bc1940cd9b305eaeea2dda769ba096932bb22 \
@@ -230,7 +234,13 @@ mypy-extensions==1.0.0 \
 packaging==24.1 \
     --hash=sha256:026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002 \
     --hash=sha256:5b8f2217dbdbd2f7f384c41c628544e6d52f2d0f53c6d0c3ea61aa5d1d7ff124
-    # via pytest
+    # via
+    #   pudb
+    #   pytest
+parso==0.8.4 \
+    --hash=sha256:a418670a20291dacd2dddc80c377c5c3791378ee1e8d12bffc35420643d43f18 \
+    --hash=sha256:eb3a7b58240fb99099a345571deecc0f9540ea5f4dd2fe14c2a99d6b281ab92d
+    # via jedi
 pluggy==1.5.0 \
     --hash=sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1 \
     --hash=sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669
@@ -250,6 +260,10 @@ protobuf==5.26.0 \
     # via
     #   -c requirements/runtime.txt
     #   -r requirements/runtime.txt
+pudb==2024.1.3 \
+    --hash=sha256:264f239e0538e52e83d3d020143100b3171cae17227674bb1b9f8b075f34849c \
+    --hash=sha256:b1c64447fcee5848d0376231672b97ca8580ca6d3297c82cba6b0ba5bd5ee640
+    # via -r requirements/../py_pdb/requirements.txt
 pydantic==1.10.21 \
     --hash=sha256:0067935d35044950be781933ab91b9a708eaff124bf860fa2f70aeb1c4be7212 \
     --hash=sha256:08caa8c0468172d27c669abfe9e7d96a8b1655ec0833753e117061febaaadef5 \
@@ -304,10 +318,16 @@ pydantic==1.10.21 \
     # via
     #   -r requirements/../py_mypy/requirements.txt
     #   -r requirements/../tools/mypy/requirements.txt
+pygments==2.19.1 \
+    --hash=sha256:61c16d2a8576dc0649d9f39e089b5f02bcd27fba10d8fb4dcc28173f7a45151f \
+    --hash=sha256:9ea1544ad55cecf4b8242fab6dd35a93bbce657034b0611ee383099054ab6d8c
+    # via pudb
 pytest==8.2.2 \
     --hash=sha256:c434598117762e2bd304e526244f67bf66bbd7b5d6cf22138be51ff661980343 \
     --hash=sha256:de4bb8104e201939ccdc688b27a89a7be2079b22e2bd2b07f806b6ba71117977
-    # via -r requirements/test.in
+    # via
+    #   -r requirements/../py_pdb/requirements.txt
+    #   -r requirements/test.in
 python-dotenv==1.0.1 \
     --hash=sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca \
     --hash=sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a
@@ -333,6 +353,7 @@ typing-extensions==4.12.2 \
     #   mypy
     #   pydantic
     #   testcontainers
+    #   urwid
 urllib3==2.2.2 \
     --hash=sha256:a448b2f64d686155468037e1ace9f2d2199776e17f0a46610480d311f73e3472 \
     --hash=sha256:dd505485549a7a552833da5e6063639d0d177c04f23bc3864e41e5dc5f612168
@@ -341,6 +362,19 @@ urllib3==2.2.2 \
     #   docker
     #   requests
     #   testcontainers
+urwid==2.6.16 \
+    --hash=sha256:93ad239939e44c385e64aa00027878b9e5c486d59e855ec8ab5b1e1adcdb32a2 \
+    --hash=sha256:de14896c6df9eb759ed1fd93e0384a5279e51e0dde8f621e4083f7a8368c0797
+    # via
+    #   pudb
+    #   urwid-readline
+urwid-readline==0.15.1 \
+    --hash=sha256:9301444b86d58f7d26388506b704f142cefd193888488b4070d3a0fdfcfc0f84
+    # via pudb
+wcwidth==0.2.13 \
+    --hash=sha256:3da69048e4540d84af32131829ff948f1e022c1c6bdb8d6102117aac784f6859 \
+    --hash=sha256:72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5
+    # via urwid
 wrapt==1.17.2 \
     --hash=sha256:08e7ce672e35efa54c5024936e559469436f8b8096253404faeb54d2a878416f \
     --hash=sha256:0a6e821770cf99cc586d33833b2ff32faebdbe886bd6322395606cf55153246c \

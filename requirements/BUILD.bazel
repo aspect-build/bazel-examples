@@ -18,6 +18,7 @@ pip_compile(
         "//logger/cli:requirements.txt",
         "//oci_python_image:requirements.txt",
         "//py_mypy:requirements.txt",
+        "//py_pdb:requirements.txt",
         "//tools/mypy:requirements.txt",
     ],
     requirements_in = "all.in",
