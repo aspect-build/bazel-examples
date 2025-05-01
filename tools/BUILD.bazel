@@ -1,3 +1,5 @@
+load("@bazel_env.bzl", "bazel_env")
+load("@bazel_skylib//lib:dicts.bzl", "dicts")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//tools:@angular/cli/package_json.bzl", angular_cli = "bin")
 load("@npm//tools:svg-term-cli/package_json.bzl", svg_term_cli = "bin")
@@ -8,28 +10,42 @@ svg_term_cli.svg_term_binary(name = "svg-term")
 
 angular_cli.ng_binary(name = "ng")
 
-alias(
-    name = "pnpm",
-    actual = "@pnpm//:pnpm",
-)
-
-alias(
-    name = "go",
-    actual = "@rules_go//go",
-)
-
-[
-    alias(
-        name = tool,
-        actual = "@multitool//tools/" + tool,
-    )
-    # This list matches tools.lock.json
-    for tool in [
-        "buf",
-        "buildozer",
-        "docker-compose",
-        "ibazel",
-        "multitool",
-        "terraform",
-    ]
+# Matches keys in tools.lock.json
+# See https://github.com/buildbuddy-io/bazel_env.bzl/issues/32
+MULTITOOLS = [
+    "ibazel",
+    "buf",
+    "buildozer",
+    "docker-compose",
+    "terraform",
+    "multitool",
 ]
+
+# Tools found in this package
+LOCAL_TOOLS = [
+    "ng",
+    "svg-term",
+]
+
+# Tools found at @[toolname]
+REPO_TOOLS = [
+    "pnpm",
+]
+
+bazel_env(
+    name = "bazel_env",
+    toolchains = {
+        "jdk": "@rules_java//toolchains:current_host_java_runtime",
+    },
+    tools = dicts.add(
+        {
+            "buildifier": "@buildifier_prebuilt//:buildifier",
+            "go": "@rules_go//go",
+            "jar": "$(JAVABASE)/bin/jar",
+            "java": "$(JAVA)",
+        },
+        {t: "@" + t for t in REPO_TOOLS},
+        {t: "//tools:" + t for t in LOCAL_TOOLS},
+        {t: "@multitool//tools/" + t for t in MULTITOOLS},
+    ),
+)
