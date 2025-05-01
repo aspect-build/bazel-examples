@@ -1,4 +1,4 @@
-load("@bazel_env.bzl//:bazel_env.bzl", "bazel_env")
+load("@bazel_env.bzl", "bazel_env")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//tools:@angular/cli/package_json.bzl", angular_cli = "bin")
 load("@npm//tools:svg-term-cli/package_json.bzl", svg_term_cli = "bin")
