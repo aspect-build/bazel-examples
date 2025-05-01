@@ -6,7 +6,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "paths": {
-      "my-lib": ["./dist/my-lib"]
+      "@my-org/*": ["./projects/*/src/public-api.ts"]
     },
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,

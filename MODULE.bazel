@@ -46,7 +46,7 @@ bazel_dep(name = "toolchains_protoc", version = "0.3.6")
 # TODO(alex): add Publish-to-BCR release mechanics.
 git_override(
     module_name = "rules_angular",
-    commit = "8483f591717492527b712efde4d5171a38f8752b",
+    commit = "3ba9d6790055543de2125e11967d3b5a7c7b314d",
     remote = "https://github.com/devversion/rules_angular.git",
 )
 

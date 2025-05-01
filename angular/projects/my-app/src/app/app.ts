@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { MyLib } from '@my-org/my-lib';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MyLib],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

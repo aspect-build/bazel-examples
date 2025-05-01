@@ -18,6 +18,7 @@ ng_application(
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
     tags = ["no-sandbox"],
+    deps = ["//angular/projects/my-lib"],
 )
 
 ng_test(
