@@ -1,3 +1,6 @@
+load("@aspect_bazel_lib//lib:testing.bzl", "assert_json_matches")
+load("@bazel_env.bzl", "bazel_env")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//tools:@angular/cli/package_json.bzl", angular_cli = "bin")
 load("@npm//tools:svg-term-cli/package_json.bzl", svg_term_cli = "bin")
@@ -8,28 +11,62 @@ svg_term_cli.svg_term_binary(name = "svg-term")
 
 angular_cli.ng_binary(name = "ng")
 
-alias(
-    name = "pnpm",
-    actual = "@pnpm//:pnpm",
-)
-
-alias(
-    name = "go",
-    actual = "@rules_go//go",
-)
-
-[
-    alias(
-        name = tool,
-        actual = "@multitool//tools/" + tool,
-    )
-    # This list matches tools.lock.json
-    for tool in [
-        "buf",
-        "buildozer",
-        "docker-compose",
-        "ibazel",
-        "multitool",
-        "terraform",
-    ]
+MULTITOOLS = [
+    "buf",
+    "buildozer",
+    "docker-compose",
+    "ibazel",
+    "multitool",
+    "terraform",
 ]
+
+# Workaround https://github.com/buildbuddy-io/bazel_env.bzl/issues/32
+write_file(
+    name = "listed_multitools",
+    out = "listed_multitools.json",
+    content = [json.encode(MULTITOOLS)],
+)
+
+assert_json_matches(
+    name = "multitools",
+    file1 = "tools.lock.json",
+    file2 = "listed_multitools",
+    filter1 = """keys | map(select(. != "$schema"))""",
+)
+
+# Tools found in this package
+LOCAL_TOOLS = [
+    "ng",
+    "svg-term",
+]
+
+# Tools found at @[toolname]
+REPO_TOOLS = [
+    "pnpm",
+]
+
+bazel_env(
+    name = "bazel_env",
+    toolchains = {
+        "jdk": "@rules_java//toolchains:current_host_java_runtime",
+        "python": "@rules_python//python:current_py_toolchain",
+        "nodejs": "@nodejs_toolchains//:resolved_toolchain",
+    },
+    tools = {
+        "buildifier": "@buildifier_prebuilt//:buildifier",
+        "go": "@rules_go//go",
+        "jar": "$(JAVABASE)/bin/jar",
+        "java": "$(JAVA)",
+        "node": "$(NODE_PATH)",
+        "python": "$(PYTHON3)",
+    } | {
+        t: "@" + t
+        for t in REPO_TOOLS
+    } | {
+        t: "//tools:" + t
+        for t in LOCAL_TOOLS
+    } | {
+        t: "@multitool//tools/" + t
+        for t in MULTITOOLS
+    },
+)

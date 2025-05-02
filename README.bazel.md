@@ -38,9 +38,9 @@ For a more robust developer experience, see the [sample shell script](https://gi
 
 For developers to be able to run a CLI tool without needing manual installation:
 
-1. Add the tool to `tools/tools.lock.json`
-2. `cd tools; ln -s _run_under_cwd.sh name_of_tool`
-3. Instruct developers to run `./tools/name_of_tool` rather than install that tool on their machine.
+1. Add the tool to `tools/tools.lock.json` and `tools/BUILD.bazel`
+2. Run `bazel run //tools:bazel_env` (following any instructions it prints)
+3. When working within the workspace, tools will be available on the PATH
 
 To update the versions of installed tools, run:
 
