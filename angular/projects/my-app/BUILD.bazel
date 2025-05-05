@@ -35,4 +35,5 @@ ng_test(
     },
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
+    deps = ["//angular/projects/my-lib"],
 )
