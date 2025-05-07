@@ -15,13 +15,6 @@ tasks:
       coverage:
         codecov_upload: true
   - delivery:
-      hooks:
-        - type: before_task
-          command: |
-            mkdir -p /tmp/docker-config
-            echo '{}' > /tmp/docker-config/config.json
-            DOCKER_CONFIG=/tmp/docker-config \
-              echo $GITHUB_TOKEN | docker login $REGISTRY -u $GITHUB_ACTOR --password-stdin
       rules:
         - deliverable: 'kind("oci_push rule", //...)'
 notifications:
