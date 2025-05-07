@@ -90,6 +90,9 @@ container_structure_test(
 oci_push(
     name = "push",
     image = ":transitioned_image",
-    remote_tags = ["latest"],
-    repository = "ghcr.io/aspect-build/oci_go_image_example",
+    remote_tags = [
+        "latest",
+        "24h",
+    ],
+    repository = "ttl.sh/aspect-build/oci_go_image_example",
 )
