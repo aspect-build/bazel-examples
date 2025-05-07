@@ -15,6 +15,9 @@ tasks:
       coverage:
         codecov_upload: true
   - delivery:
+      auto_deliver: true
+      stamp_flags:
+        - --config=release
       rules:
         - deliverable: 'kind("oci_push rule", //...)'
 notifications:
