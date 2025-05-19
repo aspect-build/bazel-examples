@@ -52,14 +52,12 @@ jobs:
           # NB: this list must match all files that live within a nested Bazel module.
           # Should match the /.bazelignore file as well.
           files: |
-            angular/**
             angular-ngc/**
             jest/**
             bzlmod/**
             check-npm-determinism/**
             directory_path/**
             eager-fetch/**
-            git_push/**
             go_workspaces/**
             jest/**
             nestjs/**

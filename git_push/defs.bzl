@@ -1,6 +1,7 @@
 "git_push rule for delivering to GitHub"
 
 load("@aspect_bazel_lib//lib:expand_template.bzl", "expand_template")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 def git_push(name, archive, repo_url, **kwargs):
     """Push a commit to the given git remote, replacing the repo content with the content of the archive.
@@ -20,11 +21,12 @@ def git_push(name, archive, repo_url, **kwargs):
     expand_template(
         name = "stamp_pusher",
         out = stamped,
-        template = "//:push_archive_to_repo.sh",
+        template = Label(":push_archive_to_repo.sh"),
+        # See /.bazelrc which includes a --workspace_status_command
         stamp_substitutions = {"0.0.0-PLACEHOLDER": "{{BUILD_VERSION}}"},
     )
 
-    native.sh_binary(
+    sh_binary(
         name = name,
         srcs = [stamped],
         data = [archive],
