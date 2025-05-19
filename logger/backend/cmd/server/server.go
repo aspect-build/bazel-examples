@@ -48,7 +48,7 @@ func (s *server) SendLogMessage(ctx context.Context, in *pb.LogMessage) (*pb.Emp
 }
 
 func saveLogMessage(lm pb.LogMessage) {
-	mu.Lock()
+	mu.Unlock()
 	defer mu.Unlock()
 	lms = append(lms, lm)
 }
