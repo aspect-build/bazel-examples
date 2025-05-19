@@ -59,7 +59,6 @@ jobs:
             check-npm-determinism/**
             directory_path/**
             eager-fetch/**
-            git_push/**
             go_workspaces/**
             jest/**
             nestjs/**

@@ -1,7 +1,7 @@
-load("@rules_pkg//pkg:pkg.bzl", "pkg_tar")
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load(":defs.bzl", "git_push")
+load("@tar.bzl", "tar")
+load("//git_push:defs.bzl", "git_push")
 
 # Placeholder for some target in your repo that produces generated files
 write_file(
@@ -10,12 +10,13 @@ write_file(
     content = ["This is the useful code I share from my monorepo."],
 )
 
-pkg_tar(
+tar(
     name = "assets",
     srcs = [
         "README.md",
         "some.txt",
     ],
+    out = "assets.tar",
 )
 
 git_push(

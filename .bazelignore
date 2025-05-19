@@ -10,7 +10,6 @@ bzlmod/
 check-npm-determinism/
 directory_path/
 eager-fetch/
-git_push/
 go_workspaces/
 java-soap/
 jest/
