@@ -52,7 +52,6 @@ jobs:
           # NB: this list must match all files that live within a nested Bazel module.
           # Should match the /.bazelignore file as well.
           files: |
-            angular/**
             angular-ngc/**
             jest/**
             bzlmod/**
