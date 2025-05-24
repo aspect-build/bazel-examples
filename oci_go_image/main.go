@@ -11,6 +11,5 @@ func Compare(str1, str2 string) string {
 }
 
 func main() {
-	// this comment
 	fmt.Println(Compare("Hello World", "Hello Go"))
 }
