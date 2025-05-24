@@ -14,6 +14,10 @@ tasks:
           -  --test_tag_filters=-skip-on-aspect-workflows
       coverage:
         codecov_upload: true
+      when:
+        branches:
+          - main
+          - 'release-.*'
   - delivery:
       branches:
         - main
