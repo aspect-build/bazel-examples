@@ -15,6 +15,9 @@ tasks:
       coverage:
         codecov_upload: true
   - delivery:
+      branches:
+        - main
+        - 'release-.*'
       auto_deliver: true
       stamp_flags:
         - --config=release
