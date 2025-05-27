@@ -1,0 +1,21 @@
+stages:
+    - 'Setup Aspect Workflows'
+    - 'Trigger Aspect Workflows'
+
+aspect-workflows-setup:
+    script: rosetta steps > .gitlab-aspect-workflows.yaml
+    stage: 'Setup Aspect Workflows'
+    tags:
+        - aspect-workflows
+        - aspect-default
+    artifacts:
+        paths:
+            - .gitlab-aspect-workflows.yaml
+
+aspect-workflows-trigger:
+    stage: 'Trigger Aspect Workflows'
+    trigger:
+        include:
+            - artifact: .gitlab-aspect-workflows.yaml
+              job: aspect-workflows-setup
+        strategy: depend
