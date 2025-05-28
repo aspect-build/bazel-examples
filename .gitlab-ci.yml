@@ -27,6 +27,8 @@ test:
       - .workflows/artifacts/**/*
     when: always
   stage: Aspect Workflows
+  rules:
+      - if: '$CI_PIPELINE_SOURCE != "schedule"'
 
 format:
   script:
@@ -54,6 +56,8 @@ format:
       - .workflows/artifacts/**/*
     when: always
   stage: Aspect Workflows
+  rules:
+      - if: '$CI_PIPELINE_SOURCE != "schedule"'
 
 lint:
   script:
@@ -81,6 +85,8 @@ lint:
       - .workflows/artifacts/**/*
     when: always
   stage: Aspect Workflows
+  rules:
+      - if: '$CI_PIPELINE_SOURCE != "schedule"'
 
 delivery:
   script:
@@ -111,3 +117,26 @@ delivery:
       - .workflows/artifacts/**/*
     when: always
   stage: Aspect Workflows
+  rules:
+      - if: '$CI_PIPELINE_SOURCE != "schedule"'
+
+warming:
+  script:
+    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
+    - /etc/aspect/workflows/bin/configure_workflows_env
+    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
+    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
+    - /etc/aspect/workflows/bin/agent_health_check
+    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
+    - /etc/aspect/workflows/bin/gitlab_section_start "warming" "Warming"
+    - rosetta run warming --workspace .
+    - /etc/aspect/workflows/bin/gitlab_section_end "warming"
+    - /etc/aspect/workflows/bin/gitlab_section_start "archive_warming_tars" "Archive warming tars"
+    - /etc/aspect/workflows/bin/warming_archive
+    - /etc/aspect/workflows/bin/gitlab_section_end "archive_warming_tars"
+  tags:
+    - aspect-workflows
+    - aspect-warming
+  stage: Aspect Workflows
+  rules:
+      - if: '$CI_PIPELINE_SOURCE == "schedule"'
