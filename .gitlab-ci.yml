@@ -1,21 +1,113 @@
 stages:
-    - 'Setup Aspect Workflows'
-    - 'Trigger Aspect Workflows'
+    - Aspect Workflows
 
-aspect-workflows-setup:
-    script: rosetta steps > .gitlab-aspect-workflows.yaml
-    stage: 'Setup Aspect Workflows'
-    tags:
-        - aspect-workflows
-        - aspect-default
-    artifacts:
-        paths:
-            - .gitlab-aspect-workflows.yaml
+test:
+  script:
+    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
+    - /etc/aspect/workflows/bin/configure_workflows_env
+    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
+    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
+    - /etc/aspect/workflows/bin/agent_health_check
+    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
+    - /etc/aspect/workflows/bin/gitlab_section_start "checkout_health" "Checkout health"
+    - rosetta run checkout
+    - /etc/aspect/workflows/bin/gitlab_section_end "checkout_health"
+    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
+    - rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs && rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
+    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
+    - /etc/aspect/workflows/bin/gitlab_section_start "test" "Test"
+    - rosetta run test
+    - /etc/aspect/workflows/bin/gitlab_section_end "test"
+  tags:
+    - aspect-workflows
+    - aspect-default
+  artifacts:
+    paths:
+      - .workflows/testlogs/**/*
+      - .workflows/artifacts/**/*
+    when: always
+  stage: Aspect Workflows
 
-aspect-workflows-trigger:
-    stage: 'Trigger Aspect Workflows'
-    trigger:
-        include:
-            - artifact: .gitlab-aspect-workflows.yaml
-              job: aspect-workflows-setup
-        strategy: depend
+format:
+  script:
+    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
+    - /etc/aspect/workflows/bin/configure_workflows_env
+    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
+    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
+    - /etc/aspect/workflows/bin/agent_health_check
+    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
+    - /etc/aspect/workflows/bin/gitlab_section_start "checkout_health" "Checkout health"
+    - rosetta run checkout
+    - /etc/aspect/workflows/bin/gitlab_section_end "checkout_health"
+    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
+    - rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs && rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
+    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
+    - /etc/aspect/workflows/bin/gitlab_section_start "format" "Format"
+    - rosetta run format
+    - /etc/aspect/workflows/bin/gitlab_section_end "format"
+  tags:
+    - aspect-workflows
+    - aspect-default
+  artifacts:
+    paths:
+      - .workflows/testlogs/**/*
+      - .workflows/artifacts/**/*
+    when: always
+  stage: Aspect Workflows
+
+lint:
+  script:
+    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
+    - /etc/aspect/workflows/bin/configure_workflows_env
+    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
+    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
+    - /etc/aspect/workflows/bin/agent_health_check
+    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
+    - /etc/aspect/workflows/bin/gitlab_section_start "checkout_health" "Checkout health"
+    - rosetta run checkout
+    - /etc/aspect/workflows/bin/gitlab_section_end "checkout_health"
+    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
+    - rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs && rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
+    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
+    - /etc/aspect/workflows/bin/gitlab_section_start "lint" "Lint"
+    - rosetta run lint
+    - /etc/aspect/workflows/bin/gitlab_section_end "lint"
+  tags:
+    - aspect-workflows
+    - aspect-default
+  artifacts:
+    paths:
+      - .workflows/testlogs/**/*
+      - .workflows/artifacts/**/*
+    when: always
+  stage: Aspect Workflows
+
+delivery:
+  script:
+    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
+    - /etc/aspect/workflows/bin/configure_workflows_env
+    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
+    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
+    - /etc/aspect/workflows/bin/agent_health_check
+    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
+    - /etc/aspect/workflows/bin/gitlab_section_start "checkout_health" "Checkout health"
+    - rosetta run checkout
+    - /etc/aspect/workflows/bin/gitlab_section_end "checkout_health"
+    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
+    - rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs && rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
+    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
+    - /etc/aspect/workflows/bin/gitlab_section_start "delivery_manifest" "Delivery Manifest"
+    - rosetta run delivery_manifest
+    - /etc/aspect/workflows/bin/gitlab_section_end "delivery_manifest"
+    - /etc/aspect/workflows/bin/gitlab_section_start "delivery" "Delivery"
+    - rosetta run delivery
+    - /etc/aspect/workflows/bin/gitlab_section_end "delivery"
+  tags:
+    - aspect-workflows
+    - aspect-default
+  artifacts:
+    paths:
+      - .workflows/testlogs/**/*
+      - .workflows/artifacts/**/*
+    when: always
+  stage: Aspect Workflows
