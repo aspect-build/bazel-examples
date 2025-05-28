@@ -39,3 +39,19 @@ jobs:
             eval $(ssh-agent -s)
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GHA_DEPLOY_TOKEN }}'
             git push git@github.com:aspect-build/bazel-examples-gha.git HEAD:main
+  push-gl:
+    if: github.repository == 'aspect-build/bazel-examples'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get a full history so all commits are present
+        uses: actions/checkout@v4
+        with:
+            path: fresh-clone
+            fetch-depth: 0
+      - working-directory: fresh-clone
+        run: |
+            mkdir -p ~/.ssh
+            ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
+            eval $(ssh-agent -s)
+            ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GL_DEPLOY_TOKEN }}'
+            git push git@gitlab.com:aspect-build/bazel-examples-gl.git HEAD:main
