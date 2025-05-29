@@ -46,5 +46,5 @@ jobs:
                   task: delivery
                   workspace: ${{ inputs.workspace }}
               env:
-                  DELIVERY_COMMIT: ${{ inputs.delivery_commit }}
-                  DELIVERY_TARGETS: ${{ inputs.delivery_targets }}
+                  ASPECT_WORKFLOWS_DELIVERY_COMMIT: ${{ inputs.delivery_commit }}
+                  ASPECT_WORKFLOWS_DELIVERY_TARGETS: ${{ inputs.delivery_targets }}
