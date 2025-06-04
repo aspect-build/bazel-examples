@@ -19,7 +19,7 @@ bazel_dep(name = "container_structure_test", version = "1.19.1")
 bazel_dep(name = "gazelle", version = "0.40.0")
 bazel_dep(name = "googletest", version = "1.15.2")
 bazel_dep(name = "platforms", version = "0.0.10")
-bazel_dep(name = "rules_angular", version = "0.0.0")
+bazel_dep(name = "rules_angular", version = "0.1.0")
 bazel_dep(name = "rules_apple", version = "3.0.0")
 bazel_dep(name = "rules_buf", version = "0.3.0")
 bazel_dep(name = "rules_cc", version = "0.1.1")
@@ -42,14 +42,6 @@ bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1")  # C code for SQLite.
 bazel_dep(name = "tar.bzl", version = "0.3.0")
 bazel_dep(name = "toolchains_llvm", version = "1.1.2")
 bazel_dep(name = "toolchains_protoc", version = "0.3.6")
-
-# This ruleset isn't published to any Bazel registry yet, so we must fetch sources.
-# TODO(alex): add Publish-to-BCR release mechanics.
-git_override(
-    module_name = "rules_angular",
-    commit = "3ba9d6790055543de2125e11967d3b5a7c7b314d",
-    remote = "https://github.com/devversion/rules_angular.git",
-)
 
 # Just like in the old WORKSPACE file approach, you can directly grab some code
 # with HTTP and make it available. The syntax is slightly different,
