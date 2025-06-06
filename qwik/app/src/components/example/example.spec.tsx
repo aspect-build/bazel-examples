@@ -7,7 +7,7 @@ test(`[ExampleTest Component]: Should render ⭐`, async () => {
   await render(<ExampleTest flag={true} />);
   expect(screen.outerHTML).toContain('⭐');
   const div = screen.querySelector('.icon') as HTMLElement;
-  expect(div.outerHTML).toContain('⭐');
+  expect(div.outerHTML).toContain(':grumpy-cat:');
 });
 
 test(`[ExampleTest Component]: Should render 💣`, async () => {
