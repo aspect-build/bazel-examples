@@ -8,10 +8,10 @@ cc_library(
     # srcs are the files internal to this library: .cc, .c,
     # internal-to-this-library .h, and occasionally externally
     # compiled .o. Beware of glob performance at scale.
-    srcs = glob(["*.cc"]),
+    srcs = ["announce.cc"],
     # hdrs are the public interface to this library. If they change,
     # users of this library have to recompile.
-    hdrs = glob(["*.h"]),
+    hdrs = ["announce.h"],
     visibility = ["//speller/main:__pkg__"],
     # deps are other targets needed for this code to compile. Deps are
     # made available transitively to libraries that depend on this

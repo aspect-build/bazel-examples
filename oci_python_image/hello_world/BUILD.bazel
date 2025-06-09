@@ -103,6 +103,7 @@ container_structure_test(
     ],
 )
 
+# keep
 py_test(
     name = "test_container",
     srcs = ["integration_test.py"],
