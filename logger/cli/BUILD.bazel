@@ -11,7 +11,8 @@ py_binary(
     name = "cli",
     srcs = ["__main__.py"],
     main = "__main__.py",
-    deps = [requirement("requests")],
+    visibility = ["//:__subpackages__"],
+    deps = ["@pip//requests"],
 )
 
 pip_compile(

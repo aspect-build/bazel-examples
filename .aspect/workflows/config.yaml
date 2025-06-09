@@ -1,5 +1,6 @@
 # See https://docs.aspect.build/workflows/configuration
 tasks:
+  - configure:
   - checkout:
       update_strategy: rebase
   - lint:

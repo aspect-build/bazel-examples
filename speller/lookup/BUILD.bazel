@@ -1,7 +1,7 @@
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
 
 cc_library(
-    name = "lookup",
+    name = "lookup_lib",
     srcs = ["lookup.cc"],
     hdrs = ["lookup.h"],
     visibility = [
@@ -16,7 +16,7 @@ cc_test(
     size = "small",
     srcs = ["lookup-test.cc"],
     deps = [
-        ":lookup",
+        ":lookup_lib",
         "@googletest//:gtest_main",
     ],
 )

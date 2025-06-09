@@ -1,1 +1,2 @@
+# gazelle: ignore
 exports_files(["requirements.txt"])

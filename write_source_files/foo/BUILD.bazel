@@ -9,6 +9,7 @@ proto_library(
     ],
 )
 
+# gazelle:exclude *.pb.go
 go_proto_library(
     name = "foo_go_protos",
     importpath = "aspect.build/bazel-examples/write_source_files/foo",

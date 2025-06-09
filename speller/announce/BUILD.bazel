@@ -4,7 +4,7 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
 
 cc_library(
-    name = "announce",
+    name = "announce_lib",
     # srcs are the files internal to this library: .cc, .c,
     # internal-to-this-library .h, and occasionally externally
     # compiled .o. Beware of glob performance at scale.
@@ -17,7 +17,7 @@ cc_library(
     # made available transitively to libraries that depend on this
     # one, automatically accumulating include paths and headers.
     deps = [
-        "//speller/greeting",
+        "//speller/greeting:greeting_lib",
     ],
     # implementation_deps makes dependencies available only for compiling this
     # library, not downstream. This should speed large builds, but

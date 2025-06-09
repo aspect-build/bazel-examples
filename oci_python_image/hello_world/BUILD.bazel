@@ -17,7 +17,7 @@ py_library(
 )
 
 py_binary(
-    name = "hello_world",
+    name = "hello_world_app",
     srcs = ["__main__.py"],
     imports = [".."],
     main = "__main__.py",
@@ -33,14 +33,14 @@ py_binary(
 #9296e9071c11: Loading layer [==================================================>]  16.24kB/16.24kB
 py_image_layer(
     name = "layers",
-    binary = ":hello_world",
+    binary = ":hello_world_app",
 )
 
 oci_image(
     name = "image",
     # This is defined by an oci.pull() call in /MODULE.bazel
     base = "@ubuntu",
-    entrypoint = ["/oci_python_image/hello_world/hello_world"],
+    entrypoint = ["/oci_python_image/hello_world/hello_world_app"],
     tars = [":layers"],
 )
 

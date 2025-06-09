@@ -6,7 +6,7 @@ load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load", "oci_push")
 load("@tar.bzl", "mutate", "tar")
 
 go_library(
-    name = "app_lib",
+    name = "oci_go_image_lib",
     srcs = ["main.go"],
     importpath = "github.com/aspect-build/bazel-examples/oci_go_image",
     visibility = ["//visibility:private"],
@@ -14,15 +14,15 @@ go_library(
 )
 
 go_test(
-    name = "app_test",
+    name = "oci_go_image_test",
     size = "small",
     srcs = ["main_test.go"],
-    embed = [":app_lib"],
+    embed = [":oci_go_image_lib"],
 )
 
 go_binary(
     name = "app",
-    embed = [":app_lib"],
+    embed = [":oci_go_image_lib"],
     visibility = ["//visibility:public"],
 )
 

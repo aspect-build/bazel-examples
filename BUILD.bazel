@@ -10,6 +10,8 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 # aspect:js_package_rule_kind js_library
 # aspect:js_project_naming_convention tsc
 
+# TODO(alex): refactor this folder to follow python gazelle conventions
+# gazelle:exclude py_mypy
 package(default_visibility = ["//:__subpackages__"])
 
 npm_link_all_packages(name = "node_modules")
@@ -26,6 +28,7 @@ exports_files(
         ".shellcheckrc",
         "buf.yaml",
         "checkstyle.xml",
+        "gazelle_python.yaml",
         "pmd.xml",
         "pyproject.toml",
     ],
