@@ -3,6 +3,7 @@ load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_image_layer", "py_library
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@pip//:requirements.bzl", "requirement")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+load("@rules_python//python:defs.bzl", "py_test")
 
 py_library(
     name = "hello_world_lib",
@@ -11,8 +12,9 @@ py_library(
         "app.py",
     ],
     imports = [".."],
+    visibility = ["//oci_python_image:__subpackages__"],
     deps = [
-        requirement("cowsay"),
+        "@pip//cowsay",
     ],
 )
 
@@ -21,6 +23,7 @@ py_binary(
     srcs = ["__main__.py"],
     imports = [".."],
     main = "__main__.py",
+    visibility = ["//oci_python_image:__subpackages__"],
     deps = [":hello_world_lib"],
 )
 
@@ -138,5 +141,22 @@ py_test(
     deps = [
         ":__test__",
         ":hello_world_lib",
+    ],
+)
+
+py_test(
+    name = "hello_world_test",
+    srcs = [
+        "app_test.py",
+        "integration_test.py",
+        ":__test__",
+    ],
+    imports = [".."],
+    main = ":__test__.py",
+    deps = [
+        ":__test__",
+        ":hello_world_lib",
+        "@pip//docker",
+        "@pip//testcontainers",
     ],
 )
