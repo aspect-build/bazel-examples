@@ -11,8 +11,8 @@ cc_binary(
         "DICTIONARY_FILE": "$(location :dictionary)",
     },
     deps = [
-        "//speller/announce",
-        "//speller/lookup",
+        "//speller/announce:announce_lib",
+        "//speller/lookup:lookup_lib",
     ],
 )
 
@@ -20,7 +20,7 @@ cc_binary(
     name = "build-dictionary",
     srcs = ["build-dictionary.cc"],
     deps = [
-        "//speller/lookup",
+        "//speller/lookup:lookup_lib",
     ],
 )
 

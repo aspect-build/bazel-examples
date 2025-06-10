@@ -48,10 +48,11 @@ def add_target(ctx, file, hdrs = []):
         attrs["size"] = "small"
     elif not is_main:
         attrs["visibility"] = ["//:__subpackages__"]
+    rule_kind = "cc_test" if is_test else "cc_binary" if is_main else "cc_library"
 
     ctx.targets.add(
-        name = file.path[:file.path.rindex(".")] + "_lib",
-        kind = "cc_test" if is_test else "cc_binary" if is_main else "cc_library",
+        name = file.path[:file.path.rindex(".")] + ("_lib" if rule_kind == "cc_library" else ""),
+        kind = rule_kind,
         attrs = attrs,
         symbols = [aspect.Symbol(
             id = "/".join([ctx.rel, basename]) if ctx.rel else basename,

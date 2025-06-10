@@ -10,6 +10,7 @@ load("@rules_cc//cc:defs.bzl", "cc_test")
 # parameterization and parallelization capabilities. But those would be specific
 # to the test runner rather than generically applicable.
 
+# gazelle:exclude lookup-datatest.cc
 [
     cc_test(
         # test-001, test-002
@@ -21,7 +22,7 @@ load("@rules_cc//cc:defs.bzl", "cc_test")
             "TEST_CONFIG_FILE": "$(location :%s)" % testfile,
         },
         deps = [
-            "//speller/lookup",
+            "//speller/lookup:lookup_lib",
             "//third_party/nlohmann-json:json",
             "@googletest//:gtest_main",
         ],

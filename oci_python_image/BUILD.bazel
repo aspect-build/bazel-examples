@@ -1,3 +1,4 @@
+# gazelle:python_root
 exports_files(
     ["requirements.txt"],
     visibility = ["//requirements:__pkg__"],
