@@ -21,9 +21,8 @@ jobs:
   matrix-prep-os:
     # Prepares the 'os' axis of the test matrix
     runs-on: ubuntu-latest
+    # Linux is tested on Buildkite using Aspect Workflows, so only MacOS/Windows builds are on GitHub Actions.
     steps:
-      - id: linux
-        run: echo "os=ubuntu-latest" >> $GITHUB_OUTPUT
       - id: macos
         run: echo "os=macos-latest" >> $GITHUB_OUTPUT
         # Only run on main branch (or branches that contain 'macos') to minimize macOS minutes (billed at 10X)
@@ -31,10 +30,8 @@ jobs:
         if: github.ref == 'refs/heads/main' || contains(github.head_ref, 'macos')
       - id: windows
         run: echo "os=windows-latest" >> $GITHUB_OUTPUT
-        # Only run on branches that contain 'windows' to minimize Windows minutes (billed at 2X) and because Windows support is spotty.
-        if: contains(github.head_ref, 'windows')
     outputs:
-      # Will look like ["ubuntu-latest", "macos-latest"]
+      # Will look like ["macos-latest", ...]
       os: ${{ toJSON(steps.*.outputs.os) }}
 
   # The goal of this matrix prep is to determine whether nested Bazel modules need to be tested.
@@ -47,7 +44,7 @@ jobs:
           # Clone the last two commits, so we can see what files were changed.
           fetch-depth: 2
       # Get a list of nested Bazel modules that were touched
-      - uses: REPACE-ME/changed-files@v45
+      - uses: tj-actions/changed-files@48d8f15b2aaa3d255ca5af3eba4870f807ce6b3c  # v45
         with:
           # NB: this list must match all files that live within a nested Bazel module.
           # Should match the /.bazelignore file as well.
@@ -104,7 +101,7 @@ jobs:
           # Clone the last two commits, so we can see what files were changed.
           fetch-depth: 2
       # Get a list of top-level directories that were touched
-      - uses: REPACE-ME/changed-files@v45
+      - uses: tj-actions/changed-files@48d8f15b2aaa3d255ca5af3eba4870f807ce6b3c  # v45
         id: changed-toplevel-dirs
         with:
           dir_names: true
@@ -133,6 +130,10 @@ jobs:
 
       - name: bazel test //...
         working-directory: ${{ matrix.folder }}
+        shell: bash
+        env:
+          BAZELISK_BASE_URL: https://github.com/bazelbuild/bazel/releases/download
+          USE_BAZEL_VERSION: ''
         if: steps.has_test_sh.outputs.files_exists != 'true'
         run: |
           bazel \
