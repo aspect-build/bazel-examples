@@ -95,7 +95,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "browsers": "ChromeHeadlessNoSandbox",
+            "browsers": "ChromeHeadless",
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/my-app/tsconfig.spec.json",
             "assets": [
