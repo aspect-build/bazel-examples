@@ -1,3 +1,0 @@
-# Often there are .bazelrc settings needed for CI; # Your project will likely
-# have a file to contain those with directories and other settings that work for
-# your specific CI configuration.
