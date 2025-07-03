@@ -30,6 +30,8 @@ jobs:
         if: github.ref == 'refs/heads/main' || contains(github.head_ref, 'macos')
       - id: windows
         run: echo "os=windows-latest" >> $GITHUB_OUTPUT
+        # Only run on branches that contain 'windows' to minimize Windows minutes (billed at 2X) and because Windows support is spotty.
+        if: contains(github.head_ref, 'windows')
     outputs:
       # Will look like ["macos-latest", ...]
       os: ${{ toJSON(steps.*.outputs.os) }}
