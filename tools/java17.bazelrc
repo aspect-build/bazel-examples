@@ -1,5 +1,3 @@
-# Aspect recommended Bazel flags when using rules_java and rules_jvm_external
-
 # Pin java versions to desired language level
 # See https://bazel.build/docs/bazel-and-java#java-versions
 # and https://en.wikipedia.org/wiki/Java_version_history
