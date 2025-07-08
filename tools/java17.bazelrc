@@ -1,5 +1,3 @@
-# Aspect recommended Bazel flags when using rules_java and rules_jvm_external
-
 # Pin java versions to desired language level
 # See https://bazel.build/docs/bazel-and-java#java-versions
 # and https://en.wikipedia.org/wiki/Java_version_history
@@ -20,8 +18,3 @@ common --java_runtime_version=remotejdk_17
 # The version of JVM used to execute tools that are needed during a build.
 # See https://bazel.build/docs/user-manual#tool-java-runtime-version
 common --tool_java_runtime_version=remotejdk_17
-
-# Repository rules, such as rules_jvm_external: put Bazel's JDK on the path.
-# Avoids non-hermeticity from dependency on a JAVA_HOME pointing at a system JDK
-# see https://github.com/bazelbuild/rules_jvm_external/issues/445
-common --repo_env=JAVA_HOME=../bazel_tools/jdk
