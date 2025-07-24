@@ -9,4 +9,4 @@ Aspect uses this ourselves to publish our Workflows packages from our internal m
 To use this, you just `bazel run --stamp :push` and it will push commits, and tag the remote repo.
 
 Since this is a Bazel executable target, you could also continuously deliver it using Aspect Workflows, see
-<https://docs.aspect.build/v/workflows/delivery>
+<https://docs.aspect.build/workflows/delivery>
