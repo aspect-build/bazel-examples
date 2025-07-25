@@ -1,4 +1,5 @@
 # A top-level build file most often contains tooling and convenience aliases.
+load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
 load("@aspect_rules_js//js:defs.bzl", "js_library")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
@@ -40,5 +41,14 @@ js_library(
     deps = [
         ":node_modules/@eslint/js",
         ":node_modules/typescript-eslint",
+    ],
+)
+
+# A jekyll site rendered for GitHub Pages
+copy_to_directory(
+    name = "site",
+    testonly = True,
+    srcs = [
+        "index.html",
     ],
 )
