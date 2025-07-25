@@ -1,0 +1,11 @@
+# GitHub Pages settings
+source: bazel-bin/site
+title: Bazel Examples
+description: >-
+  Examples of Bazel projects.
+url: "https://aspect-build.github.io"
+baseurl: "/bazel-examples"
+
+# Build settings
+theme: minima
+markdown: GFM
