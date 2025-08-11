@@ -5,7 +5,7 @@
 // Bazel recommends that your code refer to each header from the
 // workspace root
 
-#include "speller/announce/announce.h"
+// #include "speller/announce/announce.h"
 #include "speller/lookup/lookup.h"
 
 using namespace std;
