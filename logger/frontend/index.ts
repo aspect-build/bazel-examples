@@ -40,7 +40,7 @@ class ServerLogs {
   }
 
   private displayServerLogs(data: Response) {
-    const logMessage: string = 'in display';
+    const logMessage = 'in display';
     try {
       console.log(logMessage);
     } catch (e) {
