@@ -1,3 +1,6 @@
 # build without the bytes
 common --remote_download_outputs=minimal
 common --nobuild_runfile_links
+
+# let tests that require chrome know where it is installed
+common --test_env=CHROME_BIN=/usr/bin/chromium
