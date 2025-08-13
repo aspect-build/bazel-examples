@@ -11,5 +11,5 @@ func Compare(str1, str2 string) string {
 }
 
 func main() {
-	fmt.Println(Compare("Hello World", "Hello Go70"))
+	fmt.Println(Compare("Hello World", "Hello Yoga"))
 }
