@@ -4,6 +4,8 @@ tasks:
   - checkout:
       update_strategy: rebase
   - lint:
+      flags:
+        - --quiet
   - format:
   - test:
       targets:
