@@ -25,4 +25,5 @@ ng_test(
     srcs = [":srcs"],
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
+    tags = ["no-remote-exec"],
 )

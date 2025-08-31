@@ -11,6 +11,7 @@ tasks:
         - -//speller/...
       bazel:
         flags:
+          -  --config=rbe
           -  --test_tag_filters=-skip-on-aspect-workflows
       coverage:
         codecov_upload: true
