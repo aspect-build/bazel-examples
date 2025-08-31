@@ -2,7 +2,8 @@ import type { LogMessage } from '../schema/logger_pb';
 
 class ServerLogs {
   getServerLogs(): Promise<LogMessage[] | undefined> {
-    return fetch('http://localhost:8081')
+    let port: number = 8081;
+    return fetch(`http://localhost:${port}`)
       .then((response) => this.checkStatus(response))
       .then((response) =>
         this.parseJSON(response)
@@ -40,7 +41,12 @@ class ServerLogs {
   }
 
   private displayServerLogs(data: Response) {
-    console.log('in display');
+    const logMessage: string = 'in display';
+    try {
+      console.log(logMessage);
+    } catch (e) {
+      throw e;
+    }
 
     const el: HTMLElement = document.getElementById('log_results')!;
     el.innerHTML = '';
