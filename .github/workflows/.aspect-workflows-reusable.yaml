@@ -88,6 +88,7 @@ jobs:
       matrix: ${{ fromJson(needs.setup.outputs.cfg).matrix_config }}
     env:
       ASPECT_WORKFLOWS_CONFIG: ${{ inputs.aspect-config }}
+      GITHUB_PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
     steps:
       - name: Workflows environment
         run: ${{ fromJson(needs.setup.outputs.cfg).platform.directories.WORKFLOWS_BIN_DIR }}/configure_workflows_env
