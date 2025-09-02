@@ -41,7 +41,7 @@ jobs:
               # See https://github.com/actions/runner/issues/598.
               run: RUNNER_TRACKER_ID="" && ${ASPECT_WORKFLOWS_BIN_DIR}/agent_health_check
             - name: Run delivery
-              uses: aspect-build/workflows-action@5.12.22
+              uses: aspect-build/workflows-action@5.14.0
               with:
                   task: delivery
                   workspace: ${{ inputs.workspace }}
