@@ -11,6 +11,7 @@ ts_project(
     declaration = True,
     tsconfig = {},
     deps = [
+        ":node_modules/@bazel-examples/napi",
         ":node_modules/@bazel-examples/one",
         ":node_modules/@bazel-examples/shared",
         ":node_modules/@types/node",

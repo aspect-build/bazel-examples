@@ -32,6 +32,7 @@ bazel_dep(name = "rules_nodejs", version = "6.3.5")
 bazel_dep(name = "rules_oci", version = "2.0.1")
 bazel_dep(name = "rules_proto", version = "7.1.0")
 bazel_dep(name = "rules_python", version = "0.40.0")
+bazel_dep(name = "rules_rust", version = "0.63.0")
 bazel_dep(name = "rules_mypy", version = "0.29.0")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "0.35.0")
 bazel_dep(name = "rules_shell", version = "0.4.1")
@@ -179,7 +180,10 @@ use_repo(
 # https://github.com/aspect-build/rules_ts/tree/main/e2e/bzlmod
 
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
-node.toolchain(node_version = "20.18.0")
+node.toolchain(
+    include_headers = True,
+    node_version = "20.18.0",
+)
 use_repo(node, "nodejs_toolchains")
 
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
@@ -277,3 +281,20 @@ oci.pull(
     tag = "latest",
 )
 use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_base_linux_arm64", "ubuntu", "ubuntu_linux_amd64", "ubuntu_linux_arm64_v8")
+
+#########################
+# Support for Rust, see https://github.com/bazelbuild/rules_rust
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = "2024",
+    versions = ["1.89.0"],
+)
+
+crate = use_extension("@rules_rust//crate_universe:extension.bzl", "crate")
+crate.from_cargo(
+    name = "crate_index",
+    # TODO: we should have a Cargo.toml file in the repository root
+    cargo_lockfile = "//npm_packages/napi:Cargo.lock",
+    manifests = ["//npm_packages/napi:Cargo.toml"],
+)
+use_repo(crate, "crate_index")

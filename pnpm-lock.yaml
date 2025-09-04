@@ -156,6 +156,9 @@ importers:
 
   nodejs_apps/typescript:
     dependencies:
+      '@bazel-examples/napi':
+        specifier: workspace:*
+        version: link:../../npm_packages/napi
       '@bazel-examples/one':
         specifier: workspace:*
         version: link:../../npm_packages/one
@@ -173,6 +176,12 @@ importers:
         version: 1.0.2
 
   npm_packages/first: {}
+
+  npm_packages/napi:
+    devDependencies:
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.14.11
 
   npm_packages/one: {}
 
