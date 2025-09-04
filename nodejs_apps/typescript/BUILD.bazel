@@ -1,0 +1,33 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+# aspect:generation_mode update_only
+npm_link_all_packages(name = "node_modules")
+
+ts_project(
+    name = "tsc",
+    srcs = ["src/main.ts"],
+    declaration = True,
+    tsconfig = {},
+    deps = [
+        ":node_modules/@bazel-examples/one",
+        ":node_modules/@bazel-examples/shared",
+        ":node_modules/@types/node",
+        ":node_modules/inspirational-quotes",
+        ":node_modules/star-wars-quotes",
+    ],
+)
+
+js_library(
+    name = "pkg",
+    srcs = ["package.json"],
+    visibility = ["//visibility:public"],
+    deps = [":tsc"],
+)
+
+js_binary(
+    name = "main",
+    data = [":tsc"],
+    entry_point = "src/main.js",
+)

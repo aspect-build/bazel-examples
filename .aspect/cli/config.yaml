@@ -5,6 +5,7 @@ configure:
     protobuf: true
     python: true
   plugins:
+    - .aspect/cli/main.star
     - .aspect/cli/rules_cc.star
 plugins:
     - name: fix-visibility

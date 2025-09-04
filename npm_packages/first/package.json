@@ -1,0 +1,4 @@
+{
+  "name": "@bazel-examples/first",
+  "main": "src/lib.js"
+}

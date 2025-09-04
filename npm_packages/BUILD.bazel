@@ -1,0 +1,29 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@npm//:tsconfig-to-swcconfig/package_json.bzl", tsconfig_to_swcconfig = "bin")
+
+# aspect:generation_mode update_only
+
+# aspect:js enabled
+# aspect:js_tsconfig enabled
+# aspect:js_npm_package enabled
+
+# aspect:js_files **/*.{js,ts}
+# aspect:js_npm_package_target_name pkg
+# aspect:js_package_rule_kind js_library
+# aspect:js_project_naming_convention tsc
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:node_modules/@tsconfig/strictest",  #keep
+    ],
+)
+
+tsconfig_to_swcconfig.t2s(
+    name = "write_swcrc",
+    srcs = ["tsconfig.json"],
+    stdout = ".swcrc",
+    visibility = ["//:__subpackages__"],
+)

@@ -1,0 +1,8 @@
+{
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "noImplicitAny": false
+  },
+  "exclude": ["node_modules"]
+}

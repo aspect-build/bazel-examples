@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "inspirational-quotes": "2.0.1",
+    "@bazel-examples/one": "workspace:*",
+    "@bazel-examples/shared": "workspace:*",
+    "@types/node": "18.11.9",
+    "star-wars-quotes": "1.0.2"
+  }
+}
