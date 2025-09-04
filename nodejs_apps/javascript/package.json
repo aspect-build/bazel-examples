@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@bazel-examples/shared": "workspace:*",
+    "@bazel-examples/two": "workspace:*",
+    "inspirational-quotes": "2.0.1",
+    "trek-quotes": "1.1.1"
+  }
+}

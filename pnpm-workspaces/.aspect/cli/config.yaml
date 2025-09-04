@@ -1,5 +1,0 @@
-configure:
-  languages:
-    javascript: true
-  plugins:
-    - .aspect/cli/main.star

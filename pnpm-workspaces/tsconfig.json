@@ -1,8 +1,0 @@
-{
-  "extends": "@tsconfig/node16-strictest/tsconfig.json",
-  "compilerOptions": {
-    "declaration": true,
-    "noImplicitAny": false
-  },
-  "exclude": ["node_modules"]
-}

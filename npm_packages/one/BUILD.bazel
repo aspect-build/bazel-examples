@@ -1,0 +1,20 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+ts_project(
+    name = "tsc",
+    srcs = ["src/lib.ts"],
+    declaration = True,
+    tsconfig = "//npm_packages:tsconfig",
+    deps = ["//:node_modules/@types/node"],
+)
+
+js_library(
+    name = "pkg",
+    srcs = ["package.json"],
+    visibility = ["//visibility:public"],
+    deps = [":tsc"],
+)

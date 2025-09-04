@@ -1,0 +1,8 @@
+{
+  "name": "@bazel-examples/two",
+  "main": "src/lib.js",
+  "dependencies": {
+    "@bazel-examples/first": "workspace:*",
+    "cowsay": "1.5.0"
+  }
+}

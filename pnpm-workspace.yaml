@@ -1,9 +1,12 @@
 # Points to npm packages (folders with a package.json) within the monorepo.
 # See https://pnpm.io/pnpm-workspace_yaml
 packages:
+  - .
   - angular
   - angular/projects/*
   - logger/frontend
   - logger/schema
+  - nodejs_apps/*
+  - npm_packages/*
   - tools
   - qwik/*

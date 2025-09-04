@@ -1,0 +1,21 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+js_library(
+    name = "tsc",
+    srcs = ["src/main.js"],
+    deps = [
+        ":node_modules/@bazel-examples/shared",
+        ":node_modules/@bazel-examples/two",
+        ":node_modules/inspirational-quotes",
+        ":node_modules/trek-quotes",
+    ],
+)
+
+js_binary(
+    name = "main",
+    data = [":tsc"],
+    entry_point = "src/main.js",
+)

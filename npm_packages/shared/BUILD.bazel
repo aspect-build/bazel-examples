@@ -1,0 +1,27 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+ts_project(
+    name = "tsc",
+    srcs = ["src/lib.ts"],
+    declaration = True,
+    # Use a faster transpiler than tsc
+    transpiler = partial.make(
+        swc,
+        swcrc = "//npm_packages:.swcrc",
+    ),
+    tsconfig = "//npm_packages:tsconfig",
+    deps = ["//:node_modules/@types/node"],
+)
+
+js_library(
+    name = "pkg",
+    srcs = ["package.json"],
+    visibility = ["//visibility:public"],
+    deps = [":tsc"],
+)
