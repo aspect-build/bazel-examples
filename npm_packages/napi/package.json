@@ -1,0 +1,10 @@
+{
+  "name": "@bazel-examples/napi",
+  "description": "expose native Rust or C code as a Node.js module",
+  "private": true,
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}
