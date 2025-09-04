@@ -1,9 +1,7 @@
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
 load("@npm//:tsconfig-to-swcconfig/package_json.bzl", tsconfig_to_swcconfig = "bin")
 
-# aspect:generation_mode update
-
-# aspect:map_kind ts_project ts_project //:defs.bzl
+# aspect:generation_mode update_only
 
 # aspect:js enabled
 # aspect:js_tsconfig enabled

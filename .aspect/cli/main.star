@@ -6,8 +6,7 @@ aspect.register_rule_kind("js_binary", {
 })
 
 def declare_main_js(ctx):
-    if len(ctx.sources) == 0:
-        ctx.targets.remove("main")
+    if len(ctx.sources) == 0 or not ctx.rel.startswith("nodejs_apps"):
         return
 
     entry_point = ctx.sources[0].path.replace(".ts", ".js")
