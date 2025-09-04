@@ -5,7 +5,7 @@
 static napi_value Add(napi_env env, napi_callback_info info) {
     size_t argc = 2;
     napi_value args[2];
-    napi_value this_arg;
+    napi_value this_arg = NULL;
     void* data = NULL;
     
     napi_status status = napi_get_cb_info(env, info, &argc, args, &this_arg, &data);
@@ -19,7 +19,8 @@ static napi_value Add(napi_env env, napi_callback_info info) {
         return NULL;
     }
     
-    int32_t first = 0, second = 0;
+    int32_t first = 0;
+    int32_t second = 0;
     status = napi_get_value_int32(env, args[0], &first);
     if (status != napi_ok) {
         napi_throw_type_error(env, NULL, "First argument must be a number");
@@ -34,7 +35,7 @@ static napi_value Add(napi_env env, napi_callback_info info) {
     
     int result = add(first, second);
     
-    napi_value return_val;
+    napi_value return_val = NULL;
     status = napi_create_int32(env, result, &return_val);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, "Unable to create return value");
@@ -45,7 +46,7 @@ static napi_value Add(napi_env env, napi_callback_info info) {
 }
 
 static napi_value Init(napi_env env, napi_value exports) {
-    napi_value fn;
+    napi_value fn = NULL;
     napi_status status = napi_create_function(env, NULL, 0, Add, NULL, &fn);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, "Unable to wrap native function");
