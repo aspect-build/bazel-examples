@@ -62,21 +62,14 @@ copy_file(
 ts_project(
     name = "tsc",
     srcs = ["index.ts"],
+    data = [
+        ":copy_binding",
+        ":copy_c_binding",
+    ],
     declaration = True,
     tsconfig = "//npm_packages:tsconfig",
     visibility = ["//visibility:public"],
     deps = [
         "//npm_packages/napi:node_modules/@types/node",
     ],
-)
-
-filegroup(
-    name = "pkg_contents",
-    srcs = [
-        ":copy_binding",
-        ":copy_c_binding",
-        ":index.d.ts",
-        ":index.js",
-    ],
-    visibility = ["//npm_packages/napi:__pkg__"],
 )
