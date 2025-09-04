@@ -60,7 +60,7 @@ copy_file(
 )
 
 ts_project(
-    name = "ts_wrapper",
+    name = "tsc",
     srcs = ["index.ts"],
     declaration = True,
     tsconfig = "//npm_packages:tsconfig",

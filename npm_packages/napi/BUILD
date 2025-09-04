@@ -5,9 +5,7 @@ npm_link_all_packages(name = "node_modules")
 
 js_library(
     name = "pkg",
-    srcs = [
-        "package.json",
-        "//npm_packages/napi/src:pkg_contents",
-    ],
+    srcs = ["package.json"],
     visibility = ["//visibility:public"],
+    deps = ["//npm_packages/napi/src:tsc"],
 )
