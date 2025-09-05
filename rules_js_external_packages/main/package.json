@@ -1,0 +1,6 @@
+{
+  "name": "rules_js_external_packages",
+  "dependencies": {
+    "vega": "workspace:*"
+  }
+}
