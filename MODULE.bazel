@@ -280,7 +280,18 @@ oci.pull(
     ],
     tag = "latest",
 )
-use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_base_linux_arm64", "ubuntu", "ubuntu_linux_amd64", "ubuntu_linux_arm64_v8")
+oci.pull(
+    name = "python_ocr_base_oci",
+    digest = "sha256:a2b3c76960954fe80c993fc46e1f8248c97e826b9774aa8e1cb5fad70023201e",
+    image = "gcr.io/windy-ridge-387017/python-ocr-base",
+    platforms = [
+        "linux/amd64",
+    ],
+)
+use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_base_linux_arm64", "ubuntu", "ubuntu_linux_amd64", "ubuntu_linux_arm64_v8",
+    "python_ocr_base_oci",
+    "python_ocr_base_oci_linux_amd64",
+)
 
 #########################
 # Support for Rust, see https://github.com/bazelbuild/rules_rust
