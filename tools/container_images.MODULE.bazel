@@ -1,0 +1,19 @@
+"""Container images"""
+
+bazel_dep(name = "rules_img", version = "0.2.4")
+
+pull = use_repo_rule("@rules_img//img:pull.bzl", "pull")
+
+pull(
+    name = "distroless_base",
+    digest = "sha256:ccaef5ee2f1850270d453fdf700a5392534f8d1a8ca2acda391fbb6a06b81c86",
+    registry = "gcr.io",
+    repository = "distroless/base",
+)
+
+pull(
+    name = "ubuntu",
+    digest = "sha256:80dd3c3b9c6cecb9f1667e9290b3bc61b78c2678c02cbdae5f0fea92cc6734ab",
+    repository = "ubuntu",
+    tag = "latest",
+)
