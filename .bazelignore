@@ -14,7 +14,6 @@ go_workspaces/
 java-soap/
 jest/
 nestjs/
-node_snapshot_flags/
 oci_java_image/
 prisma/
 rules_nodejs_to_rules_js_migration/
