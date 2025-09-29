@@ -1,9 +1,8 @@
 load("@aspect_bazel_lib//lib:testing.bzl", "assert_archive_contains")
+load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@container_structure_test//:defs.bzl", "container_structure_test")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
-load("@rules_img//img:image.bzl", "image_index", "image_manifest")
-load("@rules_img//img:load.bzl", "image_load")
-load("@rules_img//img:push.bzl", "image_push")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load", "oci_push")
 load("@tar.bzl", "mutate", "tar")
 
 go_library(
@@ -42,8 +41,8 @@ assert_archive_contains(
     expected = ["app"],
 )
 
-image_manifest(
-    name = "_image",
+oci_image(
+    name = "image",
     # This is defined by an oci.pull() call in /MODULE.bazel
     base = "@distroless_base",
     entrypoint = ["/app"],
@@ -51,17 +50,17 @@ image_manifest(
     labels = {
         "org.opencontainers.image.source": "https://github.com/aspect-build/bazel-examples",
     },
-    layers = [":app_layer"],
+    tars = [":app_layer"],
 )
 
 # This is the target that should be released to the target platform
-image_index(
-    name = "image",
-    manifests = [":_image"],
-    platforms = [
-        "@rules_go//go/toolchain:linux_arm64",
-        "@rules_go//go/toolchain:linux_amd64",
-    ],
+platform_transition_filegroup(
+    name = "transitioned_image",
+    srcs = [":image"],
+    target_platform = select({
+        "@platforms//cpu:arm64": "@rules_go//go/toolchain:linux_arm64",
+        "@platforms//cpu:x86_64": "@rules_go//go/toolchain:linux_amd64",
+    }),
 )
 
 # $ bazel run //oci_go_image:load
@@ -70,11 +69,11 @@ image_index(
 # -       "Hello World",
 # +       "Hello Go",
 #   )
-image_load(
+oci_load(
     name = "load",
     # Use the image built for the target platform
-    image = ":image",
-    tag = "gcr.io/example:latest",
+    image = ":transitioned_image",
+    repo_tags = ["gcr.io/example:latest"],
 )
 
 container_structure_test(
@@ -88,13 +87,12 @@ container_structure_test(
     ],
 )
 
-image_push(
+oci_push(
     name = "push",
-    image = ":image",
-    registry = "ttl.sh",
-    repository = "/aspect-build/oci_go_image_example",
-    tags = [
-        "24h",
+    image = ":transitioned_image",
+    remote_tags = [
         "latest",
+        "24h",
     ],
+    repository = "ttl.sh/aspect-build/oci_go_image_example",
 )

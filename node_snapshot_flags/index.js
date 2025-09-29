@@ -1,0 +1,5 @@
+console.log('current working directory', globalThis.path)
+console.log('First Arg', globalThis.firstArg)
+console.log('Second Argument', globalThis.secondArg)
+console.log('current process Argv', process.argv)
+console.log('Global Object', globalThis)
