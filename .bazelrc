@@ -4,6 +4,8 @@ import %workspace%/tools/preset.bazelrc
 
 ### YOUR PROJECT SPECIFIC OPTIONS GO HERE ###
 
+common --action_env=CACHE_BUST=123
+
 # Placeholder for your actual stamping logic
 build --workspace_status_command='echo BUILD_VERSION v1.2.3'
 
