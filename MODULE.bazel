@@ -86,7 +86,7 @@ use_repo(multitool, "multitool")
 llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
 llvm.toolchain(
     llvm_versions = {
-        "": "15.0.6",
+        "": "15.0.5",
         "darwin-aarch64": "15.0.7",
         "darwin-x86_64": "15.0.7",
     },
@@ -130,12 +130,12 @@ pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
-    python_version = "3.11",
+    python_version = "3.10",
 )
 
 pip.parse(
     hub_name = "pip",
-    python_version = "3.11",
+    python_version = "3.10",
     requirements_lock = "//requirements:all.txt",
 )
 use_repo(pip, "pip")
@@ -182,7 +182,7 @@ use_repo(
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
 node.toolchain(
     include_headers = True,
-    node_version = "20.18.0",
+    node_version = "20.17.0",
 )
 use_repo(node, "nodejs_toolchains")
 
@@ -217,7 +217,7 @@ use_repo(rules_ts_ext, "npm_typescript")
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(
     name = "go_sdk",
-    version = "1.21.1",
+    version = "1.21.0",
 )
 use_repo(go_sdk, "go_sdk")
 
