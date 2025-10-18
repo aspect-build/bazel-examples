@@ -2,6 +2,6 @@
   "name": "directory_path",
   "private": true,
   "dependencies": {
-    "billboard.js": "3.6.3"
+    "billboard.js": "3.15.1"
   }
 }
