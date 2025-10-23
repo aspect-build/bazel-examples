@@ -17,7 +17,14 @@ package(default_visibility = ["//:__subpackages__"])
 # gazelle:exclude py_mypy
 gazelle(
     name = "gazelle",
+    extra_args = ["-index=lazy"],
     gazelle = "@multitool//tools/gazelle",
+)
+
+gazelle(
+    name = "gazelle.check",
+    gazelle = "@multitool//tools/gazelle",
+    mode = "diff",
 )
 
 npm_link_all_packages(name = "node_modules")
