@@ -18,12 +18,30 @@ package(default_visibility = ["//:__subpackages__"])
 # gazelle:exclude py_mypy
 gazelle(
     name = "gazelle",
+    env = {
+        "ORION_EXTENSIONS_DIR": ".aspect/cli",
+        "ENABLE_LANGUAGES": ",".join([
+            "js",
+            "go",
+            "proto",
+            "python",
+        ]),
+    },
     extra_args = ["-index=lazy"],
     gazelle = "@multitool//tools/gazelle",
 )
 
 gazelle(
     name = "gazelle.check",
+    env = {
+        "ORION_EXTENSIONS_DIR": ".aspect/cli",
+        "ENABLE_LANGUAGES": ",".join([
+            "js",
+            "go",
+            "proto",
+            "python",
+        ]),
+    },
     extra_args = ["-index=lazy"],
     gazelle = "@multitool//tools/gazelle",
     mode = "diff",
