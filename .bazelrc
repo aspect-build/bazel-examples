@@ -10,8 +10,7 @@ common --check_direct_dependencies=off
 # Placeholder for your actual stamping logic
 build --workspace_status_command='echo BUILD_VERSION v1.2.3'
 
-# As an alternative to using Aspect CLI to get the 'bazel lint' command,
-# users could run 'bazel build --config=lint' to produce the linter reports.
+# 'bazel build --config=lint' will produce the linter reports.
 build:lint --aspects=//tools/lint:linters.bzl%buf
 build:lint --aspects=//tools/lint:linters.bzl%clang_tidy
 build:lint --aspects=//tools/lint:linters.bzl%eslint
