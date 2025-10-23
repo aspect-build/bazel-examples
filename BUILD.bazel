@@ -23,6 +23,7 @@ gazelle(
 
 gazelle(
     name = "gazelle.check",
+    extra_args = ["-index=lazy"],
     gazelle = "@multitool//tools/gazelle",
     mode = "diff",
 )
