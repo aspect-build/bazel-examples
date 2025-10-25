@@ -17,9 +17,9 @@ ng_pkg(
         "src/public-api.ts",
     ],
     deps = [
-        ":node_modules/@bufbuild/connect",
-        ":node_modules/@bufbuild/connect-web",
         ":node_modules/@bufbuild/protobuf",
+        ":node_modules/@connectrpc/connect",
+        ":node_modules/@connectrpc/connect-web",
         "//packages/connect/src/proto:eliza_ts_proto",
     ],
 )
