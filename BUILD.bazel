@@ -1,25 +1,53 @@
-# A top-level build file most often contains tooling and convenience aliases.
 load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@gazelle//:def.bzl", "gazelle")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
+package(default_visibility = ["//:__subpackages__"])
+
+# gazelle:prefix github.com/aspect-build/bazel-examples
+
 # JS BUILD generation is opt-in per project
-# aspect:js disabled
+# gazelle:js disabled
 
 # Global config shared across monorepo.
-# aspect:js_npm_package_target_name pkg
-# aspect:js_package_rule_kind js_library
-# aspect:js_project_naming_convention tsc
+# gazelle:js_npm_package_target_name pkg
+# gazelle:js_package_rule_kind js_library
+# gazelle:js_project_naming_convention tsc
 
 # TODO(alex): refactor this folder to follow python gazelle conventions
 # gazelle:exclude py_mypy
-package(default_visibility = ["//:__subpackages__"])
+gazelle(
+    name = "gazelle",
+    env = {
+        "ORION_EXTENSIONS_DIR": ".aspect/cli",
+        "ENABLE_LANGUAGES": ",".join([
+            "js",
+            "go",
+            "proto",
+            "python",
+        ]),
+    },
+    extra_args = ["-index=lazy"],
+    gazelle = "@multitool//tools/gazelle",
+)
+
+gazelle(
+    name = "gazelle.check",
+    env = {
+        "ORION_EXTENSIONS_DIR": ".aspect/cli",
+        "ENABLE_LANGUAGES": ",".join([
+            "js",
+            "go",
+            "proto",
+            "python",
+        ]),
+    },
+    extra_args = ["-index=lazy"],
+    gazelle = "@multitool//tools/gazelle",
+    mode = "diff",
+)
 
 npm_link_all_packages(name = "node_modules")
-
-alias(
-    name = "format",
-    actual = "//tools/format",
-)
 
 exports_files(
     [
@@ -41,4 +69,10 @@ js_library(
         ":node_modules/@eslint/js",
         ":node_modules/typescript-eslint",
     ],
+)
+
+alias(
+    name = "format",
+    actual = "//tools/format:format",
+    visibility = ["//visibility:public"],
 )
