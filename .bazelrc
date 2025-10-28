@@ -11,8 +11,6 @@ common --check_direct_dependencies=off
 common --workspace_status_command=githooks/check-config.sh
 # But not on CI.
 common:ci --workspace_status_command=
-# Placeholder for your actual stamping logic
-build:release --workspace_status_command='echo BUILD_VERSION v1.2.3'
 
 # 'bazel build --config=lint' will produce the linter reports.
 build:lint --aspects=//tools/lint:linters.bzl%buf
