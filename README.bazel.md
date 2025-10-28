@@ -4,8 +4,8 @@ This repository uses Bazel to provide a monorepo developer experience.
 
 ## Formatting code
 
-- Run `bazel run format` to re-format all files locally.
-- Run `bazel run format path/to/file` to re-format a single file.
+- Run `bazel run //tools/format` to re-format all files locally.
+- Run `bazel run //tools/format path/to/file` to re-format a single file.
 - Run `pre-commit install` to auto-format changed files on `git commit`; see https://pre-commit.com/.
 
 ## Linting code

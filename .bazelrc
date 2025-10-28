@@ -7,7 +7,10 @@ import %workspace%/tools/preset.bazelrc
 # We have a lot of dependencies and are okay with some of them bringing a newer version via a transitive dep.
 common --check_direct_dependencies=off
 
-common --workspace_status_command=githooks/check-config.sh 
+# When running locally, warn about unconfigured git hooks.
+common --workspace_status_command=githooks/check-config.sh
+# But not on CI.
+common:ci --workspace_status_command=
 # Placeholder for your actual stamping logic
 build:release --workspace_status_command='echo BUILD_VERSION v1.2.3'
 
