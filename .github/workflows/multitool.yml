@@ -1,0 +1,35 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 1 2 */3 * *
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install multitool
+        run: |
+          curl -L https://github.com/theoremlp/multitool/releases/download/v0.9.0/multitool-x86_64-unknown-linux-gnu.tar.xz -o multitool.tar.xz
+          tar -xf multitool.tar.xz
+          sudo mv multitool-x86_64-unknown-linux-gnu/multitool /usr/local/bin/multitool
+          sudo chmod +x /usr/local/bin/multitool
+          rm multitool.tar.xz multitool-x86_64-unknown-linux-gnu/*
+
+      - name: Run multitool update
+        run: multitool --lockfile '{{ .ProjectSnake }}/tools/tools.lock.json' update
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          title: "chore(deps): multitool update"
+          body: |
+            Automated update using [bazel-contrib/multitool](https://github.com/bazel-contrib/multitool)
+          labels: deps
+          assignees: alexeagle
