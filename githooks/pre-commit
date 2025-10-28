@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Get staged files and format them
+git diff --cached --diff-filter=AM --name-only -z | xargs --null --no-run-if-empty bash -c '
+  if [ $# -gt 0 ]; then
+    bazel run //tools/format -- "$@"
+
+    if ! git diff --quiet -- "$@"; then
+      echo "❌ Some staged files were modified by the pre-commit hook."
+      echo "Please stage the changes and try committing again:"
+      git diff --stat -- "$@"
+      exit 1
+    fi
+  fi
+' _
