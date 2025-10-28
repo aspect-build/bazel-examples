@@ -1,5 +1,5 @@
-load("//bazel/rules_nodejs:defs.bzl", "ts_project")
 load("//bazel:rules_nodejs_to_rules_js_adapter.bzl", "rules_nodejs_to_rules_js_adapter")
+load("//bazel/rules_nodejs:defs.bzl", "ts_project")
 
 # A ts_project from rule_nodejs
 ts_project(

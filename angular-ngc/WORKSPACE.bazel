@@ -48,11 +48,11 @@ npm_translate_lock(
     custom_postinstalls = {
         "ng2-dragula": "ngcc --source .",
     },
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
     # Workaround https://github.com/sass/dart-sass/issues/1765
     # See comments in sass_workaround.bzl
     public_hoist_packages = {p: ["packages/lib-a"] for p in SASS_DEPS},
-    npmrc = "//:.npmrc",
-    pnpm_lock = "//:pnpm-lock.yaml",
     verify_node_modules_ignored = "//:.bazelignore",
 )
 
@@ -73,6 +73,7 @@ http_archive(
 )
 
 v2_branch_head = "e5932f883443233f42b61d3fb87b2287518fbcba"
+
 http_archive(
     name = "aspect_rules_ts",
     #sha256 = "ace5b609603d9b5b875d56c9c07182357c4ee495030f40dcefb10d443ba8c208",

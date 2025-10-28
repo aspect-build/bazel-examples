@@ -3,6 +3,10 @@ load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary")
 js_binary(
     name = "snapshot",
     entry_point = "snapshot.js",
+    fixed_args = [
+        "name",
+        "home",
+    ],
     node_options = [
         "--build-snapshot",
         # FIXME: this reference to snapshot.blob should appear below in the build-snapshot target
@@ -10,19 +14,18 @@ js_binary(
         # However I get an error when moving it to env={"NODE_OPTIONS": "--snapshot-blob..."}
         "--snapshot-blob=snapshot.blob",
     ],
-    fixed_args = ["name", "home"],
 )
 
 js_run_binary(
     name = "build-snapshot",
-    tool = "snapshot",
     outs = ["snapshot.blob"],
+    tool = "snapshot",
 )
 
 js_binary(
     name = "index",
-    entry_point = "index.js",
     data = ["snapshot.blob"],
+    entry_point = "index.js",
     node_options = [
         "--snapshot-blob=$(rootpath snapshot.blob)",
     ],

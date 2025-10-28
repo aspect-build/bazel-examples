@@ -1,9 +1,9 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//bzl:dev.bzl", "prisma_dev")
 load("//bzl:generate.bzl", "prisma_generate")
 load("//bzl:schema.bzl", "prisma_schema")
-load("//bzl:dev.bzl", "prisma_dev")
 
 npm_link_all_packages(name = "node_modules")
 

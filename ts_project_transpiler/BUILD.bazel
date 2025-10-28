@@ -1,10 +1,10 @@
 load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
-load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("babel.bzl", "babel")
-load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
 # This macro expands to a link_npm_package for each third-party package in package.json
 npm_link_all_packages(name = "node_modules")
@@ -53,8 +53,8 @@ ts_project(
         # Attributes to the swc rule can appear here
         args = ["--env-name=test"],
         out_dir = "build-swc",
-        swcrc = ".swcrc",
         source_maps = "true",
+        swcrc = ".swcrc",
     ),
 )
 
