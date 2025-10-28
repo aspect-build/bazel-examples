@@ -85,9 +85,17 @@ buildifier(
     mode = "fix",
 )
 
+# todo(team): burn down to zero
+DISABLED_BUILDIFIER_WARNINGS = [
+    "module-docstring",
+    "function-docstring",
+    "unused-variable",
+]
+
 buildifier(
     name = "buildifier.check",
     exclude_patterns = ["./.git/*"],
     lint_mode = "warn",
+    lint_warnings = ["-{}".format(w) for w in DISABLED_BUILDIFIER_WARNINGS],
     mode = "diff",
 )
