@@ -70,3 +70,9 @@ js_library(
         ":node_modules/typescript-eslint",
     ],
 )
+
+alias(
+    name = "format",
+    actual = "//tools/format:format",
+    visibility = ["//visibility:public"],
+)
