@@ -65,7 +65,7 @@ prisma_dev = rule(
             doc = """A runnable that outputs the DB url to connect to to stdout.""",
             mandatory = True,
             executable = True,
-            cfg = "host",
+            cfg = "exec",
         ),
         "schema": attr.label(
             doc = """Schema to run with.""",

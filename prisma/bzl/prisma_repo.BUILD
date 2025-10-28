@@ -1,5 +1,5 @@
-load("@prisma-example//bzl:constants.bzl", "PLATFORMS")
 load("@prisma-example//bzl:cli.bzl", "prisma_cli")
+load("@prisma-example//bzl:constants.bzl", "PLATFORMS")
 
 prisma_cli(
     name = "cli",

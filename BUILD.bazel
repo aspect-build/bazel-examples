@@ -1,4 +1,5 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
 load("@gazelle//:def.bzl", "gazelle")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
@@ -75,4 +76,26 @@ alias(
     name = "format",
     actual = "//tools/format:format",
     visibility = ["//visibility:public"],
+)
+
+buildifier(
+    name = "buildifier",
+    exclude_patterns = ["./.git/*"],
+    lint_mode = "fix",
+    mode = "fix",
+)
+
+# todo(team): burn down to zero
+DISABLED_BUILDIFIER_WARNINGS = [
+    "module-docstring",
+    "function-docstring",
+    "unused-variable",
+]
+
+buildifier(
+    name = "buildifier.check",
+    exclude_patterns = ["./.git/*"],
+    lint_mode = "warn",
+    lint_warnings = ["-{}".format(w) for w in DISABLED_BUILDIFIER_WARNINGS],
+    mode = "diff",
 )

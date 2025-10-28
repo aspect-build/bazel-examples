@@ -1,7 +1,7 @@
 "go_proto_library wrapper macro"
 
-load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@aspect_bazel_lib//lib:output_files.bzl", "make_output_files")
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load("@rules_go//proto:def.bzl", _go_proto_library = "go_proto_library")
 

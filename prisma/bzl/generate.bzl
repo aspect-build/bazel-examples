@@ -1,8 +1,8 @@
 """prisma_generate rule."""
 
-load("@npm//:prisma/package_json.bzl", _prisma = "bin")
 load("@aspect_rules_js//js:providers.bzl", "JsInfo")
 load("@bazel_skylib//lib:paths.bzl", "paths")
+load("@npm//:prisma/package_json.bzl", _prisma = "bin")
 load(":providers.bzl", "PrismaEnginesInfo", "PrismaSchemaInfo")
 
 def _prisma_generate_impl(ctx):

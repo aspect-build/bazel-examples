@@ -1,7 +1,7 @@
 load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 load("@npm_rules_js//:defs.bzl", "npm_link_all_packages")
-load("//bazel/rules_js:defs.bzl", "ts_project_rjs")
 load("//bazel:rules_js_to_rules_nodejs_adapter.bzl", "rules_js_to_rules_nodejs_adapter")
+load("//bazel/rules_js:defs.bzl", "ts_project_rjs")
 
 npm_link_all_packages(name = "node_modules")
 

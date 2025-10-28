@@ -1,7 +1,7 @@
 "Wrap the npmjs.com/sass tool for easier use in Bazel"
 
-load("//tools:sass_workaround.bzl", "SASS_DEPS")
 load("@npm//:sass/package_json.bzl", sass_bin = "bin")
+load("//tools:sass_workaround.bzl", "SASS_DEPS")
 
 # Convert sass input to output filename
 def _sass_out(n):
