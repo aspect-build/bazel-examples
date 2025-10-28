@@ -1,6 +1,0 @@
-BAZELISK_BASE_URL=https://github.com/aspect-build/aspect-cli-legacy/releases/download
-USE_BAZEL_VERSION=aspect/2025.42.4
-
-# Aspect CLI (aspect) is wrapper for Bazel, built on top of Bazelisk, that adds
-# additional features and extensibility to the popular polyglot build system from Google.
-# Check https://docs.aspect.build/cli/releases/ for latest release.
