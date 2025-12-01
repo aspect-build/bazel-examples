@@ -10,7 +10,6 @@ go_library(
     srcs = ["main.go"],
     importpath = "github.com/aspect-build/bazel-examples/oci_go_image",
     visibility = ["//visibility:private"],
-    deps = ["@com_github_google_go_cmp//cmp"],
 )
 
 go_test(

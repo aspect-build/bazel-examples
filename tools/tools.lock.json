@@ -111,23 +111,23 @@
     "binaries": [
       {
         "kind": "file",
-        "url": "https://github.com/aspect-build/aspect-gazelle/releases/download/2025.40.130+e67fd7a/gazelle-darwin_arm64_cgo",
-        "sha256": "b1334fdec8e6afbece04f8f0e91cecd2f2502f339b354c1a8fec326a6af97708",
-        "os": "macos",
+        "url": "https://github.com/aspect-build/aspect-gazelle/releases/download/2025.40.143+e1d0591/gazelle-linux_arm64_cgo",
+        "sha256": "d336626d68ac5ddbf951e064b4cd1adfd126c97c986702a2b96696010eaa7281",
+        "os": "linux",
         "cpu": "arm64"
       },
       {
         "kind": "file",
-        "url": "https://github.com/aspect-build/aspect-gazelle/releases/download/2025.40.130+e67fd7a/gazelle-linux_amd64_cgo",
-        "sha256": "f0653fffdc9b5e6de05a429c9bb688f15d7e54c8a3ca5cb32572b673087e2800",
+        "url": "https://github.com/aspect-build/aspect-gazelle/releases/download/2025.40.143+e1d0591/gazelle-linux_amd64_cgo",
+        "sha256": "89237c9705b9a74a82e2e36f8a61471a9226c19fd05472c1b9321bd36dd10534",
         "os": "linux",
         "cpu": "x86_64"
       },
       {
         "kind": "file",
-        "url": "https://github.com/aspect-build/aspect-gazelle/releases/download/2025.40.130+e67fd7a/gazelle-linux_arm64_cgo",
-        "sha256": "02364d19b1d4cf348e585cf437651f3c657f0b86a590c42baba99c029cb0a637",
-        "os": "linux",
+        "url": "https://github.com/aspect-build/aspect-gazelle/releases/download/2025.40.143+e1d0591/gazelle-darwin_arm64_cgo",
+        "sha256": "0c681f0cb082b972e929cb7b58a6781d5d2793cbe74a35525d25000e4a781b81",
+        "os": "macos",
         "cpu": "arm64"
       }
     ]
