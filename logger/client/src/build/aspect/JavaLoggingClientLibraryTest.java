@@ -23,7 +23,7 @@ public final class JavaLoggingClientLibraryTest {
 
   @Test
   public void testSendLogMessageToServer() throws Exception {
-    client.sendLogMessageToServer("he3llo");
+    client.sendLogMessageToServer("he23llo");
   }
 
 
