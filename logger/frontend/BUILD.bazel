@@ -38,3 +38,21 @@ js_run_devserver(
     ],
     tool = ":vite",
 )
+
+# TODO: Should be similar to "webpack build --mode production"
+webpack_bundle(
+    name = "bundle",
+    srcs = [":compile"],
+    entry_point = "???",
+    node_modules = [":node_modules"],
+    webpack_config = "webpack.config.cjs",
+)
+
+# TODO: Should be similar to "webpack devserver --mode development"
+webpack_devserver(
+    name = "devserver",
+    srcs = [":compile"],
+    entry_point = "???",
+    node_modules = [":node_modules"],
+    webpack_config = "webpack.config.cjs",
+)
