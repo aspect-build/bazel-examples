@@ -2,23 +2,19 @@
 // @generated from file example/v1/example.proto (package example.v1, syntax proto3)
 /* eslint-disable */
 
-import { fileDesc, messageDesc } from '@bufbuild/protobuf/codegenv1';
-import { file_buf_validate_validate } from '../../buf/validate/validate_pb.js';
+import { fileDesc, messageDesc } from "@bufbuild/protobuf/codegenv1";
+import { file_buf_validate_validate } from "../../buf/validate/validate_pb.js";
 
 /**
  * Describes the file example/v1/example.proto.
  */
-export const file_example_v1_example =
-  /*@__PURE__*/
-  fileDesc(
-    'ChhleGFtcGxlL3YxL2V4YW1wbGUucHJvdG8SCmV4YW1wbGUudjEiewoLRXhhbXBsZVVzZXISFAoCaWQYASABKAlCCLpIBXIDsAEBEhkKBWVtYWlsGAIgASgJQgq6SAfIAQFyAmABEiIKDGRpc3BsYXlfbmFtZRgDIAEoCUIMukgJyAEBcgQQARhkEhcKA2FnZRgEIAEoBUIKukgHGgUYlgEoAEKwAQoOY29tLmV4YW1wbGUudjFCDEV4YW1wbGVQcm90b1ABWkdnaXRodWIuY29tL2FzcGVjdC1idWlsZC9iYXplbC1leGFtcGxlcy9nby9nZW5wcm90by9leGFtcGxlL3YxO2V4YW1wbGV2MaICA0VYWKoCCkV4YW1wbGUuVjHKAgpFeGFtcGxlXFYx4gIWRXhhbXBsZVxWMVxHUEJNZXRhZGF0YeoCC0V4YW1wbGU6OlYxYgZwcm90bzM',
-    [file_buf_validate_validate]
-  );
+export const file_example_v1_example = /*@__PURE__*/
+  fileDesc("ChhleGFtcGxlL3YxL2V4YW1wbGUucHJvdG8SCmV4YW1wbGUudjEiewoLRXhhbXBsZVVzZXISFAoCaWQYASABKAlCCLpIBXIDsAEBEhkKBWVtYWlsGAIgASgJQgq6SAfIAQFyAmABEiIKDGRpc3BsYXlfbmFtZRgDIAEoCUIMukgJyAEBcgQQARhkEhcKA2FnZRgEIAEoBUIKukgHGgUYlgEoAEKwAQoOY29tLmV4YW1wbGUudjFCDEV4YW1wbGVQcm90b1ABWkdnaXRodWIuY29tL2FzcGVjdC1idWlsZC9iYXplbC1leGFtcGxlcy9nby9nZW5wcm90by9leGFtcGxlL3YxO2V4YW1wbGV2MaICA0VYWKoCCkV4YW1wbGUuVjHKAgpFeGFtcGxlXFYx4gIWRXhhbXBsZVxWMVxHUEJNZXRhZGF0YeoCC0V4YW1wbGU6OlYxYgZwcm90bzM", [file_buf_validate_validate]);
 
 /**
  * Describes the message example.v1.ExampleUser.
  * Use `create(ExampleUserSchema)` to create a new message.
  */
-export const ExampleUserSchema =
-  /*@__PURE__*/
+export const ExampleUserSchema = /*@__PURE__*/
   messageDesc(file_example_v1_example, 0);
+

@@ -2,8 +2,8 @@
 // @generated from file example/v1/example.proto (package example.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage } from '@bufbuild/protobuf/codegenv1';
-import type { Message } from '@bufbuild/protobuf';
+import type { GenFile, GenMessage } from "@bufbuild/protobuf/codegenv1";
+import type { Message } from "@bufbuild/protobuf";
 
 /**
  * Describes the file example/v1/example.proto.
@@ -13,7 +13,7 @@ export declare const file_example_v1_example: GenFile;
 /**
  * @generated from message example.v1.ExampleUser
  */
-export declare type ExampleUser = Message<'example.v1.ExampleUser'> & {
+export declare type ExampleUser = Message<"example.v1.ExampleUser"> & {
   /**
    * Required user ID.
    *
@@ -48,3 +48,4 @@ export declare type ExampleUser = Message<'example.v1.ExampleUser'> & {
  * Use `create(ExampleUserSchema)` to create a new message.
  */
 export declare const ExampleUserSchema: GenMessage<ExampleUser>;
+
