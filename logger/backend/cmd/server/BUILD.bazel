@@ -12,7 +12,7 @@ go_library(
     importpath = "github.com/aspect-build/bazel-examples/logger/backend/cmd/server",
     visibility = ["//visibility:private"],
     deps = [
-        "@com_github_aspect_build_bazel_examples//logger/schema:go_default_library",
+        "//logger/schema:logger_go_proto",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//reflection",
         "@org_golang_google_protobuf//encoding/protojson",

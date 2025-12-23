@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	pb "github.com/aspect-build/bazel-examples/logger/schema"
+	pb "github.com/aspect-build/bazel-examples/logger"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"
