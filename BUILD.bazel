@@ -16,11 +16,6 @@ package(default_visibility = ["//:__subpackages__"])
 # gazelle:js_package_rule_kind js_library
 # gazelle:js_project_naming_convention tsc
 
-native_binary(
-    name = "local_gazelle",
-    src = ":gazelle-bin",
-)
-
 # TODO(alex): refactor this folder to follow python gazelle conventions
 # gazelle:exclude py_mypy
 gazelle(
@@ -36,7 +31,7 @@ gazelle(
         ]),
     },
     extra_args = ["-index=lazy"],
-    gazelle = ":local_gazelle",
+    gazelle = "@multitool//tools/gazelle",
 )
 
 gazelle(
