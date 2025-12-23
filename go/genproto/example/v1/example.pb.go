@@ -106,8 +106,8 @@ const file_example_v1_example_proto_rawDesc = "" +
 	"\xbaH\a\xc8\x01\x01r\x02`\x01R\x05email\x12/\n" +
 	"\fdisplay_name\x18\x03 \x01(\tB\f\xbaH\t\xc8\x01\x01r\x04\x10\x01\x18dR\vdisplayName\x12\x1c\n" +
 	"\x03age\x18\x04 \x01(\x05B\n" +
-	"\xbaH\a\x1a\x05\x18\x96\x01(\x00R\x03ageB\xc0\x01\n" +
-	"\x0ecom.example.v1B\fExampleProtoP\x01ZWgithub.com/aspect-build/bazel-examples/proto-buf-go-ts/go/genproto/example/v1;examplev1\xa2\x02\x03EXX\xaa\x02\n" +
+	"\xbaH\a\x1a\x05\x18\x96\x01(\x00R\x03ageB\xb0\x01\n" +
+	"\x0ecom.example.v1B\fExampleProtoP\x01ZGgithub.com/aspect-build/bazel-examples/go/genproto/example/v1;examplev1\xa2\x02\x03EXX\xaa\x02\n" +
 	"Example.V1\xca\x02\n" +
 	"Example\\V1\xe2\x02\x16Example\\V1\\GPBMetadata\xea\x02\vExample::V1b\x06proto3"
 

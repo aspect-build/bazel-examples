@@ -31,6 +31,7 @@ bazel_env(
     },
     tools = {
         "buildifier": "@buildifier_prebuilt//:buildifier",
+        "protoc-gen-go": "@org_golang_google_protobuf//cmd/protoc-gen-go",
         "go": "@rules_go//go",
         "jar": "$(JAVABASE)/bin/jar",
         "java": "$(JAVA)",
