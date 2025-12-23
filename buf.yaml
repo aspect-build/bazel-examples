@@ -1,4 +1,13 @@
 # For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
+#
+# To get 'buf' and plugins on the PATH, run:
+# bazel run tools:bazel_env
+# pnpm install
+# Then you can:
+# buf dep update
+# buf generate
+#
+# Note, buf generate deletes BUILD files from the destination directory.
 version: v2
 modules:
   - path: protobuf
