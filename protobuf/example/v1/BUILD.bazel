@@ -1,0 +1,9 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+proto_library(
+    name = "example_v1_proto",
+    srcs = ["example.proto"],
+    strip_import_prefix = "/protobuf",
+    visibility = ["//visibility:public"],
+    deps = ["@buf_deps//buf/validate:validate_proto"],
+)

@@ -3,6 +3,7 @@ module github.com/aspect-build/bazel-examples
 go 1.24.5
 
 require (
+	github.com/google/go-cmp v0.6.0
 	google.golang.org/grpc v1.67.3
 	google.golang.org/protobuf v1.36.3
 )

@@ -10,13 +10,6 @@ Minimal example showing **Protobuf + Buf (v2) + protovalidate** generating code 
 - `go/`: Go consumer + generated `genproto/`
 - `typescript/`: TypeScript consumer + generated `genproto/`
 
-## Prereqs
-
-- Go
-- Node.js + npm
-
-This repo does not include Bazel for this example.
-
 ## Generate code
 
 Install the Go plugin:

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	examplev1 "github.com/aspect-build/bazel-examples/proto-buf-go-ts/go/genproto/example/v1"
+	examplev1 "github.com/aspect-build/bazel-examples/go/genproto/example/v1"
 )
 
 func main() {

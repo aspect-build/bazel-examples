@@ -101,6 +101,18 @@ buf = use_extension("@rules_buf//buf:extensions.bzl", "buf")
 buf.toolchains(version = "v1.34.0")  #see https://github.com/bufbuild/buf/releases
 use_repo(buf, "rules_buf_toolchains")
 
+buf_dependencies = use_repo_rule("@rules_buf//buf:defs.bzl", "buf_dependencies")
+
+# TODO(alexeagle): shouldn't this come from a repo rule reading buf.lock?
+# https://buf.build/docs/cli/build-systems/bazel/#gazelle-dependencies
+# seems outdated based on WORKSPACE rules_go setup.
+buf_dependencies(
+    name = "buf_deps",
+    modules = [
+        "buf.build/bufbuild/protovalidate:2a1774d888024a9b93ce7eb4b59f6a83",
+    ],
+)
+
 # This Aspect-provided protobuf toolchain removes the need to compile ProtoC from
 # source, speeding up builds where a cached protoc isn't used.
 protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
@@ -217,7 +229,7 @@ use_repo(rules_ts_ext, "npm_typescript")
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(
     name = "go_sdk",
-    version = "1.24.0",
+    version = "1.24.5",
 )
 use_repo(go_sdk, "go_sdk")
 
