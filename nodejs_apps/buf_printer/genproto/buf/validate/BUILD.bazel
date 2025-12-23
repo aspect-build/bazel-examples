@@ -4,6 +4,9 @@ package(default_visibility = ["//nodejs_apps/buf_printer:__subpackages__"])
 
 js_library(
     name = "tsc",
-    srcs = ["validate_pb.d.ts"],
+    srcs = [
+        "validate_pb.d.ts",
+        "validate_pb.js",  # keep
+    ],
     deps = ["//nodejs_apps/buf_printer:node_modules/@bufbuild/protobuf"],
 )
