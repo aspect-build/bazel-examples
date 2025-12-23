@@ -15,6 +15,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"
+
+	examplev1 "github.com/aspect-build/bazel-examples/protobuf/genproto/example/v1"
 )
 
 var (
@@ -104,6 +106,13 @@ func createJSONResponse() string {
 }
 
 func main() {
+	u := &examplev1.ExampleUser{
+		Id:          "123e4567-e89b-12d3-a456-426614174000",
+		Email:       "alice@example.com",
+		DisplayName: "Alice",
+		Age:         42,
+	}
+	fmt.Printf("user=%v\n", u)
 	fmt.Println("Starting grpc and http servers")
 	errs := make(chan error)
 	go func() { errs <- startGrpc() }()

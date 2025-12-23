@@ -13,6 +13,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//logger/schema:logger_go_proto",
+        "//protobuf/genproto/example/v1:example",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//reflection",
         "@org_golang_google_protobuf//encoding/protojson",

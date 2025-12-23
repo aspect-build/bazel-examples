@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package example.v1;
+
+import "buf/validate/validate.proto";
+
+message ExampleUser {
+  // Required user ID.
+  string id = 1 [(buf.validate.field).string.uuid = true];
+
+  // Required email with basic format validation.
+  string email = 2 [(buf.validate.field) = {
+    required: true
+    string: {email: true}
+  }];
+
+  // Required display name; at least 1 character.
+  string display_name = 3 [(buf.validate.field) = {
+    required: true
+    string: {
+      min_len: 1
+      max_len: 100
+    }
+  }];
+
+  // Non-negative age; optional.
+  int32 age = 4 [(buf.validate.field) = {
+    int32: {
+      gte: 0
+      lte: 150
+    }
+  }];
+}
