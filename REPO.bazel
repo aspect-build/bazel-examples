@@ -9,7 +9,6 @@ ignore_directories([
     "**/__pycache__",
     # Nested projects that should be moved into the root workspace:
     "angular-ngc",
-    "bufbuild",
     "bzlmod",
     "check-npm-determinism",
     "directory_path",

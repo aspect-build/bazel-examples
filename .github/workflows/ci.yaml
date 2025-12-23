@@ -61,7 +61,6 @@ jobs:
             jest/**
             nestjs/**
             prisma/**
-            bufbuild/**
             rules_nodejs_to_rules_js_migration/**
             ts_project_transpiler/**
           # Just print the top-level directory names
