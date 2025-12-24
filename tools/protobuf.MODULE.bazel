@@ -2,6 +2,7 @@
 Protobuf and gRPC
 https://github.com/aspect-build/toolchains_protoc
 """
+
 # keep-sorted start
 bazel_dep(name = "protovalidate", version = "1.0.0")
 bazel_dep(name = "rules_buf", version = "0.5.2")

@@ -8,6 +8,7 @@ repository and used to configure the language version and additional
 dependencies using a language-specific mechanism popular in the relevant
 ecosystem.
 """
+
 # keep-sorted start
 bazel_dep(name = "aspect_rules_py", version = "1.3.1")
 bazel_dep(name = "rules_mypy", version = "0.40.0")

@@ -1,6 +1,7 @@
 """
 Hermetic C++ toolchain, to relieve the dependency on a locally installed CC etc.
 """
+
 # keep-sorted start
 bazel_dep(name = "googletest", version = "1.15.2")
 bazel_dep(name = "rules_cc", version = "0.1.1")

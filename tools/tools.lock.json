@@ -108,7 +108,7 @@
     ]
   },
   "gazelle": {
-        "binaries": [
+    "binaries": [
       {
         "kind": "file",
         "url": "https://github.com/aspect-build/aspect-gazelle/releases/download/2025.40.148+4396cce/gazelle-darwin_arm64_cgo",
