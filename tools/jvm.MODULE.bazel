@@ -1,0 +1,42 @@
+"""
+Java and other JVM languages:
+https://github.com/bazelbuild/rules_jvm_external/blob/master/examples/bzlmod/MODULE.bazel
+https://github.com/bazelbuild/rules_jvm_external#pinning-artifacts-and-integration-with-bazels-downloader
+"""
+bazel_dep(name = "rules_java", version = "8.6.1")
+bazel_dep(name = "rules_jvm_external", version = "6.3")
+
+
+# In the Maven support variation, the dependencies are conveniently listed here
+# in the MODULE.bazel file.
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    artifacts = [
+        "com.google.protobuf:protobuf-java:4.28.0",
+        "io.grpc:grpc-all:1.51.1",
+    ],
+    lock_file = "//:maven_install.json",
+)
+use_repo(
+    maven,
+    "maven",
+    "unpinned_maven",
+)
+
+# Java formatter tools
+format_tools = use_extension("@aspect_rules_lint//format:extensions.bzl", "tools")
+format_tools.google_java_format()
+use_repo(format_tools, "google-java-format")
+
+# Java linter tools
+lint_tools = use_extension("@aspect_rules_lint//lint:extensions.bzl", "tools")
+lint_tools.checkstyle()
+lint_tools.spotbugs()
+lint_tools.pmd()
+use_repo(
+    lint_tools,
+    "com_puppycrawl_tools_checkstyle",
+    "net_sourceforge_pmd",
+    "spotbugs",
+)

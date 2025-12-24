@@ -1,0 +1,44 @@
+"""
+JavaScript and TypeScript
+https://github.com/aspect-build/rules_js/tree/main/e2e/bzlmod
+https://github.com/aspect-build/rules_ts/tree/main/e2e/bzlmod
+"""
+# keep-sorted start
+bazel_dep(name = "aspect_rules_js", version = "2.3.6")
+bazel_dep(name = "aspect_rules_swc", version = "2.0.0")
+bazel_dep(name = "aspect_rules_ts", version = "3.0.0")
+bazel_dep(name = "rules_angular", version = "0.1.0")
+bazel_dep(name = "rules_nodejs", version = "6.3.5")
+# keep-sorted end
+
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+node.toolchain(
+    include_headers = True,
+    node_version = "20.18.0",
+)
+use_repo(node, "nodejs_toolchains")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+# Allows developers to get a local node_modules tree, using
+# bazel run -- @pnpm//:pnpm --dir $PWD install
+use_repo(pnpm, "pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "npm",
+    lifecycle_hooks_execution_requirements = {
+        "lmdb": ["no-remote-exec"],  # requires non-hermetic GLIBCXX_3.4.29 which is not found on remote executors but is available on host
+    },
+    npmrc = "//:.npmrc",
+    pnpm_lock = "//:pnpm-lock.yaml",
+)
+use_repo(npm, "npm")
+
+rules_ts_ext = use_extension(
+    "@aspect_rules_ts//ts:extensions.bzl",
+    "ext",
+    dev_dependency = True,
+)
+rules_ts_ext.deps()
+use_repo(rules_ts_ext, "npm_typescript")

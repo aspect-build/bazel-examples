@@ -1,0 +1,23 @@
+"""
+Hermetic C++ toolchain, to relieve the dependency on a locally installed CC etc.
+"""
+# keep-sorted start
+bazel_dep(name = "googletest", version = "1.15.2")
+bazel_dep(name = "rules_cc", version = "0.1.1")
+bazel_dep(name = "sqlite3", version = "3.42.0.bcr.1")  # C code for SQLite.
+bazel_dep(name = "toolchains_llvm", version = "1.1.2")
+# keep-sorted end
+
+#########################
+# Hermetic C++ toolchain, to relieve the dependency on a locally installed CC etc.
+llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
+llvm.toolchain(
+    llvm_versions = {
+        "": "15.0.6",
+        "darwin-aarch64": "15.0.7",
+        "darwin-x86_64": "15.0.7",
+    },
+)
+use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
+
+register_toolchains("@llvm_toolchain//:all")

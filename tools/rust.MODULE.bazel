@@ -1,0 +1,20 @@
+"""
+Support for Rust, see https://github.com/bazelbuild/rules_rust
+"""
+
+bazel_dep(name = "rules_rust", version = "0.63.0")
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = "2024",
+    versions = ["1.89.0"],
+)
+
+crate = use_extension("@rules_rust//crate_universe:extension.bzl", "crate")
+crate.from_cargo(
+    name = "crate_index",
+    # TODO: we should have a Cargo.toml file in the repository root
+    cargo_lockfile = "//npm_packages/napi:Cargo.lock",
+    manifests = ["//npm_packages/napi:Cargo.toml"],
+)
+use_repo(crate, "crate_index")

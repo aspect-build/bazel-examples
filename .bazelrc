@@ -21,6 +21,10 @@ build:lint --aspects=//tools/lint:linters.bzl%ruff
 # Request linters produce human-readable output rather than machine-readable
 build:lint --output_groups=+rules_lint_human
 
+# Required for isolated extension usages (needed for keep-sorted dependency)
+common --experimental_isolated_extension_usages
+build:lint --aspects=//tools/lint:linters.bzl%keep_sorted
+
 # for speed, passes an argument `--skipLibCheck` to *every* spawn of tsc
 common --@aspect_rules_ts//ts:skipLibCheck=always
 # use `tsc` for transpiling, even though it's slow.

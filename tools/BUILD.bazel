@@ -13,6 +13,12 @@ svg_term_cli.svg_term_binary(name = "svg-term")
 
 angular_cli.ng_binary(name = "ng")
 
+filegroup(
+    name = "module_includes",
+    srcs = glob(["*.MODULE.bazel"]),
+    tags = ["lint"],
+)
+
 # Tools found in this package
 LOCAL_TOOLS = {
     t: "//tools:" + t
