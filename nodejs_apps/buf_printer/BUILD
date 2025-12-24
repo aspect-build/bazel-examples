@@ -4,6 +4,7 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 
 # gazelle:js enabled
 # gazelle:generation_mode update_only
+# just touch subdir/BUILD for Gazelle to populate a child Bazel package where desired.
 package(default_visibility = ["//nodejs_apps/buf_printer:__subpackages__"])
 
 npm_link_all_packages(name = "node_modules")

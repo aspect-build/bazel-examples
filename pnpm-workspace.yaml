@@ -5,7 +5,6 @@ packages:
   - angular
   - angular/projects/*
   - logger/frontend
-  - logger/schema
   - nodejs_apps/*
   - npm_packages/*
   - tools

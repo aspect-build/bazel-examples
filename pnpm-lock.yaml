@@ -9,7 +9,17 @@ packageExtensionsChecksum: 8737b025ff7a3214e95089d0873ac0fa
 importers:
 
   .:
+    dependencies:
+      '@bufbuild/protobuf':
+        specifier: ^2
+        version: 2.2.0
     devDependencies:
+      '@bufbuild/protoc-gen-es':
+        specifier: ^2
+        version: 2.2.0(@bufbuild/protobuf@2.2.0)
+      '@connectrpc/protoc-gen-connect-es':
+        specifier: ^1
+        version: 1.0.0(@bufbuild/protoc-gen-es@2.2.0)
       '@eslint/js':
         specifier: ^9
         version: 9.0.0
@@ -125,19 +135,6 @@ importers:
       vite:
         specifier: ^3
         version: 3.0.0
-
-  logger/schema:
-    dependencies:
-      '@bufbuild/protobuf':
-        specifier: ^2
-        version: 2.0.0
-    devDependencies:
-      '@bufbuild/protoc-gen-es':
-        specifier: ^2
-        version: 2.0.0(@bufbuild/protobuf@2.0.0)
-      '@connectrpc/protoc-gen-connect-es':
-        specifier: ^1
-        version: 1.0.0(@bufbuild/protoc-gen-es@2.0.0)
 
   nodejs_apps/buf_printer:
     dependencies:
@@ -965,27 +962,8 @@ packages:
     resolution: {integrity: sha512-QDdVFLoN93Zjg36NoQPZfsVH9tZew7wKDKyV5qRdj8ntT4wQCOradQjRaTdwMhWUYsgKsvCINKKm87FdEk96Ag==}
     dev: true
 
-  /@bufbuild/protobuf@2.0.0:
-    resolution: {integrity: sha512-sw2JhwJyvyL0zlhG61aDzOVryEfJg2PDZFSV7i7IdC7nAE41WuXCru3QWLGiP87At0BMzKOoKO/FqEGoKygGZQ==}
-
   /@bufbuild/protobuf@2.2.0:
     resolution: {integrity: sha512-+imAQkHf7U/Rwvu0wk1XWgsP3WnpCWmK7B48f0XqSNzgk64+grljTKC7pnO/xBiEMUziF7vKRfbBnOQhg126qQ==}
-
-  /@bufbuild/protoc-gen-es@2.0.0(@bufbuild/protobuf@2.0.0):
-    resolution: {integrity: sha512-xXDrDFjSD97jGu9RMA8O4Myj66DdCLOFeYG7Z0mX1aCE9hayymfor+BKgKCQouUfty6CYv8709FPYpEtDurLFQ==}
-    engines: {node: '>=14'}
-    hasBin: true
-    peerDependencies:
-      '@bufbuild/protobuf': 2.0.0
-    peerDependenciesMeta:
-      '@bufbuild/protobuf':
-        optional: true
-    dependencies:
-      '@bufbuild/protobuf': 2.0.0
-      '@bufbuild/protoplugin': 2.0.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /@bufbuild/protoc-gen-es@2.2.0(@bufbuild/protobuf@2.2.0):
     resolution: {integrity: sha512-PmUTtbJJfgcabTsoF59W0bsAr7xO5aGcMe69G8vOq0ogYV1aWmvFKhHKHDtn295pOLhTXmfrDSUNi/OTHuDdpw==}
@@ -1009,16 +987,6 @@ packages:
       '@bufbuild/protobuf': 1.10.0
       '@typescript/vfs': 1.6.0(typescript@4.5.2)
       typescript: 4.5.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /@bufbuild/protoplugin@2.0.0:
-    resolution: {integrity: sha512-y77IarGNbJfr5YZHQ+biO0O9B8rXicKLLOFRJu9mKr9LYE5/CLIKqonIBfkc/lggCK2YOtinjZJEYb39HymIog==}
-    dependencies:
-      '@bufbuild/protobuf': 2.0.0
-      '@typescript/vfs': 1.6.0(typescript@5.4.5)
-      typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1082,7 +1050,7 @@ packages:
     engines: {node: '>=0.1.90'}
     dev: true
 
-  /@connectrpc/protoc-gen-connect-es@1.0.0(@bufbuild/protoc-gen-es@2.0.0):
+  /@connectrpc/protoc-gen-connect-es@1.0.0(@bufbuild/protoc-gen-es@2.2.0):
     resolution: {integrity: sha512-IE01AKpp7pXA7qIAuaXa9+2OtvoNaAAypxWu7R8MTx7alNURz2Wdao4cUn7dWltZxb3apKO9Aemqufv/1TsZAQ==}
     engines: {node: '>=16.0.0'}
     hasBin: true
@@ -1096,7 +1064,7 @@ packages:
         optional: true
     dependencies:
       '@bufbuild/protobuf': 1.10.0
-      '@bufbuild/protoc-gen-es': 2.0.0(@bufbuild/protobuf@2.0.0)
+      '@bufbuild/protoc-gen-es': 2.2.0(@bufbuild/protobuf@2.2.0)
       '@bufbuild/protoplugin': 1.10.0
     transitivePeerDependencies:
       - supports-color
