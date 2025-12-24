@@ -1,6 +1,6 @@
 "git_push rule for delivering to GitHub"
 
-load("@aspect_bazel_lib//lib:expand_template.bzl", "expand_template")
+load("@bazel_lib//lib:expand_template.bzl", "expand_template")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 def git_push(name, archive, repo_url, **kwargs):

@@ -1,5 +1,5 @@
-load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
+load("@bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//qwik/app:vite/package_json.bzl", vite_bin = "bin")
 load("@npm//qwik/app:vitest/package_json.bzl", vitest_bin = "bin")
