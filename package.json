@@ -24,6 +24,11 @@
         "dependencies": {
           "react": "*"
         }
+      },
+      "vite-imagetools": {
+        "peerDependencies": {
+          "vite": "*"
+        }
       }
     },
     "ignoredBuiltDependencies": [
