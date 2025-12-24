@@ -2,17 +2,17 @@
 repository to automatically generate several types of rules for C code.
 """
 
-aspect.register_rule_kind("cc_binary", {
+aspect.gazelle_rule_kind("cc_binary", {
     "From": "@rules_cc//cc:defs.bzl",
     "MergeableAttrs": ["srcs"],
     "ResolveAttrs": ["deps"],
 })
-aspect.register_rule_kind("cc_library", {
+aspect.gazelle_rule_kind("cc_library", {
     "From": "@rules_cc//cc:defs.bzl",
     "MergeableAttrs": ["srcs"],
     "ResolveAttrs": ["deps"],
 })
-aspect.register_rule_kind("cc_test", {
+aspect.gazelle_rule_kind("cc_test", {
     "From": "@rules_cc//cc:defs.bzl",
     "MergeableAttrs": ["srcs"],
     "ResolveAttrs": ["deps"],
@@ -86,7 +86,7 @@ def declare(ctx):
     for pair in cc_header_pairs:
         add_target(ctx, pair[0], [pair[1]])
 
-aspect.register_configure_extension(
+aspect.orion_extension(
     id = "cpp",
     prepare = lambda _: aspect.PrepareResult(
         sources = [aspect.SourceExtensions(".cc", ".h")],

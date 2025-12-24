@@ -18,30 +18,27 @@ package(default_visibility = ["//:__subpackages__"])
 # TODO(alex): refactor this folder to follow python gazelle conventions
 # gazelle:exclude py_mypy
 
-_GAZELLE_LANGUAGES = [
-    "buf",
-    "js",
-    "go",
-    "proto",
-    "python",
-]
+_GAZELLE_ENV = {
+    "ORION_EXTENSIONS_DIR": ".aspect/cli",
+    "ENABLE_LANGUAGES": ",".join([
+        "buf",
+        "js",
+        "go",
+        "proto",
+        "python",
+    ]),
+}
 
 gazelle(
     name = "gazelle",
-    env = {
-        "ORION_EXTENSIONS_DIR": ".aspect/cli",
-        "ENABLE_LANGUAGES": ",".join(_GAZELLE_LANGUAGES),
-    },
+    env = _GAZELLE_ENV,
     extra_args = ["-index=lazy"],
     gazelle = "@multitool//tools/gazelle",
 )
 
 gazelle(
     name = "gazelle.check",
-    env = {
-        "ORION_EXTENSIONS_DIR": ".aspect/cli",
-        "ENABLE_LANGUAGES": ",".join(_GAZELLE_LANGUAGES),
-    },
+    env = _GAZELLE_ENV,
     extra_args = ["-index=lazy"],
     gazelle = "@multitool//tools/gazelle",
     mode = "diff",

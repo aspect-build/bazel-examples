@@ -1,4 +1,4 @@
-aspect.register_rule_kind("sass_binary", {
+aspect.gazelle_rule_kind("sass_binary", {
     "From": "//tools:sass.bzl",
     "MergeableAttrs": ["srcs"],
     "ResolveAttrs": ["deps"],
@@ -29,7 +29,7 @@ def declare_postcss(ctx):
         },
     )
 
-aspect.register_configure_extension(
+aspect.orion_extension(
     id = "postcss",
     prepare = lambda _: aspect.PrepareResult(
         sources = [

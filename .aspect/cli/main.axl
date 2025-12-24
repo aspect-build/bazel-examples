@@ -1,5 +1,5 @@
 # TODO: delete when all rules_js rules added to aspect-cli
-aspect.register_rule_kind("js_binary", {
+aspect.gazelle_rule_kind("js_binary", {
     "From": "@aspect_rules_js//js:defs.bzl",
     "MergeableAttrs": ["data"],
     "ResolveAttrs": ["entry_point", "data"],
@@ -26,7 +26,7 @@ def declare_main_js(ctx):
         },
     )
 
-aspect.register_configure_extension(
+aspect.orion_extension(
     id = "main_js",
     prepare = lambda _: aspect.PrepareResult(
         sources = [
