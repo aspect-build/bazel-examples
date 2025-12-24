@@ -22,7 +22,6 @@ go_proto_library(
 
 ts_proto_library(
     name = "logger_proto_ts",
-    copy_files = False,  # FIXME(alexeagle): figure out why this is needed
     files_to_copy = [
         "logger_connect.d.ts",
         "logger_pb.d.ts",
