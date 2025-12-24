@@ -5,7 +5,7 @@
   "license": "MIT",
   "devDependencies": {
     "vite": "^3",
-    "typescript": "4.8.2"
+    "typescript": "catalog:"
   },
   "scripts": {
     "start": "../../tools/ibazel run :frontend"
