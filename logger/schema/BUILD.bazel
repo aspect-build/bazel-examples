@@ -4,6 +4,7 @@ load("@rules_jvm_external//:defs.bzl", "artifact")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("//write_source_files:go_proto_library.bzl", "go_proto_library")
 
+# gazelle:ignore *.d.ts
 package(default_visibility = ["//visibility:public"])
 
 npm_link_all_packages(name = "node_modules")
@@ -29,6 +30,7 @@ ts_proto_library(
     ],
     node_modules = ":node_modules",
     proto = ":logger_proto",
+    proto_srcs = ["logger.proto"],
 )
 
 java_proto_library(

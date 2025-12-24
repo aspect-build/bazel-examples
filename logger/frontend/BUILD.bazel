@@ -15,10 +15,11 @@ ts_config(
 )
 
 ts_project(
-    name = "compile",
+    name = "tsc",
     srcs = ["index.ts"],
     declaration = True,
     transpiler = swc,
+    tsconfig = ":tsconfig",
     deps = ["//logger/schema:logger_proto_ts"],
 )
 

@@ -4,6 +4,7 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 # aspect:generation_mode update_only
 npm_link_all_packages(name = "node_modules")
 
+#keep
 js_library(
     name = "tsc",
     srcs = ["src/main.js"],
