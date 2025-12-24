@@ -20,13 +20,16 @@ js_library(
 ts_project(
     name = "tsc",
     srcs = [
+        "genproto/example/v1/example_pb.js",
         "src/index.mts",
-        ":example_pb",
     ],
     out_dir = "dist",
     root_dir = "src",
     tsconfig = ":tsconfig",
-    deps = [":node_modules/@bufbuild/protobuf"],
+    deps = [
+        ":example_pb",
+        ":node_modules/@bufbuild/protobuf",
+    ],
 )
 
 ts_config(
