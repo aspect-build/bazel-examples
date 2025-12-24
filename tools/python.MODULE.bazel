@@ -1,0 +1,44 @@
+"""
+Python
+https://github.com/bazelbuild/rules_python/tree/main/examples/bzlmod
+
+This pattern is repeated across many languages: First, bzlmod is used to bring
+in language support. Then, an extension is grabbed from that language support
+repository and used to configure the language version and additional
+dependencies using a language-specific mechanism popular in the relevant
+ecosystem.
+"""
+
+# keep-sorted start
+bazel_dep(name = "aspect_rules_py", version = "1.3.1")
+bazel_dep(name = "rules_mypy", version = "0.40.0")
+bazel_dep(name = "rules_python", version = "0.40.0")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "0.40.0")
+bazel_dep(name = "rules_uv", version = "0.25.0")
+# keep-sorted end
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    python_version = "3.11",
+)
+
+pip.parse(
+    hub_name = "pip",
+    python_version = "3.11",
+    requirements_lock = "//requirements:all.txt",
+)
+use_repo(pip, "pip")
+
+# rules_mypy co-initializes with rules_python in order to discover types and
+# stubs packages in your requirements lock and create a mapping from normal
+# requirements to stub requirements which can be used to add appropriate stub
+# dependencies automatically during typechecking.
+types = use_extension("@rules_mypy//mypy:types.bzl", "types")
+types.requirements(
+    name = "pip_types",
+    pip_requirements = "@pip//:requirements.bzl",
+    requirements_txt = "//requirements:all.txt",
+)
+use_repo(types, "pip_types")

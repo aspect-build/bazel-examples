@@ -4,15 +4,15 @@
     "binaries": [
       {
         "kind": "file",
-        "url": "https://github.com/aspect-build/aspect-cli/releases/download/2025.45.31/aspect-cli_x86_64_unknown_linux_musl",
-        "sha256": "25668a196a07ef08e8c6bea9c008ced1ba49b5f3817f2153e3527aa1b17953c2",
+        "url": "https://github.com/aspect-build/aspect-cli/releases/download/v2025.51.3/aspect-cli-x86_64-unknown-linux-musl",
+        "sha256": "88300e77d2110ef56f4f4a369f0832974828cce779ecf843003a91b5bf79488f",
         "os": "linux",
         "cpu": "x86_64"
       },
       {
         "kind": "file",
-        "url": "https://github.com/aspect-build/aspect-cli/releases/download/2025.45.31/aspect-cli_aarch64_apple_darwin",
-        "sha256": "c4ea3698c225d9e7f8540577c70ab0071f0ba549721ab71a8e66565d38a5104a",
+        "url": "https://github.com/aspect-build/aspect-cli/releases/download/v2025.51.3/aspect-cli-aarch64-apple-darwin",
+        "sha256": "216ff41aed33e6f264ea1360d50effe88b8b4130006b0c12db9a2602e619da7b",
         "os": "macos",
         "cpu": "arm64"
       }
@@ -108,7 +108,7 @@
     ]
   },
   "gazelle": {
-        "binaries": [
+    "binaries": [
       {
         "kind": "file",
         "url": "https://github.com/aspect-build/aspect-gazelle/releases/download/2025.40.148+4396cce/gazelle-darwin_arm64_cgo",
