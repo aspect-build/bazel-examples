@@ -1,0 +1,12 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+package(default_visibility = ["//nodejs_apps/buf_printer:__subpackages__"])
+
+js_library(
+    name = "tsc",
+    srcs = [
+        "validate_pb.d.ts",
+        "validate_pb.js",
+    ],
+    deps = ["//nodejs_apps/buf_printer:node_modules/@bufbuild/protobuf"],
+)
