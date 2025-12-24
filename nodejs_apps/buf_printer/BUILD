@@ -1,5 +1,5 @@
 load("@aspect_bazel_lib//lib:testing.bzl", "assert_contains")
-load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library", "js_run_binary")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
@@ -8,16 +8,25 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
 
+js_library(
+    name = "example_pb",
+    srcs = glob([
+        "genproto/**/*_pb.js",
+        "genproto/**/*_pb.d.ts",
+    ]),
+    deps = [":node_modules/@bufbuild/protobuf"],
+)
+
 ts_project(
     name = "tsc",
-    srcs = ["src/index.mts"],
+    srcs = [
+        "src/index.mts",
+        ":example_pb",
+    ],
     out_dir = "dist",
     root_dir = "src",
     tsconfig = ":tsconfig",
-    deps = [
-        ":node_modules/@bufbuild/protobuf",
-        "//nodejs_apps/buf_printer/genproto/example/v1:tsc",
-    ],
+    deps = [":node_modules/@bufbuild/protobuf"],
 )
 
 ts_config(

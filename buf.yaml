@@ -5,9 +5,7 @@
 # pnpm install
 # Then you can:
 # buf dep update
-# buf generate --clean=false
-#
-# Note, buf generate deletes BUILD files from the destination directory unless you use --clean=false
+# buf generate
 version: v2
 modules:
   - path: protobuf
