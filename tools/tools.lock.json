@@ -4,8 +4,8 @@
     "binaries": [
       {
         "kind": "file",
-        "url": "https://github.com/aspect-build/aspect-cli/releases/download/v2025.51.3/aspect-cli_x86_64_unknown_linux_musl",
-        "sha256": "8ce048953ff8b5913054d93cb53039e5ff737a9ff1bdbdb4e67b335f18083d09",
+        "url": "https://github.com/aspect-build/aspect-cli/releases/download/v2025.51.3/aspect-cli-x86_64-unknown-linux-musl",
+        "sha256": "88300e77d2110ef56f4f4a369f0832974828cce779ecf843003a91b5bf79488f",
         "os": "linux",
         "cpu": "x86_64"
       },
