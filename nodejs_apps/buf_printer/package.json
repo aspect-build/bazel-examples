@@ -7,12 +7,10 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@bufbuild/protobuf": "^2.2.0"
+    "@bufbuild/protobuf": "catalog:"
   },
   "devDependencies": {
-    "@bufbuild/protoc-gen-es": "^2.2.0",
-    "typescript": "^5.7.3"
+    "@bufbuild/protoc-gen-es": "catalog:",
+    "typescript": "catalog:"
   }
 }
-
-

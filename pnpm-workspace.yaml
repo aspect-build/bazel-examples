@@ -5,8 +5,14 @@ packages:
   - angular
   - angular/projects/*
   - logger/frontend
-  - logger/schema
   - nodejs_apps/*
   - npm_packages/*
   - tools
   - qwik/*
+catalog:
+  "@bufbuild/protoc-gen-es": ^2
+  "@connectrpc/protoc-gen-connect-es": ^1
+  "@bufbuild/protobuf": ^2
+  "@types/node": ^22
+  typescript: 5.4.5
+catalogMode: strict

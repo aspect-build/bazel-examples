@@ -28,15 +28,15 @@
     "qwik": "qwik"
   },
   "devDependencies": {
-    "@builder.io/qwik": "^1.9.0",
-    "@builder.io/qwik-city": "^1.9.0",
+    "@builder.io/qwik": "^1.18.0",
+    "@builder.io/qwik-city": "^1.18.0",
     "@types/eslint": "8.56.10",
     "@types/node": "20.14.11",
     "@typescript-eslint/eslint-plugin": "7.16.1",
     "@typescript-eslint/parser": "7.16.1",
     "@vitest/ui": "^0.34.6",
     "eslint": "8.57.0",
-    "eslint-plugin-qwik": "^1.9.0",
+    "eslint-plugin-qwik": "^1.18.0",
     "my-qwik-library-name": "workspace:*",
     "prettier": "3.3.3",
     "typescript": "5.4.5",

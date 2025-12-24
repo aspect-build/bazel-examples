@@ -1,3 +1,4 @@
+load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 
 proto_library(
@@ -6,4 +7,16 @@ proto_library(
     strip_import_prefix = "/protobuf",
     visibility = ["//visibility:public"],
     deps = ["@buf_deps//buf/validate:validate_proto"],
+)
+
+ts_proto_library(
+    name = "example_v1_ts_proto",
+    copy_files = False,
+    node_modules = "//:node_modules",
+    proto = ":example_v1_proto",
+    protoc_gen_options = {
+        "keep_empty_files": "true",
+        "import_extension": "js",
+    },
+    visibility = ["//visibility:public"],
 )

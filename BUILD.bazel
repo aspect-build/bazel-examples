@@ -11,7 +11,7 @@ package(default_visibility = ["//:__subpackages__"])
 # gazelle:js_package_rule_kind js_library
 # gazelle:js_project_naming_convention tsc
 
-# TODO(alex): refactor this folder to follow python gazelle conventions
+# TODO(alex): refactor these folders to follow gazelle conventions
 # gazelle:exclude py_mypy
 # gazelle:exclude angular
 # gazelle:exclude qwik
