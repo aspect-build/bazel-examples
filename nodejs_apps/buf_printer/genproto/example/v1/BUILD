@@ -6,10 +6,10 @@ js_library(
     name = "tsc",
     srcs = [
         "example_pb.d.ts",
-        "example_pb.js",  # keep
+        "example_pb.js",
     ],
     deps = [
         "//nodejs_apps/buf_printer:node_modules/@bufbuild/protobuf",
-        "//nodejs_apps/buf_printer/genproto/buf/validate:tsc",  # keep
+        "//nodejs_apps/buf_printer/genproto/buf/validate:tsc",
     ],
 )

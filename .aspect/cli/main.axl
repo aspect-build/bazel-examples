@@ -9,7 +9,13 @@ def declare_main_js(ctx):
     if len(ctx.sources) == 0 or not ctx.rel.startswith("nodejs_apps"):
         return
 
-    entry_point = ctx.sources[0].path.replace(".ts", ".js")
+    entry_point = ctx.sources[0].path
+
+    # Our repo has two different conventions for the entry point, which we are free to encode here.
+    if entry_point.endswith(".mts"):
+        entry_point = entry_point.replace(".mts", ".mjs").replace("src/", "dist/")
+    else:
+        entry_point = entry_point.replace(".ts", ".js")
 
     ctx.targets.add(
         name = "main",
@@ -32,6 +38,8 @@ aspect.orion_extension(
         sources = [
             aspect.SourceGlobs("**/main.ts"),
             aspect.SourceGlobs("**/main.js"),
+            aspect.SourceGlobs("**/index.mts"),
+            aspect.SourceGlobs("**/index.mjs"),
         ],
     ),
     declare = declare_main_js,

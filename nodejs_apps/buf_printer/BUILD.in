@@ -1,0 +1,3 @@
+# gazelle:js enabled
+# gazelle:generation_mode update_only
+package(default_visibility = ["//nodejs_apps/buf_printer:__subpackages__"])

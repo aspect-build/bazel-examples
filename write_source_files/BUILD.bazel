@@ -5,6 +5,8 @@ load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 #
 # Note that each target also has a corresponding test asserting that the
 # generated files stay up-to-date.
+# This folder only demonstrates Go, not TS.
+# gazelle:js disabled
 write_source_files(
     name = "update_go_pb",
     additional_update_targets = [

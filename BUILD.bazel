@@ -5,18 +5,16 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 
 package(default_visibility = ["//:__subpackages__"])
 
-# gazelle:prefix github.com/aspect-build/bazel-examples
-
-# JS BUILD generation is opt-in per project
-# gazelle:js disabled
-
 # Global config shared across monorepo.
+# gazelle:prefix github.com/aspect-build/bazel-examples
 # gazelle:js_npm_package_target_name pkg
 # gazelle:js_package_rule_kind js_library
 # gazelle:js_project_naming_convention tsc
 
 # TODO(alex): refactor this folder to follow python gazelle conventions
 # gazelle:exclude py_mypy
+# gazelle:exclude angular
+# gazelle:exclude qwik
 
 _GAZELLE_ENV = {
     "ORION_EXTENSIONS_DIR": ".aspect/cli",

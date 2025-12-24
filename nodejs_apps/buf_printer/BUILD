@@ -4,6 +4,8 @@ load("@npm//:defs.bzl", "npm_link_all_packages")
 
 # gazelle:js enabled
 # gazelle:generation_mode update_only
+package(default_visibility = ["//nodejs_apps/buf_printer:__subpackages__"])
+
 npm_link_all_packages(name = "node_modules")
 
 ts_project(
@@ -18,17 +20,14 @@ ts_project(
     ],
 )
 
-js_binary(
-    name = "buf_printer",
-    data = [
-        "package.json",
-        ":tsc",
-    ],
-    entry_point = "dist/index.mjs",
-)
-
 ts_config(
     name = "tsconfig",
     src = "tsconfig.json",
     visibility = [":__subpackages__"],
+)
+
+js_binary(
+    name = "main",
+    data = [":tsc"],
+    entry_point = "dist/index.mjs",
 )
