@@ -22,11 +22,10 @@ go_proto_library(
 
 ts_proto_library(
     name = "logger_proto_ts",
-    # files_to_copy = [
-    #     "logger_connect.d.ts",
-    #     "logger_pb.d.ts",
-    # ],
-    copy_files = False,
+    files_to_copy = [
+        "logger_connect.d.ts",
+        "logger_pb.d.ts",
+    ],
     node_modules = "//:node_modules",
     proto = ":logger_proto",
     proto_srcs = ["logger.proto"],

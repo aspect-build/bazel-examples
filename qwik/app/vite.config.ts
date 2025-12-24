@@ -42,6 +42,11 @@ export default defineConfig(({ command, mode }): UserConfig => {
       tsconfigPaths(),
       watchNodeModules(['my-qwik-library-name']),
     ],
+    resolve: {
+      alias: {
+        '@builder.io/qwik/preloader': '@builder.io/qwik/core/preloader',
+      },
+    },
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
       // Put problematic deps that break bundling here, mostly those with binaries.

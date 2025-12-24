@@ -1,5 +1,5 @@
-load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@bazel_lib//lib:copy_file.bzl", "copy_file")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load("@rules_rust//rust:defs.bzl", "rust_shared_library")
 
