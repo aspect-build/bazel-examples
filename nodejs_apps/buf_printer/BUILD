@@ -9,11 +9,13 @@ package(default_visibility = ["//nodejs_apps/buf_printer:__subpackages__"])
 npm_link_all_packages(name = "node_modules")
 
 js_library(
-    name = "example_pb",
-    srcs = glob([
-        "genproto/**/*_pb.js",
-        "genproto/**/*_pb.d.ts",
-    ]),
+    name = "protos",
+    srcs = [
+        "genproto/buf/validate/validate_pb.d.ts",
+        "genproto/buf/validate/validate_pb.js",
+        "genproto/example/v1/example_pb.d.ts",
+        "genproto/example/v1/example_pb.js",
+    ],
     deps = [":node_modules/@bufbuild/protobuf"],
 )
 
@@ -27,8 +29,8 @@ ts_project(
     root_dir = "src",
     tsconfig = ":tsconfig",
     deps = [
-        ":example_pb",
         ":node_modules/@bufbuild/protobuf",
+        ":protos",  # keep
     ],
 )
 

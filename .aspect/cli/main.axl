@@ -10,7 +10,6 @@ def declare_main_js(ctx):
         return
 
     entry_point = ctx.sources[0].path
-    print(entry_point)
 
     # Our repo has two different conventions for the entry point, which we are free to encode here.
     if entry_point.endswith(".mts"):
