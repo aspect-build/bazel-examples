@@ -1,0 +1,7 @@
+{
+  "name": "rigel",
+  "dependencies": {
+    "chalk": "5.2.0"
+  },
+  "main": "index.mjs"
+}
