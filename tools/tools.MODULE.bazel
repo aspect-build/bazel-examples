@@ -1,5 +1,5 @@
 # keep-sorted start
-bazel_dep(name = "aspect_bazel_lib", version = "2.20.4", repo_name = None)
+bazel_dep(name = "aspect_bazel_lib", version = "2.22.2", repo_name = None)
 bazel_dep(name = "aspect_rules_lint", version = "2.0.0-beta.0")
 bazel_dep(name = "bazel_env.bzl", version = "0.2.0")
 bazel_dep(name = "bazel_lib", version = "3.0.0")
