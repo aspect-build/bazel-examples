@@ -4,7 +4,8 @@ tasks:
       update_strategy: rebase
   - gazelle:
   - buildifier:
-  - lint:
+  # FIXME: broken because it runs the old CLI
+  # - lint:
   - format:
   - test:
       targets:
