@@ -10,6 +10,7 @@ java_library(
         "//logger/schema:logger_java_proto",
         artifact("io.grpc:grpc-stub"),
         artifact("io.grpc:grpc-api"),
+        artifact("io.grpc:grpc-netty-shaded"),
     ],
 )
 

@@ -1,4 +1,5 @@
 load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
+load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
 load("@rules_jvm_external//:defs.bzl", "artifact")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("//write_source_files:go_proto_library.bzl", "go_proto_library")
@@ -36,45 +37,8 @@ java_proto_library(
     deps = [":logger_proto"],
 )
 
-# grpc-java on BCR is still broken:
-# https://bazelbuild.slack.com/archives/C014RARENH0/p1719871863540839?thread_ts=1719866967.342559&cid=C014RARENH0
-#
-# So we cannot do the right thing:
-# load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
-# java_grpc_library(
-#     name = "logger_java_grpc",
-#     srcs = [":logger_proto"],
-#     deps = [":logger_java_proto"],
-# )
-#
-# Instead we just go old-skool: run protoc with the codegen plugin, like so:
-# - get protoc from somewhere
-# - download from https://mvnrepository.com/artifact/io.grpc/protoc-gen-grpc-java/1.51.0
-# And run:
-# protoc --plugin=protoc-gen-rpc-plugin=/home/alexeagle/Downloads/protoc-gen-grpc-java-1.51.0-linux-x86_64.exe \
-#        --descriptor_set_in=./bazel-bin/schema/logger/logger_proto-descriptor-set.proto.bin \
-#        --rpc-plugin_out=:grpc.jar \
-#        schema/logger/logger.proto
-#
-# To get a grpc.jar, then run unzip to get the LoggerGrpc.java file out of it.
-# Then we just compile it as if it's our own source file.
-# After all, checking in generated code is pretty typical in some ecosystems, and so there's
-# no reason we can't do it under Bazel as well...
-# so we put that LoggerGrpc.java in the client folder.
-# And I had to delete the @Generated annotation for some reason.
-java_library(
+java_grpc_library(
     name = "logger_java_grpc",
-    srcs = ["LoggerGrpc.java"],
-    # Workaround https://github.com/bazelbuild/bazel/issues/24838
-    tags = ["no-remote-exec"],
-    deps = [
-        ":logger_java_proto",
-        artifact("com.google.guava:guava"),
-        artifact("com.google.protobuf:protobuf-java"),
-        artifact("io_grpc:grpc-api"),
-        artifact("io_grpc:grpc-core"),
-        artifact("io_grpc:grpc-netty-shaded"),
-        artifact("io_grpc:grpc-protobuf"),
-        artifact("io_grpc:grpc-stub"),
-    ],
+    srcs = [":logger_proto"],
+    deps = [":logger_java_proto"],
 )
