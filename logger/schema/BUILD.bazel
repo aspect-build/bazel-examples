@@ -1,6 +1,5 @@
 load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
 load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
-load("@rules_jvm_external//:defs.bzl", "artifact")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("//write_source_files:go_proto_library.bzl", "go_proto_library")
 
