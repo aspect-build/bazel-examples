@@ -4,6 +4,7 @@ https://github.com/aspect-build/toolchains_protoc
 """
 
 # keep-sorted start
+bazel_dep(name = "grpc-java", version = "1.75.0")
 bazel_dep(name = "protovalidate", version = "1.0.0")
 bazel_dep(name = "rules_buf", version = "0.5.2")
 bazel_dep(name = "rules_proto", version = "7.1.0")
