@@ -1,0 +1,5 @@
+---
+source: src/snapshots/test__hello_world.snap
+expression: "\"hello world!\""
+---
+"hello world!"

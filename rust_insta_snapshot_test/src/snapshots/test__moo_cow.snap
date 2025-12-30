@@ -1,0 +1,8 @@
+---
+source: src/snapshots/test__moo_cow.snap
+expression: "(\"moo\", \"moooooo!\")"
+---
+(
+    "moo",
+    "moooooo!",
+)

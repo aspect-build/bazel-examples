@@ -1,0 +1,11 @@
+---
+source: src/snapshots/test__foo_bar.snap
+expression: "vec![1, 2, 3, 4, 5]"
+---
+[
+    1,
+    2,
+    3,
+    4,
+    5,
+]

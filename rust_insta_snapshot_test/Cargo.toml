@@ -1,0 +1,12 @@
+[package]
+name = "rust_insta_snapshot_test"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[[test]]
+name = "test"
+path = "src/test.rs"
+
+[dependencies]
+insta = "1.45.1"
