@@ -9,14 +9,14 @@ jobs:
   tagger:
     runs-on: ubuntu-latest
     steps:
-      - name: tag HEAD with date +%Y.%V
+      - name: tag HEAD with year.wk
         run: |
           curl --request POST \
               --url https://api.github.com/repos/${{ github.repository }}/git/refs \
               --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
               --data @- << EOF
           {
-              "ref": "refs/tags/$(date +%Y.%V)",
+              "ref": "refs/tags/$(date +%G.%V)",
               "sha": "${{ github.sha }}"
           }
           EOF
