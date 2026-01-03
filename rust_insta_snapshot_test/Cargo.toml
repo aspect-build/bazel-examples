@@ -9,4 +9,4 @@ name = "test"
 path = "src/test.rs"
 
 [dependencies]
-insta = "1.45.1"
+insta = "1.46.0"

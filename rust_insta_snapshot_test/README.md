@@ -2,8 +2,7 @@
 
 An example for working with [insta](https://crates.io/crates/insta) snapshot tests under Bazel.
 
-The `rust_snapshot_test` macro creates runs a `rust_test` which is uses as a build action to create snapshots in the output tree, along with a `diff_test` to compare the output to the source tree snapshots.
-When the snapshots have changes, the test will fail and will output a command to review and update the snapshots, similar to a [write_source_files](https://registry.bazel.build/docs/bazel_lib/3.0.0#lib-write_source_files-bzl) flow.
+The `rust_snapshot_test` macro creates a `rust_test` which is run as a build action to create snapshots in the output tree, along with a `diff_test` to check whether any snapshots need to be applied. The diff test outputs a commands to run to review or accept the snapshot changes.
 
 ```starlark
 rust_snapshot_test(
@@ -20,15 +19,15 @@ rust_snapshot_test(
 Snapshots can be interactively reviewed using insta and written back to the source tree. For example, the following command runs `cargo insta review`.
 
 ```bash
-bazel run //:test_review_snapshots
+bazel run //:test_review
 ```
 
 Or, to accept all snapshot changes without reviewing them:
 
 ```bash
-bazel run //:test_accept_snapshots
+bazel run //:test_accept
 ```
 
 ## Limitations
 
-* This is intended as a toy example; there are probably edge cases not covered.
+* There isn't a way to remove unreferenced snapshots when reviewing, though this may be supported in the future (see https://github.com/mitsuhiko/insta/blob/3aa59d6f94d1b0c25d5953231019aa1eadbb4017/cargo-insta/src/cli.rs#L1079).

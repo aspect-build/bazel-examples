@@ -1,5 +1,5 @@
 ---
-source: src/snapshots/test__moo_cow.snap
+source: src/test.rs
 expression: "(\"moo\", \"moooooo!\")"
 ---
 (

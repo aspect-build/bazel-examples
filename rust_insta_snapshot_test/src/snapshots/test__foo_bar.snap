@@ -1,5 +1,5 @@
 ---
-source: src/snapshots/test__foo_bar.snap
+source: src/test.rs
 expression: "vec![1, 2, 3, 4, 5]"
 ---
 [

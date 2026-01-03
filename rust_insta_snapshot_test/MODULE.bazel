@@ -35,7 +35,7 @@ bindeps = use_extension("@rules_rust//crate_universe:extension.bzl", "crate")
 bindeps.spec(
     artifact = "bin",
     package = "cargo-insta",
-    version = "1.45.1",
+    version = "1.46.0",
 )
 bindeps.annotation(
     crate = "cargo-insta",

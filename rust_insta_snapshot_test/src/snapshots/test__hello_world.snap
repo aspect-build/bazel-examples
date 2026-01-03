@@ -1,5 +1,5 @@
 ---
-source: src/snapshots/test__hello_world.snap
+source: src/test.rs
 expression: "\"hello world!\""
 ---
 "hello world!"
