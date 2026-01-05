@@ -22,9 +22,15 @@ single_version_override(
 # Fetch tools
 # https://blog.aspect.build/run-tools-installed-by-bazel
 multitool = use_extension("@rules_multitool//multitool:extension.bzl", "multitool")
-multitool.hub(lockfile = "//.aspect/workflows:deps.lock.json")
-multitool.hub(lockfile = "//tools:tools.lock.json")
-use_repo(multitool, "multitool")
+multitool.hub(
+    hub_name = "tools.bzl",
+    lockfile = "//.aspect/workflows:deps.lock.json",
+)
+multitool.hub(
+    hub_name = "tools.bzl",
+    lockfile = "//tools:tools.lock.json",
+)
+use_repo(multitool, "tools.bzl")
 
 register_toolchains("//tools/toolchains:all")
 
