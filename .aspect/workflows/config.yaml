@@ -1,4 +1,4 @@
-# See https://docs.aspect.build/workflows/configuration
+# See https://docs.aspect.build/aspect-workflows/additional-materials/reference-config
 tasks:
   - checkout:
       update_strategy: rebase
