@@ -49,7 +49,7 @@ jobs:
       - uses: tj-actions/changed-files@48d8f15b2aaa3d255ca5af3eba4870f807ce6b3c  # v45
         with:
           # NB: this list must match all files that live within a nested Bazel module.
-          # Should match the /.bazelignore file as well.
+          # Should match the /REPO.bazel file as well.
           files: |
             angular-ngc/**
             jest/**
@@ -61,6 +61,7 @@ jobs:
             jest/**
             nestjs/**
             prisma/**
+            rust_insta_snapshot_test/**
             rules_nodejs_to_rules_js_migration/**
             ts_project_transpiler/**
           # Just print the top-level directory names
