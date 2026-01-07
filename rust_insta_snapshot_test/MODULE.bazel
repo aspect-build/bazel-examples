@@ -1,0 +1,48 @@
+"""bazelbuild/rules_rust - bzlmod example"""
+
+module(
+    name = "snapshot_test_example",
+    version = "0.0.0",
+)
+
+bazel_dep(name = "bazel_lib", version = "3.1.0")
+bazel_dep(name = "rules_rust", version = "0.68.1")
+bazel_dep(name = "rules_shell", version = "0.6.1")
+bazel_dep(name = "sed", version = "4.9.bcr.3")
+
+rust_host_tools = use_extension("@rules_rust//rust:extensions.bzl", "rust_host_tools")
+rust_host_tools.host_tools(
+    name = "rust_host_tools_nightly",
+    version = "nightly",
+)
+use_repo(
+    rust_host_tools,
+    "rust_host_tools_nightly",
+)
+
+crate = use_extension(
+    "@rules_rust//crate_universe:extensions.bzl",
+    "crate",
+)
+crate.from_cargo(
+    name = "crate_index",
+    cargo_lockfile = "//:Cargo.lock",
+    manifests = ["//:Cargo.toml"],
+)
+use_repo(crate, "crate_index")
+
+bindeps = use_extension("@rules_rust//crate_universe:extension.bzl", "crate")
+bindeps.spec(
+    artifact = "bin",
+    package = "cargo-insta",
+    version = "1.46.0",
+)
+bindeps.annotation(
+    crate = "cargo-insta",
+    gen_all_binaries = True,
+)
+bindeps.from_specs(
+    name = "bindeps",
+    host_tools = "@rust_host_tools_nightly",
+)
+use_repo(bindeps, "bindeps")

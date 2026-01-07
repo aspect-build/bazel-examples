@@ -1,0 +1,5 @@
+---
+source: src/test.rs
+expression: "\"hello world!\""
+---
+"hello world!"

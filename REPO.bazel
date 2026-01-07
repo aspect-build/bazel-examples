@@ -7,7 +7,9 @@ ignore_directories([
     "**/node_modules",
     "**/.pytest_cache",
     "**/__pycache__",
-    # Nested projects that should be moved into the root workspace:
+    # Nested modules.
+    # TODO(alexeagle): some of these should move to the root
+    # NB: when updating this list, also add to .github/workflows/ci.yaml
     "angular-ngc",
     "bzlmod",
     "check-npm-determinism",
@@ -21,6 +23,7 @@ ignore_directories([
     "oci_java_image",
     "prisma",
     "rules_nodejs_to_rules_js_migration",
+    "rust_insta_snapshot_test",
     "ts_project_transpiler",
     "vercel_pkg",
 ])
