@@ -2,7 +2,9 @@
 Support for Rust, see https://github.com/bazelbuild/rules_rust
 """
 
-bazel_dep(name = "rules_rust", version = "0.63.0")
+bazel_dep(name = "rules_rust")
+
+single_version_override(module_name = "rules_rust", version = "0.66.0", patches = ["//:patches/rules_rust.pr3737.patch"])
 
 rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
 rust.toolchain(
