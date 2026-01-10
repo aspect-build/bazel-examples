@@ -2,6 +2,7 @@
   "private": true,
   "devDependencies": {
     "@angular/cli": "20.0.0-rc.0",
+    "@napi-rs/cli": "^3",
     "svg-term-cli": "^2"
   }
 }
