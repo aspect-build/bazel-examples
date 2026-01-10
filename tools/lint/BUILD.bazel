@@ -9,10 +9,10 @@ load("@rules_java//java:defs.bzl", "java_binary")
 
 package(default_visibility = ["//:__subpackages__"])
 
-alias(
-    name = "buf",
-    actual = "@rules_buf_toolchains//:buf",
-)
+# alias(
+#     name = "buf",
+#     actual = "@rules_buf_toolchains//:buf",
+# )
 
 eslint_bin.eslint_binary(name = "eslint")
 

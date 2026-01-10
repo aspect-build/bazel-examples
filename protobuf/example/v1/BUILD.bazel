@@ -6,7 +6,7 @@ proto_library(
     srcs = ["example.proto"],
     strip_import_prefix = "/protobuf",
     visibility = ["//visibility:public"],
-    deps = ["@buf_deps//buf/validate:validate_proto"],
+    # deps = ["@buf_deps//buf/validate:validate_proto"],
 )
 
 ts_proto_library(

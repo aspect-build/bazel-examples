@@ -1,5 +1,7 @@
 load("@aspect_rules_ts//ts:proto.bzl", "ts_proto_library")
-load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
+load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+
+# load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("//write_source_files:go_proto_library.bzl", "go_proto_library")
 
@@ -37,8 +39,8 @@ java_proto_library(
     deps = [":logger_proto"],
 )
 
-java_grpc_library(
-    name = "logger_java_grpc",
-    srcs = [":logger_proto"],
-    deps = [":logger_java_proto"],
-)
+# java_grpc_library(
+#     name = "logger_java_grpc",
+#     srcs = [":logger_proto"],
+#     deps = [":logger_java_proto"],
+# )
