@@ -5,7 +5,10 @@
   "license": "MIT",
   "devDependencies": {
     "vite": "^3",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "webpack": "^5.102.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   },
   "scripts": {
     "start": "../../tools/ibazel run :frontend"
