@@ -1,6 +1,6 @@
 # keep-sorted start
 bazel_dep(name = "aspect_bazel_lib", version = "2.20.4", repo_name = None)
-bazel_dep(name = "aspect_rules_lint")
+bazel_dep(name = "aspect_rules_lint", version = "2.0.0")
 bazel_dep(name = "bazel_env.bzl", version = "0.2.0")
 bazel_dep(name = "bazel_lib", version = "3.0.0")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
@@ -16,12 +16,6 @@ bazel_dep(name = "tar.bzl", version = "0.7.0")
 single_version_override(
     module_name = "aspect_bazel_lib",
     version = "2.20.4",
-)
-
-git_override(
-    module_name = "aspect_rules_lint",
-    commit = "b9d53b04f33774d617754c2873e5f7a5c77bba73",
-    remote = "https://github.com/aspect-build/rules_lint.git",
 )
 
 #########################
