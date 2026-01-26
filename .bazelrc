@@ -15,6 +15,7 @@ common:ci --workspace_status_command=
 # 'bazel build --config=lint' will produce the linter reports.
 build:lint --aspects=//tools/lint:linters.bzl%buf
 build:lint --aspects=//tools/lint:linters.bzl%clang_tidy
+build:lint --aspects=//tools/lint:linters.bzl%clippy
 build:lint --aspects=//tools/lint:linters.bzl%eslint
 build:lint --aspects=//tools/lint:linters.bzl%shellcheck
 build:lint --aspects=//tools/lint:linters.bzl%ruff
