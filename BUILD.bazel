@@ -53,6 +53,8 @@ exports_files(
         "buf.yaml",
         "checkstyle.xml",
         "gazelle_python.yaml",
+        "Gemfile",
+        "Gemfile.lock",
         "pmd.xml",
         "pyproject.toml",
     ],

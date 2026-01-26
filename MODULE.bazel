@@ -19,3 +19,5 @@ include("//tools:rust.MODULE.bazel")
 include("//tools:swift.MODULE.bazel")
 
 include("//tools:go.MODULE.bazel")
+
+include("//tools:ruby.MODULE.bazel")
