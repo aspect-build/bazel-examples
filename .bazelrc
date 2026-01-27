@@ -3,7 +3,7 @@ import %workspace%/tools/java17.bazelrc
 import %workspace%/tools/preset.bazelrc
 
 ### YOUR PROJECT SPECIFIC OPTIONS GO HERE ###
-common --repo_env=RUBY_CONFIGURE_OPTS=--disable-psych
+common --repo_env=RUBY_CONFIGURE_OPTS=--with-out-ext=psych
 
 # We have a lot of dependencies and are okay with some of them bringing a newer version via a transitive dep.
 common --check_direct_dependencies=off
