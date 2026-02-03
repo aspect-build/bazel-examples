@@ -1,3 +1,8 @@
+workflow:
+  rules:
+    # Don't create pipelines for tag pushes
+    - if: '$CI_COMMIT_BRANCH'
+
 stages:
     - Aspect Workflows
 
