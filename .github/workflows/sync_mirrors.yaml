@@ -10,6 +10,7 @@ on:
   workflow_dispatch:
   push:
     branches: ['main']
+    tags: ['*']
 jobs:
   push-cci:
     if: github.repository == 'aspect-build/bazel-examples'
@@ -25,6 +26,7 @@ jobs:
             eval $(ssh-agent -s)
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_CCI_DEPLOY_TOKEN }}'
             git push git@github.com:aspect-build/bazel-examples-cci.git HEAD:main
+            git push --tags git@github.com:aspect-build/bazel-examples-cci.git
   push-gha:
     if: github.repository == 'aspect-build/bazel-examples'
     runs-on: ubuntu-latest
@@ -39,6 +41,7 @@ jobs:
             eval $(ssh-agent -s)
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GHA_DEPLOY_TOKEN }}'
             git push git@github.com:aspect-build/bazel-examples-gha.git HEAD:main
+            git push --tags git@github.com:aspect-build/bazel-examples-gha.git
   push-gl:
     if: github.repository == 'aspect-build/bazel-examples'
     runs-on: ubuntu-latest
@@ -55,3 +58,4 @@ jobs:
             eval $(ssh-agent -s)
             ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GL_DEPLOY_TOKEN }}'
             git push git@gitlab.com:aspect-build/bazel-examples-gl.git HEAD:main
+            git push --tags git@gitlab.com:aspect-build/bazel-examples-gl.git
