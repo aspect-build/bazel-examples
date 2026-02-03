@@ -89,6 +89,9 @@ lint:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
 
 delivery:
+  variables:
+    GIT_DEPTH: 0
+    GIT_FETCH_EXTRA_FLAGS: --tags
   script:
     - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
     - /etc/aspect/workflows/bin/configure_workflows_env
