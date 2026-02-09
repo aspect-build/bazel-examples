@@ -1,7 +1,7 @@
 # Rails JSON API Example
 
 This example demonstrates a minimal Ruby on Rails API-only application built with Bazel,
-including minitest unit tests.
+including minitest unit tests and memcached integration.
 
 ## Structure
 
@@ -9,8 +9,21 @@ including minitest unit tests.
   - `application_controller.rb` - Base API controller
   - `health_controller.rb` - Health check endpoint
   - `items_controller.rb` - CRUD operations for items
+  - `cache_controller.rb` - Memcached cache operations
 - `config/` - Rails configuration (adapted for Bazel sandbox)
 - `test/` - Minitest unit tests
+
+## Dependencies
+
+### Memcached
+
+This example requires a memcached server running. Start one with Docker:
+
+```bash
+docker run -d --name memcached -p 11211:11211 memcached:alpine
+```
+
+The app connects to `localhost:11211` by default. Override with `MEMCACHED_URL` env var.
 
 ## Notes on Bazel Compatibility
 
@@ -31,10 +44,19 @@ bazel test //rails_api:all
 
 ## API Endpoints
 
-- `GET /health` - Health check endpoint
+### Items
 - `GET /items` - List all items
 - `GET /items/:id` - Get a single item
 - `POST /items` - Create a new item
+
+### Health
+- `GET /health` - Health check endpoint
+
+### Cache (Memcached)
+- `GET /cache/:key` - Retrieve a cached value
+- `POST /cache` - Store a value (params: `key`, `value`, `ttl`)
+- `DELETE /cache/:key` - Delete a cached value
+- `GET /cache/stats` - Get memcached stats
 
 ## Example Responses
 
@@ -52,4 +74,14 @@ bazel test //rails_api:all
     {"id": 3, "name": "Gizmo", "price": 29.99}
   ]
 }
+```
+
+### Cache Store
+```json
+{"key": "mykey", "value": "myvalue", "ttl": 300, "stored": true}
+```
+
+### Cache Read
+```json
+{"key": "mykey", "value": "myvalue", "cached": true}
 ```
