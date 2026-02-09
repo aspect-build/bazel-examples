@@ -10,6 +10,8 @@ class CacheControllerTest < Minitest::Test
   end
 
   def setup
+    # FIXME: should load the memcached image layers from the tools/containers.MODULE.bazel file
+    # without any giant input files to the test action
     @container = Testcontainers::DockerContainer.new("memcached:alpine").with_exposed_port(11211)
     @container.start
 

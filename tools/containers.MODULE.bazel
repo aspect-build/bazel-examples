@@ -25,4 +25,25 @@ oci.pull(
     ],
     tag = "latest",
 )
-use_repo(oci, "distroless_base", "distroless_base_linux_amd64", "distroless_base_linux_arm64", "ubuntu", "ubuntu_linux_amd64", "ubuntu_linux_arm64_v8")
+oci.pull(
+    name = "memcached",
+    digest = "sha256:8a82a3927694e42bc52679dc81532244de51e5faed5f9541a1283e3ad7271db1",
+    image = "memcached:alpine",
+    platforms = [
+        "linux/amd64",
+        "linux/arm64",
+    ],
+    tag = "latest",
+)
+use_repo(
+    oci,
+    "distroless_base",
+    "distroless_base_linux_amd64",
+    "distroless_base_linux_arm64",
+    "memcached",
+    "memcached_linux_amd64",
+    "memcached_linux_arm64",
+    "ubuntu",
+    "ubuntu_linux_amd64",
+    "ubuntu_linux_arm64_v8",
+)
