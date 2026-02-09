@@ -51,37 +51,5 @@
         "cpu": "x86_64"
       }
     ]
-  },
-  "rosetta": {
-    "binaries": [
-      {
-        "kind": "file",
-        "os": "linux",
-        "cpu": "arm64",
-        "url": "https://static.aspect.build/aspect/5.11.0/rosetta_real_linux_arm64",
-        "sha256": "ab0b1c12093d91d327359f5d7fe0b0f1a3e8d59a242075624bafba9c24ac7d25"
-      },
-      {
-        "kind": "file",
-        "os": "linux",
-        "cpu": "x86_64",
-        "url": "https://static.aspect.build/aspect/5.11.0/rosetta_real_linux_x86_64",
-        "sha256": "5a00dac4eb2c99aef30c71a1fa2678a7733206f20193a9b5dfc656cd1e388364"
-      },
-      {
-        "kind": "file",
-        "os": "macos",
-        "cpu": "arm64",
-        "url": "https://static.aspect.build/aspect/5.11.0/rosetta_real_darwin_arm64",
-        "sha256": "ce659dc6ca6e9e973d4b3e6264ea30d05a2d13ae8419ee9615e1e4e7ebf0309f"
-      },
-      {
-        "kind": "file",
-        "os": "macos",
-        "cpu": "x86_64",
-        "url": "https://static.aspect.build/aspect/5.11.0/rosetta_real_darwin_x86_64",
-        "sha256": "e55e92c6f2f741859b044fc6bb03f545e270a5ed339339dbfa3f27e15dfa3be1"
-      }
-    ]
   }
 }

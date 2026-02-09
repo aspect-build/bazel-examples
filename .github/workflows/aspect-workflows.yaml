@@ -1,13 +1,10 @@
 name: Aspect Workflows
 
 on:
-    # Triggers the workflow on main and on pull request to main
     push:
         branches: [main]
     pull_request:
         branches: [main]
-
-    # Allow this to be triggered manually via the GitHub UI Actions tab
     workflow_dispatch:
 
 concurrency:
@@ -16,9 +13,171 @@ concurrency:
     group: concurrency-group::${{ github.workflow }}::${{ github.event.pull_request.number > 0 && format('pr-{0}', github.event.pull_request.number) || github.ref_name }}${{ github.ref_name == 'main' && format('::{0}', github.run_id) || ''}}
     cancel-in-progress: ${{ github.ref_name != 'main' }}
 
+# NB: Setting RUNNER_TRACKER_ID="" in the Agent health check sets prevents GitHub Actions from
+# killing the Bazel server started during health check when "Cleaning up orphan processes" in the
+# "Complete job" step. See https://github.com/actions/runner/issues/598 for more info.
+
 jobs:
-    aspect-workflows:
-        name: Aspect Workflows
-        uses: ./.github/workflows/.aspect-workflows-reusable.yaml
-        with:
-            queue: aspect-small
+    gazelle:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - name: Workflows environment
+              run: /etc/aspect/workflows/bin/configure_workflows_env
+            - name: Clone repo
+              uses: actions/checkout@v4
+            - name: Agent health check
+              run: RUNNER_TRACKING_ID="" && /etc/aspect/workflows/bin/agent_health_check
+            - name: Prepare archive directories
+              run: rm -rf /workflows/artifacts
+            - name: Gazelle
+              run: rosetta run gazelle
+            - name: Upload artifacts
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: gazelle.artifacts
+                  path: /workflows/artifacts/**
+                  overwrite: true
+
+    buildifier:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - name: Workflows environment
+              run: /etc/aspect/workflows/bin/configure_workflows_env
+            - name: Clone repo
+              uses: actions/checkout@v4
+            - name: Agent health check
+              run: RUNNER_TRACKING_ID="" && /etc/aspect/workflows/bin/agent_health_check
+            - name: Prepare archive directories
+              run: rm -rf /workflows/artifacts
+            - name: Buildifier
+              run: rosetta run buildifier
+            - name: Upload artifacts
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: buildifier.artifacts
+                  path: /workflows/artifacts/**
+                  overwrite: true
+
+    lint:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        env:
+            # GITHUB_PR_HEAD_SHA required for Checks and Suggested Fixes
+            GITHUB_PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        steps:
+            - name: Workflows environment
+              run: /etc/aspect/workflows/bin/configure_workflows_env
+            - name: Clone repo
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 2
+            - name: Agent health check
+              run: RUNNER_TRACKING_ID="" && /etc/aspect/workflows/bin/agent_health_check
+            - name: Prepare archive directories
+              run: rm -rf /workflows/artifacts
+            - name: Lint
+              run: rosetta run lint
+            - name: Upload artifacts
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: lint.artifacts
+                  path: /workflows/artifacts/**
+                  overwrite: true
+
+    format:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - name: Workflows environment
+              run: /etc/aspect/workflows/bin/configure_workflows_env
+            - name: Clone repo
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 2
+            - name: Agent health check
+              run: RUNNER_TRACKING_ID="" && /etc/aspect/workflows/bin/agent_health_check
+            - name: Prepare archive directories
+              run: rm -rf /workflows/artifacts
+            - name: Format
+              run: rosetta run format
+            - name: Upload artifacts
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: format.artifacts
+                  path: /workflows/artifacts/**
+                  overwrite: true
+
+    test_0:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - name: Workflows environment
+              run: /etc/aspect/workflows/bin/configure_workflows_env
+            - name: Clone repo
+              uses: actions/checkout@v4
+            - name: Agent health check
+              run: RUNNER_TRACKING_ID="" && /etc/aspect/workflows/bin/agent_health_check
+            - name: Prepare archive directories
+              run: rm -rf /workflows/artifacts /workflows/testlogs
+            - name: Test
+              run: rosetta run test_0
+            - name: Upload artifacts
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: test_0.artifacts
+                  path: |
+                      /workflows/artifacts/**
+                      /workflows/testlogs/**
+                  overwrite: true
+
+    test_1:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - name: Workflows environment
+              run: /etc/aspect/workflows/bin/configure_workflows_env
+            - name: Clone repo
+              uses: actions/checkout@v4
+            - name: Agent health check
+              run: RUNNER_TRACKING_ID="" && /etc/aspect/workflows/bin/agent_health_check
+            - name: Prepare archive directories
+              run: rm -rf /workflows/artifacts /workflows/testlogs
+            - name: Test
+              run: rosetta run test_1
+            - name: Upload artifacts
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: test_1.artifacts
+                  path: |
+                      /workflows/artifacts/**
+                      /workflows/testlogs/**
+                  overwrite: true
+
+    delivery:
+        if: github.ref_name == 'main'
+        needs: [test_0, test_1]
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - name: Workflows environment
+              run: /etc/aspect/workflows/bin/configure_workflows_env
+            - name: Clone repo
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+            - name: Agent health check
+              run: RUNNER_TRACKING_ID="" && /etc/aspect/workflows/bin/agent_health_check
+            - name: Prepare archive directories
+              run: rm -rf /workflows/artifacts
+            - name: Delivery manifest
+              run: rosetta run delivery_manifest
+            - name: Delivery
+              run: rosetta run delivery
+            - name: Upload artifacts
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: delivery.artifacts
+                  path: /workflows/artifacts/**
+                  overwrite: true

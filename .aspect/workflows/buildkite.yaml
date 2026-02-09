@@ -1,0 +1,197 @@
+steps:
+- key: gazelle
+  label: ":deer: Gazelle"
+  retry:
+    manual:
+      allowed: true
+      permit_on_passed: false
+    automatic:
+    - limit: 1
+      exit_status: 36
+    - limit: 1
+      exit_status: 255
+    - limit: 1
+      exit_status: -1
+  agents:
+    queue: aspect-default
+  command: |
+    echo "--- :aspect-build: Workflows environment"
+    /etc/aspect/workflows/bin/configure_workflows_env
+    echo "--- :stethoscope: Agent health check"
+    /etc/aspect/workflows/bin/agent_health_check
+    echo "~~~ :broom: Prepare archive directories"
+    rm -rf /workflows/artifacts
+    echo "--- :deer: Gazelle"
+    rosetta run gazelle
+  artifact_paths:
+    - /workflows/artifacts/**/*
+
+- key: buildifier
+  label: ":hammer_and_wrench: Buildifier"
+  retry:
+    manual:
+      allowed: true
+      permit_on_passed: false
+    automatic:
+    - limit: 1
+      exit_status: 36
+    - limit: 1
+      exit_status: 255
+    - limit: 1
+      exit_status: -1
+  agents:
+    queue: aspect-default
+  command: |
+    echo "--- :aspect-build: Workflows environment"
+    /etc/aspect/workflows/bin/configure_workflows_env
+    echo "--- :stethoscope: Agent health check"
+    /etc/aspect/workflows/bin/agent_health_check
+    echo "~~~ :broom: Prepare archive directories"
+    rm -rf /workflows/artifacts
+    echo "--- :hammer_and_wrench: Buildifier"
+    rosetta run buildifier
+  artifact_paths:
+    - /workflows/artifacts/**/*
+
+- key: lint
+  label: ":broom: Lint"
+  retry:
+    manual:
+      allowed: true
+      permit_on_passed: false
+    automatic:
+    - limit: 1
+      exit_status: 36
+    - limit: 1
+      exit_status: 255
+    - limit: 1
+      exit_status: -1
+  agents:
+    queue: aspect-default
+  command: |
+    echo "--- :aspect-build: Workflows environment"
+    /etc/aspect/workflows/bin/configure_workflows_env
+    echo "--- :stethoscope: Agent health check"
+    /etc/aspect/workflows/bin/agent_health_check
+    echo "~~~ :broom: Prepare archive directories"
+    rm -rf /workflows/artifacts
+    echo "--- :broom: Lint"
+    rosetta run lint
+  artifact_paths:
+    - /workflows/artifacts/**/*
+
+- key: format
+  label: ":hammer_and_wrench: Format"
+  retry:
+    manual:
+      allowed: true
+      permit_on_passed: false
+    automatic:
+    - limit: 1
+      exit_status: 36
+    - limit: 1
+      exit_status: 255
+    - limit: 1
+      exit_status: -1
+  agents:
+    queue: aspect-default
+  command: |
+    echo "--- :aspect-build: Workflows environment"
+    /etc/aspect/workflows/bin/configure_workflows_env
+    echo "--- :stethoscope: Agent health check"
+    /etc/aspect/workflows/bin/agent_health_check
+    echo "~~~ :broom: Prepare archive directories"
+    rm -rf /workflows/artifacts
+    echo "--- :hammer_and_wrench: Format"
+    rosetta run format
+  artifact_paths:
+    - /workflows/artifacts/**/*
+
+- key: test_0
+  label: ":bazel: Test"
+  retry:
+    manual:
+      allowed: true
+      permit_on_passed: false
+    automatic:
+    - limit: 1
+      exit_status: 36
+    - limit: 1
+      exit_status: 255
+    - limit: 1
+      exit_status: -1
+  agents:
+    queue: aspect-default
+  command: |
+    echo "--- :aspect-build: Workflows environment"
+    /etc/aspect/workflows/bin/configure_workflows_env
+    echo "--- :stethoscope: Agent health check"
+    /etc/aspect/workflows/bin/agent_health_check
+    echo "~~~ :broom: Prepare archive directories"
+    rm -rf /workflows/artifacts /workflows/testlogs
+    echo "--- :bazel: Test"
+    rosetta run test_0
+  artifact_paths:
+    - /workflows/artifacts/**/*
+    - /workflows/testlogs/**/*
+
+- key: test_1
+  label: ":bazel: Test (1)"
+  retry:
+    manual:
+      allowed: true
+      permit_on_passed: false
+    automatic:
+    - limit: 1
+      exit_status: 36
+    - limit: 1
+      exit_status: 255
+    - limit: 1
+      exit_status: -1
+  agents:
+    queue: aspect-default
+  command: |
+    echo "--- :aspect-build: Workflows environment"
+    /etc/aspect/workflows/bin/configure_workflows_env
+    echo "--- :stethoscope: Agent health check"
+    /etc/aspect/workflows/bin/agent_health_check
+    echo "~~~ :broom: Prepare archive directories"
+    rm -rf /workflows/artifacts /workflows/testlogs
+    echo "--- :bazel: Test (1)"
+    rosetta run test_1
+  artifact_paths:
+    - /workflows/artifacts/**/*
+    - /workflows/testlogs/**/*
+
+- key: delivery
+  if: build.branch == "main"
+  label: ":bazel: Delivery"
+  retry:
+    manual:
+      allowed: true
+      permit_on_passed: false
+    automatic:
+    - limit: 1
+      exit_status: 36
+    - limit: 1
+      exit_status: 255
+    - limit: 1
+      exit_status: -1
+  agents:
+    queue: aspect-default
+  command: |
+    echo "--- :aspect-build: Workflows environment"
+    /etc/aspect/workflows/bin/configure_workflows_env
+    echo "--- :stethoscope: Agent health check"
+    /etc/aspect/workflows/bin/agent_health_check
+    echo "~~~ :broom: Prepare archive directories"
+    rm -rf /workflows/artifacts
+    echo "--- :bazel: Delivery manifest"
+    rosetta run delivery_manifest
+    echo "--- :bazel: Delivery"
+    rosetta run delivery
+  depends_on:
+    - test_0
+    - test_1
+  artifact_paths:
+    - /workflows/artifacts/**/*

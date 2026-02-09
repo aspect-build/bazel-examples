@@ -1,29 +1,36 @@
-# See https://docs.aspect.build/workflows/configuration
+# See https://docs.aspect.build/aspect-workflows/additional-materials/reference-config
 tasks:
-  - checkout:
-      update_strategy: rebase
   - gazelle:
   - buildifier:
   - lint:
   - format:
   - test:
+      id: test_0
       targets:
         - //...
+        - -//angular/...
         - -//speller/...
       bazel:
         flags:
-          -  --config=rbe
-          -  --test_tag_filters=-skip-on-aspect-workflows
-      coverage:
-        codecov_upload: true
+          - --config=rbe
+          - --test_tag_filters=-skip-on-aspect-workflows
+  - test:
+      id: test_1
+      targets:
+        - //angular/...
+      bazel:
+        flags:
+          - --config=rbe
+          - --test_tag_filters=-skip-on-aspect-workflows
   - delivery:
-      branches:
-        - main
-        - 'release-.*'
       auto_deliver: true
       stamp_flags:
         - --config=release
       rules:
         - deliverable: 'kind("oci_push rule", //...)'
+          condition:
+            branches:
+              - '^main$'
+              - '^release-.*$'
 notifications:
   github: {}

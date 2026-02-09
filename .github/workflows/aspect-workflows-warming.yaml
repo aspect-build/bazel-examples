@@ -9,24 +9,21 @@ on:
     # Allow this to be triggered manually via the GitHub UI Actions tab
     workflow_dispatch:
 
+# NB: Setting RUNNER_TRACKER_ID="" in the Agent health check sets prevents GitHub Actions from
+# killing the Bazel server started during health check when "Cleaning up orphan processes" in the
+# "Complete job" step. See https://github.com/actions/runner/issues/598 for more info.
+
 jobs:
     warming-archive:
         name: Aspect Workflows Warming
         runs-on: [self-hosted, aspect-workflows, aspect-warming]
-        env:
-            ASPECT_WORKFLOWS_BIN_DIR: /etc/aspect/workflows/bin
         steps:
             - name: Workflows environment
-              run: ${ASPECT_WORKFLOWS_BIN_DIR}/configure_workflows_env
+              run: /etc/aspect/workflows/bin/configure_workflows_env
             - uses: actions/checkout@v4
             - name: Agent health check
-              # Set RUNNER_TRACKER_ID="" to prevent GitHub Actions from killing the Bazel server started
-              # during health check when "Cleaning up orphan processes" in the "Complete job" step.
-              # See https://github.com/actions/runner/issues/598.
-              run: RUNNER_TRACKER_ID="" && ${ASPECT_WORKFLOWS_BIN_DIR}/agent_health_check
+              run: RUNNER_TRACKER_ID="" && /etc/aspect/workflows/bin/agent_health_check
             - name: Create warming archive
-              uses: aspect-build/workflows-action@5.14.0
-              with:
-                  task: warming
+              run: rosetta run warming
             - name: Archive warming tars
-              run: ${ASPECT_WORKFLOWS_BIN_DIR}/warming_archive
+              run: /etc/aspect/workflows/bin/warming_archive
