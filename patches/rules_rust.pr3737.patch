@@ -1,0 +1,38 @@
+commit d2e02495c11e2613d47a24b4d9ccf4cb95af3c97
+Author: Alex Eagle <alex@aspect.dev>
+Date:   Sun Nov 23 12:58:17 2025 -0800
+
+    feat(rust_common): allow compile actions to declare that extra folders will be created
+
+    This technique is sometimes needed when a proc_macro derives information from the build, and it needs to be consumed by some other tool
+
+diff --git a/rust/private/rust.bzl b/rust/private/rust.bzl
+index 864cdec93..7246e7c20 100644
+--- rust/private/rust.bzl
++++ rust/private/rust.bzl
+@@ -753,6 +753,11 @@ _common_attrs = {
+         cfg = "exec",
+         providers = [[CrateInfo], [CrateGroupInfo]],
+     ),
++    "extra_outdirs": attr.string_list(
++        doc = dedent("""\
++            List of additional output directories which are expected to be written by the compiler.
++        """),
++    ),
+     "rustc_env": attr.string_dict(
+         doc = dedent("""\
+             Dictionary of additional `"key": "value"` environment variables to set for rustc.
+diff --git a/rust/private/rustc.bzl b/rust/private/rustc.bzl
+index 9af140e45..f4a7e0e06 100644
+--- rust/private/rustc.bzl
++++ rust/private/rustc.bzl
+@@ -1367,6 +1367,9 @@ def rustc_compile_action(
+         interface_library = ctx.actions.declare_file(crate_info.output.basename + ".lib", sibling = crate_info.output)
+         outputs.append(interface_library)
+
++    if hasattr(ctx.attr, "extra_outdirs"):
++        outputs.extend([ctx.actions.declare_directory(outdir) for outdir in ctx.attr.extra_outdirs])
++
+     # The action might generate extra output that we don't want to include in the `DefaultInfo` files.
+     action_outputs = list(outputs)
+     if rustc_output:
