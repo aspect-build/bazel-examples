@@ -1,9 +1,9 @@
 load("@bazel_env.bzl", "bazel_env")
 load("@bazelrc-preset.bzl", "bazelrc_preset")
-load("@multitool//:tools.bzl", MULTITOOLS = "TOOLS")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//tools:@angular/cli/package_json.bzl", angular_cli = "bin")
 load("@npm//tools:svg-term-cli/package_json.bzl", svg_term_cli = "bin")
+load("@tools.bzl", "TOOLS")
 
 bazelrc_preset(name = "preset")
 
@@ -44,5 +44,5 @@ bazel_env(
         "node": "$(NODE_PATH)",
         "pnpm": "@pnpm",
         "python": "$(PYTHON3)",
-    } | LOCAL_TOOLS | MULTITOOLS,
+    } | LOCAL_TOOLS | TOOLS,
 )
