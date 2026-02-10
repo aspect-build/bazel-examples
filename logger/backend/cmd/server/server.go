@@ -25,7 +25,7 @@ var (
 )
 
 // GRPC Server
-func startGrpc() error {
+func startGrpc( ) error {
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
