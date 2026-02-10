@@ -47,11 +47,11 @@ jobs:
           command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
       - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts
-      - run:
           name: Agent health check
           command: /etc/aspect/workflows/bin/agent_health_check
+      - run:
+          name: Prepare archive directories
+          command: rm -rf /workflows/artifacts
       - run:
           name: Buildifier
           command: rosetta run buildifier
@@ -72,11 +72,11 @@ jobs:
           command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
       - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts
-      - run:
           name: Agent health check
           command: /etc/aspect/workflows/bin/agent_health_check
+      - run:
+          name: Prepare archive directories
+          command: rm -rf /workflows/artifacts
       - run:
           name: Format
           command: rosetta run format
@@ -97,11 +97,11 @@ jobs:
           command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
       - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts
-      - run:
           name: Agent health check
           command: /etc/aspect/workflows/bin/agent_health_check
+      - run:
+          name: Prepare archive directories
+          command: rm -rf /workflows/artifacts
       - run:
           name: Gazelle
           command: rosetta run gazelle
@@ -122,11 +122,11 @@ jobs:
           command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
       - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts
-      - run:
           name: Agent health check
           command: /etc/aspect/workflows/bin/agent_health_check
+      - run:
+          name: Prepare archive directories
+          command: rm -rf /workflows/artifacts
       - run:
           name: Lint
           command: rosetta run lint
@@ -147,11 +147,11 @@ jobs:
           command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
       - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts /workflows/testlogs
-      - run:
           name: Agent health check
           command: /etc/aspect/workflows/bin/agent_health_check
+      - run:
+          name: Prepare archive directories
+          command: rm -rf /workflows/artifacts /workflows/testlogs
       - run:
           name: Test
           command: rosetta run test_0
@@ -176,11 +176,11 @@ jobs:
           command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
       - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts /workflows/testlogs
-      - run:
           name: Agent health check
           command: /etc/aspect/workflows/bin/agent_health_check
+      - run:
+          name: Prepare archive directories
+          command: rm -rf /workflows/artifacts /workflows/testlogs
       - run:
           command: rosetta run test_1
           name: Test (1)
@@ -208,11 +208,16 @@ jobs:
           name: Agent health check
           command: /etc/aspect/workflows/bin/agent_health_check
       - run:
+          name: Prepare archive directories
+          command: rm -rf /workflows/artifacts /workflows/testlogs
+      - run:
           name: Delivery manifest
           command: rosetta run delivery_manifest
       - run:
           name: Delivery
           command: rosetta run delivery
+      - store_artifacts:
+          path: /workflows/artifacts
 
   warming:
     environment:
