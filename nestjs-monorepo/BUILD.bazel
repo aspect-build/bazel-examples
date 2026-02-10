@@ -1,0 +1,36 @@
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+package(default_visibility = ["//visibility:public"])
+
+
+# Link all packages from the /WORKSPACE npm_translate_lock(name = "npm") and also packages from
+# manual /WORKSPACE npm_import rules to bazel-bin/node_modules as well as the virtual store
+# bazel-bin/node_modules/.aspect_rules_js since /pnpm-lock.yaml is the root of the pnpm workspace
+npm_link_all_packages(name = "node_modules")
+
+ts_config(
+    name = "root_tsconfig",
+    src = "tsconfig.json",
+    visibility = [":__subpackages__"],
+)
+
+exports_files(
+    [
+        "tsconfig.json",
+        ".swcrc",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+copy_to_bin(
+    name = "root_package_json",
+    srcs = ["package.json"],
+    visibility = ["//visibility:public"],
+)
+
+# copy_to_bin(
+#     name = "root_jest_config",
+#     srcs = ["jest.config.js"],
+#     visibility = ["//visibility:public"],
+# )
