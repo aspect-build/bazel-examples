@@ -33,7 +33,7 @@ steps:
       - buildkite-agent pipeline upload .aspect/workflows/buildkite.yaml
     plugins:
       - git-ssh-checkout#v0.4.1
-      - sparse-checkout#v1.1.0:
+      - sparse-checkout#v1.3.1:
           paths:
             - .aspect
     agents:

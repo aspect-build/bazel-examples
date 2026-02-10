@@ -1,4 +1,5 @@
 version: 2.1
+
 workflows:
   aspect-workflows:
     jobs:
@@ -32,6 +33,7 @@ workflows:
         - equal:
           - aspect-workflows-warming
           - << pipeline.schedule.name >>
+
 jobs:
   buildifier:
     environment:

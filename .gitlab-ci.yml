@@ -15,7 +15,7 @@ test_0:
     - /etc/aspect/workflows/bin/agent_health_check
     - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
     - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
-    - rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs && rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
+    - rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts && rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs
     - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
     - /etc/aspect/workflows/bin/gitlab_section_start "test" "Test"
     - rosetta run test_0
@@ -41,7 +41,7 @@ test_1:
     - /etc/aspect/workflows/bin/agent_health_check
     - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
     - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
-    - rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs && rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
+    - rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts && rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs
     - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
     - /etc/aspect/workflows/bin/gitlab_section_start "test" "Test"
     - rosetta run test_1
