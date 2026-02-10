@@ -1,0 +1,27 @@
+load("@aspect_rules_py//py:defs.bzl", "py_pytest_main")
+load("@pip//:requirements.bzl", "requirement")
+
+py_pytest_main(
+    name = "__test__",
+)
+
+py_test(
+    name = "service_test",
+    srcs = [
+        "__test__.py",
+        "service_test.py",
+    ],
+    data = [
+        "//java/src/main/java/com/example:tarball",
+    ],
+    main = ":__test__.py",
+    tags = [
+        "requires-docker",
+        "requires-network",
+    ],
+    deps = [
+        requirement("docker"),
+        requirement("pytest"),
+        requirement("testcontainers"),
+    ],
+)
