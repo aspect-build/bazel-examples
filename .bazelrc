@@ -5,6 +5,7 @@ import %workspace%/tools/preset.bazelrc
 ### YOUR PROJECT SPECIFIC OPTIONS GO HERE ###
 # common --repo_env=RUBY_CONFIGURE_OPTS=--with-out-ext=psych
 common --modify_execution_info=GemInstall=+no-remote-exec
+common --modify_execution_info=BundleInstall=+no-remote-exec
 
 # We have a lot of dependencies and are okay with some of them bringing a newer version via a transitive dep.
 common --check_direct_dependencies=off
