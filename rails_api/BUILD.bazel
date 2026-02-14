@@ -11,6 +11,7 @@ rb_test(
     name = "health_controller_test",
     srcs = ["test/controllers/health_controller_test.rb"],
     main = "test/controllers/health_controller_test.rb",
+    tags = ["no-remote-exec"],
     deps = [
         ":app",
         ":test_helper",
@@ -21,6 +22,7 @@ rb_test(
     name = "items_controller_test",
     srcs = ["test/controllers/items_controller_test.rb"],
     main = "test/controllers/items_controller_test.rb",
+    tags = ["no-remote-exec"],
     deps = [
         ":app",
         ":test_helper",
@@ -32,7 +34,10 @@ rb_test(
     name = "cache_controller_test",
     srcs = ["test/controllers/cache_controller_test.rb"],
     main = "test/controllers/cache_controller_test.rb",
-    tags = ["requires-network"],  # Needs memcached connection
+    tags = [
+        "no-remote-exec",
+        "requires-network",  # Needs memcached connection
+    ],
     deps = [
         ":app",
         ":test_helper",
