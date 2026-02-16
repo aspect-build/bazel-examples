@@ -17,10 +17,13 @@ class CacheControllerTest < Minitest::Test
     @container = Testcontainers::DockerContainer.new("memcached:alpine").with_exposed_port(11211)
     @container.start
 
-    # Get the mapped port and configure Rails to use the containerized memcached
+    # Get the mapped port and configure dalli client directly
     port = @container.mapped_port(11211)
     host = @container.host
-    Rails.cache = ActiveSupport::Cache::MemCacheStore.new("#{host}:#{port}", namespace: "test")
+
+    # Create dalli client and wrap in MemCacheStore
+    dalli_client = Dalli::Client.new("#{host}:#{port}", namespace: "test")
+    Rails.cache = ActiveSupport::Cache::MemCacheStore.new(dalli_client)
 
     # Clear any existing test keys
     Rails.cache.delete("test_key")
