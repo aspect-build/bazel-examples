@@ -11,6 +11,30 @@ class CacheControllerTest < Minitest::Test
     Rails.application
   end
 
+  # Simple cache wrapper around Dalli that implements Rails cache interface
+  class DalliCacheWrapper
+    def initialize(client)
+      @client = client
+    end
+
+    def read(key)
+      @client.get(key)
+    end
+
+    def write(key, value, options = {})
+      ttl = options[:expires_in]&.to_i || 0
+      @client.set(key, value, ttl)
+    end
+
+    def delete(key)
+      @client.delete(key)
+    end
+
+    def stats
+      @client.stats
+    end
+  end
+
   def setup
     # FIXME: should load the memcached image layers from the tools/containers.MODULE.bazel file
     # without any giant input files to the test action
@@ -21,9 +45,10 @@ class CacheControllerTest < Minitest::Test
     port = @container.mapped_port(11211)
     host = @container.host
 
-    # Create dalli client and wrap in MemCacheStore
+    # Create dalli client wrapped in simple cache interface
+    # Bypasses Rails MemCacheStore which has connection_pool compatibility issues
     dalli_client = Dalli::Client.new("#{host}:#{port}", namespace: "test")
-    Rails.cache = ActiveSupport::Cache::MemCacheStore.new(dalli_client)
+    Rails.cache = DalliCacheWrapper.new(dalli_client)
 
     # Clear any existing test keys
     Rails.cache.delete("test_key")
