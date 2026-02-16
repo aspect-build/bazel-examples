@@ -11,4 +11,4 @@ gem "dalli", "~> 3.2"
 # Testing
 gem "minitest", "~> 5.20"
 gem "rack-test", "~> 2.1"
-gem "testcontainers", "~> 0.2"
+gem "testcontainers-core", "~> 0.2"

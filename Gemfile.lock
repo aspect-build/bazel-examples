@@ -198,8 +198,6 @@ GEM
       io-console (~> 0.5)
     securerandom (0.4.1)
     stringio (3.2.0)
-    testcontainers (0.2.0)
-      testcontainers-core (= 0.2.0)
     testcontainers-core (0.2.0)
       docker-api (~> 2.2)
     thor (1.5.0)
@@ -229,7 +227,7 @@ DEPENDENCIES
   minitest (~> 5.20)
   rack-test (~> 2.1)
   rails (~> 7.1)
-  testcontainers (~> 0.2)
+  testcontainers-core (~> 0.2)
 
 CHECKSUMS
   actioncable (7.2.3) sha256=e15d17b245f1dfe7cafdda4a0c6f7ba8ebaab1af33884415e09cfef4e93ad4f9
@@ -300,7 +298,6 @@ CHECKSUMS
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
-  testcontainers (0.2.0) sha256=b8fb466cfbba02eef9120fa0f4e1ebce6c7220b65c5b025ce003d8c6a6b68c67
   testcontainers-core (0.2.0) sha256=94f316f08f388a8afb75a4fec6ff9ed4289cf60ca7a77522d4ca26688f4c4da4
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   timeout (0.6.0) sha256=6d722ad619f96ee383a0c557ec6eb8c4ecb08af3af62098a0be5057bf00de1af

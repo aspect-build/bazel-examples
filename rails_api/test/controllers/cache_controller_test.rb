@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative "../test_helper"
+require "testcontainers"
+require "dalli"
 
 class CacheControllerTest < Minitest::Test
   include Rack::Test::Methods
@@ -17,8 +19,8 @@ class CacheControllerTest < Minitest::Test
 
     # Get the mapped port and configure Rails to use the containerized memcached
     port = @container.mapped_port(11211)
-    Rails.application.config.cache_store = :mem_cache_store, "localhost:#{port}", { namespace: "test" }
-    Rails.cache = ActiveSupport::Cache.lookup_store(*Rails.application.config.cache_store)
+    host = @container.host
+    Rails.cache = ActiveSupport::Cache::MemCacheStore.new("#{host}:#{port}", namespace: "test")
 
     # Clear any existing test keys
     Rails.cache.delete("test_key")
@@ -26,8 +28,10 @@ class CacheControllerTest < Minitest::Test
   end
 
   def teardown
+    return unless @container&.running?
+
     @container.stop
-    @container.delete
+    @container.remove
   end
 
   def test_store_and_retrieve_value

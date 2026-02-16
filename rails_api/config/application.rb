@@ -4,7 +4,6 @@ require "active_support"
 require "active_support/parameter_filter"
 require "active_support/core_ext"
 require "action_controller/railtie"
-require "dalli"
 
 module RailsApi
   class Application < Rails::Application
@@ -14,11 +13,14 @@ module RailsApi
     config.secret_key_base = "test_secret_key_base_for_development"
     config.active_support.cache_format_version = 7.1
 
-    # Configure memcached via Dalli
-    # Expects memcached running at localhost:11211 (default Docker port)
-    config.cache_store = :mem_cache_store,
-      ENV.fetch("MEMCACHED_URL", "localhost:11211"),
-      { namespace: "rails_api", compress: true }
+    # Use memory store by default; tests will configure memcached via Dalli
+    # when a container is available
+    if ENV["MEMCACHED_URL"]
+      require "dalli"
+      config.cache_store = :mem_cache_store, ENV["MEMCACHED_URL"]
+    else
+      config.cache_store = :memory_store
+    end
   end
 end
 
