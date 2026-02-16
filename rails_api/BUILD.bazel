@@ -1,0 +1,54 @@
+load("@rules_ruby//ruby:defs.bzl", "rb_library", "rb_test")
+
+rb_library(
+    name = "app",
+    srcs = glob(["app/**/*.rb"]) + glob(["config/**/*.rb"]) + ["config.rb"],
+    visibility = ["//visibility:public"],
+    deps = ["@bundle"],
+)
+
+rb_test(
+    name = "health_controller_test",
+    srcs = ["test/controllers/health_controller_test.rb"],
+    main = "test/controllers/health_controller_test.rb",
+    tags = ["no-remote-exec"],
+    deps = [
+        ":app",
+        ":test_helper",
+    ],
+)
+
+rb_test(
+    name = "items_controller_test",
+    srcs = ["test/controllers/items_controller_test.rb"],
+    main = "test/controllers/items_controller_test.rb",
+    tags = ["no-remote-exec"],
+    deps = [
+        ":app",
+        ":test_helper",
+    ],
+)
+
+# Requires memcached running: docker run -d -p 11211:11211 memcached:alpine
+rb_test(
+    name = "cache_controller_test",
+    srcs = ["test/controllers/cache_controller_test.rb"],
+    main = "test/controllers/cache_controller_test.rb",
+    tags = [
+        "no-remote-exec",
+        "requires-network",  # Needs memcached connection
+    ],
+    deps = [
+        ":app",
+        ":test_helper",
+    ],
+)
+
+rb_library(
+    name = "test_helper",
+    srcs = ["test/test_helper.rb"],
+    deps = [
+        ":app",
+        "@bundle",
+    ],
+)

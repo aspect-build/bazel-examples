@@ -44,5 +44,8 @@ bazel_env(
         "node": "$(NODE_PATH)",
         "pnpm": "@pnpm",
         "python": "$(PYTHON3)",
+        "bundle": "@ruby//:bundle",
+        "gem": "@ruby//:gem",
+        "ruby": "@ruby",
     } | LOCAL_TOOLS | MULTITOOLS,
 )
