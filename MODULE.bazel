@@ -1,23 +1,13 @@
 "Declare dependencies for bzlmod, see https://bazel.build/build/bzlmod"
 
 include("//tools:tools.MODULE.bazel")
-
 include("//tools:jvm.MODULE.bazel")
-
 include("//tools:python.MODULE.bazel")
-
 include("//tools:protobuf.MODULE.bazel")
-
 include("//tools:cpp.MODULE.bazel")
-
 include("//tools:containers.MODULE.bazel")
-
 include("//tools:nodejs.MODULE.bazel")
-
 include("//tools:rust.MODULE.bazel")
-
 include("//tools:swift.MODULE.bazel")
-
 include("//tools:go.MODULE.bazel")
-
 include("//tools:ruby.MODULE.bazel")

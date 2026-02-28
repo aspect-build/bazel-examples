@@ -3,11 +3,14 @@ Ruby support via rules_ruby
 https://github.com/bazel-contrib/rules_ruby
 """
 
-bazel_dep(name = "rules_ruby", version = "0.21.1")
+bazel_dep(name = "rules_ruby", version = "0.22.1")
 
 ruby = use_extension("@rules_ruby//ruby:extensions.bzl", "ruby")
 ruby.toolchain(
     name = "ruby",
+    # Skip compiling Ruby from source, use https://mise.jdx.dev/lang/ruby.html
+    # See https://github.com/bazel-contrib/rules_ruby/pull/340/changes
+    portable_ruby = True,
     version_file = "//:.ruby-version",
 )
 use_repo(ruby, "ruby", "ruby_toolchains")
