@@ -29,7 +29,7 @@ int main(int  /*argc*/, char ** /*argv*/) {
   Speller::LookupEngine engine("spell.db", true);
 
   for_each(common_words.begin(), common_words.end(),
-           [&](const string &word) { engine.AddEntry(word); });
+           [&](string word) { engine.AddEntry(word); });
 
   return 0;
 }
