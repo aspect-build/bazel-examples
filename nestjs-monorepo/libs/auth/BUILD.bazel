@@ -1,0 +1,81 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@aspect_rules_swc//swc:defs.bzl", "swc")
+load("@bazel_skylib//lib:partial.bzl", "partial")
+load("@aspect_rules_jest//jest:defs.bzl", "jest_test")
+load("@aspect_rules_js//js:defs.bzl", "js_library")
+
+package(default_visibility = ["//visibility:public"])
+
+
+ts_config(
+    name = "lib_auth_tsconfig",
+    src = "tsconfig.lib.json",
+)
+
+ts_project(
+    name = "lib_auth",
+    srcs = glob(
+        include=["src/**/*.ts"],
+        exclude=["node_modules", "dist", "test", "src/**/*.spec.ts"],
+    ),
+    declaration = True,
+    incremental = True,
+    source_map = True,
+    # transpiler = "tsc",
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:.swcrc",
+    ),
+    tsconfig = ":lib_auth_tsconfig",
+    extends = "//:root_tsconfig",
+    deps = [
+        ":lib_auth_tsconfig",
+        "//:node_modules/@nestjs/common",
+        "//:node_modules/@nestjs/core",
+        "//:node_modules/@types/node",
+    ]
+)
+
+ts_project(
+    name = "test_lib_auth",
+    srcs = glob(
+        include=["src/**/*.spec.ts"],
+    ),
+    declaration = True,
+    transpiler = partial.make(
+        swc,
+        swcrc = "//:.swcrc",
+    ),
+    validate = False,
+    visibility = ["//visibility:private"],
+    tsconfig = {},
+    extends = "//:root_tsconfig",
+    deps = [
+        ":lib_auth",
+
+        "//:node_modules/@nestjs/testing",
+        "//:node_modules/jest",
+        "//:node_modules/@types/jest",
+        "//:node_modules/ts-jest",
+    ]
+)
+
+jest_test(
+    name = "test",
+    config = "//:root_package_json",
+    node_modules = "//:node_modules",
+    data = [
+        ":test_lib_auth",
+        ":lib_auth",
+    ],
+)
+
+# IMPORTANT TO USE PATHS IN PACKAGE.JSON
+npm_package(
+    name = "auth",
+    srcs = [
+        "package.json",
+        ":lib_auth",
+    ],
+)
