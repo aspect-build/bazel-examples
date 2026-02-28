@@ -2,7 +2,8 @@
 tasks:
   - gazelle:
   - buildifier:
-  - lint:
+  # FIXME: broken because it runs the old CLI
+  # - lint:
   - format:
   - test:
       id: test_0
