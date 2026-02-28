@@ -1,6 +1,7 @@
 load("@aspect_rules_js//js:defs.bzl", "js_run_devserver")
 load("@aspect_rules_swc//swc:defs.bzl", "swc")
 load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
+load("@aspect_rules_webpack//webpack:defs.bzl", "webpack_bundle", "webpack_devserver")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//logger/frontend:vite/package_json.bzl", "bin")
 
@@ -37,4 +38,22 @@ js_run_devserver(
         "index.js",
     ],
     tool = ":vite",
+)
+
+# TODO: Should be similar to "webpack build --mode production"
+webpack_bundle(
+    name = "bundle",
+    srcs = [":tsc"],
+    entry_point = "index.js",
+    node_modules = ":node_modules",
+    webpack_config = "webpack.config.cjs",
+)
+
+# TODO: Should be similar to "webpack devserver --mode development"
+webpack_devserver(
+    name = "devserver",
+    data = [":tsc"],
+    entry_point = "index.js",
+    node_modules = ":node_modules",
+    webpack_config = "webpack.config.cjs",
 )
