@@ -1,3 +1,5 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
 package(default_visibility = [
     "//py_mypy/inventory_management:__pkg__",
     "//py_mypy/order_processing:__pkg__",
