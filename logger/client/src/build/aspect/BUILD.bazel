@@ -1,3 +1,4 @@
+load("@rules_java//java:defs.bzl", "java_binary", "java_library", "java_test")
 load("@rules_jvm_external//:defs.bzl", "artifact")
 
 java_library(
@@ -32,4 +33,10 @@ java_test(
     name = "JavaLoggingClientTest",
     srcs = ["JavaLoggingClientTest.java"],
     deps = [":JavaLoggingClient"],
+)
+
+java_test(
+    name = "JavaLoggingClientLibraryShutdownTest",
+    srcs = ["JavaLoggingClientLibraryShutdownTest.java"],
+    deps = [":JavaLoggingClientLibrary"],
 )
