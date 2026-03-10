@@ -20,6 +20,12 @@ go_binary(
 
 go_test(
     name = "module1_test",
-    srcs = ["main_test.go"],
-    deps = ["@com_github_stretchr_testify//assert"],
+    srcs = [
+        "main_test.go",
+        "sunrise_test.go",
+    ],
+    deps = [
+        "@com_github_nathan_osman_go_sunrise//:go-sunrise",
+        "@com_github_stretchr_testify//assert",
+    ],
 )

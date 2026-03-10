@@ -148,3 +148,19 @@ py_test(
         "@pip//testcontainers",
     ],
 )
+
+py_test(
+    name = "cow_test",
+    size = "small",
+    # keep
+    srcs = [
+        "cow_test.py",
+        ":__test__",
+    ],
+    imports = [".."],
+    main = ":__test__.py",
+    deps = [
+        ":__test__",
+        ":hello_world_lib",
+    ],
+)

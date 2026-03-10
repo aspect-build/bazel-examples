@@ -33,3 +33,9 @@ java_test(
     srcs = ["JavaLoggingClientTest.java"],
     deps = [":JavaLoggingClient"],
 )
+
+java_test(
+    name = "JavaLoggingClientLibraryShutdownTest",
+    srcs = ["JavaLoggingClientLibraryShutdownTest.java"],
+    deps = [":JavaLoggingClientLibrary"],
+)
