@@ -11,11 +11,17 @@ ecosystem.
 
 # keep-sorted start
 bazel_dep(name = "aspect_rules_py", version = "1.3.1")
-bazel_dep(name = "rules_mypy", version = "0.40.0")
+bazel_dep(name = "rules_mypy")
 bazel_dep(name = "rules_python", version = "0.40.0")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "0.40.0")
 bazel_dep(name = "rules_uv", version = "0.25.0")
 # keep-sorted end
+
+git_override(
+    module_name = "rules_mypy",
+    commit = "963150be769fddc203f16d7799596b808b5bdf0b",
+    remote = "https://github.com/bazel-contrib/rules_mypy.git",
+)
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 

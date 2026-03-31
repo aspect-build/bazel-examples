@@ -1,3 +1,5 @@
+load("@aspect_rules_py//py:defs.bzl", "py_library")
+
 package(default_visibility = [
     "//py_mypy/cli:__pkg__",
 ])
