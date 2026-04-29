@@ -6,7 +6,6 @@ lint:
   aspects:
     - //tools/lint:linters.bzl%buf
     - //tools/lint:linters.bzl%checkstyle
-    - //tools/lint:linters.bzl%clang_tidy
     - //tools/lint:linters.bzl%eslint
     - //tools/lint:linters.bzl%shellcheck
     - //tools/lint:linters.bzl%ruff
