@@ -3,7 +3,7 @@ Go
 See https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md
 """
 
-bazel_dep(name = "rules_go", version = "0.56.1")
+bazel_dep(name = "rules_go", version = "0.60.0")
 
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(

@@ -38,7 +38,9 @@ class CacheControllerTest < Minitest::Test
   def setup
     # FIXME: should load the memcached image layers from the tools/containers.MODULE.bazel file
     # without any giant input files to the test action
-    @container = Testcontainers::DockerContainer.new("memcached:alpine").with_exposed_port(11211)
+    @container = Testcontainers::DockerContainer.new("memcached:alpine")
+      .with_exposed_port(11211)
+      .with_wait_for(:tcp_port, 11211)
     @container.start
 
     # Get the mapped port and configure dalli client directly

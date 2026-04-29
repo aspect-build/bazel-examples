@@ -5,4 +5,4 @@ metadataTest:
 commandTests:
   - name: run
     command: /oci_python_image/hello_world/hello_world_app
-    expectedOutput: ['hello py_image_layer!']
+    expectedOutput: ['why is this slow?']

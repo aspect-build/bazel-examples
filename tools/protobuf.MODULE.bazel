@@ -4,12 +4,21 @@ https://github.com/aspect-build/toolchains_protoc
 """
 
 # keep-sorted start
-bazel_dep(name = "grpc-java", version = "1.75.0")
+bazel_dep(name = "grpc-java", version = "1.78.0.bcr.1")
+bazel_dep(name = "protobuf", version = "33.0")
 bazel_dep(name = "protovalidate", version = "1.0.0")
 bazel_dep(name = "rules_buf", version = "0.5.2")
 bazel_dep(name = "rules_proto", version = "7.1.0")
-bazel_dep(name = "toolchains_protoc", version = "0.3.6")
+bazel_dep(name = "toolchains_protoc", version = "0.6.1")
 # keep-sorted end
+
+# Pin protobuf to match the v33.0 protoc binary available in toolchains_protoc 0.6.1.
+# Transitive deps (protovalidate, grpc-java) request newer protobuf; without this
+# pin, MVS selects 33.4 and the protoc authenticity check fails.
+single_version_override(
+    module_name = "protobuf",
+    version = "33.0",
+)
 
 buf = use_extension("@rules_buf//buf:extensions.bzl", "buf")
 buf.toolchains(version = "v1.34.0")  #see https://github.com/bufbuild/buf/releases
@@ -32,7 +41,7 @@ buf_dependencies(
 protoc = use_extension("@toolchains_protoc//protoc:extensions.bzl", "protoc")
 protoc.toolchain(
     google_protobuf = "com_google_protobuf",
-    version = "v28.2",
+    version = "v33.0",
 )
 use_repo(protoc, "com_google_protobuf", "toolchains_protoc_hub")
 

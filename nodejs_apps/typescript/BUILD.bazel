@@ -9,7 +9,14 @@ ts_project(
     name = "tsc",
     srcs = ["src/main.ts"],
     declaration = True,  # keep
-    tsconfig = {},  # keep
+    tsconfig = {
+        "compilerOptions": {
+            "module": "node16",
+            "moduleResolution": "node16",
+            "noImplicitAny": False,
+            "types": ["node"],
+        },
+    },  # keep
     deps = [
         ":node_modules/@bazel-examples/napi",
         ":node_modules/@bazel-examples/one",

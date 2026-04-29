@@ -21,6 +21,11 @@ py_library(
 py_binary(
     name = "hello_world_app",
     srcs = ["__main__.py"],
+    # Bazel 9: @bazel_tools//tools/bash/runfiles is now an alias to rules_shell
+    # using root_symlinks. aspect_rules_py uses ctx.files._runfiles_lib which
+    # returns empty for sh_library targets. Adding as data ensures root_symlinks
+    # (bazel_tools/tools/bash/runfiles/runfiles.bash) are merged into runfiles.
+    data = ["@bazel_tools//tools/bash/runfiles"],
     imports = [".."],
     main = "__main__.py",
     visibility = ["//oci_python_image:__subpackages__"],
@@ -37,6 +42,12 @@ py_binary(
 py_image_layer(
     name = "layers",
     binary = ":hello_world_app",
+    # Transition binary to the target Linux platform so the image contains
+    # Linux binaries rather than the macOS host binaries.
+    platform = select({
+        "@platforms//cpu:arm64": ":aarch64_linux",
+        "@platforms//cpu:x86_64": ":x86_64_linux",
+    }),
 )
 
 oci_image(

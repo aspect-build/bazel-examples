@@ -70,6 +70,7 @@ ts_project(
     tsconfig = "//npm_packages:tsconfig",
     visibility = ["//visibility:public"],
     deps = [
+        "//:node_modules/@types/node",
         "//npm_packages/napi:node_modules/@types/node",
     ],
 )
