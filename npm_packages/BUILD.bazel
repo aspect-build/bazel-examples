@@ -18,6 +18,7 @@ ts_config(
     visibility = ["//visibility:public"],
     deps = [
         "//:node_modules/@tsconfig/strictest",  #keep
+        "//:node_modules/@types/node",
     ],
 )
 
