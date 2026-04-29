@@ -10,6 +10,7 @@
     "@tsconfig/strictest": "2.0.5",
     "@types/node": "catalog:",
     "eslint": "^9",
+    "globals": "^17.5.0",
     "prettier": "^2.8.7",
     "tsconfig-to-swcconfig": "2.4.0",
     "typescript": "catalog:",

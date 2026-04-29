@@ -84,7 +84,6 @@ def OCIImageContainer(image):
 
     # Probe the cache for the first layer that is not in the cache
     for i in range(1, len(layers)):
-        previous_layer = layers[i - 1]
         layer = layers[i]
 
         probe = tar(
