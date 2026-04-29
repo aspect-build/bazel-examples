@@ -15,9 +15,13 @@ bazel_dep(name = "toolchains_llvm", version = "1.7.0")
 llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
 llvm.toolchain(
     llvm_versions = {
-        "": "18.1.8",
-        "darwin-aarch64": "18.1.8",
-        "darwin-x86_64": "18.1.8",
+        # LLVM 18.1.8 only ships an ubuntu-18.04 Linux build that requires
+        # libtinfo.so.5, which is missing on Aspect Workflows remote exec
+        # workers. LLVM 17.0.6 has an ubuntu-22.04 build that links against
+        # libtinfo.so.6 instead.
+        "": "17.0.6",
+        "darwin-aarch64": "17.0.6",
+        "darwin-x86_64": "17.0.6",
     },
 )
 use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
