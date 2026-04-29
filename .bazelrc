@@ -15,11 +15,14 @@ common --workspace_status_command=githooks/check-config.sh
 common:ci --workspace_status_command=
 
 # 'bazel build --config=lint' will produce the linter reports.
+# `aspect lint` (via aspect_rules_lint's lint.axl task) reuses this config.
 build:lint --aspects=//tools/lint:linters.bzl%buf
+build:lint --aspects=//tools/lint:linters.bzl%checkstyle
 build:lint --aspects=//tools/lint:linters.bzl%clippy
 build:lint --aspects=//tools/lint:linters.bzl%eslint
-build:lint --aspects=//tools/lint:linters.bzl%shellcheck
+build:lint --aspects=//tools/lint:linters.bzl%pmd
 build:lint --aspects=//tools/lint:linters.bzl%ruff
+build:lint --aspects=//tools/lint:linters.bzl%shellcheck
 # Request linters produce human-readable output rather than machine-readable
 build:lint --output_groups=+rules_lint_human
 

@@ -5,15 +5,17 @@ See https://docs.aspect.build/cli/migration for details.
 """
 
 def config(ctx: ConfigContext):
-    # Lint aspects — moved here from `.aspect/cli/config.yaml` so the same
-    # `aspect lint` invocation runs the same set locally and on CI.
+    # Lint aspects — required by the built-in `aspect lint` task. Same set
+    # locally as on CI; CI invocations don't need to repeat the --aspect flags.
     ctx.tasks["lint"].args.aspects = [
         "//tools/lint:linters.bzl%buf",
         "//tools/lint:linters.bzl%checkstyle",
+        "//tools/lint:linters.bzl%clippy",
         "//tools/lint:linters.bzl%eslint",
-        "//tools/lint:linters.bzl%shellcheck",
-        "//tools/lint:linters.bzl%ruff",
+        "//tools/lint:linters.bzl%keep_sorted",
         "//tools/lint:linters.bzl%pmd",
+        "//tools/lint:linters.bzl%ruff",
+        "//tools/lint:linters.bzl%shellcheck",
     ]
 
     # Gazelle target — repo still uses the legacy `//:gazelle.check` location.
