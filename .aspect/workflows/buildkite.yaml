@@ -90,7 +90,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  command: aspect test --task-key=test_0 //... -//angular/... -//speller/...
+  command: aspect test --task-key=test_0 -- //... -//angular/... -//speller/...
   artifact_paths:
     - /workflows/artifacts/**/*
     - /workflows/testlogs/**/*
