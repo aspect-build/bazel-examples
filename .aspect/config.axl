@@ -1,0 +1,29 @@
+"""Aspect CLI task configuration.
+
+Replaces the legacy `.aspect/workflows/config.yaml` Rosetta task list.
+See https://docs.aspect.build/cli/migration for details.
+"""
+
+def config(ctx: ConfigContext):
+    # Lint aspects — moved here from `.aspect/cli/config.yaml` so the same
+    # `aspect lint` invocation runs the same set locally and on CI.
+    ctx.tasks["lint"].args.aspects = [
+        "//tools/lint:linters.bzl%buf",
+        "//tools/lint:linters.bzl%checkstyle",
+        "//tools/lint:linters.bzl%eslint",
+        "//tools/lint:linters.bzl%shellcheck",
+        "//tools/lint:linters.bzl%ruff",
+        "//tools/lint:linters.bzl%pmd",
+    ]
+
+    # Gazelle target — repo still uses the legacy `//:gazelle.check` location.
+    # New convention is `//tools/gazelle:gazelle` via `aspect_gazelle_prebuilt`,
+    # which we can migrate to in a follow-up.
+    ctx.tasks["gazelle"].args.gazelle_target = "//:gazelle"
+
+    # Test task default flags — apply to every `aspect test` invocation.
+    # Per-task variants (test_0 vs test_1) layer additional flags via CLI.
+    ctx.tasks["test"].args.bazel_flags = [
+        "--config=rbe",
+        "--test_tag_filters=-skip-on-aspect-workflows",
+    ]
