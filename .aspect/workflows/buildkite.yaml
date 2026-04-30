@@ -14,17 +14,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  env:
-    ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-  command: |
-    echo "--- :aspect-build: Workflows environment"
-    /etc/aspect/workflows/bin/configure_workflows_env
-    echo "--- :stethoscope: Agent health check"
-    /etc/aspect/workflows/bin/agent_health_check
-    echo "~~~ :broom: Prepare archive directories"
-    rm -rf /workflows/artifacts
-    echo "--- :deer: Gazelle"
-    rosetta run gazelle
+  command: aspect gazelle --check
   artifact_paths:
     - /workflows/artifacts/**/*
 
@@ -43,17 +33,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  env:
-    ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-  command: |
-    echo "--- :aspect-build: Workflows environment"
-    /etc/aspect/workflows/bin/configure_workflows_env
-    echo "--- :stethoscope: Agent health check"
-    /etc/aspect/workflows/bin/agent_health_check
-    echo "~~~ :broom: Prepare archive directories"
-    rm -rf /workflows/artifacts
-    echo "--- :hammer_and_wrench: Buildifier"
-    rosetta run buildifier
+  command: bazel run //:buildifier.check
   artifact_paths:
     - /workflows/artifacts/**/*
 
@@ -72,17 +52,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  env:
-    ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-  command: |
-    echo "--- :aspect-build: Workflows environment"
-    /etc/aspect/workflows/bin/configure_workflows_env
-    echo "--- :stethoscope: Agent health check"
-    /etc/aspect/workflows/bin/agent_health_check
-    echo "~~~ :broom: Prepare archive directories"
-    rm -rf /workflows/artifacts
-    echo "--- :broom: Lint"
-    rosetta run lint
+  command: aspect lint //...
   artifact_paths:
     - /workflows/artifacts/**/*
 
@@ -101,17 +71,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  env:
-    ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-  command: |
-    echo "--- :aspect-build: Workflows environment"
-    /etc/aspect/workflows/bin/configure_workflows_env
-    echo "--- :stethoscope: Agent health check"
-    /etc/aspect/workflows/bin/agent_health_check
-    echo "~~~ :broom: Prepare archive directories"
-    rm -rf /workflows/artifacts
-    echo "--- :hammer_and_wrench: Format"
-    rosetta run format
+  command: aspect format
   artifact_paths:
     - /workflows/artifacts/**/*
 
@@ -130,17 +90,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  env:
-    ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-  command: |
-    echo "--- :aspect-build: Workflows environment"
-    /etc/aspect/workflows/bin/configure_workflows_env
-    echo "--- :stethoscope: Agent health check"
-    /etc/aspect/workflows/bin/agent_health_check
-    echo "~~~ :broom: Prepare archive directories"
-    rm -rf /workflows/artifacts /workflows/testlogs
-    echo "--- :bazel: Test"
-    rosetta run test_0
+  command: aspect test --task-key=test_0 -- //... -//angular/... -//speller/...
   artifact_paths:
     - /workflows/artifacts/**/*
     - /workflows/testlogs/**/*
@@ -160,17 +110,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  env:
-    ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-  command: |
-    echo "--- :aspect-build: Workflows environment"
-    /etc/aspect/workflows/bin/configure_workflows_env
-    echo "--- :stethoscope: Agent health check"
-    /etc/aspect/workflows/bin/agent_health_check
-    echo "~~~ :broom: Prepare archive directories"
-    rm -rf /workflows/artifacts /workflows/testlogs
-    echo "--- :bazel: Test (1)"
-    rosetta run test_1
+  command: aspect test --task-key=test_1 //angular/...
   artifact_paths:
     - /workflows/artifacts/**/*
     - /workflows/testlogs/**/*
@@ -191,19 +131,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  env:
-    ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-  command: |
-    echo "--- :aspect-build: Workflows environment"
-    /etc/aspect/workflows/bin/configure_workflows_env
-    echo "--- :stethoscope: Agent health check"
-    /etc/aspect/workflows/bin/agent_health_check
-    echo "~~~ :broom: Prepare archive directories"
-    rm -rf /workflows/artifacts
-    echo "--- :bazel: Delivery manifest"
-    rosetta run delivery_manifest
-    echo "--- :bazel: Delivery"
-    rosetta run delivery
+  command: aspect delivery
   depends_on:
     - test_0
     - test_1

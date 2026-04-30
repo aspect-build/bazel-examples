@@ -24,9 +24,6 @@ public class JavaLoggingClientLibrary {
             .build());
   }
 
-  // this is confusing and probably a bug
-  protected void finalize(int a) {}
-
   /** Construct client for accessing the Logging server using the existing channel. */
   JavaLoggingClientLibrary(ManagedChannel channel) {
     this.channel = channel;

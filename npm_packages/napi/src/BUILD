@@ -69,7 +69,5 @@ ts_project(
     declaration = True,
     tsconfig = "//npm_packages:tsconfig",
     visibility = ["//visibility:public"],
-    deps = [
-        "//npm_packages/napi:node_modules/@types/node",
-    ],
+    deps = ["//npm_packages/napi:node_modules/@types/node"],
 )
