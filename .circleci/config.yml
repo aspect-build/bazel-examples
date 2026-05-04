@@ -57,7 +57,7 @@ jobs:
           command: rm -rf /workflows/artifacts
       - run:
           name: Buildifier
-          command: rosetta run buildifier
+          command: bazel run //:buildifier.check
       - store_artifacts:
           path: /workflows/artifacts
 
@@ -83,7 +83,7 @@ jobs:
           command: rm -rf /workflows/artifacts
       - run:
           name: Format
-          command: rosetta run format
+          command: aspect format
       - store_artifacts:
           path: /workflows/artifacts
   
@@ -109,7 +109,7 @@ jobs:
           command: rm -rf /workflows/artifacts
       - run:
           name: Gazelle
-          command: rosetta run gazelle
+          command: aspect gazelle --check
       - store_artifacts:
           path: /workflows/artifacts
   
@@ -135,7 +135,7 @@ jobs:
           command: rm -rf /workflows/artifacts
       - run:
           name: Lint
-          command: rosetta run lint
+          command: aspect lint //...
       - store_artifacts:
           path: /workflows/artifacts
 
@@ -161,7 +161,7 @@ jobs:
           command: rm -rf /workflows/artifacts /workflows/testlogs
       - run:
           name: Test
-          command: rosetta run test_0
+          command: aspect test --task-key=test_0 -- //... -//angular/... -//speller/...
       - store_test_results:
           path: /workflows/testlogs
       - store_artifacts:
@@ -190,7 +190,7 @@ jobs:
           name: Prepare archive directories
           command: rm -rf /workflows/artifacts /workflows/testlogs
       - run:
-          command: rosetta run test_1
+          command: aspect test --task-key=test_1 //angular/...
           name: Test (1)
       - store_test_results:
           path: /workflows/testlogs
@@ -220,11 +220,8 @@ jobs:
           name: Prepare archive directories
           command: rm -rf /workflows/artifacts /workflows/testlogs
       - run:
-          name: Delivery manifest
-          command: rosetta run delivery_manifest
-      - run:
           name: Delivery
-          command: rosetta run delivery
+          command: aspect delivery
       - store_artifacts:
           path: /workflows/artifacts
 

@@ -32,7 +32,7 @@ jobs:
             - name: Prepare archive directories
               run: rm -rf /workflows/artifacts
             - name: Gazelle
-              run: rosetta run gazelle
+              run: aspect gazelle --check
             - name: Upload artifacts
               if: always()
               uses: actions/upload-artifact@v4
@@ -55,7 +55,7 @@ jobs:
             - name: Prepare archive directories
               run: rm -rf /workflows/artifacts
             - name: Buildifier
-              run: rosetta run buildifier
+              run: bazel run //:buildifier.check
             - name: Upload artifacts
               if: always()
               uses: actions/upload-artifact@v4
@@ -82,7 +82,7 @@ jobs:
             - name: Prepare archive directories
               run: rm -rf /workflows/artifacts
             - name: Lint
-              run: rosetta run lint
+              run: aspect lint //...
             - name: Upload artifacts
               if: always()
               uses: actions/upload-artifact@v4
@@ -107,7 +107,7 @@ jobs:
             - name: Prepare archive directories
               run: rm -rf /workflows/artifacts
             - name: Format
-              run: rosetta run format
+              run: aspect format
             - name: Upload artifacts
               if: always()
               uses: actions/upload-artifact@v4
@@ -130,7 +130,7 @@ jobs:
             - name: Prepare archive directories
               run: rm -rf /workflows/artifacts /workflows/testlogs
             - name: Test
-              run: rosetta run test_0
+              run: aspect test --task-key=test_0 -- //... -//angular/... -//speller/...
             - name: Upload artifacts
               if: always()
               uses: actions/upload-artifact@v4
@@ -155,7 +155,7 @@ jobs:
             - name: Prepare archive directories
               run: rm -rf /workflows/artifacts /workflows/testlogs
             - name: Test
-              run: rosetta run test_1
+              run: aspect test --task-key=test_1 //angular/...
             - name: Upload artifacts
               if: always()
               uses: actions/upload-artifact@v4
@@ -183,10 +183,8 @@ jobs:
               run: RUNNER_TRACKING_ID="" && /etc/aspect/workflows/bin/agent_health_check
             - name: Prepare archive directories
               run: rm -rf /workflows/artifacts
-            - name: Delivery manifest
-              run: rosetta run delivery_manifest
             - name: Delivery
-              run: rosetta run delivery
+              run: aspect delivery
             - name: Upload artifacts
               if: always()
               uses: actions/upload-artifact@v4
