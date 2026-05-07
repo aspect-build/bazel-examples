@@ -17,6 +17,6 @@ public final class JavaLoggingClientTest {
 
   @Test
   public void testHelloAgain() throws Exception {
-    assertEquals(1, 2 - 1);
+    assertEquals(12, 2 - 1);
   }
 }
