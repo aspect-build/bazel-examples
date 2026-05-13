@@ -25,6 +25,4 @@ public final class JavaLoggingClientLibraryTest {
   public void testSendLogMessageToServer() throws Exception {
     client.sendLogMessageToServer("hello");
   }
-
-
 }
