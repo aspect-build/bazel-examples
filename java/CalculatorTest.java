@@ -32,7 +32,6 @@ public final class CalculatorTest {
     assertEquals(-2, calculator.subtract(0, 2));
   }
 
-
   @Test
   public void testDivide() {
     assertEquals(2.0, calculator.divide(6, 3), 0.001);
