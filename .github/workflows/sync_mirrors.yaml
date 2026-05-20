@@ -1,10 +1,5 @@
 # We maintain mirrors of this repo for demonstrating Aspect Workflows on other CI platforms.
-# This is documented in /.aspect/workflows/README.md.
-# The primary repo is tested on Buildkite because it's the best
-# https://buildkite.com/aspect/bazel-examples
-# When commits land there, we sync them to the others:
-# CircleCI: https://buildkite.com/aspect/bazel-examples-cci
-# GitHub Actions: https://buildkite.com/aspect/bazel-examples-gha
+# When commits land there, we sync them to mirrors in this workflow.
 name: Sync Mirrors
 on:
   workflow_dispatch:
@@ -12,38 +7,7 @@ on:
     branches: ['main']
     tags: ['*']
 jobs:
-  push-cci:
-    if: github.repository == 'aspect-build/bazel-examples'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get a full history so all commits are present
-        uses: actions/checkout@v4
-        with:
-            path: fresh-clone
-            fetch-depth: 0
-      - working-directory: fresh-clone
-        run: |
-            eval $(ssh-agent -s)
-            ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_CCI_DEPLOY_TOKEN }}'
-            git push git@github.com:aspect-build/bazel-examples-cci.git HEAD:main
-            git push --tags git@github.com:aspect-build/bazel-examples-cci.git
-  push-gha:
-    if: github.repository == 'aspect-build/bazel-examples'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get a full history so all commits are present
-        uses: actions/checkout@v4
-        with:
-            path: fresh-clone
-            fetch-depth: 0                
-      - working-directory: fresh-clone
-        run: |
-            eval $(ssh-agent -s)
-            ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GHA_DEPLOY_TOKEN }}'
-            git push git@github.com:aspect-build/bazel-examples-gha.git HEAD:main
-            git push --tags git@github.com:aspect-build/bazel-examples-gha.git
-  push-gl:
-    if: github.repository == 'aspect-build/bazel-examples'
+  push-gitlab:
     runs-on: ubuntu-latest
     steps:
       - name: Get a full history so all commits are present
@@ -56,6 +20,6 @@ jobs:
             mkdir -p ~/.ssh
             ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
             eval $(ssh-agent -s)
-            ssh-add - <<< '${{ secrets.BAZEL_EXAMPLES_GL_DEPLOY_TOKEN }}'
-            git push git@gitlab.com:aspect-build/bazel-examples-gl.git HEAD:main
-            git push --tags git@gitlab.com:aspect-build/bazel-examples-gl.git
+            ssh-add - <<< '${{ secrets.GITLAB_BAZEL_EXAMPLES_DEPLOY_KEY }}'
+            git push git@gitlab.com:aspect-build/bazel-examples.git HEAD:main
+            git push --tags git@gitlab.com:aspect-build/bazel-examples.git
