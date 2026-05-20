@@ -1,6 +1,26 @@
 """Aspect CLI configuration."""
 
+load("@aspect//traits.axl", "BazelTrait", "LintTrait", "TipsTrait")
+
 def config(ctx: ConfigContext):
+    is_ci = bool(ctx.std.env.var("CI"))
+
+    if is_ci:
+        ctx.traits[BazelTrait].extra_flags.extend([
+            "--config=workflows-ci",
+            "--config=ci",
+            "--config=rbe",
+        ])
+
+    ctx.tasks["test"].args.bazel_flags = [
+        "--test_tag_filters=-no-aw",
+    ]
+
+    # Gazelle target — repo still uses the legacy `//:gazelle.check` location.
+    # New convention is `//tools/gazelle:gazelle` via `aspect_gazelle_prebuilt`,
+    # which we can migrate to in a follow-up.
+    ctx.tasks["gazelle"].args.gazelle_target = "//:gazelle"
+
     # Lint aspects — required by the built-in `aspect lint` task. Same set
     # locally as on CI; CI invocations don't need to repeat the --aspect flags.
     ctx.tasks["lint"].args.aspects = [
@@ -14,17 +34,8 @@ def config(ctx: ConfigContext):
         "//tools/lint:linters.bzl%shellcheck",
     ]
 
-    # Gazelle target — repo still uses the legacy `//:gazelle.check` location.
-    # New convention is `//tools/gazelle:gazelle` via `aspect_gazelle_prebuilt`,
-    # which we can migrate to in a follow-up.
-    ctx.tasks["gazelle"].args.gazelle_target = "//:gazelle"
-
-    # Test task default flags — apply to every `aspect test` invocation.
-    ctx.tasks["test"].args.bazel_flags = [
-        "--config=rbe",
-        "--test_tag_filters=-no-aw",
-    ]
-
     # Delivery
     ctx.tasks["delivery"].args.query = "kind(\"oci_push rule\", //...)"
-    ctx.tasks["delivery"].args.bazel_flags = ["--config=release"]
+    ctx.tasks["delivery"].args.bazel_flags = [
+        "--config=release",
+    ]
