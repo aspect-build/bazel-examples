@@ -27,5 +27,5 @@ def config(ctx: ConfigContext):
     # Per-task variants (test_0 vs test_1) layer additional flags via CLI.
     ctx.tasks["test"].args.bazel_flags = [
         "--config=rbe",
-        "--test_tag_filters=-skip-on-aspect-workflows",
+        "--test_tag_filters=-no-aw",
     ]

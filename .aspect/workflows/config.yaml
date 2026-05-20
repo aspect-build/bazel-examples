@@ -13,7 +13,7 @@ tasks:
       bazel:
         flags:
           - --config=rbe
-          - --test_tag_filters=-skip-on-aspect-workflows
+          - --test_tag_filters=-no-aw
   - test:
       id: test_1
       targets:
@@ -21,7 +21,7 @@ tasks:
       bazel:
         flags:
           - --config=rbe
-          - --test_tag_filters=-skip-on-aspect-workflows
+          - --test_tag_filters=-no-aw
   - delivery:
       auto_deliver: true
       stamp_flags:

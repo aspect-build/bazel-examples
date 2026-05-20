@@ -26,6 +26,9 @@ ng_test(
     srcs = [":srcs"],
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
-    tags = ["no-remote-exec"],
+    tags = [
+        "no-macos",  # Broken on GitHub Actions macOS runners
+        "no-remote-exec",
+    ],
     deps = ["//angular/projects/my-lib"],
 )

@@ -35,6 +35,7 @@ rb_test(
     srcs = ["test/controllers/cache_controller_test.rb"],
     main = "test/controllers/cache_controller_test.rb",
     tags = [
+        "no-macos",  # Broken on GitHub Actions macOS runners
         "no-remote-exec",
         "requires-network",  # Needs memcached connection
     ],
