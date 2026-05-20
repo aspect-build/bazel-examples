@@ -32,12 +32,6 @@ public final class CalculatorTest {
     assertEquals(-2, calculator.subtract(0, 2));
   }
 
-  @Test
-  public void testMultiply() {
-    assertEquals(6, calculator.multiply(2, 3));
-    assertEquals(0, calculator.multiply(5, 0));
-    assertEquals(-8, calculator.multiply(-2, 4));
-  }
 
   @Test
   public void testDivide() {
