@@ -6,137 +6,79 @@ workflow:
 stages:
     - Aspect Workflows
 
-test_0:
-  script:
-    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
-    - /etc/aspect/workflows/bin/configure_workflows_env
-    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
-    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
-    - /etc/aspect/workflows/bin/agent_health_check
-    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
-    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
-    - rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts && rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs
-    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
-    - /etc/aspect/workflows/bin/gitlab_section_start "test" "Test"
-    - aspect test --task-key=test_0 -- //... -//angular/... -//speller/...
-    - /etc/aspect/workflows/bin/gitlab_section_end "test"
+test:
   tags:
     - aspect-workflows
     - aspect-default
-  artifacts:
-    paths:
-      - .workflows/testlogs/**/*
-      - .workflows/artifacts/**/*
-    when: always
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  script:
+    - aspect test --task-key=test-gl -- //...
 
-test_1:
-  script:
-    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
-    - /etc/aspect/workflows/bin/configure_workflows_env
-    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
-    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
-    - /etc/aspect/workflows/bin/agent_health_check
-    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
-    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
-    - rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts && rm -rf /workflows/testlogs .workflows/testlogs && mkdir -p /workflows/testlogs .workflows && ln -s /workflows/testlogs .workflows/testlogs
-    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
-    - /etc/aspect/workflows/bin/gitlab_section_start "test" "Test"
-    - aspect test --task-key=test_1 //angular/...
-    - /etc/aspect/workflows/bin/gitlab_section_end "test"
+buildifier:
   tags:
     - aspect-workflows
     - aspect-default
-  artifacts:
-    paths:
-      - .workflows/testlogs/**/*
-      - .workflows/artifacts/**/*
-    when: always
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  script:
+    - aspect format --task-key=buildifier-gl --formatter-target=//tools/format:format-starlark
 
 format:
-  script:
-    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
-    - /etc/aspect/workflows/bin/configure_workflows_env
-    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
-    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
-    - /etc/aspect/workflows/bin/agent_health_check
-    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
-    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
-    - rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
-    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
-    - /etc/aspect/workflows/bin/gitlab_section_start "format" "Format"
-    - aspect format
-    - /etc/aspect/workflows/bin/gitlab_section_end "format"
   tags:
     - aspect-workflows
     - aspect-default
-  artifacts:
-    paths:
-      - .workflows/artifacts/**/*
-    when: always
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  script:
+    - aspect format --task-key=format-gl
+
+gazelle:
+  tags:
+    - aspect-workflows
+    - aspect-default
+  stage: Aspect Workflows
+  rules:
+      - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  script:
+    - aspect gazelle --task-key=gazelle-gl
 
 lint:
-  script:
-    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
-    - /etc/aspect/workflows/bin/configure_workflows_env
-    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
-    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
-    - /etc/aspect/workflows/bin/agent_health_check
-    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
-    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
-    - rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
-    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
-    - /etc/aspect/workflows/bin/gitlab_section_start "lint" "Lint"
-    - aspect lint //...
-    - /etc/aspect/workflows/bin/gitlab_section_end "lint"
   tags:
     - aspect-workflows
     - aspect-default
-  artifacts:
-    paths:
-      - .workflows/artifacts/**/*
-    when: always
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  script:
+    - aspect lint --task-key=lint-gl -- //...
 
 delivery:
   variables:
     GIT_DEPTH: 0
     GIT_FETCH_EXTRA_FLAGS: --tags
-  script:
-    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
-    - /etc/aspect/workflows/bin/configure_workflows_env
-    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
-    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
-    - /etc/aspect/workflows/bin/agent_health_check
-    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
-    - /etc/aspect/workflows/bin/gitlab_section_start "prepare_archive_directories" "Prepare archive directories"
-    - rm -rf /workflows/artifacts .workflows/artifacts && mkdir -p /workflows/artifacts .workflows && ln -s /workflows/artifacts .workflows/artifacts
-    - /etc/aspect/workflows/bin/gitlab_section_end "prepare_archive_directories"
-    - /etc/aspect/workflows/bin/gitlab_section_start "delivery" "Delivery"
-    - aspect delivery
-    - /etc/aspect/workflows/bin/gitlab_section_end "delivery"
   tags:
     - aspect-workflows
     - aspect-default
-  artifacts:
-    paths:
-      - .workflows/artifacts/**/*
-    when: always
   stage: Aspect Workflows
+  needs:
+    - test
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  script:
+    - aspect delivery --task-key=delivery-gl
 
+# TODO: migrate warming to AXL warming task once available
 warming:
+  tags:
+    - aspect-workflows
+    - aspect-default
+  stage: Aspect Workflows
+  rules:
+      - if: '$CI_PIPELINE_SOURCE == "schedule"'
   script:
     - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
     - /etc/aspect/workflows/bin/configure_workflows_env
@@ -150,9 +92,3 @@ warming:
     - /etc/aspect/workflows/bin/gitlab_section_start "archive_warming_tars" "Archive warming tars"
     - /etc/aspect/workflows/bin/warming_archive
     - /etc/aspect/workflows/bin/gitlab_section_end "archive_warming_tars"
-  tags:
-    - aspect-workflows
-    - aspect-default
-  stage: Aspect Workflows
-  rules:
-      - if: '$CI_PIPELINE_SOURCE == "schedule"'

@@ -3,20 +3,14 @@ version: 2.1
 workflows:
   aspect-workflows:
     jobs:
+      - test
       - buildifier
       - format
       - gazelle
       - lint
-      - test_0
-      - test_1
       - delivery:
-          filters:
-            branches:
-              only:
-                - /^main$/
           requires:
-            - test_0
-            - test_1
+            - test
     when:
       not:
         equal:
@@ -35,196 +29,67 @@ workflows:
           - << pipeline.schedule.name >>
 
 jobs:
-  buildifier:
-    environment:
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
-      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
-      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
+  test:
     machine: true
     resource_class: aspect-build/aspect-default
     working_directory: /mnt/ephemeral/workdir
     steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
-      - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
-      - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts
-      - run:
-          name: Buildifier
-          command: bazel run //:buildifier.check
-      - store_artifacts:
-          path: /workflows/artifacts
-
-  format:
-    environment:
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
-      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
-      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-    machine: true
-    resource_class: aspect-build/aspect-default
-    working_directory: /mnt/ephemeral/workdir
-    steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
-      - checkout
-      - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
-      - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts
-      - run:
-          name: Format
-          command: aspect format
-      - store_artifacts:
-          path: /workflows/artifacts
-  
-  gazelle:
-    environment:
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
-      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
-      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-    machine: true
-    resource_class: aspect-build/aspect-default
-    working_directory: /mnt/ephemeral/workdir
-    steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
-      - checkout
-      - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
-      - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts
-      - run:
-          name: Gazelle
-          command: aspect gazelle
-      - store_artifacts:
-          path: /workflows/artifacts
-  
-  lint:
-    environment:
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
-      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
-      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-    machine: true
-    resource_class: aspect-build/aspect-default
-    working_directory: /mnt/ephemeral/workdir
-    steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
-      - checkout
-      - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
-      - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts
-      - run:
-          name: Lint
-          command: aspect lint //...
-      - store_artifacts:
-          path: /workflows/artifacts
-
-  test_0:
-    environment:
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
-      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
-      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
-    machine: true
-    resource_class: aspect-build/aspect-default
-    working_directory: /mnt/ephemeral/workdir
-    steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
-      - checkout
-      - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
-      - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts /workflows/testlogs
       - run:
           name: Test
-          command: aspect test --task-key=test_0 -- //... -//angular/... -//speller/...
-      - store_test_results:
-          path: /workflows/testlogs
-      - store_artifacts:
-          path: /workflows/testlogs
-      - store_artifacts:
-          path: /workflows/artifacts
+          command: aspect test --task-key=test-cci -- //...
 
-  test_1:
-    environment:
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
-      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
-      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
+  buildifier:
     machine: true
     resource_class: aspect-build/aspect-default
     working_directory: /mnt/ephemeral/workdir
     steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
       - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
-      - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts /workflows/testlogs
-      - run:
-          command: aspect test --task-key=test_1 //angular/...
-          name: Test (1)
-      - store_test_results:
-          path: /workflows/testlogs
-      - store_artifacts:
-          path: /workflows/testlogs
-      - store_artifacts:
-          path: /workflows/artifacts
+          name: Buildifier
+          command: aspect format --task-key=buildifier-cci --formatter-target=//tools/format:format-starlark
 
+  format:
+    machine: true
+    resource_class: aspect-build/aspect-default
+    working_directory: /mnt/ephemeral/workdir
+    steps:
+      - checkout
+      - run:
+          name: Format
+          command: aspect format --task-key=format-cci
+
+  gazelle:
+    machine: true
+    resource_class: aspect-build/aspect-default
+    working_directory: /mnt/ephemeral/workdir
+    steps:
+      - checkout
+      - run:
+          name: Gazelle
+          command: aspect gazelle --task-key=gazelle-cci
+
+  lint:
+    machine: true
+    resource_class: aspect-build/aspect-default
+    working_directory: /mnt/ephemeral/workdir
+    steps:
+      - checkout
+      - run:
+          name: Lint
+          command: aspect lint  --task-key=lint-cci -- //...
+  
   delivery:
-    environment:
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
-      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
-      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
     machine: true
     resource_class: aspect-build/aspect-default
     working_directory: /mnt/ephemeral/workdir
     steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
-      - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
-      - run:
-          name: Prepare archive directories
-          command: rm -rf /workflows/artifacts /workflows/testlogs
       - run:
           name: Delivery
-          command: aspect delivery
-      - store_artifacts:
-          path: /workflows/artifacts
+          command: aspect delivery --task-key=delivery-cci
 
+  # TODO: migrate warming to AXL warming task once available
   warming:
     environment:
       ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
