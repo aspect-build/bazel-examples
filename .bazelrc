@@ -1,12 +1,9 @@
 # Import bazelrc presets
 import %workspace%/tools/java17.bazelrc
 import %workspace%/tools/preset.bazelrc
-# Aspect Workflows / RBE config (`--config=rbe`, etc.). Previously loaded
-# implicitly by `rosetta run` via `--bazelrc=.aspect/workflows/bazelrc`;
-# aspect-cli doesn't pass that flag, so import it here instead.
-import %workspace%/.aspect/workflows/bazelrc
 
 ### YOUR PROJECT SPECIFIC OPTIONS GO HERE ###
+
 # common --repo_env=RUBY_CONFIGURE_OPTS=--with-out-ext=psych
 common --modify_execution_info=GemInstall=+no-remote-exec,BundleInstall=+no-remote-exec
 
@@ -15,24 +12,25 @@ common --check_direct_dependencies=off
 
 # When running locally, warn about unconfigured git hooks.
 common --workspace_status_command=githooks/check-config.sh
+
 # But not on CI.
 common:ci --workspace_status_command=
 
 # 'bazel build --config=lint' will produce the linter reports.
 # `aspect lint` (via aspect_rules_lint's lint.axl task) reuses this config.
-build:lint --aspects=//tools/lint:linters.bzl%buf
-build:lint --aspects=//tools/lint:linters.bzl%checkstyle
-build:lint --aspects=//tools/lint:linters.bzl%clippy
-build:lint --aspects=//tools/lint:linters.bzl%eslint
-build:lint --aspects=//tools/lint:linters.bzl%pmd
-build:lint --aspects=//tools/lint:linters.bzl%ruff
-build:lint --aspects=//tools/lint:linters.bzl%shellcheck
+common:lint --aspects=//tools/lint:linters.bzl%buf
+common:lint --aspects=//tools/lint:linters.bzl%checkstyle
+common:lint --aspects=//tools/lint:linters.bzl%clippy
+common:lint --aspects=//tools/lint:linters.bzl%eslint
+common:lint --aspects=//tools/lint:linters.bzl%pmd
+common:lint --aspects=//tools/lint:linters.bzl%ruff
+common:lint --aspects=//tools/lint:linters.bzl%shellcheck
 # Request linters produce human-readable output rather than machine-readable
-build:lint --output_groups=+rules_lint_human
+common:lint --output_groups=+rules_lint_human
 
 # Required for isolated extension usages (needed for keep-sorted dependency)
 common --experimental_isolated_extension_usages
-build:lint --aspects=//tools/lint:linters.bzl%keep_sorted
+common:lint --aspects=//tools/lint:linters.bzl%keep_sorted
 
 # for speed, passes an argument `--skipLibCheck` to *every* spawn of tsc
 common --@aspect_rules_ts//ts:skipLibCheck=always
@@ -40,24 +38,47 @@ common --@aspect_rules_ts//ts:skipLibCheck=always
 # TODO(alex): change to SWC by default
 common --@aspect_rules_ts//ts:default_to_tsc_transpiler
 
-# To stamp release builds, run with
-# --config=release
-common:release --stamp --workspace_status_command=./tools/workspace_status.sh
+# To stamp release builds, run with --config=release
+common:release --stamp
+common:release --workspace_status_command=./tools/workspace_status.sh
 
 # Allow resolving protoc from a pre-built toolchain
 common --incompatible_enable_proto_toolchain_resolution
 
 # Don't depend on a JAVA_HOME pointing at a system JDK
 # see https://github.com/bazelbuild/rules_jvm_external/issues/445
-build --repo_env=JAVA_HOME=../bazel_tools/jdk
+common --repo_env=JAVA_HOME=../bazel_tools/jdk
 
 # In support of py_mypy/...
 
 # register mypy_aspect with Bazel
-build --aspects //tools/mypy:defs.bzl%mypy_aspect
+common --aspects //tools/mypy:defs.bzl%mypy_aspect
 
 # optionally, default enable the mypy checks
-build --output_groups=+mypy
+common --output_groups=+mypy
+
+# build without the bytes
+common:workflows-ci --remote_download_outputs=minimal
+common:workflows-ci --nobuild_runfile_links
+
+# let tests that require chrome know where it is installed
+common:workflows-ci --test_env=CHROME_BIN=/usr/bin/chromium
+
+# remote execution
+common:rbe --extra_execution_platforms=//tools/platforms:aspect_workflows_remote_exec
+common:rbe --host_platform=//tools/platforms:aspect_workflows_remote_exec
+common:rbe --remote_executor=unix:///mnt/ephemeral/buildbarn/.cache/bb_clientd/grpc
+common:rbe --genrule_strategy=remote,local
+common:rbe --jobs=32
+common:rbe --remote_timeout=3600
+
+# from https://github.com/bazelbuild/bazel/issues/4685#issuecomment-1366208392
+common:rbe --strategy=CoverageReport=local
+common:rbe --experimental_split_coverage_postprocessing
+common:rbe --experimental_fetch_all_coverage_outputs
+common:rbe --remote_download_outputs=all
+# from https://github.com/bazelbuild/bazel/issues/4685#issuecomment-1599671891
+common:rbe --experimental_remote_download_regex=.*/(coverage.dat$|_coverage/_coverage_report.dat$)
 
 # Load any settings & overrides specific to the current user.
 # This file should appear in `.gitignore` so that settings are not shared with team members. This
