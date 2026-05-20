@@ -1,0 +1,72 @@
+name: CI - Aspect Workflows
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+    workflow_dispatch:
+        inputs:
+        force_targets:
+            description: "Bazel targets to force-deliver (space-separated). Example: //examples/deliverable. Leave empty for normal selective delivery."
+            required: false
+            default: ""
+
+permissions:
+    id-token: write
+
+env:
+    ASPECT_API_TOKEN: ${{ secrets.ASPECT_API_TOKEN }}
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
+jobs:
+    test:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - uses: actions/checkout@v6
+              with:
+                fetch-depth: 0 # tags required for workspace status command
+            - name: Test
+              run: aspect test --task-key=test-gha -- //...
+
+    gazelle:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - uses: actions/checkout@v6
+            - name: Gazelle
+              run: aspect gazelle --task-key=gazelle-gha
+
+    format:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - uses: actions/checkout@v6
+            - name: Format
+              run: aspect format --task-key=format-gha
+
+    buildifier:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - uses: actions/checkout@v6
+            - name: Buildifier
+              run: aspect format --task-key=buildifier-gha --formatter-target=//tools/format:format-starlark
+
+    lint:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - uses: actions/checkout@v6
+            - name: Lint
+              run: aspect lint --task-key=lint-gha -- //...
+
+
+    delivery:
+        needs: [test]
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        steps:
+            - uses: actions/checkout@v6
+              with:
+                fetch-depth: 0 # tags required for workspace status command
+            - name: Delivery
+              run: aspect delivery --task-key=delivery-gha

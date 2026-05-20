@@ -3,7 +3,7 @@
 #
 # Aspect Workflows is a more feature-rich, powerful, and cheaper approach.
 # See the configuration in /.aspect/workflows for how that CI/CD system is configured.
-name: CI
+name: CI - Vanilla Bazel
 
 # Controls when the action will run.
 on:
@@ -41,7 +41,7 @@ jobs:
   matrix-prep-folder:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Clone the last two commits, so we can see what files were changed.
           fetch-depth: 2
@@ -97,7 +97,7 @@ jobs:
         folder: ${{ fromJSON(needs.matrix-prep-folder.outputs.folder) }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           # Clone the last two commits, so we can see what files were changed.
           fetch-depth: 2

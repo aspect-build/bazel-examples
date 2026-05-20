@@ -1,6 +1,8 @@
 steps:
-- key: gazelle
-  label: ":deer: Gazelle"
+- key: test
+  label: ":bazel: Test"
+  agents:
+    queue: aspect-default
   retry:
     manual:
       allowed: true
@@ -12,14 +14,12 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  agents:
-    queue: aspect-default
-  command: aspect gazelle
-  artifact_paths:
-    - /workflows/artifacts/**/*
+  command: aspect test --task-key=test-bk -- //...
 
 - key: buildifier
   label: ":hammer_and_wrench: Buildifier"
+  agents:
+    queue: aspect-default
   retry:
     manual:
       allowed: true
@@ -31,33 +31,12 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  agents:
-    queue: aspect-default
-  command: bazel run //:buildifier.check
-  artifact_paths:
-    - /workflows/artifacts/**/*
-
-- key: lint
-  label: ":broom: Lint"
-  retry:
-    manual:
-      allowed: true
-      permit_on_passed: false
-    automatic:
-    - limit: 1
-      exit_status: 36
-    - limit: 1
-      exit_status: 255
-    - limit: 1
-      exit_status: -1
-  agents:
-    queue: aspect-default
-  command: aspect lint //...
-  artifact_paths:
-    - /workflows/artifacts/**/*
+  command: aspect format --task-key buildifier-bk --formatter-target=//tools/format:format-starlark
 
 - key: format
   label: ":hammer_and_wrench: Format"
+  agents:
+    queue: aspect-default
   retry:
     manual:
       allowed: true
@@ -69,14 +48,12 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  agents:
-    queue: aspect-default
-  command: aspect format
-  artifact_paths:
-    - /workflows/artifacts/**/*
+  command: aspect format --task-key=format-bk
 
-- key: test_0
-  label: ":bazel: Test"
+- key: gazelle
+  label: ":deer: Gazelle"
+  agents:
+    queue: aspect-default
   retry:
     manual:
       allowed: true
@@ -88,15 +65,12 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  agents:
-    queue: aspect-default
-  command: aspect test --task-key=test_0 -- //... -//angular/... -//speller/...
-  artifact_paths:
-    - /workflows/artifacts/**/*
-    - /workflows/testlogs/**/*
+  command: aspect gazelle --task-key=gazelle-bk
 
-- key: test_1
-  label: ":bazel: Test (1)"
+- key: lint
+  label: ":broom: Lint"
+  agents:
+    queue: aspect-default
   retry:
     manual:
       allowed: true
@@ -108,16 +82,12 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  agents:
-    queue: aspect-default
-  command: aspect test --task-key=test_1 //angular/...
-  artifact_paths:
-    - /workflows/artifacts/**/*
-    - /workflows/testlogs/**/*
+  command: aspect lint  --task-key=lint-bk -- //...
 
 - key: delivery
-  if: build.branch == "main"
   label: ":bazel: Delivery"
+  agents:
+    queue: aspect-default
   retry:
     manual:
       allowed: true
@@ -129,11 +99,6 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  agents:
-    queue: aspect-default
-  command: aspect delivery
+  command: aspect delivery --task-key=delivery-bk
   depends_on:
-    - test_0
-    - test_1
-  artifact_paths:
-    - /workflows/artifacts/**/*
+    - test
