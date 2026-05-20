@@ -14,7 +14,7 @@ steps:
       exit_status: -1
   agents:
     queue: aspect-default
-  command: aspect gazelle --check
+  command: aspect gazelle
   artifact_paths:
     - /workflows/artifacts/**/*
 

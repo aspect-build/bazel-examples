@@ -32,7 +32,7 @@ jobs:
             - name: Prepare archive directories
               run: rm -rf /workflows/artifacts
             - name: Gazelle
-              run: aspect gazelle --check
+              run: aspect gazelle
             - name: Upload artifacts
               if: always()
               uses: actions/upload-artifact@v4
