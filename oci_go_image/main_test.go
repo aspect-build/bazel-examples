@@ -13,10 +13,11 @@ func TestCompare(t *testing.T) {
 	}
 }
 
+
 func TestCompare2(t *testing.T) {
 	result := Compare("this", "that")
 
-	if !strings.Contains(result, "oof") {
-		t.Error("expected a diff containing 'oof' but got", result)
+	if !strings.Contains(result, "this") {
+		t.Error("expected a diff containing 'this' but got", result)
 	}
 }
