@@ -1,0 +1,12 @@
+load("@rules_ruby//ruby:defs.bzl", "rb_library")
+
+rb_library(
+    name = "controllers",
+    srcs = [
+        "application_controller.rb",
+        "cache_controller.rb",
+        "health_controller.rb",
+        "items_controller.rb",
+    ],
+    visibility = ["//:__subpackages__"],
+)

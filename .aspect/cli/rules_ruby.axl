@@ -1,0 +1,257 @@
+"""rules_ruby support for 'aspect configure'
+
+Supports two layout modes controlled by directives:
+
+  Default (per-directory): one rb_library per directory, fine-grained deps.
+
+  Rails (aggregated): set these directives in the app root BUILD file:
+    # gazelle:ruby_app_name app
+    # gazelle:ruby_app_dirs app,config,lib
+  This collects files from the listed subdirectories via recursive globs
+  and generates a single rb_library at the root. Subdirectories inside
+  app_dirs are skipped. Test targets and test_helpers are still generated
+  automatically in their own packages.
+"""
+
+RB_LIBRARY = "rb_library"
+RB_TEST = "rb_test"
+RB_BINARY = "rb_binary"
+PROVIDER_NAME = "rb"
+LANG_NAME = "ruby"
+
+# Register the rule kinds so gazelle knows how to merge them
+aspect.gazelle_rule_kind(RB_LIBRARY, {
+    "From": "@rules_ruby//ruby:defs.bzl",
+    "NonEmptyAttrs": ["srcs"],
+    "MergeableAttrs": ["srcs"],
+    "ResolveAttrs": ["deps"],
+})
+
+aspect.gazelle_rule_kind(RB_TEST, {
+    "From": "@rules_ruby//ruby:defs.bzl",
+    "NonEmptyAttrs": ["srcs"],
+    "MergeableAttrs": ["srcs"],
+    "ResolveAttrs": ["deps"],
+})
+
+aspect.gazelle_rule_kind(RB_BINARY, {
+    "From": "@rules_ruby//ruby:defs.bzl",
+    "NonEmptyAttrs": ["srcs"],
+    "MergeableAttrs": ["srcs"],
+    "ResolveAttrs": ["deps"],
+})
+
+# Standard library modules that don't need explicit deps
+STDLIB_MODULES = [
+    "abbrev", "base64", "benchmark", "bigdecimal", "cgi", "csv",
+    "date", "delegate", "digest", "drb", "English", "erb", "etc",
+    "fcntl", "fiddle", "fileutils", "find", "forwardable", "io/console",
+    "io/wait", "ipaddr", "json", "logger", "matrix", "minitest",
+    "minitest/autorun", "monitor", "mutex_m", "net/http", "net/https",
+    "net/ftp", "net/imap", "net/pop", "net/smtp", "nkf", "objspace",
+    "observer", "open-uri", "open3", "openssl", "optparse", "ostruct",
+    "pathname", "pp", "prettyprint", "prime", "pstore", "psych",
+    "racc", "readline", "reline", "resolv", "rinda", "ripper",
+    "securerandom", "set", "shellwords", "singleton", "socket",
+    "stringio", "strscan", "tempfile", "time", "timeout", "tmpdir",
+    "tracer", "tsort", "un", "uri", "weakref", "webrick", "yaml", "zlib",
+]
+
+def is_stdlib(mod):
+    for lib in STDLIB_MODULES:
+        if mod == lib or mod.startswith(lib + "/"):
+            return True
+    return False
+
+def resolve_path(base_dir, rel_path):
+    """Resolve a relative path against a base directory, normalizing '..' components."""
+    combined = base_dir + "/" + rel_path if base_dir else rel_path
+    parts = combined.split("/")
+    resolved = []
+    for part in parts:
+        if part == "..":
+            if len(resolved) > 0:
+                resolved.pop()
+        elif part != "." and part != "":
+            resolved.append(part)
+    return "/".join(resolved)
+
+def is_inside_app_dir(rel, app_dirs):
+    """Check if any path component of rel matches an app_dir name."""
+    parts = rel.split("/")
+    for part in parts:
+        if part in app_dirs:
+            return True
+    return False
+
+def prepare(_):
+    sources = aspect.SourceExtensions(".rb")
+
+    return aspect.PrepareResult(
+        sources = sources,
+        queries = {
+            "requires": aspect.RegexQuery(
+                filter = "*.rb",
+                expression = """require\\s+['"](?P<mod>[^'"]+)['"]""",
+            ),
+            "require_relatives": aspect.RegexQuery(
+                filter = "*.rb",
+                expression = """require_relative\\s+['"](?P<rel_path>[^'"]+)['"]""",
+            ),
+            "is_test": aspect.RegexQuery(
+                filter = "*.rb",
+                expression = """class\\s+\\w+\\s*<\\s*(Minitest::Test|ActiveSupport::TestCase|ActionDispatch::IntegrationTest)""",
+            ),
+            "is_binary": aspect.RegexQuery(
+                filter = "*.rb",
+                expression = """if\\s+__FILE__\\s*==\\s*\\$0|if\\s+\\$PROGRAM_NAME\\s*==\\s*__FILE__""",
+            ),
+        },
+    )
+
+def declare_targets(ctx):
+    if len(ctx.sources) == 0:
+        return
+
+    # Read properties for Rails-style aggregated layout
+    app_name = ctx.properties["ruby_app_name"] if "ruby_app_name" in ctx.properties else ""
+    app_dirs_raw = ctx.properties["ruby_app_dirs"] if "ruby_app_dirs" in ctx.properties else ""
+    app_dirs = [d.strip() for d in app_dirs_raw.split(",") if d.strip()] if app_dirs_raw else []
+
+    # If we're inside an app_dir subdirectory, skip entirely — parent handles these files
+    if app_name and len(app_dirs) > 0 and is_inside_app_dir(ctx.rel, app_dirs):
+        return
+
+    lib_srcs = []
+    test_files = []
+    binary_files = []
+    has_gem_requires = False
+
+    for file in ctx.sources:
+        has_test_class = "is_test" in file.query_results and len(file.query_results["is_test"]) > 0
+        is_test = (
+            file.path.endswith("_test.rb") or
+            file.path.endswith("_spec.rb") or
+            has_test_class
+        )
+        is_bin = "is_binary" in file.query_results and len(file.query_results["is_binary"]) > 0
+
+        if is_test:
+            test_files.append(file)
+        elif is_bin:
+            binary_files.append(file)
+        else:
+            lib_srcs.append(file)
+
+        if "requires" in file.query_results:
+            for req in file.query_results["requires"]:
+                mod = req.captures["mod"]
+                if not is_stdlib(mod):
+                    has_gem_requires = True
+
+    # Detect helpers from all sources (test_helper.rb doesn't end in _test.rb so it lands in lib_srcs)
+    all_files = lib_srcs + test_files
+    helpers = [f for f in all_files if "test_helper" in f.path or "spec_helper" in f.path]
+    helper_paths = {h.path: True for h in helpers}
+    lib_srcs = [f for f in lib_srcs if f.path not in helper_paths]
+    test_files = [f for f in test_files if f.path not in helper_paths]
+
+    # --- Library target ---
+    # When app_name is set, the user maintains the library target manually (with globs).
+    if not app_name and len(lib_srcs) > 0:
+        lib_name = path.base(ctx.rel) if ctx.rel else "lib"
+        symbols = []
+        for f in lib_srcs:
+            file_id = resolve_path(ctx.rel, f.path.removesuffix(".rb"))
+            symbols.append(aspect.Symbol(
+                id = file_id,
+                provider = PROVIDER_NAME,
+            ))
+
+        deps = ["@bundle"] if has_gem_requires else []
+        visibility = ["//:__subpackages__"]
+        ctx.targets.add(
+            name = lib_name,
+            kind = RB_LIBRARY,
+            attrs = {
+                "srcs": [f.path for f in lib_srcs],
+                "visibility": visibility,
+                "deps": deps if len(deps) > 0 else None,
+            },
+            symbols = symbols,
+        )
+
+    # --- test_helper library (if present) ---
+    if len(helpers) > 0:
+        helper_deps = ["@bundle"]
+
+        helper_symbols = []
+        for h in helpers:
+            helper_id = resolve_path(ctx.rel, h.path.removesuffix(".rb"))
+            helper_symbols.append(aspect.Symbol(
+                id = helper_id,
+                provider = PROVIDER_NAME,
+            ))
+
+        ctx.targets.add(
+            name = "test_helper",
+            kind = RB_LIBRARY,
+            attrs = {
+                "srcs": [h.path for h in helpers],
+                "deps": helper_deps,
+            },
+            symbols = helper_symbols,
+        )
+
+    # --- Test targets (one per test file) ---
+    for file in test_files:
+        test_name = file.path.removesuffix(".rb")
+        test_deps = []
+
+        # Resolve require_relative to cross-package imports
+        if "require_relatives" in file.query_results:
+            for req in file.query_results["require_relatives"]:
+                rel = req.captures["rel_path"]
+                file_dir = resolve_path(ctx.rel, path.dirname(file.path))
+                resolved_id = resolve_path(file_dir, rel)
+                test_deps.append(aspect.Import(
+                    id = resolved_id,
+                    provider = PROVIDER_NAME,
+                    src = file.path,
+                    optional = True,
+                ))
+
+        ctx.targets.add(
+            name = test_name,
+            kind = RB_TEST,
+            attrs = {
+                "srcs": [file.path],
+                "main": file.path,
+                "deps": test_deps if len(test_deps) > 0 else None,
+            },
+        )
+
+    # --- Binary targets ---
+    for file in binary_files:
+        bin_name = file.path.removesuffix(".rb")
+        lib_ref = ":" + (app_name if app_name else (path.base(ctx.rel) if ctx.rel else "lib"))
+        bin_deps = [lib_ref, "@bundle"]
+        ctx.targets.add(
+            name = bin_name,
+            kind = RB_BINARY,
+            attrs = {
+                "srcs": [file.path],
+                "main": file.path,
+                "deps": bin_deps,
+            },
+        )
+
+aspect.orion_extension(
+    id = LANG_NAME,
+    properties = {
+        "ruby_app_name": aspect.Property(type = "string", default = ""),
+        "ruby_app_dirs": aspect.Property(type = "string", default = ""),
+    },
+    prepare = prepare,
+    declare = declare_targets,
+)

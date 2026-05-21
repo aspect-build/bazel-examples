@@ -1,0 +1,11 @@
+load("@rules_ruby//ruby:defs.bzl", "rb_library")
+
+rb_library(
+    name = "config",
+    srcs = [
+        "application.rb",
+        "environment.rb",
+    ],
+    visibility = ["//:__subpackages__"],
+    deps = ["@bundle"],
+)

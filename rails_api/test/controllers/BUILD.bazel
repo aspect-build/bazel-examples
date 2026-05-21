@@ -1,0 +1,45 @@
+load("@rules_ruby//ruby:defs.bzl", "rb_test")
+
+# load("@rules_ruby//ruby:defs.bzl", "rb_test")
+
+# rb_test(
+#     name = "cache_controller_test",
+#     srcs = ["cache_controller_test.rb"],
+#     main = "cache_controller_test.rb",
+#     deps = ["//rails_api/test:test_helper"],
+# )
+
+# rb_test(
+#     name = "health_controller_test",
+#     srcs = ["health_controller_test.rb"],
+#     main = "health_controller_test.rb",
+#     deps = ["//rails_api/test:test_helper"],
+# )
+
+# rb_test(
+#     name = "items_controller_test",
+#     srcs = ["items_controller_test.rb"],
+#     main = "items_controller_test.rb",
+#     deps = ["//rails_api/test:test_helper"],
+# )
+
+rb_test(
+    name = "cache_controller_test",
+    srcs = ["cache_controller_test.rb"],
+    main = "cache_controller_test.rb",
+    deps = ["//rails_api/test:test_helper"],
+)
+
+rb_test(
+    name = "health_controller_test",
+    srcs = ["health_controller_test.rb"],
+    main = "health_controller_test.rb",
+    deps = ["//rails_api/test:test_helper"],
+)
+
+rb_test(
+    name = "items_controller_test",
+    srcs = ["items_controller_test.rb"],
+    main = "items_controller_test.rb",
+    deps = ["//rails_api/test:test_helper"],
+)
