@@ -4,11 +4,17 @@ load("@aspect//traits.axl", "BazelTrait", "LintTrait", "TipsTrait")
 
 def config(ctx: ConfigContext):
     is_ci = bool(ctx.std.env.var("CI"))
+    is_workflows_runners = bool(ctx.std.env.var("ASPECT_WORKFLOWS_RUNNER"))
 
     if is_ci:
         ctx.traits[BazelTrait].extra_flags.extend([
             "--config=workflows-ci",
             "--config=ci",
+        ])
+
+    if is_workflows_runners:
+        ctx.traits[BazelTrait].extra_flags.extend([
+            "--config=workflows-runner",
             "--config=rbe",
         ])
 
