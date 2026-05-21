@@ -13,7 +13,6 @@ func TestCompare(t *testing.T) {
 	}
 }
 
-
 func TestCompare2(t *testing.T) {
 	result := Compare("this", "that")
 
