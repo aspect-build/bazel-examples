@@ -1,6 +1,0 @@
-plugins:
-    - name: fix-visibility
-      from: github.com/aspect-build/plugin-fix-visibility
-      version: v0.1.0
-# Lint aspects live in .aspect/config.axl (ctx.tasks["lint"].args.aspects).
-# Single source of truth so local + all CI invocations agree.
