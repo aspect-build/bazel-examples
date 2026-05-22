@@ -1,4 +1,4 @@
-name: CI - Aspect Workflows
+name: CI - Aspect Workflows (Workflows runners)
 
 on:
     push:

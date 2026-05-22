@@ -62,7 +62,7 @@ common:workflows-ci --remote_download_outputs=minimal
 common:workflows-ci --nobuild_runfile_links
 
 # let tests that require chrome know where it is installed
-common:workflows-ci --test_env=CHROME_BIN=/usr/bin/chromium
+common:workflows-runner --test_env=CHROME_BIN=/usr/bin/chromium
 
 # remote execution
 common:rbe --extra_execution_platforms=//tools/platforms:aspect_workflows_remote_exec
