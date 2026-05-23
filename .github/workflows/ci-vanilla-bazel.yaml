@@ -107,7 +107,7 @@ jobs:
         with:
           dir_names: true
           dir_names_max_depth: 1
-      - uses: bazel-contrib/setup-bazel@0.8.5
+      - uses: bazel-contrib/setup-bazel@e403ad507104847c3539436f64a9e9eecc73eeec # 0.8.5
         with:
           repository-cache: true
           bazelrc: |
