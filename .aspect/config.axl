@@ -1,7 +1,7 @@
 """Aspect CLI configuration."""
 
 load("@aspect//feature/artifacts.axl", "ArtifactUpload")
-load("@aspect//traits.axl", "BazelTrait", "LintTrait", "TipsTrait")
+load("@aspect//traits.axl", "BazelTrait")
 
 def config(ctx: ConfigContext):
     is_ci = bool(ctx.std.env.var("CI"))
