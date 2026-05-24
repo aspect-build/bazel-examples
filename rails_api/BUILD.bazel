@@ -11,7 +11,6 @@ rb_test(
     name = "health_controller_test",
     srcs = ["test/controllers/health_controller_test.rb"],
     main = "test/controllers/health_controller_test.rb",
-    tags = ["no-remote-exec"],
     deps = [
         ":app",
         ":test_helper",
@@ -22,7 +21,6 @@ rb_test(
     name = "items_controller_test",
     srcs = ["test/controllers/items_controller_test.rb"],
     main = "test/controllers/items_controller_test.rb",
-    tags = ["no-remote-exec"],
     deps = [
         ":app",
         ":test_helper",
@@ -37,7 +35,7 @@ rb_test(
     tags = [
         "no-macos",  # Broken on GitHub Actions macOS runners
         "no-remote-exec",
-        "requires-network",  # Needs memcached connection
+        "requires-docker",
     ],
     deps = [
         ":app",
