@@ -17,8 +17,7 @@ permissions:
 
 env:
     ASPECT_API_TOKEN: ${{ secrets.ASPECT_API_TOKEN }}
-    # Pin the version of aspect-launcher to install to avoid GitHub API rate limiting from `latest` lookups in CI.
-    INSTALL_ASPECT_LAUNCHER_VERSION: 2026.21.20
+    INSTALL_ASPECT_LAUNCHER_VERSION: 2026.21.36
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
