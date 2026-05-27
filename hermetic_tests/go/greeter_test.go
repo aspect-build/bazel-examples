@@ -2,7 +2,9 @@ package greeter
 
 import (
 	"os"
+	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 )
 
@@ -11,6 +13,23 @@ func TestGreet(t *testing.T) {
 	want := "Hello, World!"
 	if got != want {
 		t.Errorf("got %q, want %q", got, want)
+	}
+}
+
+func TestGoldenOutput(t *testing.T) {
+	// testdata/expected_greeting.txt is declared as a data dep in BUILD.bazel.
+	// Bazel makes only declared data deps visible to the test action — if the
+	// file is removed from BUILD.bazel, this test fails with "no such file",
+	// proving that hermetic inputs are enforced at the build level.
+	runfiles := os.Getenv("TEST_SRCDIR")
+	path := filepath.Join(runfiles, "_main", "hermetic_tests", "go", "testdata", "expected_greeting.txt")
+	golden, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatalf("could not read golden file (is it declared in data?): %v", err)
+	}
+	got := Greet("World")
+	if want := strings.TrimSpace(string(golden)); got != want {
+		t.Errorf("Greet(\"World\") = %q, golden says %q", got, want)
 	}
 }
 
