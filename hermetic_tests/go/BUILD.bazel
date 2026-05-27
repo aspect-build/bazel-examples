@@ -12,4 +12,5 @@ go_test(
     size = "small",
     srcs = ["greeter_test.go"],
     embed = [":greeter"],
+    data = ["testdata/expected_greeting.txt"],
 )
