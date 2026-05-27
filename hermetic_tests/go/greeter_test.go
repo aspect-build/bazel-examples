@@ -37,7 +37,7 @@ func TestSandboxEscapeAttempt(t *testing.T) {
 	// Attempt to change the kernel hostname — requires CAP_SYS_ADMIN, which
 	// RBE containers do not have. The write must fail, proving the container
 	// is running without elevated capabilities.
-	err := os.WriteFile("/proc/sys/kernel/hostname", []byte("escaped"), 0644)
+	err := os.WriteFile("/proc/sys/kernel/hostname", []byte("escaped"), 0o644)
 	if err == nil {
 		t.Fatal("wrote to /proc/sys/kernel/hostname — container has CAP_SYS_ADMIN (not sandboxed)")
 	}
