@@ -20,10 +20,10 @@ llvm.toolchain(
         #   - LLVM 18.1.8 ubuntu-18.04 build needs libtinfo.so.5 (too old)
         #   - LLVM 17.0.6 ubuntu-22.04 build needs GLIBC 2.34 (too new)
         # LLVM 15.0.6 is the newest version with a published ubuntu-20.04 build.
-        "": "15.0.6",
+        "": "14.0.6",
         # Darwin keeps the modern toolchain — LLVM 18.1.8 builds and links
         # cleanly on Apple Silicon; older releases hit lld bugs.
-        "darwin-aarch64": "18.1.8",
+        "darwin-aarch64": "14.1.8",
         "darwin-x86_64": "18.1.8",
     },
 )
