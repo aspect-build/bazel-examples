@@ -15,3 +15,20 @@ cc_test(
         "@googletest//:gtest_main",
     ],
 )
+
+cc_library(
+    name = "greeter_test_lib",
+    srcs = ["greeter_test.cc"],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        ":greeter_lib",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "greeter_lib",
+    srcs = ["greeter.cc"],
+    hdrs = ["greeter.h"],
+    visibility = ["//:__subpackages__"],
+)

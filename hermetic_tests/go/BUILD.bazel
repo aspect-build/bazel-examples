@@ -11,6 +11,20 @@ go_test(
     name = "greeter_test",
     size = "small",
     srcs = ["greeter_test.go"],
-    embed = [":greeter"],
     data = ["testdata/expected_greeting.txt"],
+    embed = [":greeter"],
+)
+
+go_library(
+    name = "go",
+    srcs = ["greeter.go"],
+    importpath = "github.com/aspect-build/bazel-examples/hermetic_tests/go",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "go_test",
+    srcs = ["greeter_test.go"],
+    data = glob(["testdata/**"]),
+    embed = [":go"],
 )
