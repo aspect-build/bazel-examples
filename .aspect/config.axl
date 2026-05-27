@@ -1,7 +1,28 @@
 """Aspect CLI configuration."""
 
 load("@aspect//feature/artifacts.axl", "ArtifactUpload")
+load("@aspect//format.axl", "format")
 load("@aspect//traits.axl", "BazelTrait")
+
+buildifier = format.alias(
+    defaults = {
+        "formatter_target": "@buildifier_prebuilt//buildifier",
+        "include_patterns": [
+            "**/BUCK",
+            "**/BUILD",
+            "**/BUILD.bazel",
+            "**/MODULE.bazel",
+            "**/*.MODULE.bazel",
+            "**/Tiltfile",
+            "**/WORKSPACE",
+            "**/WORKSPACE.bazel",
+            "**/*.axl",
+            "**/*.bzl",
+            "**/*.star",
+        ],
+    },
+    summary = "Format Starlark files using buildifier.",
+)
 
 def config(ctx: ConfigContext):
     is_ci = bool(ctx.std.env.var("CI"))
@@ -18,6 +39,9 @@ def config(ctx: ConfigContext):
             "--config=workflows-runner",
             "--config=rbe",
         ])
+
+    # Register the buildifier alias as a real CLI command.
+    ctx.tasks.add(buildifier)
 
     ctx.tasks["test"].args.bazel_flags = [
         "--test_tag_filters=-no-aw",
