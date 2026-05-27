@@ -24,7 +24,7 @@ buildifier:
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
   script:
-    - aspect format --task-key=buildifier-gl --formatter-target=//tools/format:format-starlark
+    - aspect buildifier --task-key=buildifier-gl
 
 format:
   tags:

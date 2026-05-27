@@ -17,7 +17,7 @@ permissions:
 
 env:
     ASPECT_API_TOKEN: ${{ secrets.ASPECT_API_TOKEN }}
-    INSTALL_ASPECT_LAUNCHER_VERSION: 2026.22.3
+    INSTALL_ASPECT_LAUNCHER_VERSION: 2026.22.13
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -84,7 +84,7 @@ jobs:
             - name: Buildifier
               run: |
                 curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
-                aspect format --task-key=buildifier-gha-ephemeral --formatter-target=//tools/format:format-starlark
+                aspect buildifier --task-key=buildifier-gha-ephemeral
 
     lint:
         runs-on: ubuntu-latest

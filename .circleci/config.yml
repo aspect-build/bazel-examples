@@ -47,7 +47,7 @@ jobs:
       - checkout
       - run:
           name: Buildifier
-          command: aspect format --task-key=buildifier-cci --formatter-target=//tools/format:format-starlark
+          command: aspect buildifier --task-key=buildifier-cci
 
   format:
     machine: true
