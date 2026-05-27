@@ -1,0 +1,17 @@
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
+
+cc_library(
+    name = "greeter",
+    srcs = ["greeter.cc"],
+    hdrs = ["greeter.h"],
+)
+
+cc_test(
+    name = "greeter_test",
+    size = "small",
+    srcs = ["greeter_test.cc"],
+    deps = [
+        ":greeter",
+        "@googletest//:gtest_main",
+    ],
+)

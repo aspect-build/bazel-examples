@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "greeter",
+    srcs = ["greeter.go"],
+    importpath = "github.com/aspect-build/bazel-examples/hermetic_tests/go/greeter",
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "greeter_test",
+    size = "small",
+    srcs = ["greeter_test.go"],
+    embed = [":greeter"],
+)
