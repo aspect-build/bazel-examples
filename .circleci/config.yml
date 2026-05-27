@@ -47,7 +47,7 @@ jobs:
       - checkout
       - run:
           name: Buildifier
-          command: aspect format --task-key=buildifier-cci --formatter-target=@buildifier_prebuilt//buildifier
+          command: aspect buildifier --task-key=buildifier-cci
 
   format:
     machine: true

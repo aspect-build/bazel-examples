@@ -38,4 +38,3 @@ format_multirun(
     javascript = ":prettier",
     python = "@aspect_rules_lint//format:ruff",
 )
-
