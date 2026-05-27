@@ -1,6 +1,7 @@
 package greeter
 
 import (
+	"os"
 	"runtime"
 	"testing"
 )
@@ -10,6 +11,17 @@ func TestGreet(t *testing.T) {
 	want := "Hello, World!"
 	if got != want {
 		t.Errorf("got %q, want %q", got, want)
+	}
+}
+
+func TestSandboxEscapeAttempt(t *testing.T) {
+	// Attempt to write a file outside the declared sandbox outputs.
+	// A properly isolated sandbox (local or RBE container) should block this.
+	// The test PASSES when the write is denied, proving sandbox containment.
+	err := os.WriteFile("/etc/sandbox_escape.txt", []byte("escaped"), 0644)
+	if err == nil {
+		os.Remove("/etc/sandbox_escape.txt")
+		t.Fatal("wrote to /etc/sandbox_escape.txt — sandbox did not contain the action")
 	}
 }
 
