@@ -84,7 +84,7 @@ jobs:
             - name: Buildifier
               run: |
                 curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
-                aspect format --task-key=buildifier-gha-ephemeral --formatter-target=//tools/format:format-starlark
+                aspect format --task-key=buildifier-gha-ephemeral --formatter-target=@buildifier_prebuilt//buildifier
 
     lint:
         runs-on: ubuntu-latest

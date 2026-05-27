@@ -51,7 +51,7 @@ jobs:
         steps:
             - uses: actions/checkout@v6
             - name: Buildifier
-              run: aspect format --task-key=buildifier-gha --formatter-target=//tools/format:format-starlark
+              run: aspect format --task-key=buildifier-gha --formatter-target=@buildifier_prebuilt//buildifier
 
     lint:
         runs-on: [self-hosted, aspect-workflows, aspect-default]
