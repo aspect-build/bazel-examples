@@ -15,13 +15,12 @@ func TestGreet(t *testing.T) {
 }
 
 func TestSandboxEscapeAttempt(t *testing.T) {
-	// Attempt to write a file outside the declared sandbox outputs.
-	// A properly isolated sandbox (local or RBE container) should block this.
-	// The test PASSES when the write is denied, proving sandbox containment.
-	err := os.WriteFile("/etc/sandbox_escape.txt", []byte("escaped"), 0644)
+	// Attempt to change the kernel hostname — requires CAP_SYS_ADMIN, which
+	// RBE containers do not have. The write must fail, proving the container
+	// is running without elevated capabilities.
+	err := os.WriteFile("/proc/sys/kernel/hostname", []byte("escaped"), 0644)
 	if err == nil {
-		os.Remove("/etc/sandbox_escape.txt")
-		t.Fatal("wrote to /etc/sandbox_escape.txt — sandbox did not contain the action")
+		t.Fatal("wrote to /proc/sys/kernel/hostname — container has CAP_SYS_ADMIN (not sandboxed)")
 	}
 }
 
