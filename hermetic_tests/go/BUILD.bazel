@@ -25,6 +25,6 @@ go_library(
 go_test(
     name = "go_test",
     srcs = ["greeter_test.go"],
-    # data = glob(["testdata/**"]),
+    data = glob(["testdata/**"]),
     embed = [":go"],
 )
