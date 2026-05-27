@@ -99,7 +99,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect test --task-key=hermetic-rbe-bk --bazel-flag=--config=rbe -- //hermetic_tests/...
+  command: aspect test --task-key=hermetic-rbe-bk -- //hermetic_tests/...
 
 - key: delivery
   label: ":bazel: Delivery"
