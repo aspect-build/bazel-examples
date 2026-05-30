@@ -17,7 +17,7 @@ permissions:
 
 env:
     ASPECT_API_TOKEN: ${{ secrets.ASPECT_API_TOKEN }}
-    INSTALL_ASPECT_LAUNCHER_VERSION: 2026.22.23
+    ASPECT_LAUNCHER_VERSION: 2026.22.29
 
 concurrency:
     group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -38,7 +38,7 @@ jobs:
                 external-cache: true
             - name: Test
               run: |
-                curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
+                curl -fsSL https://install.aspect.build | bash -s -- "$ASPECT_LAUNCHER_VERSION"
                 aspect test --task-key=test-gha-ephemeral -- //...
 
     gazelle:
@@ -53,7 +53,7 @@ jobs:
                 external-cache: true
             - name: Gazelle
               run: |
-                curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
+                curl -fsSL https://install.aspect.build | bash -s -- "$ASPECT_LAUNCHER_VERSION"
                 aspect gazelle --task-key=gazelle-gha-ephemeral
 
     format:
@@ -68,7 +68,7 @@ jobs:
                 external-cache: true
             - name: Format
               run: |
-                curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
+                curl -fsSL https://install.aspect.build | bash -s -- "$ASPECT_LAUNCHER_VERSION"
                 aspect format --task-key=format-gha-ephemeral
 
     buildifier:
@@ -83,7 +83,7 @@ jobs:
                 external-cache: true
             - name: Buildifier
               run: |
-                curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
+                curl -fsSL https://install.aspect.build | bash -s -- "$ASPECT_LAUNCHER_VERSION"
                 aspect buildifier --task-key=buildifier-gha-ephemeral
 
     lint:
@@ -98,7 +98,7 @@ jobs:
                 external-cache: true
             - name: Lint
               run: |
-                curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
+                curl -fsSL https://install.aspect.build | bash -s -- "$ASPECT_LAUNCHER_VERSION"
                 aspect lint --task-key=lint-gha-ephemeral -- //...
 
 
@@ -117,7 +117,7 @@ jobs:
                 external-cache: true
             - name: Delivery
               run: |
-                curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
+                curl -fsSL https://install.aspect.build | bash -s -- "$ASPECT_LAUNCHER_VERSION"
                 # We pass --track-state=false --mode=always to disable selective delivery which is currently
                 # only supported on Aspect Workflows CI runners as it requires a backend service
                 aspect delivery --task-key=delivery-gha-ephemeral --track-state=false --mode=always
