@@ -1,7 +1,53 @@
 """Aspect CLI configuration."""
 
 load("@aspect//feature/artifacts.axl", "ArtifactUpload")
-load("@aspect//traits.axl", "BazelTrait")
+load("@aspect//format.axl", "format")
+load("@aspect//traits.axl", "BazelTrait", "REPRO_FIX_ACCEPT", "REPRO_FIX_REJECT", "ReproFixInfo", "ReproFixSuggestion", "TaskLifecycleTrait")
+
+buildifier = format.alias(
+    defaults = {
+        "formatter_target": "@buildifier_prebuilt//buildifier",
+        # Fires only when the format task would otherwise pass zero files
+        # to the formatter (e.g. `--scope=all`, or a `--scope=changed` run
+        # that degraded because no changed files matched). The bare
+        # buildifier binary needs `-r .` to walk the tree on its own. Inert
+        # whenever a file list is passed, so `--scope=changed` (the default)
+        # and per-file invocations are unaffected.
+        #
+        # Caveat: `buildifier -r .` auto-discovers only BUILD, BUILD.bazel,
+        # MODULE.bazel, WORKSPACE, WORKSPACE.bazel, *.bzl, and *.star, so
+        # `--scope=all` silently skips *.axl, *.MODULE.bazel, Tiltfile, and
+        # BUCK files from the `include_patterns` list below. `--scope=changed`
+        # passes the changed file list positionally, so those extensions are
+        # covered there. See
+        # https://docs.aspect.build/cli/tasks/buildifier#run-it-locally for
+        # the user-facing reference.
+        "formatter_args_for_tree_walk": ["-r", "."],
+        # buildifier_binary is a symlink to the raw Go binary; it does not
+        # switch to $BUILD_WORKING_DIRECTORY on its own, so we run it in
+        # the user's cwd to make relative paths resolve.
+        "run_in": "cwd",
+        "include_patterns": [
+            "**/BUCK",
+            "**/BUILD",
+            "**/BUILD.bazel",
+            "**/MODULE.bazel",
+            "**/*.MODULE.bazel",
+            "**/Tiltfile",
+            "**/WORKSPACE",
+            "**/WORKSPACE.bazel",
+            "**/*.axl",
+            "**/*.bzl",
+            "**/*.star",
+        ],
+    },
+    summary = "Format Starlark files using buildifier.",
+)
+
+def _drop_vanilla_bazel_except_build_and_test(ctx: TaskContext, info: ReproFixInfo) -> ReproFixSuggestion:
+    if not info.slug.endswith("-vanilla-bazel") or info.task_name == "build" or info.task_name == "test":
+        return REPRO_FIX_ACCEPT
+    return REPRO_FIX_REJECT
 
 def config(ctx: ConfigContext):
     is_ci = bool(ctx.std.env.var("CI"))
@@ -18,6 +64,9 @@ def config(ctx: ConfigContext):
             "--config=workflows-runner",
             "--config=rbe",
         ])
+
+    # Register the buildifier alias as a real CLI command.
+    ctx.tasks.add(buildifier)
 
     ctx.tasks["test"].args.bazel_flags = [
         "--test_tag_filters=-no-aw",
@@ -57,3 +106,7 @@ def config(ctx: ConfigContext):
     ctx.features[ArtifactUpload].args.upload_test_logs = "failed"
     ctx.features[ArtifactUpload].args.upload_profile = True
     ctx.features[ArtifactUpload].args.upload_bep = True
+
+    # Customize repro/fix suggestions
+    lifecycle = ctx.traits[TaskLifecycleTrait]
+    lifecycle.repro_fix_suggestion.append(_drop_vanilla_bazel_except_build_and_test)

@@ -31,7 +31,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect format --task-key buildifier-bk --formatter-target=//tools/format:format-starlark
+  command: aspect buildifier --task-key buildifier-bk
 
 - key: format
   label: ":hammer_and_wrench: Format"
