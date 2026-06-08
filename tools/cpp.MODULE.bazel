@@ -14,11 +14,6 @@ bazel_dep(name = "toolchains_llvm", version = "1.7.0")
 # Hermetic C++ toolchain, to relieve the dependency on a locally installed CC etc.
 llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
 llvm.toolchain(
-    stdlib = {
-        # Cross-compile to Linux aarch64: sysroot has libstdc++.so but not the
-        # static libstdc++.a. Use dynamic linkage to avoid the missing .a.
-        "linux-aarch64": "dynamic-stdc++",
-    },
     llvm_versions = {
         # Linux x86_64 must use an ubuntu-20.04 LLVM build to match the
         # Aspect Workflows remote exec workers (GLIBC 2.31, libtinfo.so.6):
@@ -30,6 +25,11 @@ llvm.toolchain(
         # cleanly on Apple Silicon; older releases hit lld bugs.
         "darwin-aarch64": "18.1.8",
         "darwin-x86_64": "18.1.8",
+    },
+    stdlib = {
+        # Cross-compile to Linux aarch64: sysroot has libstdc++.so but not the
+        # static libstdc++.a. Use dynamic linkage to avoid the missing .a.
+        "linux-aarch64": "dynamic-stdc++",
     },
 )
 llvm.sysroot(
@@ -49,23 +49,23 @@ register_toolchains("@llvm_toolchain//:all")
 # [] (not in _known_distros), causing _find_llvm_basename_list to return empty.
 llvm.toolchain(
     name = "llvm_toolchain_linux_aarch64",
-    exec_os = "linux",
     exec_arch = "aarch64",
+    exec_os = "linux",
     # llvm_versions is required by llvm_toolchain() for the version string in
     # toolchain config (include dirs, etc.), even though the download uses urls.
     llvm_versions = {
         "linux-aarch64": "15.0.6",
-    },
-    # urls bypasses _find_llvm_basename_list, which fails for exec_os="linux"
-    # because "linux" is not in _known_distros.
-    urls = {
-        "linux-aarch64": ["https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.6/clang%2Bllvm-15.0.6-aarch64-linux-gnu.tar.xz"],
     },
     sha256 = {
         "linux-aarch64": "8ca4d68cf103da8331ca3f35fe23d940c1b78fb7f0d4763c1c059e352f5d1bec",
     },
     strip_prefix = {
         "linux-aarch64": "clang+llvm-15.0.6-aarch64-linux-gnu",
+    },
+    # urls bypasses _find_llvm_basename_list, which fails for exec_os="linux"
+    # because "linux" is not in _known_distros.
+    urls = {
+        "linux-aarch64": ["https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.6/clang%2Bllvm-15.0.6-aarch64-linux-gnu.tar.xz"],
     },
 )
 llvm.sysroot(
