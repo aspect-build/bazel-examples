@@ -26,7 +26,7 @@ jobs:
             - uses: actions/checkout@v6
               with:
                 fetch-depth: 0 # tags required for workspace status command
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@36c688a9bbb0c84d55d7eca31bf3215e9d265bff # v2026.24.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Test
@@ -36,7 +36,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@36c688a9bbb0c84d55d7eca31bf3215e9d265bff # v2026.24.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Gazelle
@@ -46,7 +46,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@36c688a9bbb0c84d55d7eca31bf3215e9d265bff # v2026.24.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Format
@@ -56,7 +56,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@36c688a9bbb0c84d55d7eca31bf3215e9d265bff # v2026.24.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Buildifier
@@ -66,7 +66,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@36c688a9bbb0c84d55d7eca31bf3215e9d265bff # v2026.24.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Lint
@@ -80,7 +80,7 @@ jobs:
             - uses: actions/checkout@v6
               with:
                 fetch-depth: 0 # tags required for workspace status command
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@36c688a9bbb0c84d55d7eca31bf3215e9d265bff # v2026.24.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Delivery
