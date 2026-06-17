@@ -69,11 +69,6 @@ def config(ctx: ConfigContext):
         "--test_tag_filters=-no-aw",
     ]
 
-    # Gazelle target — repo still uses the legacy `//:gazelle.check` location.
-    # New convention is `//tools/gazelle:gazelle` via `aspect_gazelle_prebuilt`,
-    # which we can migrate to in a follow-up.
-    ctx.tasks["gazelle"].args.gazelle_target = "//:gazelle"
-
     # Lint aspects — required by the built-in `aspect lint` task. Same set
     # locally as on CI; CI invocations don't need to repeat the --aspect flags.
     ctx.tasks["lint"].args.aspects = [
