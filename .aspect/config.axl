@@ -28,17 +28,14 @@ buildifier = format.alias(
         # the user's cwd to make relative paths resolve.
         "run_in": "cwd",
         "include_patterns": [
-            "**/BUCK",
             "**/BUILD",
             "**/BUILD.bazel",
             "**/MODULE.bazel",
             "**/*.MODULE.bazel",
-            "**/Tiltfile",
             "**/WORKSPACE",
             "**/WORKSPACE.bazel",
             "**/*.axl",
             "**/*.bzl",
-            "**/*.star",
         ],
     },
     summary = "Format Starlark files using buildifier.",
