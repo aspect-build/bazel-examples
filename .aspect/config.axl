@@ -92,7 +92,7 @@ def config(ctx: ConfigContext):
 
     # Delivery
     ctx.tasks["delivery"].args.query = "kind(\"oci_push rule\", //...)"
-    ctx.tasks["delivery"].args.bazel_flags = [
+    ctx.tasks["delivery"].args.release_bazel_flags = [
         "--config=release",
     ]
 
