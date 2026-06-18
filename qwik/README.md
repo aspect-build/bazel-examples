@@ -5,7 +5,7 @@ The app uses the library as an internal dependency. Using Bazel we can build and
 
 ## About Bazel
 
-See the [root README](/README.bazel.md) for general information about using Bazel in this monorepo.
+See the [root README](/README.md) for general information about using Bazel in this monorepo.
 
 ## Developer Workflows
 
