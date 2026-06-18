@@ -10,6 +10,20 @@ common --modify_execution_info=GemInstall=+no-remote-exec,BundleInstall=+no-remo
 # We have a lot of dependencies and are okay with some of them bringing a newer version via a transitive dep.
 common --check_direct_dependencies=off
 
+# Override the preset's `--lockfile_mode=error` on CI. MODULE.bazel.lock is
+# .gitignored here, so CI has no committed lock — it restores one from the
+# Aspect Workflows warming archive (regenerated nightly). `error` mode breaks any
+# PR that bumps deps the warming archive hasn't picked up yet; `off` lets CI
+# resolve the new versions directly. Imported preset runs first, so this wins.
+common:ci --lockfile_mode=off
+
+# Set a macOS deployment target so C++ that uses std::filesystem (introduced in
+# macOS 10.15) compiles under the hermetic LLVM toolchain. toolchains_llvm 1.8+
+# no longer defaults a minimum OS version, so without this `speller/` fails to
+# build on macOS with "'path' is unavailable: introduced in macOS 10.15".
+# Inert on non-Apple builds (Linux CI), so safe to set unconditionally.
+common --macos_minimum_os=10.15
+
 # 'bazel build --config=lint' will produce the linter reports.
 # `aspect lint` (via aspect_rules_lint's lint.axl task) reuses this config.
 common:lint --aspects=//tools/lint:linters.bzl%buf
