@@ -86,6 +86,14 @@ warming:
     - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
     - /etc/aspect/workflows/bin/agent_health_check
     - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
+    # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
+    - /etc/aspect/workflows/bin/gitlab_section_start "legacy_config" "Create legacy workflows config"
+    - mkdir -p .aspect/workflows
+    - cat > .aspect/workflows/config.yaml << 'EOF'
+      tasks:
+        - warming:
+      EOF
+    - /etc/aspect/workflows/bin/gitlab_section_end "legacy_config"
     - /etc/aspect/workflows/bin/gitlab_section_start "warming" "Warming"
     - rosetta run warming
     - /etc/aspect/workflows/bin/gitlab_section_end "warming"
