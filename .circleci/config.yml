@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aspect-workflows: aspect-build/aspect-workflows@2026.25.3
+
 workflows:
   aspect-workflows:
     jobs:
@@ -35,6 +38,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Test
           command: aspect test --task-key=test-cci -- //...
@@ -45,6 +49,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Buildifier
           command: aspect buildifier --task-key=buildifier-cci
@@ -55,6 +60,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Format
           command: aspect format --task-key=format-cci
@@ -65,6 +71,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Gazelle
           command: aspect gazelle --task-key=gazelle-cci
@@ -75,6 +82,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Lint
           command: aspect lint  --task-key=lint-cci -- //...
@@ -85,6 +93,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Delivery
           command: aspect delivery --task-key=delivery-cci
