@@ -10,12 +10,6 @@ common --modify_execution_info=GemInstall=+no-remote-exec,BundleInstall=+no-remo
 # We have a lot of dependencies and are okay with some of them bringing a newer version via a transitive dep.
 common --check_direct_dependencies=off
 
-# When running locally, warn about unconfigured git hooks.
-common --workspace_status_command=githooks/check-config.sh
-
-# But not on CI.
-common:ci --workspace_status_command=
-
 # 'bazel build --config=lint' will produce the linter reports.
 # `aspect lint` (via aspect_rules_lint's lint.axl task) reuses this config.
 common:lint --aspects=//tools/lint:linters.bzl%buf

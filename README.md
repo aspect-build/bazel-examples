@@ -47,7 +47,6 @@ The sections below cover the common day-to-day tasks in this monorepo.
 
 - Run `aspect format` to re-format all changed files locally.
 - Run `aspect format path/to/file` to re-format a single file.
-- Run `pre-commit install` to auto-format changed files on `git commit`; see https://pre-commit.com/.
 
 Without the Aspect CLI, run the underlying formatter target directly with `bazel run //tools/format` (or `bazel run //tools/format path/to/file` for a single file).
 
