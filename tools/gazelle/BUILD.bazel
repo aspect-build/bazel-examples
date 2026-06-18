@@ -1,0 +1,27 @@
+load("@aspect_gazelle_prebuilt//:def.bzl", "aspect_gazelle")
+
+# The default target for `aspect gazelle`. Uses the prebuilt aspect gazelle
+# binary, so no Go toolchain is needed to generate BUILD files. `aspect gazelle`
+# runs this target with `-mode=diff` itself, so no separate `.check` target.
+#
+# C++ BUILD generation is driven entirely by the rules_cc.axl Orion extension
+# below, so "cc" is intentionally absent from `languages`.
+aspect_gazelle(
+    name = "gazelle",
+    extensions = [
+        "//.aspect/gazelle:main.axl",
+        "//.aspect/gazelle:rules_cc.axl",
+    ],
+    extra_args = ["-index=lazy"],
+    languages = [
+        "buf",
+        "js",
+        "go",
+        "proto",
+        "python",
+    ],
+    # Required when "go" is enabled, or the Go resolver makes network calls for
+    # every unknown import and appears to hang.
+    repo_config = "@bazel_gazelle_go_repository_config//:WORKSPACE",
+    visibility = ["//visibility:public"],
+)

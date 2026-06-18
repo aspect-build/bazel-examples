@@ -18,20 +18,6 @@ py_library(
     ],
 )
 
-py_binary(
-    name = "hello_world_app",
-    srcs = ["__main__.py"],
-    # Bazel 9: @bazel_tools//tools/bash/runfiles is now an alias to rules_shell
-    # using root_symlinks. aspect_rules_py uses ctx.files._runfiles_lib which
-    # returns empty for sh_library targets. Adding as data ensures root_symlinks
-    # (bazel_tools/tools/bash/runfiles/runfiles.bash) are merged into runfiles.
-    data = ["@bazel_tools//tools/bash/runfiles"],
-    imports = [".."],
-    main = "__main__.py",
-    visibility = ["//oci_python_image:__subpackages__"],
-    deps = [":hello_world_lib"],
-)
-
 # Construct an image that has three layers.
 # The result will look like this:
 #    bazel run //hello_world:tarball
@@ -41,7 +27,7 @@ py_binary(
 #9296e9071c11: Loading layer [==================================================>]  16.24kB/16.24kB
 py_image_layer(
     name = "layers",
-    binary = ":hello_world_app",
+    binary = ":hello_world_bin",
     # Transition binary to the target Linux platform so the image contains
     # Linux binaries rather than the macOS host binaries.
     platform = select({
@@ -54,7 +40,7 @@ oci_image(
     name = "image",
     # This is defined by an oci.pull() call in /MODULE.bazel
     base = "@ubuntu",
-    entrypoint = ["/oci_python_image/hello_world/hello_world_app"],
+    entrypoint = ["/oci_python_image/hello_world/hello_world_bin"],
     tars = [":layers"],
 )
 
@@ -158,4 +144,18 @@ py_test(
         "@pip//docker",
         "@pip//testcontainers",
     ],
+)
+
+py_binary(
+    name = "hello_world_bin",
+    srcs = ["__main__.py"],
+    # Bazel 9: @bazel_tools//tools/bash/runfiles is now an alias to rules_shell
+    # using root_symlinks. aspect_rules_py uses ctx.files._runfiles_lib which
+    # returns empty for sh_library targets. Adding as data ensures root_symlinks
+    # (bazel_tools/tools/bash/runfiles/runfiles.bash) are merged into runfiles.
+    data = ["@bazel_tools//tools/bash/runfiles"],  # keep
+    imports = [".."],
+    main = "__main__.py",
+    visibility = ["//oci_python_image:__subpackages__"],
+    deps = [":hello_world_lib"],
 )

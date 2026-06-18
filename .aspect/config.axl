@@ -20,7 +20,7 @@ buildifier = format.alias(
         # BUCK files from the `include_patterns` list below. `--scope=changed`
         # passes the changed file list positionally, so those extensions are
         # covered there. See
-        # https://docs.aspect.build/cli/tasks/buildifier#run-it-locally for
+        # https://aspect.build/docs/cli/tasks/buildifier#run-it-locally for
         # the user-facing reference.
         "formatter_args_for_tree_walk": ["-r", "."],
         # buildifier_binary is a symlink to the raw Go binary; it does not
@@ -68,11 +68,6 @@ def config(ctx: ConfigContext):
     ctx.tasks["test"].args.bazel_flags = [
         "--test_tag_filters=-no-aw",
     ]
-
-    # Gazelle target — repo still uses the legacy `//:gazelle.check` location.
-    # New convention is `//tools/gazelle:gazelle` via `aspect_gazelle_prebuilt`,
-    # which we can migrate to in a follow-up.
-    ctx.tasks["gazelle"].args.gazelle_target = "//:gazelle"
 
     # Lint aspects — required by the built-in `aspect lint` task. Same set
     # locally as on CI; CI invocations don't need to repeat the --aspect flags.

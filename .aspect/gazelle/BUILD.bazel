@@ -1,0 +1,3 @@
+# Expose the Orion gazelle extensions (.axl) so //tools/gazelle can reference
+# them via aspect_gazelle(extensions = [...]).
+exports_files(glob(["*.axl"]))

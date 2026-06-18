@@ -628,7 +628,7 @@ aspect_missing_hint() {
 
     curl -fsSL https://install.aspect.build | bash
 
-  or see https://docs.aspect.build/cli/install
+  or see https://aspect.build/docs/cli/install
 EOF
     [[ -n "$fallback_note" ]] && echo "  $fallback_note" >&2
     return 0
