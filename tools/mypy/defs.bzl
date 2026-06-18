@@ -1,3 +1,5 @@
+"""Configured rules_mypy aspect used to type-check py_* targets tagged `mypy`."""
+
 load("@pip_types//:types.bzl", "types")
 load("@rules_mypy//mypy:mypy.bzl", "mypy")
 
