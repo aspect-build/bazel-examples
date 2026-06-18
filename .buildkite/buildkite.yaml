@@ -3,6 +3,8 @@ steps:
   label: ":bazel: Test"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
   retry:
     manual:
       allowed: true
@@ -20,6 +22,8 @@ steps:
   label: ":hammer_and_wrench: Buildifier"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
   retry:
     manual:
       allowed: true
@@ -37,6 +41,8 @@ steps:
   label: ":hammer_and_wrench: Format"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
   retry:
     manual:
       allowed: true
@@ -54,6 +60,8 @@ steps:
   label: ":deer: Gazelle"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
   retry:
     manual:
       allowed: true
@@ -71,6 +79,8 @@ steps:
   label: ":broom: Lint"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
   retry:
     manual:
       allowed: true
@@ -88,6 +98,8 @@ steps:
   label: ":bazel: Delivery"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
   retry:
     manual:
       allowed: true
