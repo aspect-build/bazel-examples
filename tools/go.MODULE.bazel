@@ -3,13 +3,15 @@ Go
 See https://github.com/bazelbuild/rules_go/blob/master/docs/go/core/bzlmod.md
 """
 
-bazel_dep(name = "rules_go", version = "0.61.1")
+# Held at 0.60.0: rules_go 0.61.1 floors gazelle at 0.51.3, which (with the
+# protobuf 33.0 pin) breaks //protobuf and also requires Go SDK >= 1.24.12.
+# Bump alongside gazelle + the protobuf cluster.
+bazel_dep(name = "rules_go", version = "0.60.0")
 
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.download(
     name = "go_sdk",
-    # >= 1.24.12 required by gazelle 0.51.x's go.work (its repository tools).
-    version = "1.24.13",
+    version = "1.24.5",
 )
 use_repo(go_sdk, "go_sdk")
 
