@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aspect-workflows: aspect-build/aspect-workflows@2026.25.1
+  aspect-workflows: aspect-build/aspect-workflows@2026.25.2
 
 workflows:
   aspect-workflows:
