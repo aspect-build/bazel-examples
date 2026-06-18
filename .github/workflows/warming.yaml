@@ -22,6 +22,14 @@ jobs:
             - name: Workflows environment
               run: /etc/aspect/workflows/bin/configure_workflows_env
             - uses: actions/checkout@v6
+            # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
+            - name: Create legacy workflows config
+              run: |
+                mkdir -p .aspect/workflows
+                cat > .aspect/workflows/config.yaml << 'EOF'
+                tasks:
+                  - warming:
+                EOF
             - name: Agent health check
               run: RUNNER_TRACKER_ID="" && /etc/aspect/workflows/bin/agent_health_check
             - name: Create warming archive
