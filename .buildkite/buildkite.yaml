@@ -4,7 +4,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -23,7 +23,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -42,7 +42,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -61,7 +61,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -80,7 +80,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -99,7 +99,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/aspect-workflows#19a9eb187ad1f1c65c1b6d64a7fc03589041c8ae: ~ # v2026.25.0
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
