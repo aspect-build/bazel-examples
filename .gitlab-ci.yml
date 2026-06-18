@@ -1,3 +1,6 @@
+include:
+  - component: $CI_SERVER_FQDN/aspect-build/aspect-workflows-gitlab-component/setup@2026.25.5
+
 workflow:
   rules:
     # Don't create pipelines for tag pushes
@@ -13,6 +16,8 @@ test:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  before_script:
+    - !reference [.aspect-workflows-setup, before_script]
   script:
     - aspect test --task-key=test-gl -- //...
 
@@ -23,6 +28,8 @@ buildifier:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  before_script:
+    - !reference [.aspect-workflows-setup, before_script]
   script:
     - aspect buildifier --task-key=buildifier-gl
 
@@ -33,6 +40,8 @@ format:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  before_script:
+    - !reference [.aspect-workflows-setup, before_script]
   script:
     - aspect format --task-key=format-gl
 
@@ -43,6 +52,8 @@ gazelle:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  before_script:
+    - !reference [.aspect-workflows-setup, before_script]
   script:
     - aspect gazelle --task-key=gazelle-gl
 
@@ -53,6 +64,8 @@ lint:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  before_script:
+    - !reference [.aspect-workflows-setup, before_script]
   script:
     - aspect lint --task-key=lint-gl -- //...
 
@@ -68,6 +81,8 @@ delivery:
     - test
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
+  before_script:
+    - !reference [.aspect-workflows-setup, before_script]
   script:
     - aspect delivery --task-key=delivery-gl
 
@@ -79,20 +94,13 @@ warming:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  before_script:
+    - !reference [.aspect-workflows-setup, before_script]
   script:
-    - /etc/aspect/workflows/bin/gitlab_section_start "workflows_environment" "Workflows environment"
-    - /etc/aspect/workflows/bin/configure_workflows_env
-    - /etc/aspect/workflows/bin/gitlab_section_end "workflows_environment"
-    - /etc/aspect/workflows/bin/gitlab_section_start "agent_health_check" "Agent health check"
-    - /etc/aspect/workflows/bin/agent_health_check
-    - /etc/aspect/workflows/bin/gitlab_section_end "agent_health_check"
     # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
     - /etc/aspect/workflows/bin/gitlab_section_start "legacy_config" "Create legacy workflows config"
     - mkdir -p .aspect/workflows
-    - cat > .aspect/workflows/config.yaml << 'EOF'
-      tasks:
-        - warming:
-      EOF
+    - printf 'tasks:\n  - warming:\n' > .aspect/workflows/config.yaml
     - /etc/aspect/workflows/bin/gitlab_section_end "legacy_config"
     - /etc/aspect/workflows/bin/gitlab_section_start "warming" "Warming"
     - rosetta run warming
