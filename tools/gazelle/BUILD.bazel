@@ -9,8 +9,8 @@ load("@aspect_gazelle_prebuilt//:def.bzl", "aspect_gazelle")
 aspect_gazelle(
     name = "gazelle",
     extensions = [
-        "//.aspect/cli:main.axl",
-        "//.aspect/cli:rules_cc.axl",
+        "//.aspect/gazelle:main.axl",
+        "//.aspect/gazelle:rules_cc.axl",
     ],
     extra_args = ["-index=lazy"],
     languages = [
