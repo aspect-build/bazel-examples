@@ -16,8 +16,7 @@ test:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  before_script:
-    - !reference [.aspect-workflows-setup, before_script]
+  extends: .aspect-workflows-setup
   script:
     - aspect test --task-key=test-gl -- //...
 
@@ -28,8 +27,7 @@ buildifier:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  before_script:
-    - !reference [.aspect-workflows-setup, before_script]
+  extends: .aspect-workflows-setup
   script:
     - aspect buildifier --task-key=buildifier-gl
 
@@ -40,8 +38,7 @@ format:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  before_script:
-    - !reference [.aspect-workflows-setup, before_script]
+  extends: .aspect-workflows-setup
   script:
     - aspect format --task-key=format-gl
 
@@ -52,8 +49,7 @@ gazelle:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  before_script:
-    - !reference [.aspect-workflows-setup, before_script]
+  extends: .aspect-workflows-setup
   script:
     - aspect gazelle --task-key=gazelle-gl
 
@@ -64,8 +60,7 @@ lint:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  before_script:
-    - !reference [.aspect-workflows-setup, before_script]
+  extends: .aspect-workflows-setup
   script:
     - aspect lint --task-key=lint-gl -- //...
 
@@ -81,8 +76,7 @@ delivery:
     - test
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  before_script:
-    - !reference [.aspect-workflows-setup, before_script]
+  extends: .aspect-workflows-setup
   script:
     - aspect delivery --task-key=delivery-gl
 
@@ -94,8 +88,7 @@ warming:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE == "schedule"'
-  before_script:
-    - !reference [.aspect-workflows-setup, before_script]
+  extends: .aspect-workflows-setup
   script:
     # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
     - /etc/aspect/workflows/bin/gitlab_section_start "legacy_config" "Create legacy workflows config"
