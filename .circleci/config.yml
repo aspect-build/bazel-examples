@@ -109,10 +109,8 @@ jobs:
     resource_class: aspect-build/aspect-default
     working_directory: /mnt/ephemeral/workdir
     steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
+      - aspect-workflows/setup
       # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
       - run:
           name: Create legacy workflows config
@@ -122,9 +120,6 @@ jobs:
             tasks:
               - warming:
             EOF
-      - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
       - run:
           name: Create warming archive for root
           command: rosetta run warming
