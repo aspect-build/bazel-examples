@@ -30,7 +30,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Test
-              run: aspect test --task-key=test-gha-ephemeral -- //...
+              run: aspect test --task:name=test-gha-ephemeral -- //...
 
     gazelle:
         runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Gazelle
-              run: aspect gazelle --task-key=gazelle-gha-ephemeral
+              run: aspect gazelle --task:name=gazelle-gha-ephemeral
 
     format:
         runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Format
-              run: aspect format --task-key=format-gha-ephemeral
+              run: aspect format --task:name=format-gha-ephemeral
 
     buildifier:
         runs-on: ubuntu-latest
@@ -60,7 +60,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Buildifier
-              run: aspect buildifier --task-key=buildifier-gha-ephemeral
+              run: aspect buildifier --task:name=buildifier-gha-ephemeral
 
     lint:
         runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Lint
-              run: aspect lint --task-key=lint-gha-ephemeral -- //...
+              run: aspect lint --task:name=lint-gha-ephemeral -- //...
 
 
     delivery:
@@ -87,4 +87,4 @@ jobs:
               run: |
                 # We pass --track-state=false --mode=always to disable selective delivery which is currently
                 # only supported on Aspect Workflows CI runners as it requires a backend service
-                aspect delivery --task-key=delivery-gha-ephemeral --track-state=false --mode=always
+                aspect delivery --task:name=delivery-gha-ephemeral --track-state=false --mode=always

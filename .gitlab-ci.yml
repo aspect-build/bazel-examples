@@ -18,7 +18,7 @@ test:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
   extends: .aspect-workflows-setup
   script:
-    - aspect test --task-key=test-gl -- //...
+    - aspect test --task:name=test-gl -- //...
 
 buildifier:
   tags:
@@ -29,7 +29,7 @@ buildifier:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
   extends: .aspect-workflows-setup
   script:
-    - aspect buildifier --task-key=buildifier-gl
+    - aspect buildifier --task:name=buildifier-gl
 
 format:
   tags:
@@ -40,7 +40,7 @@ format:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
   extends: .aspect-workflows-setup
   script:
-    - aspect format --task-key=format-gl
+    - aspect format --task:name=format-gl
 
 gazelle:
   tags:
@@ -51,7 +51,7 @@ gazelle:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
   extends: .aspect-workflows-setup
   script:
-    - aspect gazelle --task-key=gazelle-gl
+    - aspect gazelle --task:name=gazelle-gl
 
 lint:
   tags:
@@ -62,7 +62,7 @@ lint:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
   extends: .aspect-workflows-setup
   script:
-    - aspect lint --task-key=lint-gl -- //...
+    - aspect lint --task:name=lint-gl -- //...
 
 delivery:
   variables:
@@ -78,7 +78,7 @@ delivery:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
   extends: .aspect-workflows-setup
   script:
-    - aspect delivery --task-key=delivery-gl
+    - aspect delivery --task:name=delivery-gl
 
 # TODO: migrate warming to AXL warming task once available
 warming:

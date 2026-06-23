@@ -16,7 +16,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect test --task-key=test-bk -- //...
+  command: aspect test --task:name=test-bk -- //...
 
 - key: buildifier
   label: ":hammer_and_wrench: Buildifier"
@@ -35,7 +35,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect buildifier --task-key buildifier-bk
+  command: aspect buildifier --task:name buildifier-bk
 
 - key: format
   label: ":hammer_and_wrench: Format"
@@ -54,7 +54,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect format --task-key=format-bk
+  command: aspect format --task:name=format-bk
 
 - key: gazelle
   label: ":deer: Gazelle"
@@ -73,7 +73,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect gazelle --task-key=gazelle-bk
+  command: aspect gazelle --task:name=gazelle-bk
 
 - key: lint
   label: ":broom: Lint"
@@ -92,7 +92,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect lint  --task-key=lint-bk -- //...
+  command: aspect lint  --task:name=lint-bk -- //...
 
 - key: delivery
   label: ":bazel: Delivery"
@@ -111,6 +111,6 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect delivery --task-key=delivery-bk
+  command: aspect delivery --task:name=delivery-bk
   depends_on:
     - test
