@@ -1,0 +1,127 @@
+name: Demo - RBE Showcase
+
+# Manual demo of Remote Build Execution fan-out. Dispatch this workflow, tune
+# the matrix size and Bazel concurrency, and watch a few hundred independent
+# compile-heavy units fan out across the Aspect Workflows remote executors.
+#
+# The matrix targets live in //rbe-showcase and are tagged `manual`, so they are
+# never built by the regular CI (`//...`). This workflow names the
+# //rbe-showcase:matrix test_suite explicitly, which is the only way they run.
+#
+# See rbe-showcase/README.md for how the sizing knobs map to compile cost and
+# the (memory-constrained) sizing guidance.
+
+on:
+    workflow_dispatch:
+        inputs:
+            count:
+                description: "Independent compile + test units in the matrix (fan-out width)."
+                required: true
+                default: "200"
+            funcs:
+                description: "Template functions per unit (linear compile-cost knob)."
+                required: true
+                default: "200"
+            tmpl_depth:
+                description: "Node<> template recursion depth. SUPERLINEAR + memory-hungry: each +1 ~doubles per-unit compile cost AND RSS. Raise carefully."
+                required: true
+                default: "9"
+            test_iters:
+                description: "LCG iterations per test (~16s/test at 200000000; runtime fan-out knob)."
+                required: true
+                default: "200000000"
+            jobs:
+                description: "Bazel --jobs: how many remote actions to request concurrently (the scaling knob)."
+                required: true
+                default: "32"
+            rerun_tests:
+                description: "Force tests to re-run instead of taking cached results (shows the full test fan-out every time)."
+                type: boolean
+                default: true
+            extra_bazel_flags:
+                description: "Extra Bazel flags appended verbatim (e.g. --remote_download_outputs=minimal)."
+                required: false
+                default: ""
+
+permissions:
+    id-token: write
+
+concurrency:
+    # Serialize demo runs so two dispatches don't fight over the matrix sources.
+    group: ${{ github.workflow }}
+    cancel-in-progress: false
+
+jobs:
+    showcase:
+        runs-on: [self-hosted, aspect-workflows, aspect-default]
+        timeout-minutes: 60
+        # All dispatch inputs are exposed as env vars (never interpolated
+        # directly into run: scripts) so a crafted value cannot inject shell or
+        # sed commands. The numeric ones are additionally validated below.
+        env:
+            COUNT: ${{ inputs.count }}
+            FUNCS: ${{ inputs.funcs }}
+            TMPL_DEPTH: ${{ inputs.tmpl_depth }}
+            TEST_ITERS: ${{ inputs.test_iters }}
+            JOBS: ${{ inputs.jobs }}
+            RERUN_TESTS: ${{ inputs.rerun_tests }}
+            EXTRA: ${{ inputs.extra_bazel_flags }}
+        steps:
+            - uses: actions/checkout@v6
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
+              with:
+                aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
+
+            - name: Validate inputs
+              run: |
+                set -euo pipefail
+                for pair in "count:$COUNT" "funcs:$FUNCS" "tmpl_depth:$TMPL_DEPTH" "test_iters:$TEST_ITERS" "jobs:$JOBS"; do
+                  name=${pair%%:*}
+                  val=${pair#*:}
+                  if ! [[ "$val" =~ ^[0-9]+$ ]]; then
+                    echo "::error::input '$name' must be a non-negative integer, got: $val"
+                    exit 1
+                  fi
+                done
+
+            - name: Size the matrix
+              run: |
+                set -euo pipefail
+                build="rbe-showcase/BUILD.bazel"
+                # Rewrite the rbe_matrix(...) knobs in place from the (validated,
+                # integer-only) inputs. Patterns are anchored to leading
+                # indentation so only the macro-call lines are touched.
+                sed -E -i \
+                  -e "s/^( +count = )[0-9]+,/\1${COUNT},/" \
+                  -e "s/^( +funcs = )[0-9]+,/\1${FUNCS},/" \
+                  -e "s/^( +tmpl_depth = )[0-9]+,/\1${TMPL_DEPTH},/" \
+                  -e "s/^( +test_iters = )[0-9]+,/\1${TEST_ITERS},/" \
+                  "$build"
+                {
+                  echo "## RBE showcase config"
+                  echo '```python'
+                  sed -n '/^rbe_matrix(/,/^)/p' "$build"
+                  echo '```'
+                  echo "jobs=${JOBS}  rerun_tests=${RERUN_TESTS}"
+                } >> "$GITHUB_STEP_SUMMARY"
+
+            - name: Test on RBE
+              run: |
+                set -euo pipefail
+                flags=(--config=rbe "--jobs=${JOBS}")
+                if [ "$RERUN_TESTS" = "true" ]; then
+                  flags+=(--nocache_test_results)
+                fi
+                # Word-split EXTRA into separate args. Env-var expansion performs
+                # no command substitution, so this only ever yields plain args.
+                # shellcheck disable=SC2206
+                flags+=(${EXTRA})
+
+                start=$(date +%s)
+                aspect test --task:name=rbe-showcase "${flags[@]}" -- //rbe-showcase:matrix
+                end=$(date +%s)
+
+                {
+                  echo "### Result"
+                  echo "RBE wall time: **$((end - start))s** for ${COUNT} units (--jobs=${JOBS})."
+                } >> "$GITHUB_STEP_SUMMARY"
