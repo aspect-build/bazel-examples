@@ -72,7 +72,9 @@ def emit_lib(unit: str, funcs: int, tmpl_depth: int) -> str:
     parts.append(f"  long acc = {unit}_f0(1);")
     parts.append("  for (long i = 0; i < iters; ++i) {")
     parts.append("    for (int j = 0; j < 64; ++j) {")
-    parts.append("      acc = (acc * 6364136223846793005L + 1442695040888963407L) ^ (acc >> 31);")
+    parts.append(
+        "      acc = (acc * 6364136223846793005L + 1442695040888963407L) ^ (acc >> 31);"
+    )
     parts.append("    }")
     parts.append("  }")
     parts.append("  return acc | 1L;")
