@@ -117,8 +117,10 @@ jobs:
           # shellcheck disable=SC2206
           flags+=(${EXTRA})
 
+          # Bazel flags go AFTER the `--` separator; the aspect CLI rejects
+          # them in its own arg position.
           start=$(date +%s)
-          aspect test --task:name=rbe-showcase "${flags[@]}" -- //rbe-showcase:matrix
+          aspect test --task:name=rbe-showcase -- "${flags[@]}" //rbe-showcase:matrix
           end=$(date +%s)
 
           {
