@@ -108,17 +108,20 @@ jobs:
       - name: Test on RBE
         run: |
           set -euo pipefail
-          flags=(--config=rbe "--jobs=${JOBS}")
-          if [ "$RERUN_TESTS" = "true" ]; then
-            flags+=(--nocache_test_results)
-          fi
-          # Word-split EXTRA into separate args. Env-var expansion performs
-          # no command substitution, so this only ever yields plain args.
-          # shellcheck disable=SC2206
-          flags+=(${EXTRA})
+          # Pass per-dispatch bazel flags via user.bazelrc instead of the aspect
+          # CLI: aspect reserves --config (so it can't sit before `--`), and
+          # anything after `--` is parsed by bazel as a target, not a flag.
+          # .bazelrc ends with `try-import %workspace%/user.bazelrc`, so flags
+          # written here are read and forwarded by aspect. --config=rbe is
+          # already injected on Workflows runners, so we don't repeat it.
+          {
+            echo "test --jobs=${JOBS}"
+            if [ "$RERUN_TESTS" = "true" ]; then echo "test --nocache_test_results"; fi
+            if [ -n "${EXTRA}" ]; then echo "test ${EXTRA}"; fi
+          } > user.bazelrc
 
           start=$(date +%s)
-          aspect test --task:name=rbe-showcase "${flags[@]}" -- //rbe-showcase:matrix
+          aspect test --task:name=rbe-showcase -- //rbe-showcase:matrix
           end=$(date +%s)
 
           {
