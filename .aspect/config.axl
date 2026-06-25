@@ -20,7 +20,7 @@ buildifier = format.alias(
         # BUCK files from the `include_patterns` list below. `--scope=changed`
         # passes the changed file list positionally, so those extensions are
         # covered there. See
-        # https://docs.aspect.build/cli/tasks/buildifier#run-it-locally for
+        # https://aspect.build/docs/cli/tasks/buildifier#run-it-locally for
         # the user-facing reference.
         "formatter_args_for_tree_walk": ["-r", "."],
         # buildifier_binary is a symlink to the raw Go binary; it does not
@@ -28,17 +28,14 @@ buildifier = format.alias(
         # the user's cwd to make relative paths resolve.
         "run_in": "cwd",
         "include_patterns": [
-            "**/BUCK",
             "**/BUILD",
             "**/BUILD.bazel",
             "**/MODULE.bazel",
             "**/*.MODULE.bazel",
-            "**/Tiltfile",
             "**/WORKSPACE",
             "**/WORKSPACE.bazel",
             "**/*.axl",
             "**/*.bzl",
-            "**/*.star",
         ],
     },
     summary = "Format Starlark files using buildifier.",
@@ -72,11 +69,6 @@ def config(ctx: ConfigContext):
         "--test_tag_filters=-no-aw",
     ]
 
-    # Gazelle target — repo still uses the legacy `//:gazelle.check` location.
-    # New convention is `//tools/gazelle:gazelle` via `aspect_gazelle_prebuilt`,
-    # which we can migrate to in a follow-up.
-    ctx.tasks["gazelle"].args.gazelle_target = "//:gazelle"
-
     # Lint aspects — required by the built-in `aspect lint` task. Same set
     # locally as on CI; CI invocations don't need to repeat the --aspect flags.
     ctx.tasks["lint"].args.aspects = [
@@ -92,7 +84,7 @@ def config(ctx: ConfigContext):
 
     # Delivery
     ctx.tasks["delivery"].args.query = "kind(\"oci_push rule\", //...)"
-    ctx.tasks["delivery"].args.bazel_flags = [
+    ctx.tasks["delivery"].args.release_bazel_flags = [
         "--config=release",
     ]
 

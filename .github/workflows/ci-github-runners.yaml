@@ -26,51 +26,51 @@ jobs:
             - uses: actions/checkout@v6
               with:
                 fetch-depth: 0 # tags required for workspace status command
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Test
-              run: aspect test --task-key=test-gha-ephemeral -- //...
+              run: aspect test --task:name=test-gha-ephemeral -- //...
 
     gazelle:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Gazelle
-              run: aspect gazelle --task-key=gazelle-gha-ephemeral
+              run: aspect gazelle --task:name=gazelle-gha-ephemeral
 
     format:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Format
-              run: aspect format --task-key=format-gha-ephemeral
+              run: aspect format --task:name=format-gha-ephemeral
 
     buildifier:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Buildifier
-              run: aspect buildifier --task-key=buildifier-gha-ephemeral
+              run: aspect buildifier --task:name=buildifier-gha-ephemeral
 
     lint:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Lint
-              run: aspect lint --task-key=lint-gha-ephemeral -- //...
+              run: aspect lint --task:name=lint-gha-ephemeral -- //...
 
 
     delivery:
@@ -80,11 +80,11 @@ jobs:
             - uses: actions/checkout@v6
               with:
                 fetch-depth: 0 # tags required for workspace status command
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Delivery
               run: |
                 # We pass --track-state=false --mode=always to disable selective delivery which is currently
                 # only supported on Aspect Workflows CI runners as it requires a backend service
-                aspect delivery --task-key=delivery-gha-ephemeral --track-state=false --mode=always
+                aspect delivery --task:name=delivery-gha-ephemeral --track-state=false --mode=always

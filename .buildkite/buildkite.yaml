@@ -3,6 +3,8 @@ steps:
   label: ":bazel: Test"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -14,12 +16,14 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect test --task-key=test-bk -- //...
+  command: aspect test --task:name=test-bk -- //...
 
 - key: buildifier
   label: ":hammer_and_wrench: Buildifier"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -31,12 +35,14 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect buildifier --task-key buildifier-bk
+  command: aspect buildifier --task:name buildifier-bk
 
 - key: format
   label: ":hammer_and_wrench: Format"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -48,12 +54,14 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect format --task-key=format-bk
+  command: aspect format --task:name=format-bk
 
 - key: gazelle
   label: ":deer: Gazelle"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -65,12 +73,14 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect gazelle --task-key=gazelle-bk
+  command: aspect gazelle --task:name=gazelle-bk
 
 - key: lint
   label: ":broom: Lint"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -82,7 +92,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect lint  --task-key=lint-bk -- //...
+  command: aspect lint  --task:name=lint-bk -- //...
 
 - key: hermetic-rbe
   label: ":lock: Hermetic RBE Tests"
@@ -105,6 +115,8 @@ steps:
   label: ":bazel: Delivery"
   agents:
     queue: aspect-default
+  plugins:
+    - aspect-build/aspect-workflows#61d7547edd007a6d6a5d1e4972bf2b84b4f08faf: ~ # v2026.25.1
   retry:
     manual:
       allowed: true
@@ -116,7 +128,7 @@ steps:
       exit_status: 255
     - limit: 1
       exit_status: -1
-  command: aspect delivery --task-key=delivery-bk
+  command: aspect delivery --task:name=delivery-bk
   depends_on:
     - test
     - hermetic-rbe

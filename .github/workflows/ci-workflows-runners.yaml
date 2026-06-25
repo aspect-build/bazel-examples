@@ -26,51 +26,51 @@ jobs:
             - uses: actions/checkout@v6
               with:
                 fetch-depth: 0 # tags required for workspace status command
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Test
-              run: aspect test --task-key=test-gha -- //...
+              run: aspect test --task:name=test-gha -- //...
 
     gazelle:
         runs-on: [self-hosted, aspect-workflows, aspect-default]
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Gazelle
-              run: aspect gazelle --task-key=gazelle-gha
+              run: aspect gazelle --task:name=gazelle-gha
 
     format:
         runs-on: [self-hosted, aspect-workflows, aspect-default]
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Format
-              run: aspect format --task-key=format-gha
+              run: aspect format --task:name=format-gha
 
     buildifier:
         runs-on: [self-hosted, aspect-workflows, aspect-default]
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Buildifier
-              run: aspect buildifier --task-key=buildifier-gha
+              run: aspect buildifier --task:name=buildifier-gha
 
     lint:
         runs-on: [self-hosted, aspect-workflows, aspect-default]
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Lint
-              run: aspect lint --task-key=lint-gha -- //...
+              run: aspect lint --task:name=lint-gha -- //...
 
 
     delivery:
@@ -80,8 +80,8 @@ jobs:
             - uses: actions/checkout@v6
               with:
                 fetch-depth: 0 # tags required for workspace status command
-            - uses: aspect-build/setup-aspect@c22a8f64fb38f82f59ce809cd7eb9f8ae096da44 # v2026.23.2
+            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Delivery
-              run: aspect delivery --task-key=delivery-gha
+              run: aspect delivery --task:name=delivery-gha

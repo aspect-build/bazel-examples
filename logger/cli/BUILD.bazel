@@ -6,17 +6,17 @@ exports_files(
     visibility = ["//requirements:__pkg__"],
 )
 
-py_binary(
-    name = "cli",
-    srcs = ["__main__.py"],
-    main = "__main__.py",
-    visibility = ["//:__subpackages__"],
-    deps = ["@pip//requests"],
-)
-
 pip_compile(
     name = "requirements",
     requirements_in = "pyproject.toml",
     requirements_txt = "requirements.txt",
     visibility = ["//requirements:__pkg__"],
+)
+
+py_binary(
+    name = "cli_bin",
+    srcs = ["__main__.py"],
+    main = "__main__.py",
+    visibility = ["//:__subpackages__"],
+    deps = ["@pip//requests"],
 )

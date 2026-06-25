@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aspect-workflows: aspect-build/aspect-workflows@2026.25.3
+
 workflows:
   aspect-workflows:
     jobs:
@@ -35,9 +38,10 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Test
-          command: aspect test --task-key=test-cci -- //...
+          command: aspect test --task:name=test-cci -- //...
 
   buildifier:
     machine: true
@@ -45,9 +49,10 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Buildifier
-          command: aspect buildifier --task-key=buildifier-cci
+          command: aspect buildifier --task:name=buildifier-cci
 
   format:
     machine: true
@@ -55,9 +60,10 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Format
-          command: aspect format --task-key=format-cci
+          command: aspect format --task:name=format-cci
 
   gazelle:
     machine: true
@@ -65,9 +71,10 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Gazelle
-          command: aspect gazelle --task-key=gazelle-cci
+          command: aspect gazelle --task:name=gazelle-cci
 
   lint:
     machine: true
@@ -75,9 +82,10 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Lint
-          command: aspect lint  --task-key=lint-cci -- //...
+          command: aspect lint  --task:name=lint-cci -- //...
   
   delivery:
     machine: true
@@ -85,9 +93,10 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
+      - aspect-workflows/setup
       - run:
           name: Delivery
-          command: aspect delivery --task-key=delivery-cci
+          command: aspect delivery --task:name=delivery-cci
 
   # TODO: migrate warming to AXL warming task once available
   warming:
@@ -100,13 +109,17 @@ jobs:
     resource_class: aspect-build/aspect-default
     working_directory: /mnt/ephemeral/workdir
     steps:
-      - run:
-          name: Workflows environment
-          command: /etc/aspect/workflows/bin/configure_workflows_env
       - checkout
+      - aspect-workflows/setup
+      # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
       - run:
-          name: Agent health check
-          command: /etc/aspect/workflows/bin/agent_health_check
+          name: Create legacy workflows config
+          command: |
+            mkdir -p .aspect/workflows
+            cat > .aspect/workflows/config.yaml << 'EOF'
+            tasks:
+              - warming:
+            EOF
       - run:
           name: Create warming archive for root
           command: rosetta run warming

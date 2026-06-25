@@ -1,11 +1,11 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
-load("@buildifier_prebuilt//:rules.bzl", "buildifier")
-load("@gazelle//:def.bzl", "gazelle")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 package(default_visibility = ["//:__subpackages__"])
 
-# Global config shared across monorepo.
+# Repo-wide gazelle config. The `gazelle` binary + runner targets live in
+# //tools/gazelle (the default target for `aspect gazelle`); these directives
+# are read from the root package and apply across the monorepo.
 # gazelle:prefix github.com/aspect-build/bazel-examples
 # gazelle:js_npm_package_target_name pkg
 # gazelle:js_package_rule_kind js_library
@@ -15,32 +15,6 @@ package(default_visibility = ["//:__subpackages__"])
 # gazelle:exclude py_mypy
 # gazelle:exclude angular
 # gazelle:exclude qwik
-
-_GAZELLE_ENV = {
-    "ORION_EXTENSIONS_DIR": ".aspect/cli",
-    "ENABLE_LANGUAGES": ",".join([
-        "buf",
-        "js",
-        "go",
-        "proto",
-        "python",
-    ]),
-}
-
-gazelle(
-    name = "gazelle",
-    env = _GAZELLE_ENV,
-    extra_args = ["-index=lazy"],
-    gazelle = "@multitool//tools/gazelle",
-)
-
-gazelle(
-    name = "gazelle.check",
-    env = _GAZELLE_ENV,
-    extra_args = ["-index=lazy"],
-    gazelle = "@multitool//tools/gazelle",
-    mode = "diff",
-)
 
 npm_link_all_packages(name = "node_modules")
 
@@ -67,32 +41,4 @@ js_library(
         ":node_modules/@eslint/js",
         ":node_modules/typescript-eslint",
     ],
-)
-
-alias(
-    name = "format",
-    actual = "//tools/format:format",
-    visibility = ["//visibility:public"],
-)
-
-buildifier(
-    name = "buildifier",
-    exclude_patterns = ["./.git/*"],
-    lint_mode = "fix",
-    mode = "fix",
-)
-
-# todo(team): burn down to zero
-DISABLED_BUILDIFIER_WARNINGS = [
-    "module-docstring",
-    "function-docstring",
-    "unused-variable",
-]
-
-buildifier(
-    name = "buildifier.check",
-    exclude_patterns = ["./.git/*"],
-    lint_mode = "warn",
-    lint_warnings = ["-{}".format(w) for w in DISABLED_BUILDIFIER_WARNINGS],
-    mode = "diff",
 )

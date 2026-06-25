@@ -1,9 +1,6 @@
-# TODO: delete when all rules_js rules added to aspect-cli
-aspect.gazelle_rule_kind("js_binary", {
-    "From": "@aspect_rules_js//js:defs.bzl",
-    "MergeableAttrs": ["data"],
-    "ResolveAttrs": ["entry_point", "data"],
-})
+# js_binary is provided by the built-in "js" gazelle language, so we don't
+# register a rule kind for it here — the extension below just declares the
+# `main` target using that kind.
 
 def declare_main_js(ctx):
     if len(ctx.sources) == 0 or not ctx.rel.startswith("nodejs_apps"):

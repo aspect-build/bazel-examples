@@ -20,10 +20,8 @@ ignore_directories([
     "jest",
     "nestjs",
     "node_snapshot_flags",
-    "oci_java_image",
     "prisma",
     "rules_nodejs_to_rules_js_migration",
     "rust_insta_snapshot_test",
     "ts_project_transpiler",
-    "vercel_pkg",
 ])
