@@ -94,6 +94,23 @@ steps:
       exit_status: -1
   command: aspect lint  --task:name=lint-bk -- //...
 
+- key: hermetic-rbe
+  label: ":lock: Hermetic RBE Tests"
+  agents:
+    queue: aspect-default
+  retry:
+    manual:
+      allowed: true
+      permit_on_passed: false
+    automatic:
+    - limit: 1
+      exit_status: 36
+    - limit: 1
+      exit_status: 255
+    - limit: 1
+      exit_status: -1
+  command: aspect test --task-key=hermetic-rbe-bk -- //hermetic_tests/...
+
 - key: delivery
   label: ":bazel: Delivery"
   agents:
@@ -114,3 +131,4 @@ steps:
   command: aspect delivery --task:name=delivery-bk
   depends_on:
     - test
+    - hermetic-rbe
