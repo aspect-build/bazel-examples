@@ -68,7 +68,7 @@ jobs:
       EXTRA: ${{ inputs.extra_bazel_flags }}
     steps:
       - uses: actions/checkout@v6
-      - uses: aspect-build/setup-aspect@7d93c420bbaa64d7ee6057770b8d0d4a3307c76a # v2026.26.5
+      - uses: aspect-build/setup-aspect@80c3f7a84ad9b0c10c31bdd86128f83b0ecdf61e # v2026.26.6
         with:
           aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
 
