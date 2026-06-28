@@ -16,7 +16,7 @@ jobs:
         runs-on: [self-hosted, aspect-workflows, aspect-default]
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@b1e9d142e86f63c10d603304daa22bf80492e24c # v2026.25.1
+            - uses: aspect-build/setup-aspect@8e5e3d1e7e9754e703f1b9cb79f491c06c00338f # v2026.26.2
             # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
             - name: Create legacy workflows config
               run: |

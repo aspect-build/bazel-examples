@@ -1,5 +1,5 @@
 include:
-  - component: $CI_SERVER_FQDN/aspect-build/aspect-workflows-gitlab-component/setup@2026.25.5
+  - component: $CI_SERVER_FQDN/aspect-build/setup-aspect-gitlab-component/setup@2026.26.1
 
 workflow:
   rules:
@@ -16,7 +16,7 @@ test:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  extends: .aspect-workflows-setup
+  extends: .setup-aspect
   script:
     - aspect test --task:name=test-gl -- //...
 
@@ -27,7 +27,7 @@ buildifier:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  extends: .aspect-workflows-setup
+  extends: .setup-aspect
   script:
     - aspect buildifier --task:name=buildifier-gl
 
@@ -38,7 +38,7 @@ format:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  extends: .aspect-workflows-setup
+  extends: .setup-aspect
   script:
     - aspect format --task:name=format-gl
 
@@ -49,7 +49,7 @@ gazelle:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  extends: .aspect-workflows-setup
+  extends: .setup-aspect
   script:
     - aspect gazelle --task:name=gazelle-gl
 
@@ -60,7 +60,7 @@ lint:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  extends: .aspect-workflows-setup
+  extends: .setup-aspect
   script:
     - aspect lint --task:name=lint-gl -- //...
 
@@ -76,7 +76,7 @@ delivery:
     - test
   rules:
       - if: '$CI_PIPELINE_SOURCE != "schedule"'
-  extends: .aspect-workflows-setup
+  extends: .setup-aspect
   script:
     - aspect delivery --task:name=delivery-gl
 
@@ -88,7 +88,7 @@ warming:
   stage: Aspect Workflows
   rules:
       - if: '$CI_PIPELINE_SOURCE == "schedule"'
-  extends: .aspect-workflows-setup
+  extends: .setup-aspect
   script:
     # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
     - /etc/aspect/workflows/bin/gitlab_section_start "legacy_config" "Create legacy workflows config"

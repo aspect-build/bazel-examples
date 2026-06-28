@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aspect-workflows: aspect-build/aspect-workflows@2026.25.3
+  setup-aspect: aspect-build/setup-aspect@2026.26.3
 
 workflows:
   aspect-workflows:
@@ -38,7 +38,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
-      - aspect-workflows/setup
+      - setup-aspect/setup
       - run:
           name: Test
           command: aspect test --task:name=test-cci -- //...
@@ -49,7 +49,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
-      - aspect-workflows/setup
+      - setup-aspect/setup
       - run:
           name: Buildifier
           command: aspect buildifier --task:name=buildifier-cci
@@ -60,7 +60,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
-      - aspect-workflows/setup
+      - setup-aspect/setup
       - run:
           name: Format
           command: aspect format --task:name=format-cci
@@ -71,7 +71,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
-      - aspect-workflows/setup
+      - setup-aspect/setup
       - run:
           name: Gazelle
           command: aspect gazelle --task:name=gazelle-cci
@@ -82,7 +82,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
-      - aspect-workflows/setup
+      - setup-aspect/setup
       - run:
           name: Lint
           command: aspect lint  --task:name=lint-cci -- //...
@@ -93,7 +93,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
-      - aspect-workflows/setup
+      - setup-aspect/setup
       - run:
           name: Delivery
           command: aspect delivery --task:name=delivery-cci
@@ -110,7 +110,7 @@ jobs:
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
-      - aspect-workflows/setup
+      - setup-aspect/setup
       # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
       - run:
           name: Create legacy workflows config
