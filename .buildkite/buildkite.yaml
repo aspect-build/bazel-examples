@@ -4,7 +4,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/setup-aspect#34570cb8821b4d8d3549752b0bae70027cfc882b: ~ # v2026.26.4
+    - aspect-build/setup-aspect#3f1113f5a140f660970bcfae4a8c0585d1e1dd0c: ~ # v2026.26.6
   retry:
     manual:
       allowed: true
@@ -23,7 +23,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/setup-aspect#34570cb8821b4d8d3549752b0bae70027cfc882b: ~ # v2026.26.4
+    - aspect-build/setup-aspect#3f1113f5a140f660970bcfae4a8c0585d1e1dd0c: ~ # v2026.26.6
   retry:
     manual:
       allowed: true
@@ -42,7 +42,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/setup-aspect#34570cb8821b4d8d3549752b0bae70027cfc882b: ~ # v2026.26.4
+    - aspect-build/setup-aspect#3f1113f5a140f660970bcfae4a8c0585d1e1dd0c: ~ # v2026.26.6
   retry:
     manual:
       allowed: true
@@ -61,7 +61,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/setup-aspect#34570cb8821b4d8d3549752b0bae70027cfc882b: ~ # v2026.26.4
+    - aspect-build/setup-aspect#3f1113f5a140f660970bcfae4a8c0585d1e1dd0c: ~ # v2026.26.6
   retry:
     manual:
       allowed: true
@@ -80,7 +80,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/setup-aspect#34570cb8821b4d8d3549752b0bae70027cfc882b: ~ # v2026.26.4
+    - aspect-build/setup-aspect#3f1113f5a140f660970bcfae4a8c0585d1e1dd0c: ~ # v2026.26.6
   retry:
     manual:
       allowed: true
@@ -99,7 +99,7 @@ steps:
   agents:
     queue: aspect-default
   plugins:
-    - aspect-build/setup-aspect#34570cb8821b4d8d3549752b0bae70027cfc882b: ~ # v2026.26.4
+    - aspect-build/setup-aspect#3f1113f5a140f660970bcfae4a8c0585d1e1dd0c: ~ # v2026.26.6
   retry:
     manual:
       allowed: true

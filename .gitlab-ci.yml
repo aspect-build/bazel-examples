@@ -1,5 +1,5 @@
 include:
-  - component: $CI_SERVER_FQDN/aspect-build/setup-aspect-gitlab-component/setup@2026.26.4
+  - component: $CI_SERVER_FQDN/aspect-build/setup-aspect-gitlab-component/setup@2026.26.6
 
 workflow:
   rules:
@@ -80,7 +80,6 @@ delivery:
   script:
     - aspect delivery --task:name=delivery-gl
 
-# TODO: migrate warming to AXL warming task once available
 warming:
   tags:
     - aspect-workflows
@@ -90,14 +89,4 @@ warming:
       - if: '$CI_PIPELINE_SOURCE == "schedule"'
   extends: .setup-aspect
   script:
-    # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
-    - /etc/aspect/workflows/bin/gitlab_section_start "legacy_config" "Create legacy workflows config"
-    - mkdir -p .aspect/workflows
-    - printf 'tasks:\n  - warming:\n' > .aspect/workflows/config.yaml
-    - /etc/aspect/workflows/bin/gitlab_section_end "legacy_config"
-    - /etc/aspect/workflows/bin/gitlab_section_start "warming" "Warming"
-    - rosetta run warming
-    - /etc/aspect/workflows/bin/gitlab_section_end "warming"
-    - /etc/aspect/workflows/bin/gitlab_section_start "archive_warming_tars" "Archive warming tars"
-    - /etc/aspect/workflows/bin/warming_archive
-    - /etc/aspect/workflows/bin/gitlab_section_end "archive_warming_tars"
+    - aspect ci warming --task:name warming -- //...
