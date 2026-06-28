@@ -9,7 +9,6 @@ on:
     # Allow this to be triggered manually via the GitHub UI Actions tab
     workflow_dispatch:
 
-# TODO: migrate warming to AXL warming task once available
 jobs:
     warming-archive:
         name: Aspect Workflows Warming
@@ -17,15 +16,5 @@ jobs:
         steps:
             - uses: actions/checkout@v6
             - uses: aspect-build/setup-aspect@b7443e6f0b4a72507d73fcc49c16eecaf28786f9 # v2026.26.7
-            # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
-            - name: Create legacy workflows config
-              run: |
-                mkdir -p .aspect/workflows
-                cat > .aspect/workflows/config.yaml << 'EOF'
-                tasks:
-                  - warming:
-                EOF
-            - name: Create warming archive
-              run: rosetta run warming
-            - name: Archive warming tars
-              run: /etc/aspect/workflows/bin/warming_archive
+            - name: Warming
+              run: aspect ci warming --task:name warming -- //...

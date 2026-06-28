@@ -98,31 +98,13 @@ jobs:
           name: Delivery
           command: aspect delivery --task:name=delivery-cci
 
-  # TODO: migrate warming to AXL warming task once available
   warming:
-    environment:
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_NUMBER: << pipeline.number >>
-      ASPECT_WORKFLOWS_CIRCLE_PIPELINE_PROJECT_TYPE: << pipeline.project.type >>
-      ASPECT_WORKFLOWS_CIRCLE_WORKFLOW_BASE_NAME: aspect-workflows
-      ASPECT_WORKFLOWS_CONFIG: .aspect/workflows/config.yaml
     machine: true
     resource_class: aspect-build/aspect-default
     working_directory: /mnt/ephemeral/workdir
     steps:
       - checkout
       - setup-aspect/setup
-      # we still need a .aspect/workflows/config.yaml until the AXL warming task is ready
       - run:
-          name: Create legacy workflows config
-          command: |
-            mkdir -p .aspect/workflows
-            cat > .aspect/workflows/config.yaml << 'EOF'
-            tasks:
-              - warming:
-            EOF
-      - run:
-          name: Create warming archive for root
-          command: rosetta run warming
-      - run:
-          name: Archive warming tars
-          command: /etc/aspect/workflows/bin/warming_archive
+          name: Warming
+          command: aspect ci warming --task:name warming -- //...
