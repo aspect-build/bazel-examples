@@ -42,7 +42,7 @@ buildifier = format.alias(
 )
 
 def _drop_vanilla_bazel_except_build_and_test(ctx: TaskContext, info: ReproFixInfo) -> ReproFixSuggestion:
-    if not info.slug.endswith("-vanilla-bazel") or info.task_name == "build" or info.task_name == "test":
+    if not info.slug.endswith("-vanilla-bazel") or info.task_kind == "build" or info.task_kind == "test":
         return REPRO_FIX_ACCEPT
     return REPRO_FIX_REJECT
 
