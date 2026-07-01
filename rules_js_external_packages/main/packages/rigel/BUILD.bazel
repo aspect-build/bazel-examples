@@ -1,0 +1,41 @@
+load("@aspect_bazel_lib//lib:testing.bzl", "assert_contains")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+npm_package(
+    name = "rigel",
+    srcs = [
+        "index.mjs",
+        "package.json",
+    ],
+    # This is a perf improvement; the default will be flipped to False in rules_js 2.0
+    include_runfiles = False,
+    visibility = ["//visibility:public"],
+)
+
+js_binary(
+    name = "rigel_bin",
+    data = [":node_modules"],
+    entry_point = "index.mjs",
+)
+
+js_run_binary(
+    name = "run_rigel_bin",
+    stdout = "run_rigel_bin_stdout",
+    tool = ":rigel_bin",
+)
+
+assert_contains(
+    name = "contains_rigel",
+    actual = ":run_rigel_bin_stdout",
+    expected = "rigel",
+)
+
+filegroup(
+    name = "srcs",
+    srcs = glob(["**/*"]),
+    visibility = ["//visibility:public"],
+)
