@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "calculator_lib",
+    srcs = ["calculator.go"],
+    importpath = "github.com/aspect-build/bazel-examples/calculator",
+    visibility = ["//visibility:private"],
+)
+
+go_test(
+    name = "calculator_test",
+    size = "small",
+    srcs = ["calculator_test.go"],
+    embed = [":calculator_lib"],
+)
+
+go_binary(
+    name = "calculator",
+    embed = [":calculator_lib"],
+    visibility = ["//visibility:public"],
+)
