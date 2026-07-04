@@ -1,4 +1,4 @@
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
 load("@bazel_lib//lib:copy_file.bzl", "copy_file")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load("@rules_rust//rust:defs.bzl", "rust_shared_library")
@@ -59,6 +59,13 @@ copy_file(
     visibility = ["//visibility:public"],
 )
 
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = [":__subpackages__"],
+    deps = ["//npm_packages:tsconfig"],
+)
+
 ts_project(
     name = "tsc",
     srcs = ["index.ts"],
@@ -67,7 +74,7 @@ ts_project(
         ":copy_c_binding",
     ],
     declaration = True,
-    tsconfig = "//npm_packages:tsconfig",
+    tsconfig = ":tsconfig",
     visibility = ["//visibility:public"],
     deps = ["//npm_packages/napi:node_modules/@types/node"],
 )

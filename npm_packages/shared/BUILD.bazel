@@ -1,10 +1,17 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
 load("@aspect_rules_swc//swc:defs.bzl", "swc")
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config", "ts_project")
 load("@bazel_skylib//lib:partial.bzl", "partial")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    visibility = [":__subpackages__"],
+    deps = ["//npm_packages:tsconfig"],
+)
 
 ts_project(
     name = "tsc",
@@ -15,7 +22,7 @@ ts_project(
         swc,
         swcrc = "//npm_packages:.swcrc",
     ),
-    tsconfig = "//npm_packages:tsconfig",
+    tsconfig = ":tsconfig",
     deps = ["//:node_modules/@types/node"],
 )
 
