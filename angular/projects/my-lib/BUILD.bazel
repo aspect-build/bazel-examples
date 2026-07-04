@@ -26,6 +26,7 @@ ng_test(
     ng_config = "//angular:ng-config",
     node_modules = "//angular:node_modules",
     tags = [
+        "no-aw",  # TODO: re-enable once chromium is on runner image again
         "no-macos",  # Broken on GitHub Actions macOS runners
         "no-remote-exec",
     ],
