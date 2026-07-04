@@ -88,13 +88,14 @@ def config(ctx: ConfigContext):
         "--config=release",
     ]
 
-    # Enable artifact uploads for testlogs, profile, and BEP. All four channels
+    # Enable artifact uploads for build logs, test logs, profile, and BEP. All four channels
     # default to off so operators opt in per repo. The compact execution log stays
     # off because on-disk redaction isn't implemented yet — re-enable once Bazel's
     # zstd execlog passes through the same redactor as the BEP stream.
     #
     # upload_test_logs="failed" — the logs from passing tests are noise;
     # failing/flaky tests' logs are the ones anyone would actually open.
+    ctx.features[ArtifactUpload].args.upload_build_logs = "failed"
     ctx.features[ArtifactUpload].args.upload_test_logs = "failed"
     ctx.features[ArtifactUpload].args.upload_profile = True
     ctx.features[ArtifactUpload].args.upload_bep = True
