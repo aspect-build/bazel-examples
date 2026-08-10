@@ -1,7 +1,10 @@
 """Aspect CLI configuration."""
 
 load("@aspect//feature/artifacts.axl", "ArtifactUpload")
+load("@aspect//feature/buildkite_annotations.axl", "BuildkiteAnnotations")
 load("@aspect//format.axl", "format")
+load("@aspect//private/lib/bazel_results.axl", "SUMMARY_TEMPLATE")
+load("@aspect//private/lib/lint_results.axl", LINT_DETAILS_TEMPLATE = "DETAILS_TEMPLATE")
 load("@aspect//traits.axl", "BazelTrait", "REPRO_FIX_ACCEPT", "REPRO_FIX_REJECT", "ReproFixInfo", "ReproFixSuggestion", "TaskLifecycleTrait")
 
 buildifier = format.alias(
@@ -40,6 +43,44 @@ buildifier = format.alias(
     },
     summary = "Format Starlark files using buildifier.",
 )
+
+# Buildkite annotation customization.
+#
+# `BuildkiteAnnotations` renders each task's annotation through the same
+# per-kind renderers as `GithubStatusChecks`, so `args.templates` takes
+# "summary" / "details" Jinja2 overrides. Rather than re-author a template
+# (and lose the invocation rows, target counts, cache rate, artifact links
+# and tips block), we import the built-in and patch just what we want.
+#
+# The `fail()` is a drift guard: `.replace()` against a template that no
+# longer contains the anchor is a silent no-op, so an Aspect CLI upgrade that
+# edits the built-in would quietly revert this customization with nothing in
+# the logs. Failing at config-load time surfaces it instead.
+
+# Swap the built-in's trailing "Last update" line for a Buildkite-native
+# status line carrying a branch chip. Applies to every task kind, since the
+# summary template is shared across all of them.
+_DEFAULT_LAST_UPDATE_LINE = """:speech_balloon: **Last update:** `{{ last_update }}`{% endif %}"""
+
+_CUSTOM_LAST_UPDATE_LINE = """:buildkite: **Status:** `{{ last_update }}`{% if branch %} · :git: `{{ branch }}`{% endif %}{% endif %}"""
+
+if _DEFAULT_LAST_UPDATE_LINE not in SUMMARY_TEMPLATE:
+    fail("Aspect SUMMARY_TEMPLATE drifted; update _DEFAULT_LAST_UPDATE_LINE.")
+
+_CUSTOM_SUMMARY_TEMPLATE = SUMMARY_TEMPLATE.replace(
+    _DEFAULT_LAST_UPDATE_LINE,
+    _CUSTOM_LAST_UPDATE_LINE,
+)
+
+# Prepend a lint-specific callout to the details body. Scoped under "lint" so
+# it applies to the lint annotation only — details templates are per-kind, so
+# an unscoped override would replace the build, test, format and gazelle
+# bodies with lint's.
+_LINT_DETAILS_HEADER = """> :books: House lint rules: https://github.com/aspect-build/bazel-examples/tree/main/tools/lint
+
+"""
+
+_CUSTOM_LINT_DETAILS_TEMPLATE = _LINT_DETAILS_HEADER + LINT_DETAILS_TEMPLATE
 
 def _drop_vanilla_bazel_except_build_and_test(ctx: TaskContext, info: ReproFixInfo) -> ReproFixSuggestion:
     if not info.slug.endswith("-vanilla-bazel") or info.task_kind == "build" or info.task_kind == "test":
@@ -99,6 +140,18 @@ def config(ctx: ConfigContext):
     ctx.features[ArtifactUpload].args.upload_test_logs = "failed"
     ctx.features[ArtifactUpload].args.upload_profile = True
     ctx.features[ArtifactUpload].args.upload_bep = True
+
+    # Customize the Buildkite annotations (see the templates above). Flat
+    # "summary"/"details" keys apply to every task kind; nesting under a task
+    # kind scopes an override to that kind alone.
+    ctx.features[BuildkiteAnnotations].args.templates = {
+        "summary": _CUSTOM_SUMMARY_TEMPLATE,
+        "lint": {"details": _CUSTOM_LINT_DETAILS_TEMPLATE},
+    }
+
+    # Open the build + test phase log sections so a failing annotation lands
+    # next to the log output that explains it.
+    ctx.features[BuildkiteAnnotations].args.expand_phases = ["build", "test"]
 
     # Customize repro/fix suggestions
     lifecycle = ctx.traits[TaskLifecycleTrait]
