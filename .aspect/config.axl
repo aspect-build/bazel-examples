@@ -2,6 +2,9 @@
 
 load("@aspect//feature/artifacts.axl", "ArtifactUpload")
 load("@aspect//feature/buildkite_annotations.axl", "BuildkiteAnnotations")
+load("@aspect//feature/github_status_checks.axl", "GithubStatusChecks")
+load("@aspect//feature/github_status_comments.axl", "DEFAULT_BODY_TEMPLATE", "GithubStatusComments")
+load("@aspect//feature/gitlab_status_comments.axl", "GitlabStatusComments")
 load("@aspect//format.axl", "format")
 load("@aspect//private/lib/bazel_results.axl", "SUMMARY_TEMPLATE")
 load("@aspect//private/lib/lint_results.axl", LINT_DETAILS_TEMPLATE = "DETAILS_TEMPLATE")
@@ -82,6 +85,35 @@ _LINT_DETAILS_HEADER = """> :books: House lint rules: https://github.com/aspect-
 
 _CUSTOM_LINT_DETAILS_TEMPLATE = _LINT_DETAILS_HEADER + LINT_DETAILS_TEMPLATE
 
+# PR / MR summary comment customization.
+#
+# `GithubStatusComments` aggregates every sibling CI job's task status into one
+# PR comment. `GitlabStatusComments` renders the same body into a GitLab MR
+# note and reuses GitHub's exported default, so one patched template serves
+# both. Unlike the check-run surfaces this takes a single "body" key — the
+# comment is one document covering all tasks, not per-kind renders.
+#
+# Same patch-plus-drift-guard shape as above: swap the built-in heading for a
+# repo-specific one and leave the rest of the body (task sections, failure
+# snippets, repro/fix commands, tips, footer) untouched.
+_DEFAULT_COMMENT_HEADING = """## ✨ Aspect Workflows Tasks"""
+
+_CUSTOM_COMMENT_HEADING = """## ✨ Bazel Examples CI"""
+
+if _DEFAULT_COMMENT_HEADING not in DEFAULT_BODY_TEMPLATE:
+    fail("Aspect DEFAULT_BODY_TEMPLATE drifted; update _DEFAULT_COMMENT_HEADING.")
+
+_CUSTOM_COMMENT_BODY_TEMPLATE = DEFAULT_BODY_TEMPLATE.replace(
+    _DEFAULT_COMMENT_HEADING,
+    _CUSTOM_COMMENT_HEADING,
+)
+
+# GitHub status check summary customization.
+#
+# The check-run summary uses the same shared `SUMMARY_TEMPLATE` as the Buildkite
+# annotation, so the patched version above serves both surfaces — the same
+# status line shows up in the Checks tab and in the annotation.
+
 def _drop_vanilla_bazel_except_build_and_test(ctx: TaskContext, info: ReproFixInfo) -> ReproFixSuggestion:
     if not info.slug.endswith("-vanilla-bazel") or info.task_kind == "build" or info.task_kind == "test":
         return REPRO_FIX_ACCEPT
@@ -152,6 +184,31 @@ def config(ctx: ConfigContext):
     # Open the build + test phase log sections so a failing annotation lands
     # next to the log output that explains it.
     ctx.features[BuildkiteAnnotations].args.expand_phases = ["build", "test"]
+
+    # PR / MR summary comment: one patched body serves both hosts, since
+    # GitlabStatusComments renders GitHub's exported default template.
+    ctx.features[GithubStatusComments].args.templates = {
+        "body": _CUSTOM_COMMENT_BODY_TEMPLATE,
+    }
+    ctx.features[GitlabStatusComments].args.templates = {
+        "body": _CUSTOM_COMMENT_BODY_TEMPLATE,
+    }
+
+    # Swap the row badges for plain-text labels. Keyed by badge_key, which AXL
+    # precomputes from severity + status, not by raw lifecycle status.
+    ctx.features[GithubStatusComments].args.status_badges = {
+        "passed": "✅ ok",
+        "failed": "❌ broke",
+        "warning": "⚠️ check",
+    }
+
+    # GitHub status checks share the renderer table with the Buildkite
+    # annotations, so the same "summary"/"details" keys apply — here reusing
+    # both patched templates so the Checks tab and the annotation agree.
+    ctx.features[GithubStatusChecks].args.templates = {
+        "summary": _CUSTOM_SUMMARY_TEMPLATE,
+        "lint": {"details": _CUSTOM_LINT_DETAILS_TEMPLATE},
+    }
 
     # Customize repro/fix suggestions
     lifecycle = ctx.traits[TaskLifecycleTrait]
