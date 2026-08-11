@@ -108,11 +108,27 @@ _CUSTOM_COMMENT_BODY_TEMPLATE = DEFAULT_BODY_TEMPLATE.replace(
     _CUSTOM_COMMENT_HEADING,
 )
 
-# GitHub status check summary customization.
+# Title customization.
 #
-# The check-run summary uses the same shared `SUMMARY_TEMPLATE` as the Buildkite
-# annotation, so the patched version above serves both surfaces — the same
-# status line shows up in the Checks tab and in the annotation.
+# The title is the single line reviewers scan — the check-run title in the
+# Checks tab, and the heading of a Buildkite annotation. It renders from
+# `icon`, `task_kind`, `subject`, `state` and `status`.
+#
+# `state` is the verdict the renderer already computed ("Passed", "3 errors,
+# 8 warnings", "Running...", "12 delivered"), so reordering or rewording the
+# title doesn't mean reimplementing the per-kind status logic. Here we swap the
+# built-in's `·` separator for an em dash and read "on <subject>".
+#
+# No drift guard needed: these are whole templates rather than patches, so
+# there's no anchor that could silently stop matching. A title that fails to
+# render — or renders blank, which a valid template can do when every variable
+# it references is empty — falls back to the built-in layout and logs a warning.
+_CUSTOM_TITLE_TEMPLATE = """{{ icon }} {{ task_kind }}{% if subject %} on {{ subject }}{% endif %}{% if state %} — {{ state }}{% endif %}"""
+
+# Scoped under "lint" so only the lint surfaces get it; every other kind keeps
+# the shared title above. Drops the subject, which for lint is just `//...`,
+# in favour of naming where the rules live.
+_CUSTOM_LINT_TITLE_TEMPLATE = """{{ icon }} lint (tools/lint){% if state %} — {{ state }}{% endif %}"""
 
 def _drop_vanilla_bazel_except_build_and_test(ctx: TaskContext, info: ReproFixInfo) -> ReproFixSuggestion:
     if not info.slug.endswith("-vanilla-bazel") or info.task_kind == "build" or info.task_kind == "test":
@@ -174,11 +190,17 @@ def config(ctx: ConfigContext):
     ctx.features[ArtifactUpload].args.upload_bep = True
 
     # Customize the Buildkite annotations (see the templates above). Flat
-    # "summary"/"details" keys apply to every task kind; nesting under a task
-    # kind scopes an override to that kind alone.
+    # "title"/"summary"/"details" keys apply to every task kind; nesting under a
+    # task kind scopes an override to that kind alone, and overlays the flat
+    # keys rather than replacing them — so lint keeps the shared summary while
+    # taking its own title and details.
     ctx.features[BuildkiteAnnotations].args.templates = {
+        "title": _CUSTOM_TITLE_TEMPLATE,
         "summary": _CUSTOM_SUMMARY_TEMPLATE,
-        "lint": {"details": _CUSTOM_LINT_DETAILS_TEMPLATE},
+        "lint": {
+            "title": _CUSTOM_LINT_TITLE_TEMPLATE,
+            "details": _CUSTOM_LINT_DETAILS_TEMPLATE,
+        },
     }
 
     # Open the build + test phase log sections so a failing annotation lands
@@ -203,11 +225,15 @@ def config(ctx: ConfigContext):
     }
 
     # GitHub status checks share the renderer table with the Buildkite
-    # annotations, so the same "summary"/"details" keys apply — here reusing
-    # both patched templates so the Checks tab and the annotation agree.
+    # annotations, so the same "title"/"summary"/"details" keys apply — here
+    # reusing every template so the Checks tab and the annotation agree.
     ctx.features[GithubStatusChecks].args.templates = {
+        "title": _CUSTOM_TITLE_TEMPLATE,
         "summary": _CUSTOM_SUMMARY_TEMPLATE,
-        "lint": {"details": _CUSTOM_LINT_DETAILS_TEMPLATE},
+        "lint": {
+            "title": _CUSTOM_LINT_TITLE_TEMPLATE,
+            "details": _CUSTOM_LINT_DETAILS_TEMPLATE,
+        },
     }
 
     # Customize repro/fix suggestions
