@@ -1,7 +1,13 @@
 """Aspect CLI configuration."""
 
 load("@aspect//feature/artifacts.axl", "ArtifactUpload")
+load("@aspect//feature/buildkite_annotations.axl", "BuildkiteAnnotations")
+load("@aspect//feature/github_status_checks.axl", "GithubStatusChecks")
+load("@aspect//feature/github_status_comments.axl", "DEFAULT_BODY_TEMPLATE", "GithubStatusComments")
+load("@aspect//feature/gitlab_status_comments.axl", "GitlabStatusComments")
 load("@aspect//format.axl", "format")
+load("@aspect//private/lib/bazel_results.axl", "SUMMARY_TEMPLATE")
+load("@aspect//private/lib/lint_results.axl", LINT_DETAILS_TEMPLATE = "DETAILS_TEMPLATE")
 load("@aspect//traits.axl", "BazelTrait", "REPRO_FIX_ACCEPT", "REPRO_FIX_REJECT", "ReproFixInfo", "ReproFixSuggestion", "TaskLifecycleTrait")
 
 buildifier = format.alias(
@@ -40,6 +46,89 @@ buildifier = format.alias(
     },
     summary = "Format Starlark files using buildifier.",
 )
+
+# Buildkite annotation customization.
+#
+# `BuildkiteAnnotations` renders each task's annotation through the same
+# per-kind renderers as `GithubStatusChecks`, so `args.templates` takes
+# "summary" / "details" Jinja2 overrides. Rather than re-author a template
+# (and lose the invocation rows, target counts, cache rate, artifact links
+# and tips block), we import the built-in and patch just what we want.
+#
+# The `fail()` is a drift guard: `.replace()` against a template that no
+# longer contains the anchor is a silent no-op, so an Aspect CLI upgrade that
+# edits the built-in would quietly revert this customization with nothing in
+# the logs. Failing at config-load time surfaces it instead.
+
+# Swap the built-in's trailing "Last update" line for a Buildkite-native
+# status line carrying a branch chip. Applies to every task kind, since the
+# summary template is shared across all of them.
+_DEFAULT_LAST_UPDATE_LINE = """:speech_balloon: **Last update:** `{{ last_update }}`{% endif %}"""
+
+_CUSTOM_LAST_UPDATE_LINE = """:buildkite: **Status:** `{{ last_update }}`{% if branch %} · :git: `{{ branch }}`{% endif %}{% endif %}"""
+
+if _DEFAULT_LAST_UPDATE_LINE not in SUMMARY_TEMPLATE:
+    fail("Aspect SUMMARY_TEMPLATE drifted; update _DEFAULT_LAST_UPDATE_LINE.")
+
+_CUSTOM_SUMMARY_TEMPLATE = SUMMARY_TEMPLATE.replace(
+    _DEFAULT_LAST_UPDATE_LINE,
+    _CUSTOM_LAST_UPDATE_LINE,
+)
+
+# Prepend a lint-specific callout to the details body. Scoped under "lint" so
+# it applies to the lint annotation only — details templates are per-kind, so
+# an unscoped override would replace the build, test, format and gazelle
+# bodies with lint's.
+_LINT_DETAILS_HEADER = """> :books: House lint rules: https://github.com/aspect-build/bazel-examples/tree/main/tools/lint
+
+"""
+
+_CUSTOM_LINT_DETAILS_TEMPLATE = _LINT_DETAILS_HEADER + LINT_DETAILS_TEMPLATE
+
+# PR / MR summary comment customization.
+#
+# `GithubStatusComments` aggregates every sibling CI job's task status into one
+# PR comment. `GitlabStatusComments` renders the same body into a GitLab MR
+# note and reuses GitHub's exported default, so one patched template serves
+# both. Unlike the check-run surfaces this takes a single "body" key — the
+# comment is one document covering all tasks, not per-kind renders.
+#
+# Same patch-plus-drift-guard shape as above: swap the built-in heading for a
+# repo-specific one and leave the rest of the body (task sections, failure
+# snippets, repro/fix commands, tips, footer) untouched.
+_DEFAULT_COMMENT_HEADING = """## ✨ Aspect Workflows Tasks"""
+
+_CUSTOM_COMMENT_HEADING = """## ✨ Bazel Examples CI"""
+
+if _DEFAULT_COMMENT_HEADING not in DEFAULT_BODY_TEMPLATE:
+    fail("Aspect DEFAULT_BODY_TEMPLATE drifted; update _DEFAULT_COMMENT_HEADING.")
+
+_CUSTOM_COMMENT_BODY_TEMPLATE = DEFAULT_BODY_TEMPLATE.replace(
+    _DEFAULT_COMMENT_HEADING,
+    _CUSTOM_COMMENT_HEADING,
+)
+
+# Title customization.
+#
+# The title is the single line reviewers scan — the check-run title in the
+# Checks tab, and the heading of a Buildkite annotation. It renders from
+# `icon`, `task_kind`, `subject`, `state` and `status`.
+#
+# `state` is the verdict the renderer already computed ("Passed", "3 errors,
+# 8 warnings", "Running...", "12 delivered"), so reordering or rewording the
+# title doesn't mean reimplementing the per-kind status logic. Here we swap the
+# built-in's `·` separator for an em dash and read "on <subject>".
+#
+# No drift guard needed: these are whole templates rather than patches, so
+# there's no anchor that could silently stop matching. A title that fails to
+# render — or renders blank, which a valid template can do when every variable
+# it references is empty — falls back to the built-in layout and logs a warning.
+_CUSTOM_TITLE_TEMPLATE = """{{ icon }} {{ task_kind }}{% if subject %} on {{ subject }}{% endif %}{% if state %} — {{ state }}{% endif %}"""
+
+# Scoped under "lint" so only the lint surfaces get it; every other kind keeps
+# the shared title above. Drops the subject, which for lint is just `//...`,
+# in favour of naming where the rules live.
+_CUSTOM_LINT_TITLE_TEMPLATE = """{{ icon }} lint (tools/lint){% if state %} — {{ state }}{% endif %}"""
 
 def _drop_vanilla_bazel_except_build_and_test(ctx: TaskContext, info: ReproFixInfo) -> ReproFixSuggestion:
     if not info.slug.endswith("-vanilla-bazel") or info.task_kind == "build" or info.task_kind == "test":
@@ -99,6 +188,53 @@ def config(ctx: ConfigContext):
     ctx.features[ArtifactUpload].args.upload_test_logs = "failed"
     ctx.features[ArtifactUpload].args.upload_profile = True
     ctx.features[ArtifactUpload].args.upload_bep = True
+
+    # Customize the Buildkite annotations (see the templates above). Flat
+    # "title"/"summary"/"details" keys apply to every task kind; nesting under a
+    # task kind scopes an override to that kind alone, and overlays the flat
+    # keys rather than replacing them — so lint keeps the shared summary while
+    # taking its own title and details.
+    ctx.features[BuildkiteAnnotations].args.templates = {
+        "title": _CUSTOM_TITLE_TEMPLATE,
+        "summary": _CUSTOM_SUMMARY_TEMPLATE,
+        "lint": {
+            "title": _CUSTOM_LINT_TITLE_TEMPLATE,
+            "details": _CUSTOM_LINT_DETAILS_TEMPLATE,
+        },
+    }
+
+    # Open the build + test phase log sections so a failing annotation lands
+    # next to the log output that explains it.
+    ctx.features[BuildkiteAnnotations].args.expand_phases = ["build", "test"]
+
+    # PR / MR summary comment: one patched body serves both hosts, since
+    # GitlabStatusComments renders GitHub's exported default template.
+    ctx.features[GithubStatusComments].args.templates = {
+        "body": _CUSTOM_COMMENT_BODY_TEMPLATE,
+    }
+    ctx.features[GitlabStatusComments].args.templates = {
+        "body": _CUSTOM_COMMENT_BODY_TEMPLATE,
+    }
+
+    # Swap the row badges for plain-text labels. Keyed by badge_key, which AXL
+    # precomputes from severity + status, not by raw lifecycle status.
+    ctx.features[GithubStatusComments].args.status_badges = {
+        "passed": "✅ ok",
+        "failed": "❌ broke",
+        "warning": "⚠️ check",
+    }
+
+    # GitHub status checks share the renderer table with the Buildkite
+    # annotations, so the same "title"/"summary"/"details" keys apply — here
+    # reusing every template so the Checks tab and the annotation agree.
+    ctx.features[GithubStatusChecks].args.templates = {
+        "title": _CUSTOM_TITLE_TEMPLATE,
+        "summary": _CUSTOM_SUMMARY_TEMPLATE,
+        "lint": {
+            "title": _CUSTOM_LINT_TITLE_TEMPLATE,
+            "details": _CUSTOM_LINT_DETAILS_TEMPLATE,
+        },
+    }
 
     # Customize repro/fix suggestions
     lifecycle = ctx.traits[TaskLifecycleTrait]
