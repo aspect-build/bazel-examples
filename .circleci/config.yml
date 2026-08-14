@@ -31,6 +31,29 @@ workflows:
           - aspect-workflows-warming
           - << pipeline.schedule.name >>
 
+# TEMPORARY TEST HOOK — remove once the workdir fix is verified.
+commands:
+  corrupt-workdir-git:
+    description: >
+      Leaves /mnt/ephemeral/workdir/.git with a ref pointing at an object that does not
+      exist, so the workflows-agent's per-job cleanup sees `git fsck` fail and removes the
+      clone. On CircleCi that clone is the workdir itself (working_directory above), so
+      this exercises the agent recreating /mnt/ephemeral/workdir afterwards.
+    steps:
+      - run:
+          name: Corrupt workdir git (test hook)
+          # Run even when the job's own steps failed: the cleanup we are testing runs
+          # after every job regardless of outcome.
+          when: always
+          command: |
+            mkdir -p /mnt/ephemeral/workdir/.git/refs/heads
+            printf 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n' >/mnt/ephemeral/workdir/.git/refs/heads/corrupt
+            if git fsck --no-progress --no-dangling --no-reflogs --connectivity-only; then
+              echo "UNEXPECTED: git fsck still passes; the cleanup will not remove the clone"
+              exit 1
+            fi
+            echo "git fsck now fails as expected; the agent cleanup should remove and recreate /mnt/ephemeral/workdir"
+
 jobs:
   test:
     machine: true
@@ -42,6 +65,7 @@ jobs:
       - run:
           name: Test
           command: aspect test --task:name=test-cci -- //...
+      - corrupt-workdir-git
 
   buildifier:
     machine: true
@@ -53,6 +77,7 @@ jobs:
       - run:
           name: Buildifier
           command: aspect buildifier --task:name=buildifier-cci
+      - corrupt-workdir-git
 
   format:
     machine: true
@@ -64,6 +89,7 @@ jobs:
       - run:
           name: Format
           command: aspect format --task:name=format-cci
+      - corrupt-workdir-git
 
   gazelle:
     machine: true
@@ -75,6 +101,7 @@ jobs:
       - run:
           name: Gazelle
           command: aspect gazelle --task:name=gazelle-cci
+      - corrupt-workdir-git
 
   lint:
     machine: true
@@ -86,6 +113,7 @@ jobs:
       - run:
           name: Lint
           command: aspect lint  --task:name=lint-cci -- //...
+      - corrupt-workdir-git
   
   delivery:
     machine: true
@@ -97,6 +125,7 @@ jobs:
       - run:
           name: Delivery
           command: aspect delivery --task:name=delivery-cci
+      - corrupt-workdir-git
 
   warming:
     machine: true
