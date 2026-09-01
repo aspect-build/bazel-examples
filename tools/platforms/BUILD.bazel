@@ -1,4 +1,19 @@
 platform(
+    name = "linux_aarch64",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:aarch64",
+    ],
+    exec_properties = {
+        # actiond mounts glibc2.31 libs + /bin/bash into the action chroot.
+        # Required for dynamically-linked binaries (clang) and shell-script
+        # wrappers (cc_wrapper.sh) used during remote CC compilation.
+        "libc": "glibc2.31",
+    },
+    visibility = ["//visibility:public"],
+)
+
+platform(
     name = "aspect_workflows_remote_exec",
     constraint_values = [
         "@platforms//os:linux",

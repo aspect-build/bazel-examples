@@ -1,0 +1,34 @@
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
+
+cc_library(
+    name = "greeter",
+    srcs = ["greeter.cc"],
+    hdrs = ["greeter.h"],
+)
+
+cc_test(
+    name = "greeter_test",
+    size = "small",
+    srcs = ["greeter_test.cc"],
+    deps = [
+        ":greeter",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "greeter_test_lib",
+    srcs = ["greeter_test.cc"],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        ":greeter_lib",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "greeter_lib",
+    srcs = ["greeter.cc"],
+    hdrs = ["greeter.h"],
+    visibility = ["//:__subpackages__"],
+)

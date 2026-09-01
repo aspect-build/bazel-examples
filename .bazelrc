@@ -88,6 +88,11 @@ common:rbe --remote_download_outputs=all
 # from https://github.com/bazelbuild/bazel/issues/4685#issuecomment-1599671891
 common:rbe --experimental_remote_download_regex=.*/(coverage.dat$|_coverage/_coverage_report.dat$)
 
+# Strip host env vars from build actions — actions only see vars explicitly set via --action_env.
+common:rbe --incompatible_strict_action_env
+# Explicitly clear USER for test processes — proves test environment is controlled, not inherited.
+common:rbe --test_env=USER=
+
 # Load any settings & overrides specific to the current user.
 # This file should appear in `.gitignore` so that settings are not shared with team members. This
 # should be last statement in this config so the user configuration is able to overwrite flags from

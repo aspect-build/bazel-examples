@@ -26,7 +26,63 @@ llvm.toolchain(
         "darwin-aarch64": "18.1.8",
         "darwin-x86_64": "18.1.8",
     },
+    stdlib = {
+        # Cross-compile to Linux aarch64: sysroot has libstdc++.so but not the
+        # static libstdc++.a. Use dynamic linkage to avoid the missing .a.
+        "linux-aarch64": "dynamic-stdc++",
+    },
+)
+llvm.sysroot(
+    name = "llvm_toolchain",
+    label = "@org_chromium_sysroot_linux_arm64//sysroot",
+    targets = ["linux-aarch64"],
 )
 use_repo(llvm, "llvm_toolchain", "llvm_toolchain_llvm")
 
 register_toolchains("@llvm_toolchain//:all")
+
+# Native Linux aarch64 toolchain for remote execution on a Linux aarch64 worker
+# (e.g. actiond VM). exec_os/exec_arch override host detection so this repo
+# generates toolchains with exec_compatible_with=[linux, aarch64].
+# Using urls/sha256/strip_prefix directly because the auto-download path in
+# toolchains_llvm fails for exec_os="linux": _dist_to_os_names("linux") returns
+# [] (not in _known_distros), causing _find_llvm_basename_list to return empty.
+llvm.toolchain(
+    name = "llvm_toolchain_linux_aarch64",
+    exec_arch = "aarch64",
+    exec_os = "linux",
+    # llvm_versions is required by llvm_toolchain() for the version string in
+    # toolchain config (include dirs, etc.), even though the download uses urls.
+    llvm_versions = {
+        "linux-aarch64": "15.0.6",
+    },
+    sha256 = {
+        "linux-aarch64": "8ca4d68cf103da8331ca3f35fe23d940c1b78fb7f0d4763c1c059e352f5d1bec",
+    },
+    strip_prefix = {
+        "linux-aarch64": "clang+llvm-15.0.6-aarch64-linux-gnu",
+    },
+    # urls bypasses _find_llvm_basename_list, which fails for exec_os="linux"
+    # because "linux" is not in _known_distros.
+    urls = {
+        "linux-aarch64": ["https://github.com/llvm/llvm-project/releases/download/llvmorg-15.0.6/clang%2Bllvm-15.0.6-aarch64-linux-gnu.tar.xz"],
+    },
+)
+llvm.sysroot(
+    name = "llvm_toolchain_linux_aarch64",
+    label = "@org_chromium_sysroot_linux_arm64//sysroot",
+    targets = ["linux-aarch64"],
+)
+use_repo(llvm, "llvm_toolchain_linux_aarch64", "llvm_toolchain_linux_aarch64_llvm")
+
+register_toolchains("@llvm_toolchain_linux_aarch64//:all")
+
+# Chromium Debian Bullseye arm64 sysroot for Linux aarch64 cross-compilation.
+# URL pattern: {base_url}/{sha256sum} (content-addressed GCS blob, no extension).
+sysroot = use_repo_rule("@toolchains_llvm//toolchain:sysroot.bzl", "sysroot")
+
+sysroot(
+    name = "org_chromium_sysroot_linux_arm64",
+    sha256 = "c7176a4c7aacbf46bda58a029f39f79a68008d3dee6518f154dcf5161a5486d8",
+    urls = ["https://commondatastorage.googleapis.com/chrome-linux-sysroot/c7176a4c7aacbf46bda58a029f39f79a68008d3dee6518f154dcf5161a5486d8"],
+)
