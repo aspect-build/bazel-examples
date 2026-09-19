@@ -2,7 +2,7 @@
 
 load("@aspect//feature/artifacts.axl", "ArtifactUpload")
 load("@aspect//format.axl", "format")
-load("@aspect//traits.axl", "BazelTrait", "REPRO_FIX_ACCEPT", "REPRO_FIX_REJECT", "ReproFixInfo", "ReproFixSuggestion", "TaskLifecycleTrait")
+load("@aspect//traits.axl", "BazelTrait", "Phases", "REPRO_FIX_ACCEPT", "REPRO_FIX_REJECT", "ReproFixInfo", "ReproFixSuggestion")
 
 buildifier = format.alias(
     defaults = {
@@ -101,5 +101,5 @@ def config(ctx: ConfigContext):
     ctx.features[ArtifactUpload].args.upload_bep = True
 
     # Customize repro/fix suggestions
-    lifecycle = ctx.traits[TaskLifecycleTrait]
+    lifecycle = ctx.traits[Phases]
     lifecycle.repro_fix_suggestion.append(_drop_vanilla_bazel_except_build_and_test)
