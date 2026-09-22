@@ -15,7 +15,7 @@ jobs:
         runs-on: [self-hosted, aspect-workflows, aspect-default]
         steps:
             - uses: actions/checkout@v6
-            - uses: aspect-build/setup-aspect@60664fabf0aa15152c69d0ee72c9a660416c7a36 # v2026.38.2
+            - uses: aspect-build/setup-aspect@ebca96eb49ef58c00d4226de8bd3a0813507dd87 # v2026.38.3
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Warming
