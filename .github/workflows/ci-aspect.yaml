@@ -1,4 +1,4 @@
-name: CI - Aspect Workflows (Github runners)
+name: CI - Aspect Cloud
 
 on:
     push:
@@ -6,11 +6,6 @@ on:
     pull_request:
         branches: [main]
     workflow_dispatch:
-        inputs:
-        force_targets:
-            description: "Bazel targets to force-deliver (space-separated). Example: //examples/deliverable. Leave empty for normal selective delivery."
-            required: false
-            default: ""
 
 permissions:
     id-token: write
@@ -71,20 +66,3 @@ jobs:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Lint
               run: aspect lint --task:name=lint-gha-ephemeral -- //...
-
-
-    delivery:
-        needs: [test]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v6
-              with:
-                fetch-depth: 0 # tags required for workspace status command
-            - uses: aspect-build/setup-aspect@ebca96eb49ef58c00d4226de8bd3a0813507dd87 # v2026.38.3
-              with:
-                aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
-            - name: Delivery
-              run: |
-                # We pass --track-state=false --mode=always to disable selective delivery which is currently
-                # only supported on Aspect Workflows CI runners as it requires a backend service
-                aspect delivery --task:name=delivery-gha-ephemeral --track-state=false --mode=always
