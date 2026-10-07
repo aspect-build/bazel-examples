@@ -1,5 +1,6 @@
 # Aspect Bazel Examples
 
+
 This variety of examples demonstrate how a large polyglot monorepo is configured with [Bazel](https://bazel.build).
 It's intended for Developer Infrastructure and Build systems experts to study solutions to problems at scale.
 
