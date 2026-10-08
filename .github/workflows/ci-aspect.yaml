@@ -25,7 +25,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Test
-              run: aspect test --task:name=test-gha-ephemeral -- //...
+              run: aspect test -- //...
 
     gazelle:
         runs-on: ubuntu-latest
@@ -35,7 +35,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Gazelle
-              run: aspect gazelle --task:name=gazelle-gha-ephemeral
+              run: aspect gazelle
 
     format:
         runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Format
-              run: aspect format --task:name=format-gha-ephemeral
+              run: aspect format
 
     buildifier:
         runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Buildifier
-              run: aspect buildifier --task:name=buildifier-gha-ephemeral
+              run: aspect buildifier
 
     lint:
         runs-on: ubuntu-latest
@@ -65,4 +65,4 @@ jobs:
               with:
                 aspect-api-token: ${{ secrets.ASPECT_API_TOKEN }}
             - name: Lint
-              run: aspect lint --task:name=lint-gha-ephemeral -- //...
+              run: aspect lint -- //...

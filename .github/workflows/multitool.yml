@@ -32,4 +32,4 @@ jobs:
           body: |
             Automated update using [bazel-contrib/multitool](https://github.com/bazel-contrib/multitool)
           labels: deps
-          assignees: alexeagle
+          assignees: gregmagolan
