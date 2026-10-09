@@ -8,7 +8,10 @@ import (
 func TestCompare(t *testing.T) {
 	result := Compare("this", "that")
 
-	if !strings.Contains(result, "this") {
-		t.Error("expected a diff containing 'this' but got", result)
+	t.Log("DNL: intentionally failing to exercise test log reporting in PR status checks")
+	t.Logf("Compare output:\n%s", result)
+
+	if !strings.Contains(result, "DNL-intentional-failure") {
+		t.Error("expected a diff containing 'DNL-intentional-failure' but got", result)
 	}
 }
