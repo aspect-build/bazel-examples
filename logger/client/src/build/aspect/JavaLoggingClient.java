@@ -13,7 +13,7 @@ public class JavaLoggingClient {
     String message = scanner.nextLine();
     while (!message.equals("exit")) {
       client.sendLogMessageToServer(message);
-      message = scanner.next();
+      message = scanner.nextLine();
     }
     client.shutdown();
   }
