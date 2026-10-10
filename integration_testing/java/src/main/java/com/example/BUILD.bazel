@@ -1,0 +1,63 @@
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
+load("@rules_jvm_external//:defs.bzl", "artifact")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
+
+java_library(
+    name = "logger_java_grpc",
+    srcs = ["LoggerGrpc.java"],
+    deps = [
+        "//schema:logger_java_proto",
+        artifact("com.google.guava:guava"),
+        artifact("com.google.protobuf:protobuf-java"),
+        artifact("io_grpc:grpc-api"),
+        artifact("io_grpc:grpc-core"),
+        artifact("io_grpc:grpc-netty-shaded"),
+        artifact("io_grpc:grpc-protobuf"),
+        artifact("io_grpc:grpc-stub"),
+    ],
+)
+
+java_library(
+    name = "JavaLoggingClientLibrary",
+    srcs = ["JavaLoggingClientLibrary.java"],
+    deps = [
+        ":logger_java_grpc",
+        "//schema:logger_java_proto",
+        artifact("io.grpc:grpc-stub"),
+        artifact("io.grpc:grpc-api"),
+    ],
+)
+
+java_binary(
+    name = "JavaLoggingClient",
+    srcs = ["JavaLoggingClient.java"],
+    visibility = ["//visibility:public"],
+    deps = [":JavaLoggingClientLibrary"],
+)
+
+pkg_tar(
+    name = "tar",
+    srcs = [":JavaLoggingClient"],
+    include_runfiles = True,
+)
+
+oci_image(
+    name = "image",
+    base = "@distroless_java",
+    entrypoint = ["/app"],
+    tars = [":tar"],
+)
+
+# $ bazel build app:tarball
+# $ docker load --input $(bazel cquery --output=files app:tarball)
+# $ docker run --rm gcr.io/example:latest
+#   string(
+# -       "Hello World",
+# +       "Hello Go",
+#   )
+oci_tarball(
+    name = "tarball",
+    image = ":image",
+    repo_tags = ["aspect.build/java-service:latest"],
+    visibility = ["//test:__pkg__"],
+)

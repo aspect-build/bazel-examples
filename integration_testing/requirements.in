@@ -1,0 +1,4 @@
+requests
+testcontainers
+docker
+pytest
