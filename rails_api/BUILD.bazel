@@ -27,7 +27,7 @@ rb_test(
     ],
 )
 
-# Requires memcached running: docker run -d -p 11211:11211 memcached:alpine
+# Starts a memcached container via testcontainers, so it needs a Docker daemon.
 rb_test(
     name = "cache_controller_test",
     srcs = ["test/controllers/cache_controller_test.rb"],
