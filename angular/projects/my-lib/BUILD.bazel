@@ -28,6 +28,5 @@ ng_test(
     tags = [
         "no-aw",  # TODO: re-enable once chromium is on runner image again
         "no-macos",  # Broken on GitHub Actions macOS runners
-        "no-remote-exec",
     ],
 )

@@ -92,12 +92,6 @@ container_structure_test(
     name = "test",
     configs = ["test.yaml"],
     image = ":platform_image",
-    tags = [
-        "no-remote-exec",
-        "requires-docker",
-        # TODO(sahin/derek?): this test passes on GitHub Actions runners but fails on AW
-        "no-aw",
-    ],
 )
 
 # keep
@@ -110,11 +104,6 @@ py_test(
     # the test Setup has to do some sophisticated work to load each layer.
     data = [":platform_image"],
     main = "integration_test.py",
-    tags = [
-        "requires-docker",
-        # TODO(sahin/derek?): this test passes on GitHub Actions runners but fails on AW
-        "no-aw",
-    ],
     deps = [
         requirement("testcontainers"),
     ],
