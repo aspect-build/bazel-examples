@@ -58,10 +58,6 @@ def config(ctx: ConfigContext):
     # Register the buildifier alias as a real CLI command.
     ctx.tasks.add(buildifier)
 
-    ctx.tasks["test"].args.bazel_flags = [
-        "--test_tag_filters=-no-aw",
-    ]
-
     # Lint aspects — required by the built-in `aspect lint` task. Same set
     # locally as on CI; CI invocations don't need to repeat the --aspect flags.
     ctx.tasks["lint"].args.aspects = [
