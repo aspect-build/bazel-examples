@@ -49,12 +49,28 @@ class CacheControllerTest < Minitest::Test
 
     # Create dalli client wrapped in simple cache interface
     # Bypasses Rails MemCacheStore which has connection_pool compatibility issues
-    dalli_client = Dalli::Client.new("#{host}:#{port}", namespace: "test")
+    dalli_client = wait_for_memcached("#{host}:#{port}")
     Rails.cache = DalliCacheWrapper.new(dalli_client)
 
     # Clear any existing test keys
     Rails.cache.delete("test_key")
     Rails.cache.delete("delete_me")
+  end
+
+  # The mapped port can accept connections before memcached is serving, and Dalli
+  # marks a server down after a failed request, so retry with a fresh client.
+  def wait_for_memcached(server, timeout: 15)
+    deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout
+    begin
+      client = Dalli::Client.new(server, namespace: "test")
+      client.alive!
+      client
+    rescue Dalli::RingError
+      raise if Process.clock_gettime(Process::CLOCK_MONOTONIC) > deadline
+
+      sleep 0.2
+      retry
+    end
   end
 
   def teardown

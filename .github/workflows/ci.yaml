@@ -16,9 +16,10 @@ concurrency:
 
 env:
     REMOTE_FLAG: ${{ secrets.ASPECT_CLOUD_API_TOKEN != '' && '--remote' || '' }}
+    ASPECT_CLOUD_BAZEL_FLAG: ${{ secrets.ASPECT_CLOUD_API_TOKEN != '' && '--config=aspect-cloud' || '' }}
 
 jobs:
-    test:
+    test-aspect:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
@@ -29,6 +30,18 @@ jobs:
                 aspect-api-token: ${{ secrets.ASPECT_CLOUD_API_TOKEN }}
             - name: Test
               run: aspect test $REMOTE_FLAG //...
+
+    test-bazel:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+              with:
+                fetch-depth: 0 # tags required for workspace status command
+            - uses: aspect-build/setup-aspect@ebca96eb49ef58c00d4226de8bd3a0813507dd87 # v2026.38.3
+              with:
+                aspect-api-token: ${{ secrets.ASPECT_CLOUD_API_TOKEN }}
+            - name: Test
+              run: bazel test $ASPECT_CLOUD_BAZEL_FLAG //...
 
     gazelle:
         runs-on: ubuntu-latest

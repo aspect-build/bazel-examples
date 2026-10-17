@@ -48,7 +48,6 @@ def _drop_vanilla_bazel_except_build_and_test(ctx: TaskContext, info: ReproFixIn
 
 def config(ctx: ConfigContext):
     is_ci = bool(ctx.std.env.var("CI"))
-    is_workflows_runners = bool(ctx.std.env.var("ASPECT_WORKFLOWS_RUNNER"))
 
     if is_ci:
         ctx.traits[BazelTrait].extra_flags.extend([
@@ -56,18 +55,8 @@ def config(ctx: ConfigContext):
             "--config=ci",
         ])
 
-    if is_workflows_runners:
-        ctx.traits[BazelTrait].extra_flags.extend([
-            "--config=workflows-runner",
-            "--config=rbe",
-        ])
-
     # Register the buildifier alias as a real CLI command.
     ctx.tasks.add(buildifier)
-
-    ctx.tasks["test"].args.bazel_flags = [
-        "--test_tag_filters=-no-aw",
-    ]
 
     # Lint aspects — required by the built-in `aspect lint` task. Same set
     # locally as on CI; CI invocations don't need to repeat the --aspect flags.
