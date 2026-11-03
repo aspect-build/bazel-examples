@@ -1,0 +1,14 @@
+load("@rules_java//java:defs.bzl", "java_library", "java_test")
+
+java_library(
+    name = "calculator",
+    srcs = ["Calculator.java"],
+    visibility = ["//visibility:public"],
+)
+
+java_test(
+    name = "CalculatorTest",
+    srcs = ["CalculatorTest.java"],
+    test_class = "build.aspect.java.CalculatorTest",
+    deps = [":calculator"],
+)
