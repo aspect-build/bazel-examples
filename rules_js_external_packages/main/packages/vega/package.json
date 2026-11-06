@@ -1,0 +1,7 @@
+{
+  "name": "vega",
+  "dependencies": {
+    "chalk": "5.3.0",
+    "rigel": "workspace:*"
+  }
+}
