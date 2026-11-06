@@ -9,6 +9,9 @@ import %workspace%/tools/preset.bazelrc
 # We have a lot of dependencies and are okay with some of them bringing a newer version via a transitive dep.
 common --check_direct_dependencies=off
 
+# Mirrors and fallbacks for flaky download hosts.
+common --downloader_config=bazel/downloader.cfg
+
 # Override the preset's `--lockfile_mode=error` on CI. MODULE.bazel.lock is
 # .gitignored here, so CI has no committed lock — it restores one from the
 # Aspect Workflows warming archive (regenerated nightly). `error` mode breaks any
